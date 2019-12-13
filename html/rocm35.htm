@@ -1,0 +1,43 @@
+<HTML><HEAD> <TITLE> rocm35.for</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        PARAMETER DIMENSIONS                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: NONMEM read-only global variables
+ CONTEXT: User-supplied routines
+
+ USAGE:
+      USE NMPRD_INT, ONLY: NTHES_=&gt;NWTHT,NETAS_=&gt;NWETA, NEPSS_=&gt;NWEPS
+
+ GLOBAL DECLARATION:
+      INTEGER(KIND=ISIZE) :: NWTHT,NWETA,NWEPS
+
+ DISCUSSION:
+
+  NTHES_
+      The dimension of theta. If the dimension is 0, NTHES_=1.
+
+  NETAS_
+      The dimension of omega. If the dimension is 0, NETAS_=1.
+
+  NEPSS_
+      The dimension of sigma. If the dimension is 0, NEPSS_=1.
+
+ Location prior to NONMEM 7: rocm35
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

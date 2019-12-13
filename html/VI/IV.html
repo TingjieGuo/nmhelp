@@ -1,0 +1,1924 @@
+<!-- Creator     : groff version 1.21 -->
+<!-- CreationDate: Tue Apr 25 13:27:44 2017 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part VI - PREDPP - Chapter IV">NONMEM Users Guide Part VI - PREDPP - Chapter IV</a><br>
+<a href="#IV. The ERROR routine">IV. The ERROR routine</a><br>
+<a href="#IV.A. Modeling Residual Error">IV.A. Modeling Residual Error</a><br>
+<a href="#IV.B. Implementation in ERROR">IV.B. Implementation in ERROR</a><br>
+<a href="#IV.B.1. Implementation of the Model for Residual Error">IV.B.1. Implementation of the Model for Residual Error</a><br>
+<a href="#IV.B.2. Implementation of a Pharmacodynamic Model">IV.B.2. Implementation of a Pharmacodynamic Model</a><br>
+<a href="#IV.C. ERROR Calling-Protocols">IV.C. ERROR Calling-Protocols</a><br>
+<a href="#IV.D. Global and Other Reserved Variables">IV.D. Global and Other Reserved Variables</a><br>
+<a href="#IV.D.A. Global Input Variables">IV.D.A. Global Input Variables</a><br>
+<a href="#IV.D.B. Global Output Variables">IV.D.B. Global Output Variables</a><br>
+<a href="#IV.D.C. Miscellaneous Global Variables">IV.D.C. Miscellaneous Global Variables</a><br>
+<a href="#IV.E. Displaying ERROR-Defined Items">IV.E. Displaying ERROR-Defined Items</a><br>
+<a href="#IV.F. PRED Error-Recovery from ERROR">IV.F. PRED Error-Recovery from ERROR</a><br>
+<a href="#IV.G. Examples">IV.G. Examples</a><br>
+<a href="#IV.G.1. Example I: Population Data">IV.G.1. Example I: Population Data</a><br>
+<a href="#IV.G.2. Example II: A Mixture Model">IV.G.2. Example II: A Mixture Model</a><br>
+<a href="#IV.G.3. Example III: Single-Subject Data">IV.G.3. Example III: Single-Subject Data</a><br>
+<a href="#IV.G.4. Example IV: Single-Subject Pharmacodynamic Data">IV.G.4. Example IV: Single-Subject Pharmacodynamic Data</a><br>
+<a href="#IV.H. Other Subroutines That May Be Called">IV.H. Other Subroutines That May Be Called</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part VI - PREDPP - Chapter IV
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part VI - PREDPP - Chapter IV"></a>
+</h2>
+
+
+<h2>IV. The ERROR routine
+<a name="IV."></a>
+<a name="IV. The ERROR routine"></a>
+</h2>
+
+
+<h2>IV.A. Modeling Residual Error
+<a name="IV.A."></a>
+<a name="IV.A. Modeling Residual Error"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Suppose a set of values for an
+individual&rsquo;s PK parameters is fixed. Let
+<img src="grohtml-31112-2.png" alt="Image grohtml-31112-2.png">
+denote this set of values, and let
+<img src="grohtml-31112-3.png" alt="Image grohtml-31112-3.png">
+denote the prediction under the kinetic model, based on
+<img src="grohtml-31112-4.png" alt="Image grohtml-31112-4.png">
+, for an observation y from the individual. This prediction
+is imperfect. Observations that one might imagine obtaining
+from the individual, under exactly the same conditions as
+accounted for in
+<img src="grohtml-31112-5.png" alt="Image grohtml-31112-5.png">
+, would differ from one another. This &quot;residual
+variabilty&quot; in observations, &quot;unexplained by
+<img src="grohtml-31112-6.png" alt="Image grohtml-31112-6.png">
+&quot;, derives from several sources. One source is random
+measurement error. Another important source is model
+misspecification error in f or in
+<img src="grohtml-31112-7.png" alt="Image grohtml-31112-7.png">
+. The terms &rsquo;residual variability&rsquo; and
+&rsquo;residual error&rsquo; are used here interchangeably.
+Residual error, therefore, does not generally refer to error
+from some one identified source. Residual error may be
+modeled in terms of concomitant variables and random
+effects. This modeling, along with the modeling of
+interindividual variability in
+<img src="grohtml-31112-8.png" alt="Image grohtml-31112-8.png">
+, leads to a full statistical model for y. In this section
+we describe the models for residual error, and in section B
+we discuss how these models can be implemented with PREDPP.
+The following discussion parallels that of section
+III.D.</p>
+
+<p style="margin-top: 1em">The simplest model for y itself
+in terms of
+<img src="grohtml-31112-9.png" alt="Image grohtml-31112-9.png">
+is</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-311122.png" alt="Image grohtml-311122.png"></p>
+
+<p style="margin-top: 1em">where
+<img src="grohtml-31112-11.png" alt="Image grohtml-31112-11.png">
+is the realization of a random variable (which also, through
+a mild abuse of notation, is denoted by
+<img src="grohtml-31112-12.png" alt="Image grohtml-31112-12.png">
+) with mean 0. This is a very familiar type model describing
+residual variability.</p>
+
+<p style="margin-top: 1em">The difference
+<img src="grohtml-31112-13.png" alt="Image grohtml-31112-13.png">
+may not be entirely unexplainable. For example, it might be
+that there are two assays used to measure drug
+concentration, and that the difference may vary more widely
+with y obtained with one assay than with y obtained with the
+other assay. Let Z be a dichotomous-valued concomitant
+variable whose value (0 or 1) in the event record for y
+identifies the assay used. Then instead of (1) one might
+write</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-311123.png" alt="Image grohtml-311123.png"></p>
+
+<p style="margin-top: 1em">where
+<img src="grohtml-31112-15.png" alt="Image grohtml-31112-15.png">
+has mean zero and variance
+<img src="grohtml-31112-16.png" alt="Image grohtml-31112-16.png">
+. We have
+<img src="grohtml-31112-17.png" alt="Image grohtml-31112-17.png">
+=
+<img src="grohtml-31112-18.png" alt="Image grohtml-31112-18.png">
+, and if Z=0,
+<img src="grohtml-31112-19.png" alt="Image grohtml-31112-19.png">
+=
+<img src="grohtml-31112-20.png" alt="Image grohtml-31112-20.png">
+, but if Z=1,
+<img src="grohtml-31112-21.png" alt="Image grohtml-31112-21.png">
+=
+<img src="grohtml-31112-22.png" alt="Image grohtml-31112-22.png">
+. The parameter
+<img src="grohtml-31112-23.png" alt="Image grohtml-31112-23.png">
+is the ratio of standard deviations of the concentrations
+between the two assays.</p>
+
+<p style="margin-top: 1em">Another simple model for y
+is</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-311124.png" alt="Image grohtml-311124.png"></p>
+
+<p style="margin-top: 1em">where the mean and variance of
+<img src="grohtml-31112-25.png" alt="Image grohtml-31112-25.png">
+are 0 and
+<img src="grohtml-31112-26.png" alt="Image grohtml-31112-26.png">
+. Here
+<img src="grohtml-31112-27.png" alt="Image grohtml-31112-27.png">
+is the coefficient of variation of y. Instead of
+<img src="grohtml-31112-28.png" alt="Image grohtml-31112-28.png">
+having homogeneous variance
+<img src="grohtml-31112-29.png" alt="Image grohtml-31112-29.png">
+, perhaps
+<img src="grohtml-31112-30.png" alt="Image grohtml-31112-30.png">
+as above. Observation values are often significantly
+right-skewed distributed (for a fixed x), and so a more
+appropriate model might be</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-311125.png" alt="Image grohtml-311125.png"></p>
+
+<p style="margin-top: 1em">where the mean and variance of
+<img src="grohtml-31112-32.png" alt="Image grohtml-31112-32.png">
+are 0 and
+<img src="grohtml-31112-33.png" alt="Image grohtml-31112-33.png">
+, respectively. This model is equivalent to</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-311126.png" alt="Image grohtml-311126.png"></p>
+
+<p style="margin-top: 1em">(See the discussion concerning
+models (III.14) and (III.15).)</p>
+
+<p style="margin-top: 1em">The difference
+<img src="grohtml-31112-35.png" alt="Image grohtml-31112-35.png">
+could be partly explainable by the compartment being
+observed. If two compartments are being observed (say plasma
+and urine), and Z is a dichotomous-valued concomitant
+variable whose value (0 or 1) in the event record for y
+identifies the compartment observed, then one might
+write</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-311127.png" alt="Image grohtml-311127.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-311128.png" alt="Image grohtml-311128.png"></p>
+
+<p style="margin-top: 1em">where the means of both
+<img src="grohtml-31112-38.png" alt="Image grohtml-31112-38.png">
+and
+<img src="grohtml-31112-39.png" alt="Image grohtml-31112-39.png">
+are 0, and the variances are
+<img src="grohtml-31112-40.png" alt="Image grohtml-31112-40.png">
+and
+<img src="grohtml-31112-41.png" alt="Image grohtml-31112-41.png">
+, respectively. If two observations of two different
+compartments are taken far enough apart in time,
+<img src="grohtml-31112-42.png" alt="Image grohtml-31112-42.png">
+and
+<img src="grohtml-31112-43.png" alt="Image grohtml-31112-43.png">
+can be taken to be statistically independent variables. In
+this case (6) is formally equivalent to (2) (ignoring
+whether Z identifies assay or observation compartment) since
+multiple realizations of
+<img src="grohtml-31112-44.png" alt="Image grohtml-31112-44.png">
+in (2) are assumed to be statistically independent. If,
+however, two observations of two different compartments are
+taken close enough in time, they may be correlated, and with
+NONMEM, it is possible to estimate a correlation between the
+two <b>different
+<img src="grohtml-31112-45.png" alt="Image grohtml-31112-45.png"></b>
+variables of model (6); see Guide I, section E.4.</p>
+
+<p style="margin-top: 1em">In all the above models for y,
+when all
+<img src="grohtml-31112-46.png" alt="Image grohtml-31112-46.png">
+&rsquo;s are set to their mean value 0, we have
+<img src="grohtml-31112-47.png" alt="Image grohtml-31112-47.png">
+; residual error is 0.
+<img src="grohtml-31112-48.png" alt="Image grohtml-31112-48.png">
+is the <b>subject-specific prediction of y</b></p>
+
+<p style="margin-top: 1em">We write
+<img src="grohtml-31112-49.png" alt="Image grohtml-31112-49.png">
+for the typical value of
+<img src="grohtml-31112-50.png" alt="Image grohtml-31112-50.png">
+, the value with all
+<img src="grohtml-31112-51.png" alt="Image grohtml-31112-51.png">
+&rsquo;s set to 0. We write
+<img src="grohtml-31112-52.png" alt="Image grohtml-31112-52.png">
+for the quantity
+<img src="grohtml-31112-53.png" alt="Image grohtml-31112-53.png">
+, the prediction &quot;for the typical individual in the in
+the population&quot; (of individuals with given values for
+the concomitant variables). It is the <b>population
+prediction of y</b></p>
+
+<p style="margin-top: 1em">It may also be regarded as the
+<b>typical value of y</b></p>
+
+<p style="margin-top: 1em">The routine ERROR specifies the
+model for residual variability. It does so in different
+ways, depending on whether ERROR is being called for the
+purposes of data analysis or data simulation. For the
+purposes of data simulation, the specification closely
+follows the type of mathematical expressions shown above. As
+with the specification of PK parameters in routine PK, for
+the purposes of data analysis, the specification of the
+model for residual variability entails partial derivatives
+of different types. These different types are defined below.
+With the first-order estimation, or with a conditional
+estimation method where an
+<img src="grohtml-31112-54.png" alt="Image grohtml-31112-54.png">
+interaction is either absent or ignored, typical
+first-partial derivatives of y with respect to the
+<img src="grohtml-31112-55.png" alt="Image grohtml-31112-55.png">
+&rsquo;s must be computed, although subject-specific
+first-partial derivatives will also suffice since from the
+latter the former can be computed. With the first-order
+conditional estimation method with interaction, where an
+<img src="grohtml-31112-56.png" alt="Image grohtml-31112-56.png">
+interaction is not ignored, both subject-specific
+first-partial derivatives of y with respect to the
+<img src="grohtml-31112-57.png" alt="Image grohtml-31112-57.png">
+&rsquo;s, as well as mixed-second-partial derivatives, must
+be computed.</p>
+
+<p style="margin-top: 1em">The first-partial derivatives of
+y with respect to the
+<img src="grohtml-31112-58.png" alt="Image grohtml-31112-58.png">
+&rsquo;s, evaluated at the subject-specific value of
+<img src="grohtml-31112-59.png" alt="Image grohtml-31112-59.png">
+and at all
+<img src="grohtml-31112-60.png" alt="Image grohtml-31112-60.png">
+&rsquo;s equal to 0, are called the <b>subject-specific
+first-partial derivatives of y</b></p>
+
+<p style="margin-top: 1em">For (1)-(4) and (6) for example,
+these derivatives are</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-311129.png" alt="Image grohtml-311129.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111210.png" alt="Image grohtml-3111210.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111211.png" alt="Image grohtml-3111211.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111212.png" alt="Image grohtml-3111212.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111213.png" alt="Image grohtml-3111213.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111214.png" alt="Image grohtml-3111214.png"></p>
+
+<p style="margin-top: 1em">The first-partial derivatives of
+y with respect to the
+<img src="grohtml-31112-67.png" alt="Image grohtml-31112-67.png">
+&rsquo;s, evaluated at the typical value of
+<img src="grohtml-31112-68.png" alt="Image grohtml-31112-68.png">
+,
+<img src="grohtml-31112-69.png" alt="Image grohtml-31112-69.png">
+, and at all
+<img src="grohtml-31112-70.png" alt="Image grohtml-31112-70.png">
+&rsquo;s set equal to 0, are called the <b>typical
+first-partial derivatives of y</b></p>
+
+<p style="margin-top: 1em">The derivatives of examples (7),
+(8) and (11) are also typical first-partial derivatives, and
+the derivatives of examples (9) and (10) are typical
+first-partial derivatives when
+<img src="grohtml-31112-71.png" alt="Image grohtml-31112-71.png">
+takes the value
+<img src="grohtml-31112-72.png" alt="Image grohtml-31112-72.png">
+in those expressions.</p>
+
+<p style="margin-top: 1em">Note that the derivatives under
+(3) and (4) are identical. When the model for residual
+variability is specified via subject-specific or typical
+first-partial derivatives only, NONMEM estimation methods
+cannot distinguish between models (3) and (4). That is, the
+same fit will result from using either model. In effect, an
+assumption is being made that under (4), the variance of
+<img src="grohtml-31112-73.png" alt="Image grohtml-31112-73.png">
+is small, and that the mean and coefficient of variation of
+y are well approximated by
+<img src="grohtml-31112-74.png" alt="Image grohtml-31112-74.png">
+and
+<img src="grohtml-31112-75.png" alt="Image grohtml-31112-75.png">
+, respectively. If, though, the DV data items are the log
+transformed observations, and these are modeled with (5),
+then this approximation is avoided, and a different fit will
+result from that obtained under (3). Yet a different fit
+again will be obtained when (4) is specified by including
+mixed-second-partial derivatives.</p>
+
+<p style="margin-top: 1em">The <b>mixed-second-partial
+derivatives of y</b> are the derivatives of
+<img src="grohtml-31112-76.png" alt="Image grohtml-31112-76.png">
+(for the various
+<img src="grohtml-31112-77.png" alt="Image grohtml-31112-77.png">
+&rsquo;s) with respect to the
+<img src="grohtml-31112-78.png" alt="Image grohtml-31112-78.png">
+&rsquo;s, expressed as functions of the
+<img src="grohtml-31112-79.png" alt="Image grohtml-31112-79.png">
+&rsquo;s and evaluated at all
+<img src="grohtml-31112-80.png" alt="Image grohtml-31112-80.png">
+&rsquo;s equal to 0. Note that in general these are
+different from the derivatives with respect to the
+<img src="grohtml-31112-81.png" alt="Image grohtml-31112-81.png">
+&rsquo;s of the subject-specific first-partial derivatives
+of y, since first the derivative is taken with respect to
+<img src="grohtml-31112-82.png" alt="Image grohtml-31112-82.png">
+, and then the
+<img src="grohtml-31112-83.png" alt="Image grohtml-31112-83.png">
+&rsquo;s are set to 0. However, in virtually all particular
+cases they will be the same. Some examples will illustrate
+this. The mixed-second-partial derivatives corresponding to
+(1)-(4) and (6) are</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111215.png" alt="Image grohtml-3111215.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111216.png" alt="Image grohtml-3111216.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111217.png" alt="Image grohtml-3111217.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111218.png" alt="Image grohtml-3111218.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111219.png" alt="Image grohtml-3111219.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111220.png" alt="Image grohtml-3111220.png"></p>
+
+<p style="margin-top: 1em">It should be emphasized that
+<img src="grohtml-31112-90.png" alt="Image grohtml-31112-90.png">
+(and
+<img src="grohtml-31112-91.png" alt="Image grohtml-31112-91.png">
+) and
+<img src="grohtml-31112-92.png" alt="Image grohtml-31112-92.png">
+are not quantities that the user is expected to compute in
+order to compute in turn derivatives such as those given in
+(9) and (14); this is PREDPP&rsquo;s job. One of the
+arguments of the routine ERROR is
+<img src="grohtml-31112-93.png" alt="Image grohtml-31112-93.png">
+(
+<img src="grohtml-31112-94.png" alt="Image grohtml-31112-94.png">
+), and the user can make use of it, incorporating it into
+partial derivatives of y. Similarly,
+<img src="grohtml-31112-95.png" alt="Image grohtml-31112-95.png">
+is an argument of ERROR.</p>
+
+<p style="margin-top: 1em">When some mixed-second-partial
+derivative is not zero, there is said to be an
+<img src="grohtml-31112-96.png" alt="Image grohtml-31112-96.png">
+interaction. Such an interaction is taken into account only
+by the first-order conditional estimation method with
+interaction, and with this method the mixed-second-partial
+derivatives must be computed.</p>
+
+<p style="margin-top: 1em">Routine ERROR allows
+specification of the derivatives of
+<img src="grohtml-31112-97.png" alt="Image grohtml-31112-97.png">
+, rather than of y (presumably, the DV data items are
+untransformed data items). That is, the derivatives of
+<img src="grohtml-31112-98.png" alt="Image grohtml-31112-98.png">
+, rather than the derivatives of y itself, may be specified.
+If
+<img src="grohtml-31112-99.png" alt="Image grohtml-31112-99.png">
+is given by (5), for example, then</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111221.png" alt="Image grohtml-3111221.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111222.png" alt="Image grohtml-3111222.png"></p>
+
+<p style="margin-top: 1em">PREDPP transforms
+<img src="grohtml-31112-102.png" alt="Image grohtml-31112-102.png">
+to
+<img src="grohtml-31112-103.png" alt="Image grohtml-31112-103.png">
+, since it needs the latter. The mixed-second-partial
+derivatives of
+<img src="grohtml-31112-104.png" alt="Image grohtml-31112-104.png">
+are also appropriately transformed.</p>
+
+<p style="margin-top: 1em">When the data are from a
+single-subject, random subject-to-subject variability does
+not occur, and in this case random effects describing such
+variability do not appear in the model. Only random effects
+describing residual variablity appear. Through information
+in the NONMEM control stream NONMEM learns that only one of
+these two possible types of random effects appears, but not
+which type. This, in turn, is communicated to PREDPP, which
+then <i>assumes</i> that the only random effects appearing
+in the model are those appearing in the model for residual
+variability and that the data do indeed come from a single
+subject. This assumption has various natural and helpful
+consequences. To enable the reader to identify these, they
+are explicitly described in this document as being
+consequences of the <b>single-subject assumption</b></p>
+
+<p style="margin-top: 1em">See sections B.1, B.2, III.H,
+V.H, and V.K.</p>
+
+<p style="margin-top: 1em">Starting with NONMEM 7.3, there
+is an alternate approach. See &quot;Single-Subject Analysis
+using Population with Unconstrained ETAs&quot; in the
+Introduction to NONMEM 7. With this approach, there are
+multiple subjects in the data set. NONMEM and PREDPP treat
+the subjects as part of a population analysis, while the
+statistical algorithms treat the data as single-subject.</p>
+
+<h2>IV.B. Implementation in ERROR
+<a name="IV.B."></a>
+<a name="IV.B. Implementation in ERROR"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Specification of the model for
+residual variability is done with the required user-supplied
+ERROR subroutine. This is described in section B.1. In the
+discussion of section A
+<img src="grohtml-31112-105.png" alt="Image grohtml-31112-105.png">
+denotes the prediction under the kinetic model for a
+pharmacokinetic observation, and the residual variability is
+that of such an observation. However, in that discussion
+<img src="grohtml-31112-106.png" alt="Image grohtml-31112-106.png">
+could just as well have denoted a prediction under a
+pharmacodynamic model, and the residual variability could be
+that of a pharmacodynamic observation. The way a model for
+residual variability for a PD observation is specified is
+essentially the same way this is done for a PK observation.
+However, there are some further considerations, such as how
+to obtain a PD prediction. These are discussed in section
+B.2.</p>
+
+<h2>IV.B.1. Implementation of the Model for Residual Error
+<a name="IV.B.1."></a>
+<a name="IV.B.1. Implementation of the Model for Residual Error"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The preface of the ERROR routine
+must be</p>
+
+<pre style="margin-top: 1em">SUBROUTINE ERROR (ICALL,IDEF,THETA,IREV,EVTREC,NVNT,INDXS,F,G,HH)
+USE SIZES,     ONLY: DPSIZE,ISIZE
+USE PRDIMS,    ONLY: GERD,HERD
+IMPLICIT REAL(KIND=DPSIZE) (A-Z)
+REAL(KIND=DPSIZE) :: EVTREC
+INTEGER(KIND=ISIZE) :: ICALL,IDEF,IREV,NVNT,INDXS
+DIMENSION :: IDEF(*),THETA(*),EVTREC(IREV,*),INDXS(*)
+REAL(KIND=DPSIZE) :: G(GERD,*),HH(HERD,*)</pre>
+
+
+<p style="margin-top: 1em">This is the NONMEM 7 version.
+The preface was different with earlier versions of NONMEM.
+Global variables GERD and HERD are needed because G and HH
+are sized according to the number of etas in the problem. G
+may be declared as a 1 dimensional array when the Laplacian
+method is not used <tt>G(GERD)</tt> and HH may be declared
+as a 1 dimensional array <tt>HH(*)</tt> when the first-order
+conditional estimation method with interaction is not used.
+For simplicity, they will be used that way in the examples
+below, although, when G or HH are declared 2 dimensional,
+the second subscript should be understood to be
+&quot;,1&quot;; E.g., HH(1) should be understood to be
+HH(1,1). However, when one or both of these methods might be
+used later with the given data set, it is a good idea to
+develop an ERROR code that allows this.</p>
+
+<p style="margin-top: 1em">When ERROR is called by PREDPP,
+it is passed values for the vector
+<img src="grohtml-31112-107.png" alt="Image grohtml-31112-107.png">
+in THETA. It is also passed a complete event record in
+EVTREC, the argument record. Specifically, EVTREC(I,J)
+contains the Jth data item of the Ith data record of the
+event record. ERROR is also passed the total number N of
+data records comprising the event record. Typically N=1, and
+so the first subscript of EVTREC will always be 1; however,
+see chapter II. With NM-TRAN, the CONT data item cannot be
+used and N is 1.</p>
+
+<p style="margin-top: 1em">The argument ICALL functions
+similarly to the ICALL argument described in section III.C.
+It has several possible values when ERROR is called. The
+value 1 signals to ERROR that the routine is being called
+for the first time in the NONMEM problem. At such a time
+ERROR can store certain initializing information in IDEF
+(see below). The value 2 signals to ERROR that the routine
+is being called in a regular fashion for data analytic
+purposes and that the subject-specific/typical first-partial
+derivatives, and if necessary, the mixed-second-partial
+derivatives, are to be stored in HH. The value 4 is used in
+conjunction with the NONMEM Simulation Step. It signals to
+ERROR that the routine is being called for data simulation
+purposes and that the simulated value for y is to be stored
+in F.</p>
+
+<p style="margin-top: 1em">The value 5 signals to ERROR
+that the routine is being called in a regular fashion when
+expectations are being computed; multiple calls occur.
+Expectation blocks are described in the help Guide VIII. No
+eta derivatives need be computed.</p>
+
+<p style="margin-top: 1em">The value 6 signals to ERROR
+that the routine is being called in a regular fashion when
+raw data averages are being computed; multiple calls occur.
+Raw data average blocks are described in the help Guide
+VIII. No eta derivatives need be computed.</p>
+
+<p style="margin-top: 1em">If there is abbreviated code in
+the $ERROR block that tests for ICALL=0, ICALL=1, or
+ICALL=3, this code is moved by NM-TRAN to the INFN routine
+as if it had been coded explicitly as part of an $INFN
+block. Such code is called $ERROR-INFN code. The
+initialization code described for IDEF below is generated in
+FSUBS by NM-TRAN regardless of the presence of $ERROR-INFN
+code.</p>
+
+<p style="margin-top: 1em">At ICALL=2, derivatives of y
+with respect to the
+<img src="grohtml-31112-108.png" alt="Image grohtml-31112-108.png">
+&rsquo;s must be computed and stored in HH. With the
+first-order estimation method, or with a conditional
+estimation method where an
+<img src="grohtml-31112-109.png" alt="Image grohtml-31112-109.png">
+interaction is either absent or ignored, the <i>typical</i>
+first-partial derivative of y with respect to
+<img src="grohtml-31112-110.png" alt="Image grohtml-31112-110.png">
+is placed in HH(L) (or, if HH is declared to be
+2-dimensional, HH(L,1)). For this purpose, the
+<img src="grohtml-31112-111.png" alt="Image grohtml-31112-111.png">
+&rsquo;s are enumerated as are their variances in the
+specification of the initial estimate of
+<img src="grohtml-31112-112.png" alt="Image grohtml-31112-112.png">
+. For models (1-4) and (6) of section A, we could have the
+code</p>
+<pre style="margin-top: 1em">(1):  HH(1) = 1.
+
+
+(2):  IF(Z.EQ.0.)  THEN          HH(1) = 1.
+      ELSE
+          HH(1) = THETA(1)
+      ENDIF</pre>
+
+
+<p style="margin-top: 1em">(3): HH(1) = F</p>
+
+<p style="margin-top: 1em">(4): HH(1) = F</p>
+
+<p style="margin-top: 1em">(6): HH(1) = 1-Z <br>
+HH(2) = Z</p>
+
+<p style="margin-top: 1em">F is the 8th argument of ERROR.
+On input to ERROR it is the value
+<img src="grohtml-31112-113.png" alt="Image grohtml-31112-113.png">
+or
+<img src="grohtml-31112-114.png" alt="Image grohtml-31112-114.png">
+under the kinetic model, whichever prediction (typical or
+subject-specific) has been computed by PREDPP. Note that
+0&rsquo;s must be explicitly stored in elements of HH as
+needed; the HH array is <i>not</i> initialized to 0
+immediately before a call to ERROR. However, HH is
+initialized to 0 once, early in the problem, so that if
+whenever ERROR is called, an element of HH would always be
+set to 0, this never actually need be done in ERROR.</p>
+
+<p style="margin-top: 1em">With the first-order conditional
+estimation method with interaction the subject-specific
+first-partial derivative of y with respect to
+<img src="grohtml-31112-115.png" alt="Image grohtml-31112-115.png">
+is placed in HH(L,1), and the mixed-second-partial
+derivative of y with respect to
+<img src="grohtml-31112-116.png" alt="Image grohtml-31112-116.png">
+and
+<img src="grohtml-31112-117.png" alt="Image grohtml-31112-117.png">
+is placed in HH(L,K+1). For models (1-4) and (6) of section
+A,</p>
+
+<pre style="margin-top: 1em">(1):  HH(1,1) = 1.      HH(1,K+1) = 0.</pre>
+
+
+<p style="margin-top: 1em">(2): IF(Z.EQ.0.) THEN <br>
+HH(1,1) = 1. <br>
+ELSE <br>
+HH(1) = THETA(1) <br>
+ENDIF <br>
+HH(1,K+1) = 0.</p>
+
+<p style="margin-top: 1em">(3): HH(1,1) = F <br>
+HH(1,K+1) = G(K) (or G(K,1))</p>
+
+<p style="margin-top: 1em">(4): HH(1,1) = F <br>
+HH(1,K+1) = G(K) (or G(K,1))</p>
+
+<p style="margin-top: 1em">(6) HH(1,1) = F <br>
+HH(1,K+1) = 0. <br>
+HH(2,K+1) = 0.</p>
+
+<p style="margin-top: 1em">where actually, HH(1,K+1) and
+HH(2,KK+1), wherever they appear, must be set for all K from
+1 to the number of
+<img src="grohtml-31112-118.png" alt="Image grohtml-31112-118.png">
+&rsquo;s in the problem.</p>
+
+<p style="margin-top: 1em">G is the 9th argument of ERROR.
+On input to ERROR G(K) (or, if G is declared to be
+2-dimensional, G(K,1)) is the value
+<img src="grohtml-31112-119.png" alt="Image grohtml-31112-119.png">
+or
+<img src="grohtml-31112-120.png" alt="Image grohtml-31112-120.png">
+under the kinetic model, whichever first-partial derivative
+(typical or subject-specific) has been computed by PREDPP.
+Note that zeros may need to be explicitly stored in elements
+of HH; the HH array is <i>not</i> initialized to zero
+immediately before a call to ERROR. However, it is
+initialized once, early in the run, so that if a mixed
+partial derivative is always 0, the corresponding element of
+HH need not be set to 0.</p>
+
+<p style="margin-top: 1em">ICALL=4 signals that ERROR is
+being called during the Simulation Step. During the
+Simulation Step, values for
+<img src="grohtml-31112-121.png" alt="Image grohtml-31112-121.png">
+variables (and
+<img src="grohtml-31112-122.png" alt="Image grohtml-31112-122.png">
+variables; see section B.2) can be simulated in ERROR using
+the NONMEM utility routine SIMEPS (and SIMETA; see section
+B.2). This in turn allows a value for the observation y to
+be computed in a direct fashion, using an expression such as
+(1) in section A. The value for y should be returned by
+ERROR in the argument F. This necessitates modifying the
+value of F input to ERROR. Values returned in HH are
+ignored. For an example, see section G.1.</p>
+
+<p style="margin-top: 1em">With data from a single subject,
+as with population data, during the Simulation Step, values
+for y can be computed in ERROR in a direct fashion. However,
+NONMEM explicitly recognizes two types of random variables,
+<img src="grohtml-31112-123.png" alt="Image grohtml-31112-123.png">
+-variables and
+<img src="grohtml-31112-124.png" alt="Image grohtml-31112-124.png">
+-variables, and these two types are nested, i.e. for any set
+of fixed values for the
+<img src="grohtml-31112-125.png" alt="Image grohtml-31112-125.png">
+-variables, the
+<img src="grohtml-31112-126.png" alt="Image grohtml-31112-126.png">
+-variables can assume different values, but not conversely.
+<i>Whenever</i> nested variables are not needed, only one of
+these two types of variables need appear in the entire
+statistical model, and by NONMEM convention, these should be
+<img src="grohtml-31112-127.png" alt="Image grohtml-31112-127.png">
+-variables. With single-subject data there is no
+subject-to-subject variability, only nonnested random
+variables appear; they appear in the model for residual
+variability. Consequently, in this context the expressions
+in section A must be understood to have
+<img src="grohtml-31112-128.png" alt="Image grohtml-31112-128.png">
+-variables occuring wherever
+<img src="grohtml-31112-129.png" alt="Image grohtml-31112-129.png">
+-variables occur. It does not matter what FORTRAN variable
+is used in the ERROR code to represent an
+<img src="grohtml-31112-130.png" alt="Image grohtml-31112-130.png">
+variable; it could be ETA, or EPS, or anything else.
+However, to obtain simulated values using a NONMEM utility
+routine, the routine SIMETA, rather than SIMEPS, must be
+called. See an example in section G.3. During data analysis
+computations, i.e. when values returned in HH are not
+ignored, PREDPP understands that HH contains
+<img src="grohtml-31112-131.png" alt="Image grohtml-31112-131.png">
+-derivatives (as a consequence of the single-subject
+assumption; see section IV.A).</p>
+
+<p style="margin-top: 1em">The IDEF array is used at
+ICALL=1. Usually, a 0 should be stored in IDEF(1),
+indicating that the user acknowledges that when ICALL=2, the
+derivatives of y with respect to the
+<img src="grohtml-31112-132.png" alt="Image grohtml-31112-132.png">
+-variables (or with single-subject data, the
+<img src="grohtml-31112-133.png" alt="Image grohtml-31112-133.png">
+-variables) are to be found in HH. In fact, when ICALL=1,
+PREDPP has initialized the IDEF array to zero, so if the
+user stores nothing in IDEF(1), the same effect is achieved.
+If, though, a 1 is stored in IDEF(1), the user is specifying
+that when ICALL=2, the derivatives of
+<img src="grohtml-31112-134.png" alt="Image grohtml-31112-134.png">
+are to be found in HH. For example, if
+<img src="grohtml-31112-135.png" alt="Image grohtml-31112-135.png">
+is given by (5), then at ICALL=2 one needs</p>
+<pre style="margin-top: 1em">(5):  HH(1) = 1.</pre>
+
+<p style="margin-top: 1em">If the first-order estimation
+method with interaction is used, then one needs</p>
+
+<pre style="margin-top: 1em">(5):  HH(1,1) = 1.      HH(1,K+1) = 0.</pre>
+
+
+<p style="margin-top: 1em">A reason for setting IDEF(1)=1
+is discussed in section C.</p>
+
+<p style="margin-top: 1em">If the observation is that of a
+scaled drug amount, then ERROR does not need to change the
+value of F from the input value (i.e. at ICALL=2); this
+value is a scaled drug amount and serves as an appropriate
+prediction. There are, though, situations where the
+observation is not that of a scaled drug amount and where
+ERROR would need to modify the input value of F to a
+prediction that is appropriate for the observation (see
+section B.2). One might expect PREDPP to understand that
+when IDEF(1)=1, whatever value of F is returned by ERROR, it
+is the <i>logarithm of the prediction</i> for the
+observation, and that PREDPP exponentiates this value.
+(After all, with routine PK when GG(M,1)=1 at ICALL=1, the
+typical/subject-specific value of the logarithm of the Mth
+PK parameter is returned by PK in GG(M,1). )&dagger; <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; The logarithms of
+PK parameters cannot be modelled in this way with NM-TRAN.
+<br>
+---------- <br>
+</cite></p>
+
+<p style="margin-top: 1em">However, the value returned by
+ERROR is always understood to be the <i>prediction</i> for
+the observation.&Dagger; <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&Dagger; An exception is
+with non-continuous odd-type data, below. <br>
+---------- <br>
+</cite></p>
+
+<p style="margin-top: 1em">The value in IDEF(3) describes
+whether ERROR uses derivatives of compartment amounts (i.e.
+whether compartment amounts themselves are used as random
+variables in arithmetic statements in ERROR).</p>
+
+<p style="margin-top: 1em">IDEF(3)=-1 ERROR may use
+derivatives of A (this is the default) <br>
+IDEF(3)= 0 ERROR does not use derivatives A. <br>
+IDEF(3)= 1 ERROR does use derivatives of A.</p>
+
+<p style="margin-top: 1em">When ERROR does not use A, then
+if IDEF(3) is set to 0, PREDPP can avoid some time-consuming
+processing.</p>
+
+<p style="margin-top: 1em">The one-dimensional array,
+INDXS, functions in the way described in Guide I, section
+C.4.1. The user places integers into this array, using the
+INDEX control record. These integers are then available to
+PREDPP and, therefore, to ERROR. For further details see
+section III.C.&Dagger; <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&Dagger; The INDXS array
+cannot be used with NM-TRAN. <br>
+---------- <br>
+</cite></p>
+
+<h2>IV.B.2. Implementation of a Pharmacodynamic Model
+<a name="IV.B.2."></a>
+<a name="IV.B.2. Implementation of a Pharmacodynamic Model"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The ERROR routine has been
+described as the place where a model for residual error is
+specified. More generally, it may be described as the place
+where the prediction is specified, along with a model for
+the residual error. The prediction is taken to be the value
+of F output by ERROR. Often, the value of F that is input to
+ERROR is simply left unaltered by the routine, and so it is
+also the value output. That is, the prediction is specified
+to be that already computed by PREDPP. This is a typical way
+to proceed when the observation y is a pharmacokinetic
+response, and its prediction can be taken as the scaled drug
+amount found in the input value of F. However, when y is a
+pharmacodynamic response, this input value must be altered
+to obtain a prediction appropriate for y.</p>
+
+<p style="margin-top: 1em">To take an example, if the PD
+prediction is proportional to the PK prediction, where the
+proportionality constant
+<img src="grohtml-31112-136.png" alt="Image grohtml-31112-136.png">
+is to be estimated, the essential code might be:</p>
+
+<pre style="margin-top: 1em">   F=THETA(4)*F
+   HH(1)=F</pre>
+
+
+<p style="margin-top: 1em">The model for the residual error
+between y and its prediction might be given by (3) or (4).
+The way to implement this model is the same as when the
+response is PK, rather than PD, and is illustrated by this
+example. Care must be taken that
+<img src="grohtml-31112-137.png" alt="Image grohtml-31112-137.png">
+and any parameters to be estimated in the model for the
+scaling parameter used to compute the input value of F are
+all identifiable.</p>
+
+<p style="margin-top: 1em">If the data are population data,
+and the model for PK parameters involves
+<img src="grohtml-31112-138.png" alt="Image grohtml-31112-138.png">
+-variables, then the first-partial derivative
+<img src="grohtml-31112-139.png" alt="Image grohtml-31112-139.png">
+or
+<img src="grohtml-31112-140.png" alt="Image grohtml-31112-140.png">
+, whichever derivative (typical or subject-specific) has
+been computed by PREDPP and is input to ERROR, must <i>also
+be recomputed</i>. Recall that the derivative is found in
+G(K) (or G(K,1)). Therefore, if there are 3
+<img src="grohtml-31112-141.png" alt="Image grohtml-31112-141.png">
+-variables, the above example might be continued thusly:</p>
+
+<pre style="margin-top: 1em">   F=THETA(4)*F
+   HH(1)=F
+   DO 10 K=1,3</pre>
+
+
+<p>10 G(K)=THETA(4)*G(K)</p>
+
+<p style="margin-top: 1em">If the Laplacian method is used,
+the second-partial derivative
+<img src="grohtml-31112-142.png" alt="Image grohtml-31112-142.png">
+,
+<img src="grohtml-31112-143.png" alt="Image grohtml-31112-143.png">
+, is stored in G(K,L+1). In this case the code might look
+like:</p>
+
+<pre style="margin-top: 1em">   F=THETA(4)*F
+   HH(1)=F
+   DO 10 K=1,3
+   G(K,1)=THETA(4)*G(K,1)
+   DO 10 L=1,K</pre>
+
+
+<p>10 G(K,L+1)=THETA(4)*G(K,L+1)</p>
+
+<p style="margin-top: 1em">The second-partial derivatives
+are not needed with every call to ERROR; certainly, they are
+not needed unless the Laplacian method is used. In order to
+save computation time, information is provided in the NONMEM
+global variable MSEC as to whether second-partial
+derivatives are needed with a particular call to ERROR. MSEC
+is set by NONMEM to the value 1 or 0, according as the
+second-partial derivatives are needed or not. Consequently,
+an alternative code to the above might be:</p>
+
+<pre style="margin-top: 1em">   F=THETA(4)*F
+   HH(1)=F
+   DO 10 K=1,3
+   G(K,1)=THETA(4)*G(K,1)
+   IF (MSEC.EQ.1) THEN
+      DO 5 L=1,K
+ 5    G(K,L+1)=THETA(4)*G(K,L+1)
+   ENDIF</pre>
+
+
+<p>10 CONTINUE</p>
+
+<p style="margin-top: 1em">If the first-order conditional
+estimation method with interaction is used, the code might
+look like:</p>
+
+<pre style="margin-top: 1em">   F=THETA(4)*F
+   HH(1,1)=F
+   DO 10 K=1,3</pre>
+
+
+<p>10 HH(1,K+1)=THETA(4)*G(K)</p>
+
+<p style="margin-top: 1em">In the above example, the
+various codes are suitable whether typical or
+subject-specific derivatives are required. This is because
+the values returned in G and HH depend on the
+<img src="grohtml-31112-144.png" alt="Image grohtml-31112-144.png">
+&rsquo;s only through the values of F and G that are input
+to ERROR. If typical derivatives are required, the input
+values of F and G are computed with all
+<img src="grohtml-31112-145.png" alt="Image grohtml-31112-145.png">
+&rsquo;s equal to 0; if subject-specific values are
+required, they are computed with other values of the
+<img src="grohtml-31112-146.png" alt="Image grohtml-31112-146.png">
+&rsquo;s as well.</p>
+
+<p style="margin-top: 1em">Suppose, however, that the PD
+prediction is proportional to the PK prediction, where the
+proportionality constant itself involves an
+<img src="grohtml-31112-147.png" alt="Image grohtml-31112-147.png">
+-variable, e.g.
+<img src="grohtml-31112-148.png" alt="Image grohtml-31112-148.png">
+. Then the code with only typical first-partial derivatives
+might look like:</p>
+
+<pre style="margin-top: 1em">   F=THETA(4)*F
+   HH(1)=F
+   DO 10 K=1,3</pre>
+
+
+<p>10 G(K)=THETA(4)*G(K) <br>
+G(4)=F</p>
+
+<p style="margin-top: 1em">while the code with
+subject-specific first-partial derivatives might look
+like:</p>
+
+<pre style="margin-top: 1em">   USE NMPRD_REAL,ONLY: ETA
+   ...
+   CALL GETETA (ETA)
+   E4=EXP(ETA(4))
+   F=THETA(4)*E4*F
+   HH(1)=F
+   DO 10 K=1,3</pre>
+
+
+<p>10 G(K)=THETA(4)*E4*G(K) <br>
+G(4)=F</p>
+
+<p style="margin-top: 1em">Notice that GETETA can be called
+by ERROR as well as by PK (see section III.E). The ETA array
+is in a global module. GETETA can be called only by ERROR if
+<img src="grohtml-31112-149.png" alt="Image grohtml-31112-149.png">
+-variables are only used in ERROR. In this case GETETA may
+still be initialized by PK (see section III.E.2), but if it
+is not, then it should be initialized by ERROR. This
+involves simply calling GETETA at ICALL=1.</p>
+
+<p style="margin-top: 1em">If the Laplace method is used,
+then the code might be:</p>
+
+<pre style="margin-top: 1em">   USE NMPRD_REAL,ONLY: ETA
+   ...
+   CALL GETETA (ETA)
+   E4=EXP(ETA(4))
+   F=THETA(4)*E4*F
+   HH(1)=F
+   DO 10 K=1,3
+   G(K,1)=THETA(4)*E4*G(K,1)
+   DO 10 L=1,K</pre>
+
+
+<p>10 G(K,L+1)=THETA(4)*E4*G(K,L+1) <br>
+G(4,1)=F <br>
+DO 15 L=1,4 <br>
+15 G(4,L+1)=G(L,1)</p>
+
+<p style="margin-top: 1em">If the first-order conditional
+estimate method is used with interaction, then the code
+might be:</p>
+
+<pre style="margin-top: 1em">   USE NMPRD_REAL,ONLY: ETA
+   ...
+   CALL GETETA (ETA)
+   E4=EXP(ETA(4))
+   F=THETA(4)*E4*F
+   HH(1)=F
+   DO 10 K=1,3
+   G(K)=THETA(4)*E4*G(K)</pre>
+
+
+<p>10 HH(1,K+1)=G(K) <br>
+G(4,1)=F <br>
+HH(1,5)=F</p>
+
+<p style="margin-top: 1em">During the Simulation Step, i.e.
+at ICALL=4, just as it is not necessary to store derivatives
+in HH, it is not necessary to store derivatives in in G.
+When the data are population data, ERROR can call the NONMEM
+utility SIMEPS to obtain the values for
+<img src="grohtml-31112-150.png" alt="Image grohtml-31112-150.png">
+,
+<img src="grohtml-31112-151.png" alt="Image grohtml-31112-151.png">
+,
+<img src="grohtml-31112-152.png" alt="Image grohtml-31112-152.png">
+, but also it can call SIMETA to obtain values for
+<img src="grohtml-31112-153.png" alt="Image grohtml-31112-153.png">
+,
+<img src="grohtml-31112-154.png" alt="Image grohtml-31112-154.png">
+,
+<img src="grohtml-31112-155.png" alt="Image grohtml-31112-155.png">
+(see section III.E.2). By default, as long as ERROR (or PK)
+is being called with an event record from the same
+individual record, each time SIMETA is called, these values
+remain the same; there is only one set of values obtained
+for the individual.</p>
+
+<p style="margin-top: 1em">However, the simulation can be
+done in such a way that the values change each time SIMETA
+is called (see Guide IV, section III.B.13). Consider this
+situation, and suppose that ERROR calls SIMETA, but PK does
+not. Then only the first time ERROR itself is called with an
+event record of a given individual record should ERROR call
+SIMETA (see section C for a discussion about the sequence of
+calls to ERROR). This assures that there is only one set of
+values obtained for the individual, as in the default
+situation. Unlike that situation, though, during this first
+call to ERROR, multiple calls to SIMETA might occur. So for
+example, simulated values of
+<img src="grohtml-31112-156.png" alt="Image grohtml-31112-156.png">
+, obtained with multiple calls to SIMETA and such that
+<img src="grohtml-31112-157.png" alt="Image grohtml-31112-157.png">
+, can be rejected until a value
+<img src="grohtml-31112-158.png" alt="Image grohtml-31112-158.png">
+is obtained, i.e. the distribution on
+<img src="grohtml-31112-159.png" alt="Image grohtml-31112-159.png">
+can be truncated. If PK does call SIMETA, calls to SIMETA by
+ERROR can be avoided. PK can obtain the values of ETA
+elements for the individual by a series of calls to SIMETA
+(this is illustrated explicitly in section III.E.2) and
+store them (i.e. list ETA) in a FORTRAN module shared with
+ERROR. Indeed, in this case ERROR must obtain the values
+this way; for if SIMETA is called by ERROR, the values so
+obtained are different from the values obtained by PK.</p>
+
+<p style="margin-top: 1em">When the data are single-subject
+data, SIMETA should be called, rather than SIMEPS (see
+discussion in section B.1).</p>
+
+<p style="margin-top: 1em">Consider one further example
+where it may be advantageous to recompute F in ERROR.
+Suppose the data were changed from observations y to log y
+values. Suppose too that a reasonable model for the original
+data is given by (4), so that a reasonable model for the new
+data is given by (5). A suitable code would be:</p>
+
+<pre style="margin-top: 1em">   A=F
+   F=LOG(F)
+   HH(1)=1
+   DO 10 K=1,3</pre>
+
+
+<p>10 G(K)=G(K)/A</p>
+
+<p style="margin-top: 1em">(assuming three
+<img src="grohtml-31112-160.png" alt="Image grohtml-31112-160.png">
+-variables in the model for the PK parameters). Note that A
+is a work array, not the state vector in PROCM_REAL (see
+section D.A). If there are no
+<img src="grohtml-31112-161.png" alt="Image grohtml-31112-161.png">
+-variables in this model, G need not be recomputed. The
+effect of this code with the new data is different from the
+effect of</p>
+
+<pre style="margin-top: 1em">   IF (ICALL.EQ.1) IDEF(1)=1
+   HH(1)=1</pre>
+
+
+<p style="margin-top: 1em">with the original data. Whereas
+the first code implements (4,5) exactly, this second code
+does not; see section A.</p>
+
+<p style="margin-top: 1em">The value for F and the values
+for the G array returned to NONMEM by PREDPP (see Guide I)
+are exactly those values returned to PREDPP by ERROR in the
+arguments with the same names. The values returned by ERROR
+in HH to PREDPP (after possible &quot;exponentiation&quot;
+by PREDPP; see section B.1) are just those values returned
+by PREDPP in H to NONMEM. So, by taking advantage of the
+ability to <i>recompute</i> F and G in ERROR, as well as to
+compute H, PREDPP becomes in effect a PRED of the most
+general kind. Any regression problem that can be handled by
+NONMEM, can in principle be handled via PREDPP. It would not
+generally be efficient, though, to use PREDPP unless the
+value in F (and possibly G) input to ERROR is in fact
+needed.</p>
+
+<p style="margin-top: 1em">With single-subject data the
+values returned by ERROR in HH to PREDPP are just those
+values returned by PREDPP in G to NONMEM. This is the usual
+behaviour required by NONMEM for single-subject data (and is
+a consequence of the single-subject assumption; see section
+A).</p>
+
+<p style="margin-top: 1em">There is one type of population
+pharmacodynamic regression problem where the value in F (and
+possibly G) input to ERROR is needed, where this value is
+recomputed in ERROR, but where HH need not be computed. This
+is one where intraindividual variability cannot be expressed
+by a model for residual variability involving continuously
+distributed random
+<img src="grohtml-31112-162.png" alt="Image grohtml-31112-162.png">
+variables, such as those models described in section A. An
+example of this occurs when the observation is
+pharmacodynamic, but discrete, a binary-valued outcome
+(0/1), say, where the probabilities that a 1 or 0 occurs
+depend on a scaled drug amount. However, they also may
+depend on pharmacodynamic parameters that vary from subject
+to subject, and/or the PK parameters themselves may vary
+from subject to subject. NONMEM can handle this type of
+problem, using an objective function that incorporates a
+model for random intraindividual variability which is
+appropriate for this type of an observation. Non-continuous
+observed responses are referred to as &quot;odd-type
+data&quot;. Options LIKELIHOOD and -2LOGLIKELIHOOD on the
+ESTIMATION record are used to indicate to NONMEM that Y
+(with NM-TRAN abbreviated code) or F (with a user-supplied
+PRED or ERROR code) will be set to a (conditional)
+likelihood or -2 log (conditional) likelihood value,
+respectively. This can be done for all observations, or
+using F_FLAG (see Section D.B), for particular observations.
+The
+<img src="grohtml-31112-163.png" alt="Image grohtml-31112-163.png">
+&rsquo;s, if any, are understood to be population etas. No
+<img src="grohtml-31112-164.png" alt="Image grohtml-31112-164.png">
+variables may be used. NOMMEM gives instructions to PREDPP
+to avoid an incorrect single-subject assumption.</p>
+
+<h2>IV.C. ERROR Calling-Protocols
+<a name="IV.C."></a>
+<a name="IV.C. ERROR Calling-Protocols"></a>
+</h2>
+
+
+<p style="margin-top: 1em">As the pharmacokinetic system is
+advanced, ERROR is called one or more times, each time with
+some argument record. The event records comprise these
+argument records, and are passed to ERROR in time order. The
+simulation and/or data analytic computations will normally
+be done correctly if routine ERROR is called with one event
+record after another (within an individual record), no event
+records being skipped, and no event record being repeated.
+This is the default. However, PREDPP can implement a few
+different protocols for calling ERROR. A protocol is
+specified by setting IDEF(2) to various values at ICALL=1
+(for more about IDEF, see section B.1). The default is
+IDEF(2)=-1 (call with every event record), described above.
+The ERROR routine can be called only with each observation
+event record of the individual record. If this more limited
+sequence of calls is desired, this can be accomplished by
+setting IDEF(2)=0. Note, though, that <i>in this case</i>,
+IDEF(2) must be explicitly set to 0.</p>
+
+<p style="margin-top: 1em">There are two general
+considerations to be remembered about calling-protocols with
+ERROR. First, no matter what calling-protocol is used, it
+applies only to calls to ERROR at ICALL=2; at ICALL=4 (i.e.
+during simulation) ERROR is always called with every event
+record. [This differs from calling-protocols with PK, where
+whatever calling-protocol is used for PK at ICALL=2 is the
+same as that used at ICALL=4.] Second, a calling-protocol
+that limits the sequence of calls to ERROR should not be
+requested when the value of F returned by ERROR may differ
+from the value input to ERROR.</p>
+
+<p style="margin-top: 1em">Often, none of the
+<img src="grohtml-31112-165.png" alt="Image grohtml-31112-165.png">
+derivatives depend on concomitant variables whose values
+vary within an individual record i.e. vary over time. This
+is true if y is given by (1) or (6), for example, or if
+<img src="grohtml-31112-166.png" alt="Image grohtml-31112-166.png">
+is given by (5). This may not be true if y is given by (2);
+it depends on whether the value of Z varies over time.
+Unless there is only one observation per individual, this
+generally is not true if y is given by (3) or (4), since
+when time varies,
+<img src="grohtml-31112-167.png" alt="Image grohtml-31112-167.png">
+varies, and time itself is to be regarded as a concomitant
+variable. When though this is true, then the values stored
+in the HH array must be the same for each observation event
+record of a given individual record (for THETA and ETA
+fixed). Considerable computation time can be saved; PREDPP
+need call ERROR <b>only once</b> per individual record, with
+the first event record only (for any given values of the
+THETA and ETA arrays). The user can request this
+calling-protocol by setting IDEF(2)=1. Since the first event
+record need not be an observation record, care must be taken
+that HH is indeed set with this record, and that any data
+items needed for this purpose are contained in that
+record.</p>
+
+<p style="margin-top: 1em">Notice that with y given by (1),
+for example, the
+<img src="grohtml-31112-168.png" alt="Image grohtml-31112-168.png">
+-derivatives do not depend on any concomitant variables, nor
+do they depend on
+<img src="grohtml-31112-169.png" alt="Image grohtml-31112-169.png">
+or
+<img src="grohtml-31112-170.png" alt="Image grohtml-31112-170.png">
+. In such a case the values stored in the HH array must be
+the same for each observation event record of the
+<i>entire</i> data set; indeed, these values could be
+computed only once during the entire NONMEM problem. If at
+ICALL=1, IDEF(2) is set to 2, then at ICALL=2 values for HH
+will always be taken to be (constant) values stored in HH at
+ICALL=1. Note that the HH array is initialized to zero
+immediately before the call to ERROR with ICALL=1.</p>
+
+<p style="margin-top: 1em">If
+<img src="grohtml-31112-171.png" alt="Image grohtml-31112-171.png">
+is given by (5), the derivatives of
+<img src="grohtml-31112-172.png" alt="Image grohtml-31112-172.png">
+with respect to the
+<img src="grohtml-31112-173.png" alt="Image grohtml-31112-173.png">
+-variables are particularly simple; they satisfy the
+requirement for using IDEF(2)=2. By setting IDEF(1)=1, the
+user is specifying that when ICALL=2, the derivatives of
+<img src="grohtml-31112-174.png" alt="Image grohtml-31112-174.png">
+are to be found in HH (see section B.1). By also setting
+IDEF(2)=2, these derivatives are actually taken to be the
+values stored in HH at ICALL=1.</p>
+
+<p style="margin-top: 1em">With NM-TRAN, the abbreviated
+code for error model (4)</p>
+<pre>$ERROR
+Y=F*EXP(EPS(1))</pre>
+
+<p style="margin-top: 1em">is implemented as described
+above. The generated ERROR subroutine contains this
+code:</p>
+
+<pre>IF (ICALL &lt;= 1) THEN
+IDEF(2)=2
+IDEF(1)=1
+HH(1,1)=1.0D0
+ENDIF</pre>
+
+
+<p style="margin-top: 1em">See V.L.1 and figure 19 for the
+PREDPP summary that describes the above implementation. Note
+that there was a change starting with with NONMEM IV.
+Earlier versions of NM-TRAN implemented the model (4) as in
+figure 9. Figure 17 gives the same results if the $ERROR
+abbreviated code is replaced by the subroutine of figure 9;
+the difference is only in the run time.</p>
+
+<p style="margin-top: 1em">Even when IDEF(2)=0, 1, or 2, a
+call to ERROR with any given event record can be forced with
+the use of the CALL data item (see section V.J).</p>
+
+<p style="margin-top: 1em">IDEF(2) may be set to -1, or not
+set at all, i.e. this is the default. This results in ERROR
+being called with <i>every</i> event record (see above).</p>
+
+<p style="margin-top: 1em">When NM-TRAN abbreviated code is
+used, the reserved variable CALLFL may be used to specify
+the value for IDEF(2). E.g., to set IDEF(2)=-1, use:</p>
+<pre>CALLFL=-1</pre>
+
+<p>Alternately, A calling protocol phrase can be used
+instead of the CALLFL pseudo-statement, e.g.,</p>
+
+<pre style="margin-top: 1em">$ERROR (CALL WITH EVERY EVENT)</pre>
+
+
+<h2>IV.D. Global and Other Reserved Variables
+<a name="IV.D."></a>
+<a name="IV.D. Global and Other Reserved Variables"></a>
+</h2>
+
+
+<p style="margin-top: 1em">ERROR, like PK, can access
+variables other than through its argument list. Most of the
+modules are discussed in Chapter III, Section I. This
+section lists some of the variables of interest for ERROR.
+The help Guide VIII can be used to obtain the exact
+declarations and all variables of interest.</p>
+
+<h2>IV.D.A. Global Input Variables
+<a name="IV.D.A."></a>
+<a name="IV.D.A. Global Input Variables"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="82%">
+
+
+<p style="margin-top: 1em">USE PROCM_REAL , ONLY :
+<b>A</b>=&gt;AMNT , <b>DAETA , D2AETA</b></p></td>
+<td width="18%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="82%">
+
+
+<p style="margin-top: 1em">USE PROCM_REAL , ONLY :
+<b>TSTATE</b></p> </td>
+<td width="18%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">With both PK and
+ERROR, the amount in the Ith compartment
+<img src="grohtml-31112-175.png" alt="Image grohtml-31112-175.png">
+at the event time at which the call to the subroutine occurs
+can be found in A(I). This is the state vector. These
+amounts are particulary useful when pharmacodynamic models
+are specified in ERROR (see section B.2 and the example in
+section G.4). If
+<img src="grohtml-31112-176.png" alt="Image grohtml-31112-176.png">
+-variables are used in PK, the first and second partial
+derivatives of these amounts with respect to the
+<img src="grohtml-31112-177.png" alt="Image grohtml-31112-177.png">
+&rsquo;s are also useful. The first-partial derivative
+<img src="grohtml-31112-178.png" alt="Image grohtml-31112-178.png">
+can be found in DAETA(I,K), and the second-partial
+derivative
+<img src="grohtml-31112-179.png" alt="Image grohtml-31112-179.png">
+,
+<img src="grohtml-31112-180.png" alt="Image grohtml-31112-180.png">
+, can be found in D2AETA(I,K,L).</p>
+
+<p style="margin-left:8%; margin-top: 1em">TSTATE is the
+state time associated with A, i.e., the time t at which A
+was computed.</p>
+
+<p style="margin-left:8%; margin-top: 1em">ERROR should
+tell PREDPP whether or not it uses compartment amounts. See
+Section B.1, IDEF(3).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="50%">
+
+
+<p style="margin-top: 1em">USE NMPRD_INT , ONLY :
+<b>NEWL2</b></p> </td>
+<td width="50%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">NEWL2 is similar
+to NEWIND. <br>
+NEWL2 = 1 if the data record is the first of an L2 record.
+<br>
+NEWL2 = 2 otherwise.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="2%"></td>
+<td width="56%">
+
+
+<p style="margin-top: 1em">USE NMPRD_INT , ONLY :
+<b>NPDE_MODE</b></p> </td>
+<td width="42%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">NONMEM sets
+NPDE_MODE=1 when it is computing NPD and NPDE for TABLE or
+SCATTERPLOT. Otherwise, NPDE_MODE=0 See DV_LOQ in section
+D.B.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="62%">
+
+
+<p style="margin-top: 1em">USE NMPR_REAL , ONLY :
+<b>TEMPLT</b>=&gt;VRAW</p> </td>
+<td width="38%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">May be used on
+the right in code for raw data averages at ICALL=6.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE NMPRD_INT , ONLY :
+<b>NTHES_</b>=&gt;NWTHT , <b>NETAS_</b>=&gt;NWETA ,
+<b>NEPSS_</b>=&gt;NWEPS</p> </td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">The dimensions
+of THETA, OMEGA, SIGMA. Never less than 1.</p>
+
+<p style="margin-top: 1em">The following group of variables
+gives the values of THETA, OMEGA, SIGMA at different NONMEM
+steps. Some of these may also be used in PK and other PREDPP
+subroutines.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="62%">
+
+
+<p style="margin-top: 1em">USE NMPR_REAL , ONLY :
+<b>OMEGA</b>=&gt;VARNF</p> </td>
+<td width="38%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">The current
+value of OMEGA. <br>
+The current value of SIGMA is also located in this array as
+follows:</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><tt>SIGMA(I,J)=OMEGA(NETAS_+I,NETAS_+J)</tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE NMPR_REAL , ONLY :
+<b>THSIMP</b>=&gt;THET_P , <b>OMSIMP</b>=&gt;OMEG_P ,
+<b>SGSIMP</b>=&gt;SIGM_P</p> </td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">Values of THETA,
+OMEGA and SIGMA that are produced during a Simulation Step
+using the user-supplied routine PRIOR.</p>
+
+<p style="margin-top: 1em">The following group of variables
+are also used in PK and are discussed in Chapter III,
+Section I.A.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE NMPRD_INT , ONLY :
+<b>MSEC</b>=&gt;ISECDER , <b>IFIRSTEM</b></p></td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE PROCM_INT , ONLY :
+<b>NEWIND</b>=&gt;PNEWIF</p> </td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE NMPRD_REAL , ONLY :
+<b>ETA</b></p> </td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE NMPRD_INT , ONLY :
+<b>ETASXI</b></p> </td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE ROCM_INT , ONLY :
+<b>MIXNUM</b>=&gt;MIXCALL , <b>MIXEST</b>=&gt;IMIXEST</p></td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE PROCM_INT , ONLY :
+<b>MNOW</b>=&gt;MTNOW , <b>MPAST</b>=&gt;MTPAST ,
+<b>MNEXT</b>=&gt;MTNEXT</p> </td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE PKERR_REAL , ONLY :
+<b>MTIME</b></p> </td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE PRMOD_INT , ONLY :
+<b>MTDIFF</b></p> </td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE NMPR_INT , ONLY :
+<b>RPTI</b>=&gt;NRPT_IN , <b>RPTO</b>=&gt;NRPT_OUT ,
+<b>RPTON</b>=&gt;NRPT_ON</p> </td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE ROCM_INT , ONLY :
+<b>NIREC</b>=&gt;NINDREC , <b>NDREC</b>=&gt;NDATINDR</p></td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE NMPRD_INT , ONLY : <b>NPROB
+, IPROB</b></p></td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE ROCM_INT , ONLY :
+<b>NREP</b> , <b>IREP</b>=&gt;NCREP</p></td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE ROCM_INT , ONLY :
+<b>LIREC</b>=&gt;NDATPASS</p> </td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE ROCM_INT , ONLY : <b>NINDR ,
+INDR1 , INDR2</b></p></td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">INTEGER(KIND=ISIZE) , POINTER ::
+<b>S1NUM , S2NUM , S1NIT , S2NIT , S1IT , S2IT</b></p></td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">REAL(KIND=DPSIZE) , POINTER ::
+<b>DEN_ , CDEN_( : )</b></p></td></tr>
+</table>
+
+<h2>IV.D.B. Global Output Variables
+<a name="IV.D.B."></a>
+<a name="IV.D.B. Global Output Variables"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="53%">
+
+
+<p style="margin-top: 1em">USE NMPRD_REAL , ONLY :
+<b>CORRL2</b></p> </td>
+<td width="47%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">Used when the
+values of epsilons used in the intraindividual model may be
+correlated across the observations contained in the L2
+record. The ERROR routine should set CORRL2(k,m), for
+k=1,...,n, to the correlation between the values for the kth
+L2 observation and the nth L2 observation.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE NMPR_REAL , ONLY :
+<b>CTLO</b>=&gt;CTLW , <b>DCTLO</b>=&gt;DCTLW ,
+<b>DDCTLO</b>=&gt;DDCTLW</p> </td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE NMPR_REAL , ONLY : <b>CTUP ,
+DCTUP , DDCTUP</b></p></td></tr>
+<tr valign="top" align="left">
+<td width="100%">
+
+
+<p style="margin-top: 1em">USE NMPR_REAL , ONLY :
+<b>PR_CT</b></p> </td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">With a given
+data record, either of the limits CTLO or CTUP may be set,
+thus defining an interval of values comprising one of
+several categories equated with the possible values of a
+potential observa- tion. During a copying pass (and during
+ICALL=5 and 6), NONMEM sets PR_CT to the estimated
+probability that an observation will be of the category in
+question. DCTLO are first eta derivatives of CTLO; DDCTLO
+are second eta derivatives. Similarly for DCTUP and
+DDCTUP.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="52%">
+
+
+<p style="margin-top: 1em">USE NMPR_REAL , ONLY :
+<b>DV_LOQ</b></p> </td>
+<td width="48%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">&quot;LOQ&quot;
+stands for &quot;limit of quantification&quot;. If the
+user&rsquo;s ERROR/PRED sets DV_LOQ and NPDE_MODE is set by
+NONMEM to 1, then the NPDE is being evaluated during this
+call, and this censored value is to be treated as if it is a
+non-censored datum with value of DV_LOQ. See NPDE_MODE in
+section D.A.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="68%">
+
+
+<p style="margin-top: 1em">USE NMPR_INT , ONLY :
+<b>F_FLAG</b>=&gt;IPRDFLG1</p> </td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">Setting F_FLAG
+to 1 (or 2) signals that Y is being set to a likelihood (or
+-2 log likelihood) value for this particular
+observation.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="52%">
+
+
+<p style="margin-top: 1em">USE NMPRD_INT , ONLY :
+<b>MDVRES</b></p> </td>
+<td width="48%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">MDVRES stands
+for missing dependent variable (MDV) for residual (RES).
+Setting MDVRES to 1 is equivalent to temporarily declaring
+an observation as missing during the computation of
+residuals and weighted residuals</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="57%">
+
+
+<p style="margin-top: 1em">USE NMPR_REAL , ONLY :
+<b>YLO</b> , <b>YUP</b></p></td>
+<td width="43%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="57%">
+
+
+<p style="margin-top: 1em">USE NMPR_REAL , ONLY :
+<b>PR_Y</b></p> </td>
+<td width="43%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">With a given
+data record, either of the limits YLO or YUP may be set so
+that during the analysis an interval is defined in which (or
+outside of which) an observation is conditioned to exist.
+During a copying pass (and during ICALL=5 and 6), NONMEM
+sets PR_Y to the estimated probability that an observation
+will fall within (or outside) the interval.</p>
+
+<h2>IV.D.C. Miscellaneous Global Variables
+<a name="IV.D.C."></a>
+<a name="IV.D.C. Miscellaneous Global Variables"></a>
+</h2>
+
+
+
+<p style="margin-top: 1em"><b>nonmem_reserved_general</b></p>
+
+<p style="margin-top: 1em">There is a file
+nonmem_reserved_general in the util directory. This contains
+USE statement for a number of other NONMEM variables that
+may be useful for advanced users. See Chapter III, Section
+I.C, for a dicussion.</p>
+
+<h2>IV.E. Displaying ERROR-Defined Items
+<a name="IV.E."></a>
+<a name="IV.E. Displaying ERROR-Defined Items"></a>
+</h2>
+
+
+<p style="margin-top: 1em">A value stored in a variable (or
+array element) V in ERROR may be displayed in a table or
+scatterplot. To accomplish this, module NMPRD4 must be
+defined in ERROR, and V must be listed in NMPRD4. See the
+example in section G.4. Module NMPRD4 also provides a
+convenient place to store values of variables to be shared
+between ERROR and other routines, and it is used thusly when
+these routines are generated from NM-TRAN abbreviated code
+(see Guide IV). Reserved variable COMACT may be used on the
+right in ERROR. (INFN-defined and declared variables are
+also shared between user routines.)</p>
+
+<p style="margin-top: 1em">The required declarations for
+NMPRD4 are described in section III.J.</p>
+
+<h2>IV.F. PRED Error-Recovery from ERROR
+<a name="IV.F."></a>
+<a name="IV.F. PRED Error-Recovery from ERROR"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The reader should see section
+III.K for a discussion about PRED-error recovery from
+PREDPP. ERROR can force an immediate return to NONMEM from
+PREDPP with a nonzero PRED error return code and
+accompanying user message. The contents of F, G, and HH are
+ignored. The required declarations are described in section
+III.K.2.</p>
+
+<h2>IV.G. Examples
+<a name="IV.G."></a>
+<a name="IV.G. Examples"></a>
+</h2>
+
+
+<h2>IV.G.1. Example I: Population Data
+<a name="IV.G.1."></a>
+<a name="IV.G.1. Example I: Population Data"></a>
+</h2>
+
+
+<p style="margin-top: 1em">In this section example I,
+described in section III.L.1, is continued. In particular,
+the code for ERROR is considered here. An observation is
+modeled as in (4) (section A). The code for ERROR is given
+in Figure 9. (A corresponding NM-TRAN abbreviated code is
+shown in Figure 17, as part of an NM-TRAN control stream.)
+All elements of IDEF should be 0 at ICALL=1. Since it is
+unnecessary to explicitly set any element to 0, this is not
+done. At ICALL=1 the value of HH is ignored.</p>
+
+<p style="margin-top: 1em">An alternative code for ERROR is
+given in Figure 10. (The NM-TRAN abbreviated code shown in
+Figure 17 would work just as well for this second code as
+for the first code.) It is shown to illustrate the ERROR
+routine when the Simulation Step is implemented along with a
+data analysis step. One should imagine that drug levels are
+being simulated under the same model as has been described
+for the data analysis (except see the remark below). The
+code is essentially like that of Figure 9, except that at
+ICALL=4 the value for the
+<img src="grohtml-31112-181.png" alt="Image grohtml-31112-181.png">
+-variable is obtained using the NONMEM utility SIMEPS (see
+Guide IV, section III.B.13), and the value for the
+observation y is computed. The value for y is returned in F.
+Note that y is modeled as in (4), and the computation at
+ICALL=4 follows this model exactly. However, the computation
+at ICALL=2 actually implements a slightly different model
+for residual variability than is simulated; see the
+discussion in section A.</p>
+
+<h2>IV.G.2. Example II: A Mixture Model
+<a name="IV.G.2."></a>
+<a name="IV.G.2. Example II: A Mixture Model"></a>
+</h2>
+
+
+<p style="margin-top: 1em">In this section example II,
+described in section III.L.2, is continued. An observation
+is modeled as in (4) (section A). Therefore, the code for
+ERROR is the same as that for Example I and shown in Figure
+9.</p>
+
+<h2>IV.G.3. Example III: Single-Subject Data
+<a name="IV.G.3."></a>
+<a name="IV.G.3. Example III: Single-Subject Data"></a>
+</h2>
+
+
+<p style="margin-top: 1em">In this section example III,
+described in section III.L.3, is continued. An observation
+is modeled as in (1) (section A). The data is from a single
+subject. Therefore, the
+<img src="grohtml-31112-182.png" alt="Image grohtml-31112-182.png">
+-variable is to be regarded as an
+<img src="grohtml-31112-183.png" alt="Image grohtml-31112-183.png">
+-variable (see section B.1). The code for ERROR is given in
+Figure 11. (A corresponding NM-TRAN abbreviated code is
+shown in Figure 26, as part of an NM-TRAN control stream.)
+Since the
+<img src="grohtml-31112-184.png" alt="Image grohtml-31112-184.png">
+-derivative does not depend on any concomitant variables,
+nor does it depend on
+<img src="grohtml-31112-185.png" alt="Image grohtml-31112-185.png">
+or
+<img src="grohtml-31112-186.png" alt="Image grohtml-31112-186.png">
+, ERROR need be called only once in the problem. Therefore,
+at ICALL=1 IDEF(2) is set to 2, and the derivative is stored
+in HH. Since ERROR is called only once (at ICALL=1), ICALL
+need not be tested.</p>
+
+<p style="margin-top: 1em">An alternative code is shown in
+Figure 12. (The NM-TRAN abbreviated code shown in Figure 26
+would work just as well for this second code as for the
+first code.) It is shown to illustrate the ERROR routine
+when the Simulation Step is implemented along with a data
+analysis step.</p>
+
+<h2>IV.G.4. Example IV: Single-Subject Pharmacodynamic Data
+<a name="IV.G.4."></a>
+<a name="IV.G.4. Example IV: Single-Subject Pharmacodynamic Data"></a>
+</h2>
+
+
+<p style="margin-top: 1em">In this section example IV,
+described in section III.L.4, is continued. An observation
+is modeled as in (3) (section A). The data is from a single
+subject. Therefore, the
+<img src="grohtml-31112-187.png" alt="Image grohtml-31112-187.png">
+-variable is to be regarded as an
+<img src="grohtml-31112-188.png" alt="Image grohtml-31112-188.png">
+-variable (see section B.1). The code for ERROR is given in
+Figure 13. (A corresponding NM-TRAN abbreviated code is
+shown in Figure 30, as part of an NM-TRAN control stream.)
+The pharmacodynamic model is given by a simple &quot;Emax
+type&quot; model:</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-3111223.png" alt="Image grohtml-3111223.png"></p>
+
+<p style="margin-top: 1em">where P=(K12,K20,K30,VD,
+<img src="grohtml-31112-190.png" alt="Image grohtml-31112-190.png">
+,
+<img src="grohtml-31112-191.png" alt="Image grohtml-31112-191.png">
+), and Ce is the concentration in the effect compartment
+based on K12, K20, K30, and VD.</p>
+
+<p style="margin-top: 1em">An alternative code is shown in
+Figure 14. (A corresponding NM-TRAN abbreviated code is
+shown in Figure 32, as part of an NM-TRAN control stream.)
+It is shown to illustrate the the ability to display
+ERROR-defined items. In this case the intent is to display
+the concentrations in both the central and effect
+compartments. The control stream requesting the display is
+described in section V.L.4. The code in Figure 14 just shows
+how these concentrations become ERROR-defined. It also
+illustrates the use of the state vector A in PROCM_REAL (see
+section D.A).</p>
+
+<h2>IV.H. Other Subroutines That May Be Called
+<a name="IV.H."></a>
+<a name="IV.H. Other Subroutines That May Be Called"></a>
+</h2>
+
+
+<p style="margin-top: 1em"><b>RANDOM</b></p>
+
+<p style="margin-top: 1em">The NONMEM utility routine
+RANDOM may be called by ERROR during the Simulation Step
+(ICALL=4) and when data averages are being computed
+(ICALL=5) to obtain numbers from different random
+sources.</p>
+
+<p style="margin-top: 1em"><a href="IV.html">TOP</a> <br>
+<a href="index.html">TABLE OF CONTENTS</a> <br>
+ <a href="V.html">NEXT CHAPTER ...</a></p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 103</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft4{font-size:5px;font-family:Times;color:#000000;}
+	.ft5{font-size:6px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+	.ft8{font-size:6px;line-height:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index103.png" alt="background image">
+<DIV style="position:absolute;top:41;left:360"><nobr><span class="ft0">Chapter 10 - Reading the Output</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft6">data set to be passed by NONMEM to PREDPP, as indicated in lines 15 through 17 of ﬁgure 10.2.<br>NONMEM is not concerned with the signiﬁcance of these data items.) Note that data item 7,<br>Event ID, was appended by the Data Preprocessor.</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:72"><nobr><span class="ft6">Line 17 reﬂects the fact that, by default, $PK statements are evaluated with every event record†.<br>Lagged and additional doses are discussed in Chapter 12, Sections 2.4 and 2.5. They are not used<br>in this example.</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:72"><nobr><span class="ft6">Line 21 reﬂects the fact that the $ERROR statements describe the simple error model (3.4). This<br>model uses no data items and no elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:280"><nobr><span class="ft1">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:290"><nobr><span class="ft0">whatsoever (directly or indirectly). NM-TRAN</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:72"><nobr><span class="ft6">has instructed PREDPP that the $ERROR statements need be evaluated only once at the begin-<br>ning of the problem. Line 20 indicates that, should the Simulation Step be implemented,<br>PREDPP will disregard this limitation and evaluate the $ERROR statements with every event<br>record, so that randomly-generated values of intra-individual error can be applied at every obser-<br>vation event. (This example does not involve simulation, but the PK and ERROR routines which<br>implement the $PK and $ERROR statements are capable of supporting all NONMEM tasks,<br>including simulation.)</span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:72"><nobr><span class="ft7">Finally, note that the $PK and $ERROR models (ﬁgure 10.1, lines 5-14) are not documented in<br>the NONMEM-PREDPP output. It is a good idea to attach a printed copy of the NM-TRAN<br>input records to the corresponding NONMEM output. MS/DOS batch ﬁle nmfe72.bat and Unix<br>C-shell script nmfe72 (supplied with NONMEM) do this automatically.</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:72"><nobr><span class="ft2"><b>4. Diagnostic Output from the Estimation Step</b></span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:72"><nobr><span class="ft0">The next page of output, ﬁgure 10.5, is produced during the running of the Estimation Step.</span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:72"><nobr><span class="ft2"><b>4.1. Intermediate Output from the Estimation Step</b></span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:72"><nobr><span class="ft6">Lines 1 through 42 are referred to as the intermediate output. Lines 4 through 7 give numbers<br>summarizing the 0-th iteration, which are based on the initial parameter estimates. Line 4 shows<br>the initial value of the objective function. The value following &quot;NO. OF FUNC. EVALS.&quot; is the<br>number of objective function evaluations which were needed during the iteration. Line 5 gives<br>the cumulative number of function evaluations including this and all prior iteration summaries.<br>Line 6 gives the unconstrained parameter (UCP) estimates. The search is carried out in a differ-<br>ent parameter space. The parameters are transformed to unconstrained parameters (UCP). In<br>the transformation process a scaling occurs so that the initial estimate of each of the UCP is 0.1.<br>Thus, in line 6, all parameters are .1 at the 0-th iteration. Parameters are printed in the following<br>order: elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:157"><nobr><span class="ft1">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:164"><nobr><span class="ft0">, elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:226"><nobr><span class="ft3">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:234"><nobr><span class="ft0">, elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:296"><nobr><span class="ft3">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:303"><nobr><span class="ft0">. In this example, reading from left to right,</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:72"><nobr><span class="ft0">the parameters are</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:155"><nobr><span class="ft1">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:161"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:165"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:170"><nobr><span class="ft1">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:176"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:181"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:186"><nobr><span class="ft1">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:192"><nobr><span class="ft4">3</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:196"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:201"><nobr><span class="ft1">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:208"><nobr><span class="ft4">4</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:212"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:217"><nobr><span class="ft3">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:226"><nobr><span class="ft4">11</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:234"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:240"><nobr><span class="ft3">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:248"><nobr><span class="ft4">22</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:256"><nobr><span class="ft0">, and</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:280"><nobr><span class="ft3">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:546;left:287"><nobr><span class="ft4">11</span></nobr></DIV>
+<DIV style="position:absolute;top:541;left:295"><nobr><span class="ft0">.</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:72"><nobr><span class="ft6">Tw o points should be noted. First, ﬁxed parameters do not appear in the list. Therefore, the off-<br>diagonal element</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:150"><nobr><span class="ft3">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:575;left:159"><nobr><span class="ft4">12</span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:167"><nobr><span class="ft0">, which is effectively ﬁxed to 0, does not appear. Second, when off-diagonal</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:72"><nobr><span class="ft0">elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:127"><nobr><span class="ft3">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:139"><nobr><span class="ft0">are being estimated, then as many additional UCP’s appear as there are off-diago-</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:72"><nobr><span class="ft0">nal elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:142"><nobr><span class="ft3">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:154"><nobr><span class="ft0">being estimated. However, a 1-1 correspondence between each of the elements</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:72"><nobr><span class="ft0">of</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:85"><nobr><span class="ft3">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:97"><nobr><span class="ft0">and an UCP does not exist. The same is true for elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:375"><nobr><span class="ft3">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:385"><nobr><span class="ft0">and the UCP’s for</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:470"><nobr><span class="ft3">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:480"><nobr><span class="ft0">when</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:72"><nobr><span class="ft0">off-diagonal elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:183"><nobr><span class="ft3">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:192"><nobr><span class="ft0">are estimated.</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:72"><nobr><span class="ft6">With NONMEM 7, the parameter estimates are also displayed in their natural (unscaled)<br>space. These lines are identiﬁed as NPARAMETR and precede the PARAMETER lines, which<br>display the UCP values.</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:72"><nobr><span class="ft8">† In this example, the $PK statements (lines 5 through 12 of the input ﬁle, ﬁgure 10.1) involve only WT, which<br>is constant for each individual. It is possible to limit the event records with which the $PK statements are evalu-<br>ated to the ﬁrst event record of each individual, in order to reduce run time. This decision is left to the user.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-95-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

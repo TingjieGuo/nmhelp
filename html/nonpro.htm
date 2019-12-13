@@ -1,0 +1,71 @@
+<HTML><HEAD> <TITLE> nonpro.gen</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           NONMEM PROGRAM                           |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: The name of a computer program.
+ CONTEXT: NONMEM input/output
+
+ DISCUSSION:
+ The  acronym  NONMEM  denotes both a type of statistical model and the
+ program used to analyze data according to  such  a  model.   (See non-
+ mem_model).   This entry briefly describes the NONLINEAR MIXED EFFECTS
+ MODEL (NONMEM) program.
+
+ NONMEM is a computer program written in FORTRAN  90  used  to  analyze
+ data  according to a Non-linear Mixed Effects Model.  NONMEM is batch-
+ oriented.  It is accompanied by an input preprocessor  (NM-TRAN)  that
+ provides  a  SAS-like  user communication interface, and by a suite of
+ subprograms (PREDPP) that, within the context of the  NONMEM  program,
+ implements  most  of  the common simple pharmacokinetic models used by
+ pharmacokineticists.  PREDPP also has code for solving general  linear
+ and  non-linear  differential  equations  describing  more complicated
+ pharmacokinetic models.
+
+ The user generally will have to supply data and a code (either  in  an
+ abbreviated  form  understood  by NM-TRAN, or in a FORTRAN subroutine)
+ specifying the dependence on the mixed effects.  He will also have  to
+ make  choices  regarding the NONMEM process: e.g., whether to estimate
+ parameters, and if so, which of  several  estimation  methods  to  use
+ (each method minimizes a different objective function).
+
+ NONMEM  output  reports  the  minimum value of the objective function,
+ parameter estimates, standard errors, tables, and  line-printer  scat-
+ terplots, etc., as requested.  NONMEM computes model predictions using
+ the parameter estimates, and similarly, residuals and weighted residu-
+ als, and makes these available for tables and scatterplots.
+
+ NONMEM can also easily be used to simulate data under a NONMEM model.
+
+ With NONMEM 7, there are additional output files, called the "raw" and
+ "additional" output files.  Here, "root" is the name  of  the  NM-TRAN
+ input  file  specified on the nmfe7 command (not including extension).
+ These provide an efficient way of way of extracting numerical  results
+ from  the analysis.  By default, the raw output file is root.ext.  The
+ additional output files include root.ext  root.cov  root.coi  root.cor
+ root.phi,  etc.,  where  root  is  the  name  of the control file (not
+ including extensions).
+
+ (See <A HREF="r.htm#raw_output_file">raw_output_files</A>).
+ (See <A HREF="a.htm#additional_output_files">additional_output_files</A>).
+ (See <A HREF="e.htm#estm">estimate</A>, <A HREF="m.htm#method">method</A>, <A HREF="p.htm#parameter">parameter</A>, <A HREF="p.htm#parameter_estimate">parameter_estimate</A>).
+ (See <A HREF="o.htm#objective_function">objective_function</A>, <A HREF="t.htm#table">table</A>, <A HREF="s.htm#scatterplot_step">scatterplot</A>).
+ (See <A HREF="r.htm#residual">residual</A>, <A HREF="w.htm#weight">weighted-residual</A>, <A HREF="p.htm#predpp">predpp</A>).
+
+REFERENCES: Guide I Section <a href="I/A.html">A<a/>
+REFERENCES: Guide V Section <a href="V/1.html">1<a/>, <a href="V/2.html">2<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

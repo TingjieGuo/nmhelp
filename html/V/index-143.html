@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 143</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft3{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft4{font-size:9px;font-family:Courier;color:#000000;}
+	.ft5{font-size:5px;font-family:Symbol;color:#000000;}
+	.ft6{font-size:5px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;font-family:Times;color:#000000;}
+	.ft8{font-size:5px;font-family:Times;color:#000000;}
+	.ft9{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft10{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index143.png" alt="background image">
+<DIV style="position:absolute;top:41;left:286"><nobr><span class="ft0">Chapter 12 - Brief Descriptions of Other Features</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft9">information that allows the Estimation Step from the previous run (which may have terminated,<br>for example, due to the number of function evaluations exceeding its limit or a computer crash or<br>some other externally-caused interruption of the NONMEM run) to be continued in the subse-<br>quent run. There are a number of beneﬁts to using a MSF. First, what might be a long Estimation<br>Step (due to a very lengthy search) can be split over a series of runs, each with a limited number<br>of function evaluations. Any run which terminates prematurely due to computer failure can be<br>restarted from the MSF output in the previous run. (This provides a &quot;checkpoint/restart&quot; capabili-<br>ty.) The progress made in the Estimation Step can also be evaluated between runs, and a decision<br>made as to whether it is worth continuing a search which is consuming excessive amounts of<br>computer time. Second, the Covariance, Tables, and Scatterplot Steps can be performed in later<br>runs, each using the MSF from the ﬁnal run with the Estimation Step. It is advisable to perform<br>the Covariance Step only after satisfactory results have been obtained from the Estimation Step.</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:72"><nobr><span class="ft9">References: Users Guide I (Basic) C.4.4<br>References: Users Guide IV (NM-TRAN) III.B.6, B.12</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:72"><nobr><span class="ft1"><b>4.4. NONMEM Can Obtain Initial Estimates for</b></span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:303"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:310"><nobr><span class="ft1"><b>,</b></span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:316"><nobr><span class="ft3">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:324"><nobr><span class="ft1"><b>,</b></span></nobr></DIV>
+<DIV style="position:absolute;top:273;left:329"><nobr><span class="ft3">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:72"><nobr><span class="ft0">NONMEM can be directed to obtain initial estimates for one or more elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:452"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:459"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:466"><nobr><span class="ft3">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:474"><nobr><span class="ft0">, or</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:495"><nobr><span class="ft3">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:501"><nobr><span class="ft0">.</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:72"><nobr><span class="ft0">This is done in a separate Initial Estimates Step. For an element of</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:370"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:377"><nobr><span class="ft0">, omit the initial estimate but</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:72"><nobr><span class="ft9">include lower and upper bounds, e.g., (1, ,50) in the $THETA record. (The NUMBERPOINTS<br>option may be used to control the number of points in</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:322"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:332;left:332"><nobr><span class="ft0">space examined by NONMEM during</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:72"><nobr><span class="ft0">the search for initial estimates of</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:228"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:235"><nobr><span class="ft0">.) For a block of</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:320"><nobr><span class="ft3">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:332"><nobr><span class="ft0">or</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:346"><nobr><span class="ft3">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:353"><nobr><span class="ft0">, omit all initial estimates on the</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:72"><nobr><span class="ft9">$OMEGA BLOCK (or DIAGONAL) record, or $SIGMA BLOCK (or DIAGONAL) record,<br>respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:72"><nobr><span class="ft9">Note that when $PK and $ERROR statements are present but the $OMEGA and/or $SIGMA<br>records are absent, NONMEM will be directed to obtain initial estimates for the variances of the<br>random variables in question, assuming the diagonal form of the matrix.</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:72"><nobr><span class="ft0">References: Users Guide IV (NM-TRAN) III.B.9-11</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:72"><nobr><span class="ft1"><b>4.5. Improving Parameter Estimates: REPEAT and RESCALE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:474;left:72"><nobr><span class="ft9">The Estimation Step can be immediately repeated after the search has terminated successfully, by<br>including the</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:134"><nobr><span class="ft4">REPEAT</span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:177"><nobr><span class="ft0">option on the $ESTIMATION record. This can improve the accuracy of</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:72"><nobr><span class="ft9">the parameter estimates when one or more initial estimates are wrong by a few orders of magni-<br>tude. The ﬁnal estimates from the ﬁrst implementation of the Estimation Step are used as the ini-<br>tial estimates of the second implementation, and thus the scaling used with the STP is different<br>from that with the ﬁrst implementation, allowing fewer leading zeros after the decimal point in<br>the STP. When the Estimation Step is continued by means of a Model Speciﬁcation File, similar<br>rescaling can be requested using the</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:233"><nobr><span class="ft4">RESCALE</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:282"><nobr><span class="ft0">option of the $MSFI record.</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:72"><nobr><span class="ft9">References: Users Guide IV (NM-TRAN) III.B.12, B.14<br>References: Users Guide II (Supplemental) F</span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:72"><nobr><span class="ft1"><b>4.6. The Covariance Step: R</b></span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:207"><nobr><span class="ft5">−</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:211"><nobr><span class="ft6"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:215"><nobr><span class="ft1"><b>, S</b></span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:227"><nobr><span class="ft5">−</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:231"><nobr><span class="ft6"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:621;left:235"><nobr><span class="ft1"><b>, Special Computation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:72"><nobr><span class="ft10">The Covariance Step, which computes standard errors of the parameter estimates, ﬁrst computes a<br>covariance matrix of the parameter estimates. (This is not the same as the</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:410"><nobr><span class="ft3">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:422"><nobr><span class="ft0">or</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:435"><nobr><span class="ft3">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:651;left:445"><nobr><span class="ft0">matrix). It is</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:72"><nobr><span class="ft9">possible to request that this covariance matrix be computed in one of three different ways: either<br>as <i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:92"><nobr><span class="ft5">−</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:96"><nobr><span class="ft8">1</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:101"><nobr><span class="ft0">, <i>S</i></span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:113"><nobr><span class="ft5">−</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:117"><nobr><span class="ft8">1</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:122"><nobr><span class="ft0">, or <i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:148"><nobr><span class="ft5">−</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:152"><nobr><span class="ft8">1</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:157"><nobr><span class="ft7"><i>SR</i></span></nobr></DIV>
+<DIV style="position:absolute;top:673;left:169"><nobr><span class="ft5">−</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:174"><nobr><span class="ft8">1</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:181"><nobr><span class="ft0">(the default), where <i>R </i>and <i>S </i>are two matrices from statistical theory, the</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:72"><nobr><span class="ft0">Hessian and Cross-Product Gradient matrices, respectively. Options</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:377"><nobr><span class="ft4">MATRIX=R</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:432"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:451"><nobr><span class="ft4">MATRIX=S</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:72"><nobr><span class="ft0">of the $COVARIANCE record are used to request the <i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:330"><nobr><span class="ft5">−</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:334"><nobr><span class="ft8">1</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:342"><nobr><span class="ft0">and <i>S</i></span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:369"><nobr><span class="ft5">−</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:373"><nobr><span class="ft8">1</span></nobr></DIV>
+<DIV style="position:absolute;top:704;left:381"><nobr><span class="ft0">matrices, respectively. The</span></nobr></DIV>
+<DIV style="position:absolute;top:718;left:72"><nobr><span class="ft0">Covariance Step can produce additional output. When the default covariance matrix is used, <i>R</i></span></nobr></DIV>
+<DIV style="position:absolute;top:713;left:495"><nobr><span class="ft5">−</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:500"><nobr><span class="ft8">1</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:276"><nobr><span class="ft0">-135-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

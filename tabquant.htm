@@ -1,0 +1,65 @@
+<HTML><HEAD> <TITLE> tabquant.sup</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                            TABLE_QUANT                             |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: TABLE_QUANT program
+ CONTEXT: NONMEM run
+
+ The  utility  program table_quant transforms importance sampling (SIR)
+ data in the NONMEM raw output file.  Such data are  present  when  the
+ option  SIRSAMPLE  of  the $COVARIANCE record is used.  (See NONMEM 74
+ Guide, "Importance Sampling of the Variance-Covariance of  the  Param-
+ eter  Estimates").  Table_quant produces a table file with frequencies
+ and cumulative values.
+
+ USAGE:
+ table_quant inputfile outputfile delimiter start end
+
+ Inputfile name should be the NONMEM file (root.ext).
+ Requred
+
+ The results are written to outputfile, which may be  called  root.qnt.
+ (This  name is needed if R script quantplot.R, or Splus script, quant-
+ plot.ssc, available in Pdx-Pop 5.2, is used to view histograms and cdf
+ plots  from  these  result files.)  The output file contains, for each
+ item, the sorted value, its frequency (freq), and its  quantile  posi-
+ tion or cumulative probability (cum).
+
+ Required.
+
+ Delimiter  is  that  used  in  the input file (s for space, t for tab,
+ comma default)
+
+ start and end are the range of iterations to be quantized (default  is
+ all non-negative iterations).
+
+ Table_quant  uses  the  WEIGHT  values  record  by NONMEM in the file.
+ Bayes results, which do not have the WEIGHT column, can  be  processed
+ with  this  utility, but the weight is then assumed constant among all
+ samples.
+
+ The output file will contain for each item, the sorted value, its fre-
+ quency  (freq),  and  its  quantile position or cumulative probability
+ (cum).  Also, make sure the input file  contains  just  one  table  of
+ information.
+
+ See also table_resample (tabresamp) program.
+
+ EXAMPLE:
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

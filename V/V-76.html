@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 76</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:10px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:7px;font-family:Courier;color:#000000;}
+	.ft4{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V076.png" alt="background image">
+<DIV style="position:absolute;top:77;left:150"><nobr><span class="ft0"><b>Chapter 7 - $SUBROUTINE Record and $PK Record</b></span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:72"><nobr><span class="ft1"><b>1. What This Chapter is About</b></span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:72"><nobr><span class="ft4">This chapter tells how to write a $SUBROUTINE record and how to write a simple $PK record<br>for both individual and population data. This chapter is meant to be read in parallel with Chapters<br>3 and 4.</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:72"><nobr><span class="ft1"><b>2. The $SUBROUTINE Record</b></span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:72"><nobr><span class="ft4">The $SUBROUTINE record describes which pharmacokinetic model is to be used. Recall that<br>NONMEM calls a subroutine named PRED to compute the predicted value. The user must<br>choose to use his own PRED subroutine or to use the PREDPP package. In this text it is assumed<br>that the PREDPP package is chosen.</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:72"><nobr><span class="ft1"><b>2.1. Choosing an ADVAN Subroutine: Standard Pharmacokinetic Models</b></span></nobr></DIV>
+<DIV style="position:absolute;top:283;left:72"><nobr><span class="ft4">The PREDPP Library includes subroutines which are pre-preprogrammed, each for a speciﬁc<br>pharmacokinetic model. They are:</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:75"><nobr><span class="ft4">ADVAN1 (One Compartment Linear Model)<br>ADVAN2 (One Compartment Linear Model with First Order Absorption)<br>ADVAN3 (Two Compartment Linear Model)<br>ADVAN4 (Two Compartment Linear Model with First Order Absorption)<br>ADVAN10 (One Compartment Model with Michaelis-Menten Elimination)<br>ADVAN11 (Three Compartment Linear Model)<br>ADVAN12 (Three Compartment Linear Model with First Order Absorption)</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:72"><nobr><span class="ft4">PREDPP calls only one subroutine, ADVAN; the different names above are external names distin-<br>guishing different instances of the ADVAN routine in the PREDPP Library. The name ’ADVAN’<br>is used because the routine advances (i.e. updates the state of) the kinetic system from one point<br>in time to the next. There are additional ADVAN routines in the Library which implement more<br>general types of pharmacokinetic models; see Chapter 12, Section 2.2. Each of the ADVAN’s can<br>be used for either individual or population data. The (external) name of the ADVAN to be used is<br>coded on the $SUBROUTINE record; this also implies that PREDPP is to be used. As an exam-<br>ple, the following record speciﬁes the One Compartment Linear Model:</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:77"><nobr><span class="ft3"><b>$SUBROUTINE ADVAN1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:72"><nobr><span class="ft2">The ADVAN’s are described in Appendix 1. They share certain features.</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:72"><nobr><span class="ft2">1. The compartments are numbered. These numbers are used in two places. First, they are</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:97"><nobr><span class="ft4">used in the CMT and PCMT data items to describe speciﬁc compartments. Second, the<br>compartment number n is part of the name of PK parameters such as compartment scale<br>(Sn), as discussed below.</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:72"><nobr><span class="ft2">2. Each model has a default observation compartment, which for each of the above ADVAN’s</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:97"><nobr><span class="ft4">happens to be the central compartment. If an event record contains an observation (i.e. is an<br>observation event record), the prediction associated with that record will be the scaled drug<br>amount in this compartment, unless the CMT data item on the record speciﬁes differently.<br>The prediction associated with a non-observational event record will again be the scaled<br>drug amount in this compartment, unless the PCMT data item on the record speciﬁes differ-<br>ently.</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:72"><nobr><span class="ft2">3. Each model has a default dose compartment. Unless speciﬁed differently by the CMT data</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:97"><nobr><span class="ft4">item, it is understood that a dose is input into this compartment. With ADVAN1, ADVAN3,<br>and ADVAN10, this is the central compartment. With ADVAN2 and ADVAN4, a drug de-</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft2">-68-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

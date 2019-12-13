@@ -1,0 +1,105 @@
+<HTML><HEAD> <TITLE> initiale.out</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                   INITIAL ESTIMATE (INITIAL EST)                   |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Initial estimates of parameters THETA, OMEGA, SIGMA
+ CONTEXT: NONMEM output
+
+ DISCUSSION:
+ Initial  estimates  of  parameters  are  required by NONMEM.  They are
+ used, for example, to compute the initial value of the objective func-
+ tion  (before NONMEM begins its search for final estimates).  The user
+ may provide initial estimates.  Alternatively,  he  may  request  that
+ NONMEM provide initial estimates.
+
+ (NONMEM  may  also use as initial estimates the final estimates from a
+ previous run, by means of a Model Specification File; (See model spec-
+ ification file).   When an MSFI is used, the outputs described here do
+ not appear.)
+
+ NONMEM output reflects initial estimates provided by the user  on  its
+ problem summary page as in this example:
+
+      INITIAL ESTIMATE OF THETA:
+      LOWER BOUND    INITIAL EST    UPPER BOUND
+      0.0000E+00     0.1500E+03     0.1000E+07
+      0.0000E+00     0.0000E+00     0.0000E+00
+      0.1000E+00     0.3000E+00     0.1000E+02
+      -0.1000E+07    -0.1000E-01    0.1000E+07
+      INITIAL ESTIMATE OF OMEGA:
+      0.2500E+00
+      0.0000E+00   0.2500E+00
+      INITIAL ESTIMATE OF SIGMA:
+      0.2500E+00
+
+      The above states that:
+
+      1)   The  initial  estimate of theta(1) is 150, and the parameter
+           is constrained to be greater than zero (no upper bound).
+
+      2)   Theta(1) is fixed at zero.
+
+      3)   The initial estimate of theta(3) is .3, and the parameter is
+           constrained to lie between .1 and 10.
+
+      4)   The  initial estimate of theta(4) is -.01, and the parameter
+           is unconstrained.
+
+      5)   OMEGA is 2x2 and constrained to be  diagonal  (signified  by
+           the  0 value of the initial estimate of omega(2,1); the ini-
+           tial estimates of omega(1,1) and omega(2,2) are .25.
+
+      6)   SIGMA is 1x1 (a scalar), with initial estimate .25.
+
+ If the initial estimate of an element of THETA  is  left  blank,  this
+ indicates  that the user has requested that NONMEM provide the initial
+ estimate, as in this example:
+
+      INITIAL ESTIMATE OF THETA:
+      LOWER BOUND    INITIAL EST    UPPER BOUND
+      0.1000E+00                    0.1000E+02
+
+ Similarly, if the initial estimate of all  or  part  of  OMEGA  and/or
+ SIGMA  is not printed, this indicates that the user has requested that
+ NONMEM provide the missing initial estimate(s).
+
+ NONMEM performs a search for missing initial estimates  as  its  first
+ task.  With NONMEM 7.4, when initial thetas are to be estimated, eval-
+ uations can now be done for FOCE and Laplace, not just  for  FO.   The
+ complete  set  of  initial  estimates (including those provided by the
+ user and those provided by NONMEM) are  printed  on  a  separate  page
+ under  the  heading  "INITIAL PARAMETER ESTIMATE", as in the following
+ example.  The format is identical to  that  of  the  "FINAL  PARAMETER
+ ESTIMATE"  page.   If  all initial parameter estimates are provided by
+ the user, this page does not appear.
+
+       ********************  INITIAL PARAMETER ESTIMATE   ***
+       THETA - VECTOR OF FIXED EFFECTS PARAMETERS  **********
+                  TH 1      TH 2      TH 3
+               1.50E+00  1.02E-01  2.90E+01
+       OMEGA - COV MATRIX FOR RANDOM EFFECTS - ETAS  ********
+                  ETA1
+       ETA1    1.50E+00
+
+ This example is from a run involving single-subject data, so there  is
+ no SIGMA matrix.
+
+ (See <A HREF="f.htm#final_parameter_estimate">final parameter estimate</A>).
+
+REFERENCES: Guide  IV Section <a href=" IV/III.html#B.9.">III.B.9<a/>, <a href=" IV/III.html#B.10.">III.B.10<a/>, <a href=" IV/III.html#B.11.">III.B.11<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

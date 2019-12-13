@@ -1,0 +1,48 @@
+<HTML><HEAD> <TITLE> aneal.utl</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               ANEAL                                |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: CONSTRAINT subroutine
+ CONTEXT: NONMEM utility routine
+
+ USAGE:
+      $SUBROUTINES ADVAN3 TRANS4 OTHER=aneal.f90
+
+ DISCUSSION:
+
+ Additional  algorithmic  constraints  may  be  imposed  upon the model
+ parameters, by use of the  subroutine  CONSTRAINT.   This  feature  is
+ available only for the EM and Bayesian algorithms.
+
+ One  use  would  be to slow the rate of reduction of the diagonal ele-
+ ments of the OMEGA values during the burn-in phase of the SAEM method.
+ This  is shown in example 9, where a user supplied annealing algorithm
+ is used to replace the built-in one described earlier.  By  specifying
+ OTHER=ANEAL.f90,  where  ANEAL.f90  was originally derived from a tem-
+ plate of CONSTRAINT.f90 in the source  directory,  the  user  supplied
+ CONSTRAINT subroutine can be incorporated into the model.
+
+ In example 9, whenever the argument iteration number (ITER_NO) of CON-
+ STRAINT changes, a new OMEGA is evaluated that is larger than what was
+ determined  by  the  SAEM update.  Typically, this expansion algorithm
+ should be such that its impact decreases with  each  iteration.   This
+ example is given in example 9.
+
+ See INTRODUCTION TO NONMEM 7, $ANNEAL to facilitate EM search methods
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

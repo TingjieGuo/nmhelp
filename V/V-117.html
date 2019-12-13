@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 117</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft5{font-size:5px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V117.png" alt="background image">
+<DIV style="position:absolute;top:41;left:376"><nobr><span class="ft0">Chapter 11 - Model Building</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft6">The NONMEM runs at this stage, since there will be many of them, should be made as short as<br>possible. To do so, only the estimation, table and scatterplot features need be used; the Covari-<br>ance Step need not, in general, be run.</span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:72"><nobr><span class="ft1"><b>4.2. The Minimal Model</b></span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:72"><nobr><span class="ft6">As suggested above, the minimal model involves the simplest pharmacokinetic model (ADVAN)<br>likely to ﬁt the data, and the simplest possible structural PK parameter model: each parameter is<br>simply identiﬁed with a separate element of</span></nobr></DIV>
+<DIV style="position:absolute;top:169;left:267"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:273"><nobr><span class="ft0">.</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:72"><nobr><span class="ft0">At this stage, the statistical model should also be very simple. Only one, or at most two</span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:473"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:484"><nobr><span class="ft0">vari-</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:72"><nobr><span class="ft6">ables should be deﬁned. These will usually affect (ﬁrst) the scale parameter (which itself, is often<br>a volume of distribution parameter) and (second) some other parameter inﬂuencing the overall<br>kinetics. Since the overall kinetics exhibited in the data will usually be dominated by elimination,<br>the second</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:121"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:131"><nobr><span class="ft0">should usually modify the rate constant of elimination or clearance. However, some</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:72"><nobr><span class="ft0">(kinetic) data sets are dominated by absorption or distribution, and in such cases, the second</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:497"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:72"><nobr><span class="ft0">should probably modify the parameter most affecting these processes. A single</span></nobr></DIV>
+<DIV style="position:absolute;top:290;left:431"><nobr><span class="ft2">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:440"><nobr><span class="ft0">should usually</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:72"><nobr><span class="ft6">sufﬁce. Both inter- and intra-individual errors can conveniently be modeled as proportional, so<br>that the determination of initial estimates of variances is made easier, and all such estimates are<br>on the same scale, but this is a matter of taste. The model for the phenobarbital data deﬁned in<br>Chapter 2 (ﬁgure 2.6) almost fulﬁlls the spirit of these restrictions. However, the inter- and intra-<br>individual error models there are additive, rather than proportional. The minimal model used on<br>the phenobarbital data in this chapter is therefore a modiﬁed version of that used in Chapter 2. It<br>is:</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:252"><nobr><span class="ft3"><i>CL</i></span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:269"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:278"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:284"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:288"><nobr><span class="ft0">(1</span></nobr></DIV>
+<DIV style="position:absolute;top:399;left:301"><nobr><span class="ft4">+</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:309"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:316"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:320"><nobr><span class="ft0">)</span></nobr></DIV>
+<DIV style="position:absolute;top:403;left:473"><nobr><span class="ft0">(11.1a)</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:255"><nobr><span class="ft3"><i>V</i></span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:266"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:275"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:281"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:285"><nobr><span class="ft0">(1</span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:297"><nobr><span class="ft4">+</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:306"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:313"><nobr><span class="ft5">2</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:317"><nobr><span class="ft0">)</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:472"><nobr><span class="ft0">(11.1b)</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:258"><nobr><span class="ft3"><i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:267"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:276"><nobr><span class="ft3"><i>F</i>(1</span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:296"><nobr><span class="ft4">+</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:305"><nobr><span class="ft2">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:311"><nobr><span class="ft5">1</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:315"><nobr><span class="ft0">)</span></nobr></DIV>
+<DIV style="position:absolute;top:453;left:473"><nobr><span class="ft0">(11.1c)</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:72"><nobr><span class="ft0">In (11.1), it is understood that <i>S</i></span></nobr></DIV>
+<DIV style="position:absolute;top:472;left:220"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:228"><nobr><span class="ft3"><i>V </i>, and that <i>F </i>is the prediction of <i>y </i>from ADVAN1 using <i>CL</i></span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:72"><nobr><span class="ft6">and <i>V </i>. A control ﬁle to NM-TRAN that speciﬁes this model, and instructs NONMEM to produce<br>the desired output is:</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:276"><nobr><span class="ft0">-109-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

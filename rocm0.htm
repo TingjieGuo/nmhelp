@@ -1,0 +1,40 @@
+<HTML><HEAD> <TITLE> rocm0.for</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                          MIX CONTR: THETA                          |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: NONMEM read-only global variables
+
+ CONTEXT: MIX, CONTR, CCONTR routine
+
+ USAGE:
+      USE ROCM_REAL, ONLY: THETA=&gt;THETAC
+
+ GLOBAL DECLARATION:
+      USE SIZES, ONLY: LTH,DPSIZE
+      REAL(KIND=DPSIZE) :: THETAC(LTH)
+
+ DISCUSSION:
+
+  THETA
+      The current value of theta, made available by NONMEM for the MIX,
+      CONTR and CCONTR routines.  THETA is a reserved varible  in  $MIX
+      abbreviated code.
+
+ Location prior to NONMEM 7: rocm0
+
+REFERENCES: Guide VI Section <a href="VI/III.html#L.2.">III.L.2<a/>, <a href="VI/fig.html#Figure_6">Figure 6<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

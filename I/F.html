@@ -1,0 +1,353 @@
+<!-- Creator     : groff version 1.21 -->
+<!-- CreationDate: Tue Mar 14 20:48:35 2017 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part I - Users Basic Guide - Chapter F">NONMEM Users Guide Part I - Users Basic Guide - Chapter F</a><br>
+<a href="# Nonlinear Regression with One-Level Nested Random Effects">F. Nonlinear Regression with One-Level Nested Random Effects</a><br>
+<a href="#1 An Example">F.1 An Example</a><br>
+<a href="#2 Implementation of the Example">F.2 Implementation of the Example</a><br>
+<a href="#2.1 Inputs">F.2.1 Inputs</a><br>
+<a href="#2.2 Selected Printout">F.2.2 Selected Printout</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part I - Users Basic Guide - Chapter F
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part I - Users Basic Guide - Chapter F"></a>
+</h2>
+
+
+<h2>F. Nonlinear Regression with One-Level Nested Random Effects
+<a name=""></a>
+<a name=" Nonlinear Regression with One-Level Nested Random Effects"></a>
+</h2>
+
+
+<h2>F.1 An Example
+<a name="1"></a>
+<a name="1 An Example"></a>
+</h2>
+
+
+<p style="margin-top: 1em">In this chapter we return to
+theophylline plasma concentration vs time data, but where
+such data from 12 subjects, rather than from a single
+subject, are available. This is done to illustrate a
+regression with one-level nested random effects where the
+regression function is nonlinear. The fact that the
+regression function is nonlinear really does not introduce
+any new considerations regarding the inputs required by
+NONMEM. However, often with a nonlinear regression function
+and one-level nested random effects, a modeling
+approximation is necessary, and this is described here.
+Also, this example does bring together a number of concepts
+discussed in the earlier examples.</p>
+
+<p style="margin-top: 1em">Each subject is given a single
+oral dose, the same dose for each subject. Each subject has
+a different weight. Often dose is expressed as the amount of
+drug administered per unit weight of the subject
+(weight-adjusted dose), and in this example the dose data
+item is the weight-adjusted dose. However, a weight data
+item is also included in the data record because it will be
+assumed that interindividual differences in plasma
+concentrations may be due to interindividual weight
+differences beyond those expressed through weight-adjusted
+dose. Also, 11 plasma concentrations are observed per
+individual at different times, and these times vary between
+individuals. (The clearance and rate constant measurements
+used in the examples of chapter E are obtained from this
+concentration vs time data and from similar data using an
+additional five doses per subject.)</p>
+
+<p style="margin-top: 1em">A model for the jth observation
+from the ith individual might be given by</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-206533.png" alt="Image grohtml-206533.png"></p>
+
+<p style="margin-top: 1em">where</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-206534.png" alt="Image grohtml-206534.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-206535.png" alt="Image grohtml-206535.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-206536.png" alt="Image grohtml-206536.png"></p>
+
+<p style="margin-top: 1em">where
+<img src="grohtml-20653-7.png" alt="Image grohtml-20653-7.png">
+,
+<img src="grohtml-20653-8.png" alt="Image grohtml-20653-8.png">
+, and
+<img src="grohtml-20653-9.png" alt="Image grohtml-20653-9.png">
+are the (non-weight-adjusted) dose, time, and weight
+variables. Here
+<img src="grohtml-20653-10.png" alt="Image grohtml-20653-10.png">
+and
+<img src="grohtml-20653-11.png" alt="Image grohtml-20653-11.png">
+are not subscripted with a j, indicating that the values of
+the dose and weight variables do not vary within the
+individual. This model is similar to one used in chapter C
+for data from a single individual, but there are some
+notable differences. First, the ith individual is regarded
+as having his own set of pharmacokinetic parameters, these
+parameters are denoted by
+<img src="grohtml-20653-12.png" alt="Image grohtml-20653-12.png">
+,
+<img src="grohtml-20653-13.png" alt="Image grohtml-20653-13.png">
+, and
+<img src="grohtml-20653-14.png" alt="Image grohtml-20653-14.png">
+. Second, two of the pharmacokinetic parameters are rate
+constant of absorption,
+<img src="grohtml-20653-15.png" alt="Image grohtml-20653-15.png">
+, and rate constant of elimination,
+<img src="grohtml-20653-16.png" alt="Image grohtml-20653-16.png">
+, as previously, but the third basic parameter is clearance,
+<img src="grohtml-20653-17.png" alt="Image grohtml-20653-17.png">
+, rather than volume of distribution. Third, these
+parameters are affected by random interindividual affects,
+and thus random interindividual variability is expressed in
+the model. Fourth, residual error is an intraindividual
+effect. Note that an individual&rsquo;s clearance is
+linearly related to his weight as in chapter E. The
+variance-covariance of the random interindividual effects,
+<img src="grohtml-20653-18.png" alt="Image grohtml-20653-18.png">
+, is regarded as a full matrix in this example.</p>
+
+<p style="margin-top: 1em">As stated in section A.1, with
+the current version of NONMEM random effects must enter the
+model (for the observations) linearly. This requirement is
+not met in the above model; the random interindividual
+effects enter nonlinearly. One device that has been found
+useful under these circumstances is to approximate the above
+model, A, with another, B, obtained by expanding A with a
+first-term Taylor Series in the random effects about their
+mean values (0). In the case at hand B is given by</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-206537.png" alt="Image grohtml-206537.png"></p>
+
+<p style="margin-top: 1em">where</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-206538.png" alt="Image grohtml-206538.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-206539.png" alt="Image grohtml-206539.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-2065310.png" alt="Image grohtml-2065310.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-2065311.png" alt="Image grohtml-2065311.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-2065312.png" alt="Image grohtml-2065312.png"></p>
+
+<p style="margin-top: 1em">Written this way, the model is
+also displayed as the NONMEM linear model schematic. Use of
+this first-order approximation to the original model, along
+with use of the ELS objective function, has been called the
+<b>First-Order Method</b> for analyzing nonlinear mixed
+effects modeled data. This method has been shown to be
+statistically efficacious in particular situations (Sheiner
+and Beal, 1980, 1981, and 1983, and Beal 1984a). The
+first-order approximation itself may be called the
+<b>First-Order Model.</b> One practical problem with this
+method is that it can require some nontrivial effort to
+obtain the partial derivatives defining the g&rsquo;s.
+Moreover, there is little to be gained by examining these
+derivatives. Indeed, rather than try to display explicit
+formulae for the g&rsquo;s in this example in this text, we
+refer the reader to the PRED routine of Fig. 73 where code
+is given for these formulae. Certain tools are available to
+help the user obtain the first-order model. PREDPP is a
+package which can be used with NONMEM and with
+pharmacokinetic data and which automatically obtains the
+derivatives
+<img src="grohtml-20653-25.png" alt="Image grohtml-20653-25.png">
+, when, as in the example, the effect of the
+<img src="grohtml-20653-26.png" alt="Image grohtml-20653-26.png">
+is through
+<img src="grohtml-20653-27.png" alt="Image grohtml-20653-27.png">
+. PREDPP is actually a very elaborate PRED subroutine. It
+then remains for the user to supply code for the derivatives
+<img src="grohtml-20653-28.png" alt="Image grohtml-20653-28.png">
+; these are relatively simple to obtain. Also, NM-TRAN, a
+computer program which facilitates the problem of
+constructing inputs to NONMEM, can be used to automatically
+obtain the derivatives
+<img src="grohtml-20653-29.png" alt="Image grohtml-20653-29.png">
+. (Both PREDPP and NM-TRAN are distributed with NONMEM.)</p>
+
+<p style="margin-top: 1em">Let I denote the number of
+individuals. Also, for fixed i, let
+<img src="grohtml-20653-30.png" alt="Image grohtml-20653-30.png">
+denote the column vector of values of the
+<img src="grohtml-20653-31.png" alt="Image grohtml-20653-31.png">
+, let
+<img src="grohtml-20653-32.png" alt="Image grohtml-20653-32.png">
+denote the column vector of values of the
+<img src="grohtml-20653-33.png" alt="Image grohtml-20653-33.png">
+, let
+<img src="grohtml-20653-34.png" alt="Image grohtml-20653-34.png">
+denote the column vector of values of the
+<img src="grohtml-20653-35.png" alt="Image grohtml-20653-35.png">
+, let
+<img src="grohtml-20653-36.png" alt="Image grohtml-20653-36.png">
+denote the column vector of values of the
+<img src="grohtml-20653-37.png" alt="Image grohtml-20653-37.png">
+, and let
+<img src="grohtml-20653-38.png" alt="Image grohtml-20653-38.png">
+denote the column vector of values of the
+<img src="grohtml-20653-39.png" alt="Image grohtml-20653-39.png">
+. Then the ELS objective function is given by</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-2065313.png" alt="Image grohtml-2065313.png"></p>
+
+<p style="margin-top: 1em">where</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-2065314.png" alt="Image grohtml-2065314.png"></p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-2065315.png" alt="Image grohtml-2065315.png"></p>
+
+<p style="margin-top: 1em">The last term in the expression
+for
+<img src="grohtml-20653-43.png" alt="Image grohtml-20653-43.png">
+is just a fancy way of writing the diagonal matrix whose
+elements are all
+<img src="grohtml-20653-44.png" alt="Image grohtml-20653-44.png">
+. The matrix
+<img src="grohtml-20653-45.png" alt="Image grohtml-20653-45.png">
+is the variance-covariance matrix of
+<img src="grohtml-20653-46.png" alt="Image grohtml-20653-46.png">
+. The vector
+<img src="grohtml-20653-47.png" alt="Image grohtml-20653-47.png">
+is the vector of <b>weighted residuals from the observations
+<img src="grohtml-20653-48.png" alt="Image grohtml-20653-48.png">
+.</b> As with previous examples, it has the form residual
+(vector) divided by standard deviation (matrix), and it is
+&quot;squared&quot; in the expression for the objective
+function. The <b>weighted residuals</b> are defined to be
+the weighted residuals from all obervations
+<img src="grohtml-20653-49.png" alt="Image grohtml-20653-49.png">
+.</p>
+
+<h2>F.2 Implementation of the Example
+<a name="2"></a>
+<a name="2 Implementation of the Example"></a>
+</h2>
+
+
+<h2>F.2.1 Inputs
+<a name="2.1"></a>
+<a name="2.1 Inputs"></a>
+</h2>
+
+
+<p style="margin-top: 1em">A code for PRED which implements
+the example is given in Fig. 74. It is similar to that in
+Fig. 1. However, the values returned in G are now very
+different, and a value is also returned in H. The same rules
+for determining what is returned in G and H, and that are
+given in chapter E, apply here too. For clarity, code to
+compute the partial derivatives that are returned in G is
+indented from the other code. Note that in the expression
+for F the weight-adjusted dose (DOSE) appears, rather than
+the non-weight-adjusted dose, but that also THETA(3) occurs
+in the denominator (E=THETA(3)*C) of that same expression,
+so that weight itself need not enter this expression. On the
+other hand, since
+<img src="grohtml-20653-50.png" alt="Image grohtml-20653-50.png">
+adds to mean clearance, weight does enter the expression for
+G(3).</p>
+
+<p style="margin-top: 1em">A control stream for this
+example is given in Fig. 75. The data set is embedded in it.
+Note that for readability and for the purpose of
+conveniently keying the data, the weight-adjusted dose and
+weight data items are blank for all data records of an
+individual record except the first data record. The PRED
+routine stores these data items in its local storage
+whenever the first data record of an individual record is
+passed to it (review the argument NEWIND described in
+section C.3.5.2).</p>
+
+<p style="margin-top: 1em">The initial STRUCTURE record for
+the problem specification has 1&rsquo;s in fields 7 and 8,
+indicating that
+<img src="grohtml-20653-51.png" alt="Image grohtml-20653-51.png">
+is a full matrix, but that
+<img src="grohtml-20653-52.png" alt="Image grohtml-20653-52.png">
+is constrained to be diagonal. (Again, since
+<img src="grohtml-20653-53.png" alt="Image grohtml-20653-53.png">
+is a scalar, it can be regarded as an unconstrained
+<img src="grohtml-20653-54.png" alt="Image grohtml-20653-54.png">
+matrix, but for the sake of a more perspicuous problem
+summary, it is taken to be diagonal.)</p>
+
+<h2>F.2.2 Selected Printout
+<a name="2.2"></a>
+<a name="2.2 Selected Printout"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The final estimate, standard
+errors, and correlation matrix are shown in Figs. 76-78. It
+may interest the reader to see how remarkably well the final
+estimates in Figs. 66 and 76 agree for those parameters that
+occur in both the model in section E.4 and the model in
+section F.1. The final estimates of these parameters from
+both figures, their standard errors, and the ratios of
+standard error to estimate are given in Table F.2.2.i.
+Recall that the estimates in Fig. 76 are obtained using
+one-sixth the amount of data used to obtain the estimates in
+Fig. 66, since in the present example only the concentration
+data from one dose per individual are used, while in the
+previous example this same data, plus similar data from five
+additional doses per individual, are used.</p>
+
+<p align="center" style="margin-top: 1em">Table F.2.2.i
+Estimate Comparison</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2065316.png" alt="Image grohtml-2065316.png"></p>
+
+<p style="margin-top: 1em">The first page of the requested
+table is shown in Fig. 79. Scatterplots of residual vs time
+and of weighted residual vs time, both separated by ID, are
+requested. The four scatterplots corresponding to
+individuals 4 and 5 are shown as examples in Figs.
+80-83.</p>
+
+<p style="margin-top: 1em"><a href="F.html">TOP</a></p>
+
+
+<p style="margin-top: 1em"><a href="index.html">TABLE OF CONTENTS</a></p>
+ 
+<p style="margin-top: 1em"><a href="G.html">NEXT</a></p>
+<hr>
+</body>
+</html>

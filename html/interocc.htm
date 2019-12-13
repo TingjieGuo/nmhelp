@@ -1,0 +1,122 @@
+<HTML><HEAD> <TITLE> interocc.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                 INTEROCCASION_VARIABILITY EXAMPLE                  |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This  example  is based on work described in Karlsson and Sheiner, JPB
+ 21(6):735-750 (1994).  The model accounts for random variability in  a
+ subject's parameters between study occasions.
+
+ It  illustrates  a data file in which EVID data items are present.  In
+ the fragment of data below, EVID has values 1 (dose event), 0  (obser-
+ vation event), and 3 (reset event).
+
+ The  reset event is present at the start of the subject's second study
+ occasion.  It causes PREDPP to re-initialize the kinetic system as  if
+ for  a  new  individual, and permits time to be reset to 0.  Note that
+ the subject has the same dosage regimen prior to both study  occasions
+ (a  bolus  dose  of  AMT 1000 every 12 hours leading to steady state).
+ However, it would have been possible to  specify  a  different  dosing
+ regimen prior to the second occasion.
+
+ In  the  abbreviated  code, EXIT statements are used to constrain TVCL
+ and TVV (typical value of clearance and volume)  to  positive  values.
+ Because  the  models  for TVCL and TVV include both thetas and covari-
+ ates, it is difficult to bound the thetas so as to  insure  that  TVCL
+ and  TVV  are  non-negative  for  all subjects.  The NOABORT option is
+ present on the $ESTIMATION record.  Hence  NONMEM  will  perform  PRED
+ error recovery, and will avoid values of theta (subsequent to the ini-
+ tial values) that result in non-positive TVCL or TVV for any subject.
+
+ Explanation of user data items:
+
+ AGE    age
+ RACE   race (1 or 2)
+ HT     height
+ HCTZ   hydrochlorothiazide (0 or 1)
+ OCC    occasion (0 or 1)
+
+ ;THIS IS A NMTRAN CONTROL STREAM For THE PRAZOSIN PK ANALYSIS
+ $PROB prazosin data
+ $INPUT ID AGE RACE HT HCTZ AMT TIME DV EVID SS II OCC
+ $DATA praz21
+ $SUBROUTINE ADVAN2 TRANS2
+ $PK
+     OCC2=1-OCC
+     R=0
+     IF (RACE.EQ.2) R=1
+     TMP=(HT-160)*THETA(1)
+     IF (TMP.LE.0.) TMP=0.0
+     TMP2=(AGE-60)*THETA(2)
+     IF (AGE.LE.60.) TMP2=0.0
+     TVCL=THETA(3)+TMP-TMP2
+     TVCL=TVCL+THETA(4)*R+THETA(5)*HCTZ
+     IF (TVCL.LE.0.) EXIT 1 100
+     TVV=THETA(6)+HCTZ*THETA(7)
+     IF (TVV.LE.0.) EXIT 1 200
+     TVKA=THETA(8)
+     CL=TVCL*EXP(ETA(3)*OCC+ETA(5)*OCC2+ETA(1))
+     V =TVV *EXP(ETA(4)*OCC+ETA(6)*OCC2+ETA(2))
+     KA=TVKA*EXP(ETA(8)*OCC+ETA(9)*OCC2+ETA(7))
+     S2=V
+ $THETA (0,0.4) (0.,0.3) 20. 4 -4.
+ $THETA  80 -25
+ $THETA (0,1.)
+ $OMEGA BLOCK(2) 0.2 0.1 0.2
+ $OMEGA BLOCK(2) 0.2 0.1 0.2
+ $OMEGA BLOCK(2) SAME
+ $OMEGA 1.2
+ $OMEGA BLOCK(1) .5
+ $OMEGA BLOCK(1) SAME
+ $ERROR
+     Y=F*(1+EPS(1))
+ $SIGMA  0.1
+ $EST NOABORT SIG=3 MAX=3000 PRINT=10 POSTHOC
+ $COVARIANCE
+ $TABLE ID OCC ETA1 ETA3 ETA5 ETA2 ETA4 ETA6 NOPRINT FILE=praz32.tab
+
+ Data for one subject follow.
+
+     21    57     1   180     1  1000     0  0.62     1     1    12     0
+     21    57     1   180     1   0.0     1 12.06     0     0     0     0
+     21    57     1   180     1   0.0     3  6.81     0     0     0     0
+     21    57     1   180     1   0.0     4  4.89     0     0     0     0
+     21    57     1   180     1   0.0     5  4.04     0     0     0     0
+     21    57     1   180     1   0.0     6  2.82     0     0     0     0
+     21    57     1   180     1   0.0     7  2.72     0     0     0     0
+     21    57     1   180     1   0.0     8  1.78     0     0     0     0
+     21    57     1   180     1   0.0    10  1.07     0     0     0     0
+     21    57     1   180     1   0.0    12  0.75     0     0     0     0
+     21    57     1   180     1   0.0     0  2.83     3     0     0     0
+     21    57     1   180     1  1000     0  2.83     1     1    12     1
+     21    57     1   180     1   0.0     1  6.27     0     0     0     1
+     21    57     1   180     1   0.0     2 12.72     0     0     0     1
+     21    57     1   180     1   0.0     3  9.99     0     0     0     1
+     21    57     1   180     1   0.0     4  6.90     0     0     0     1
+     21    57     1   180     1   0.0     5  6.59     0     0     0     1
+     21    57     1   180     1   0.0     6  4.07     0     0     0     1
+     21    57     1   180     1   0.0     7  3.11     0     0     0     1
+     21    57     1   180     1   0.0     8  2.79     0     0     0     1
+     21    57     1   180     1   0.0    10  1.72     0     0     0     1
+     21    57     1   180     1   0.0    12  1.17     0     0     0     1
+
+ (See <A HREF="$.htm#$estimation">$estimation</A>, abbreviated code, evid).
+
+REFERENCES: Guide VI Section <a href="VI/V.html#B.">V.B<a/>, <a href="VI/VII.html#C.2.">VII.C.2<a/>
+REFERENCES: Guide IV Section <a href="IV/III.html#B.10.">III.B.10<a/>, <a href="IV/IV.html#G.">IV.G<a/>
+REFERENCES: Guide V Section <a href="V/12.html#4.15.">12.4.15<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

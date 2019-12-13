@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 85</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:7px;font-family:Courier;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:5px;font-family:Times;color:#000000;}
+	.ft5{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft6{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V085.png" alt="background image">
+<DIV style="position:absolute;top:41;left:267"><nobr><span class="ft0">Chapter 7 - $SUBROUTINE Record and $PK Record</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft1"><b>5.1.2. Multiplicative Models</b></span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:72"><nobr><span class="ft0">Model (4.4.1) can be coded as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:77"><nobr><span class="ft2"><b>TVLCLM=THETA(1)+THETA(2)*LOG(WT)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:77"><nobr><span class="ft2"><b>TVCLM=EXP(TVLCLM)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:72"><nobr><span class="ft0">Model (4.4.2) can also be coded as it appears:</span></nobr></DIV>
+<DIV style="position:absolute;top:152;left:77"><nobr><span class="ft2"><b>TVCLM=THETA(1)*WT**THETA(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:72"><nobr><span class="ft1"><b>5.1.3. Saturation Models</b></span></nobr></DIV>
+<DIV style="position:absolute;top:192;left:72"><nobr><span class="ft6">Model (4.4.3) presents a problem. Subscripted variables that can appear in $PK statements are<br>few; naturally, they include THETA and (as seen below) ETA. The variable CPSS cannot be sub-<br>scripted, and a variable name such as CPSS2 (rather than CPSS(2)) must be used for <i>Cpss</i></span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:474"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:478"><nobr><span class="ft0">. The</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:72"><nobr><span class="ft0">model can be coded exactly as it appears:</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:77"><nobr><span class="ft2"><b>TVCLM=WT*(THETA(1)-THETA(2)*CPSS2/(THETA(3)+CPSS2))</b></span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:72"><nobr><span class="ft1"><b>5.1.4. Models with Indicator Variables</b></span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:72"><nobr><span class="ft6">When dealing with typical values, indicator variables (0/1 variables) can be used interchangeably<br>with conditional (IF) statements, as we have already seen. Model (4.4.4) can be coded in a vari-<br>ety of ways, two of which are:</span></nobr></DIV>
+<DIV style="position:absolute;top:329;left:72"><nobr><span class="ft0">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:331;left:102"><nobr><span class="ft2"><b>TVCLM=(THETA(1)-THETA(2)*HF)*WT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:346;left:72"><nobr><span class="ft0">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:102"><nobr><span class="ft2"><b>IF (HF.EQ.0) THEN</b></span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:102"><nobr><span class="ft2"><b>TVCLM=THETA(1)*WT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:102"><nobr><span class="ft2"><b>ELSE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:102"><nobr><span class="ft2"><b>TVCLM=(THETA(1)-THETA(2))*WT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:102"><nobr><span class="ft2"><b>ENDIF</b></span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:72"><nobr><span class="ft1"><b>5.2. Population Random Effect Models</b></span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:72"><nobr><span class="ft0">Random variables</span></nobr></DIV>
+<DIV style="position:absolute;top:438;left:155"><nobr><span class="ft5">η</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:166"><nobr><span class="ft0">are used in the models for interindividual errors. (With population models,</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:72"><nobr><span class="ft0">random variables</span></nobr></DIV>
+<DIV style="position:absolute;top:451;left:151"><nobr><span class="ft5">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:159"><nobr><span class="ft0">are used in the models for intraindividual errors; see Chapter 4, Section 2.) In</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:72"><nobr><span class="ft6">$PK statements they are denoted by ETA(1), ETA(2), etc. Even if there is only once such vari-<br>able it must still be subscripted. It is the presence of one or more such variables that indicates to<br>NM-TRAN that the data is from a population. Just as there is no particular need for certain</span></nobr></DIV>
+<DIV style="position:absolute;top:490;left:478"><nobr><span class="ft5">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:488"><nobr><span class="ft0">ele-</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:72"><nobr><span class="ft0">ments to be identiﬁed with certain PK parameters, there is no particular need for certain</span></nobr></DIV>
+<DIV style="position:absolute;top:503;left:477"><nobr><span class="ft5">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:488"><nobr><span class="ft0">ele-</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:72"><nobr><span class="ft0">ments to be associated with certain</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:231"><nobr><span class="ft5">η</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:240"><nobr><span class="ft0">variables, and any association need not be one-to-one. The</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:72"><nobr><span class="ft0">following models are both valid:</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:72"><nobr><span class="ft0">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:102"><nobr><span class="ft2"><b>CL=THETA(1)+ETA(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:102"><nobr><span class="ft2"><b>V=THETA(2)+ETA(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:72"><nobr><span class="ft0">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:102"><nobr><span class="ft2"><b>CL=THETA(1)+ETA(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:102"><nobr><span class="ft2"><b>V=THETA(2)+ETA(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:72"><nobr><span class="ft0">However, it will be easier to keep things straight if the ﬁrst model is used.</span></nobr></DIV>
+<DIV style="position:absolute;top:624;left:72"><nobr><span class="ft0">Here are three different ways of coding a model for an individual’s value of clearance:</span></nobr></DIV>
+<DIV style="position:absolute;top:641;left:72"><nobr><span class="ft0">1.</span></nobr></DIV>
+<DIV style="position:absolute;top:643;left:102"><nobr><span class="ft2"><b>TVCL=THETA(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:102"><nobr><span class="ft2"><b>CL=TVCL+ETA(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:72"><nobr><span class="ft0">2.</span></nobr></DIV>
+<DIV style="position:absolute;top:672;left:102"><nobr><span class="ft2"><b>CL=THETA(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:102"><nobr><span class="ft2"><b>CL=CL+ETA(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:700;left:72"><nobr><span class="ft0">3.</span></nobr></DIV>
+<DIV style="position:absolute;top:702;left:102"><nobr><span class="ft2"><b>CL=THETA(1)+ETA(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-77-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

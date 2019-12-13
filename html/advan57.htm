@@ -1,0 +1,92 @@
+<HTML><HEAD> <TITLE> advan57.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           ADVAN5 ADVAN7                            |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Choice of Pharmacokinetic Model for PREDPP
+ CONTEXT: Option of NM-TRAN $SUBROUTINES record
+
+ USAGE:
+ $SUBROUTINES [ADVAN=]ADVAN5
+
+ SAMPLE:
+ $SUBROUTINE ADVAN5
+
+ DISCUSSION:
+ ADVAN5 and ADVAN7 are routines in PREDPP's library which implement the
+ general linear model.  The general linear model is used for systems in
+ which  a  drug is distributed between compartments according to linear
+ processes.  ADVAN7 may be used when the eigenvalues of the  rate  con-
+ stant  matrix are known to be real (which is true for many pharmacoki-
+ netic systems such as mammillary models).  It is generally faster than
+ ADVAN5.
+
+ A  $MODEL  record  is  required to describe the compartments and their
+ attributes.  The $PK record (or, if  a  user-supplied  PK  routine  is
+ used, the $MODEL record) describes how the compartments are linked.
+
+ TRANS routines that may be used: TRANS1
+
+ Suppose  there  are m compartments in the system, including the output
+ compartment.
+
+ Basic PK parameters with TRANS1:
+
+      Kij (rate constant from compartment i to compartment j)
+      Ki0 (alternate name for Kim)
+
+      The letter T may be used as a separator between the two  compart-
+      ment numbers, e.g., KiTj.  The letter T is optional when there is
+      no ambiguity, but required when there are two possible  interpre-
+      tations  of  the  numbers  that follow K.  E.g., with 12 compart-
+      ments, K111 is ambiguous.  It should be  coded  K1T11  or  K11T1,
+      depending  if  it symbolizes the rate constant from compartment 1
+      to compartment 11 or from compartment 11 to compartment 1.
+
+ Additional PK parameters:
+
+ For each compartment n in the system (n=1, ..., m):
+
+      Sn - Scale for nth compartment
+      S0 - Alternate name for scale for output compartment
+
+ For each dosable compartment n in the system:
+
+      Fn - Bioavailability for nth compartment
+      Rn - Rate for nth compartment
+      Dn - Duration for nth compartment
+      ALAGn - Absorption lag for nth compartment
+
+ Other additional PK parameters:
+
+      F0 - Output fraction (also called Fm, FO)
+      XSCALE - Time scale
+      MTIME(i) - Model event times
+
+ Required PREDPP Library subroutines:
+ ADVAN5 - REXPON, RXSUBS
+ ADVAN7 - RRXPON, RXSUBS
+
+ Notes:
+
+ 1    Analytical second derivatives used with the Laplacian method  are
+      not  obtained  with  ADVAN5 and ADVAN7.  Numerical second deriva-
+      tives must be used.
+
+REFERENCES: Guide VI Section <a href="VI/VII.html#C.5.">VII.C.5<a/>, <a href="VI/VII.html#C.7.">VII.C.7<a/>
+REFERENCES: Guide IV Section <a href="IV/V.html#C.4.">V.C.4<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

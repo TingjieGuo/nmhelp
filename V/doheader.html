@@ -1,0 +1,5 @@
+#
+echo This does not work well on Mac 4/2011
+soelim header >.tmp
+rm -r html.dir
+(groff  -t -e -ms -P -D -P html.dir -Thtml .tmp > v.html) |& grep -v IX >& errs

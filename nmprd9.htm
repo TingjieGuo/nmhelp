@@ -1,0 +1,40 @@
+<HTML><HEAD> <TITLE> nmprd9.for</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                            PASS: PASSRC                            |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: NONMEM-PRED global variables
+ CONTEXT: PRED routine
+
+ USAGE:
+      USE NMPRD_REAL, ONLY: PASSRC
+
+ GLOBAL DECLARATION:
+      USE SIZES, ONLY: VSIZE,DPSIZE
+      REAL(KIND=DPSIZE) :: PASSRC(VSIZE)
+
+ DISCUSSION:
+
+  PASSRC
+      PASSRC  contains  the  data  record  at  ICALL values 0, 1 and 3.
+      PASSRC changes in conjunction with calls to PASS, at  which  time
+      transgeneration is permitted.
+
+ Location prior to NONMEM 7: nmprd9
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

@@ -1,0 +1,66 @@
+<HTML><HEAD> <TITLE> id.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                     ID .ID. AND L1 DATA ITEMS                      |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Identification (ID) data item for NONMEM
+ CONTEXT: $INPUT record and NONMEM data set
+
+ USAGE:
+ $INPUT ... ID ...
+
+ DISCUSSION:
+ ID, .ID. and L1 are labels for NONMEM's identification data item.
+
+ ID   The  observations  in the data set are divided into groups called
+      level-one observations.  These groups may have  different  sizes.
+      Level-one  observations  are treated as being statistically inde-
+      pendent multivariate observations.
+
+      Because there can be at most one scalar observation on  any  data
+      record,  the  identification  (ID)  data  item  is  used to group
+      together the data records containing the scalar observations com-
+      prising  a level-one observation.  Using NM-TRAN, the identifica-
+      tion data item is given the label ID in  the  $INPUT  record.   A
+      contiguous set of data records with the same value of ID are col-
+      lectively called an individual record (also called an L1 record),
+      and  this  record "contains" one level-one observation.  A change
+      in ID value indicates the start of a new individual record.
+
+      When every level-one observation  consists  of  a  single  scalar
+      observation, so that the entire level-one observation can be con-
+      tained in a single data record, ID data items are  not  generally
+      required.   However,  they  are always required when the data are
+      population data and PREDPP is used.
+
+ .ID. When the data are single-subject data and PREDPP is used, NM-TRAN
+      automatically  generates the ID data items and provides the label
+      .ID. for the NONMEM control stream.  (Or if L2 data items appear,
+      these  are  taken  to  be the ID data items.)  If the ID label is
+      given in the $INPUT record,  NM-TRAN  ignores  it,  and  it  also
+      ignores the data items associated with this label.
+
+ L1   Using  NM-TRAN,  the  identification  data  item may be given the
+      label L1 in the $INPUT record.  Use of L1 as a label  or  synonym
+      (e.g.  ID=L1)  in the $INPUT record specifies that the associated
+      data items are to be used as the identification data  items  and,
+      if  the data are single-subject data, the automatic generation of
+      the identification data items is suppressed.
+
+REFERENCES: Guide I Section <a href="I/B.html#1.">B.1<a/>
+REFERENCES: Guide IV Section <a href="IV/II.html#C.4.">II.C.4<a/>, <a href="IV/III.html#B.2.">III.B.2<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

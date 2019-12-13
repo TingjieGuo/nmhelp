@@ -1,0 +1,103 @@
+<HTML><HEAD> <TITLE> xmlcomp.sup</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                            XML_COMPARE                             |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: XML_COMPARE program
+ CONTEXT: NONMEM run
+
+ The  utility  program  xml_compare compares the contents of two NONMEM
+ report XML files that are produced by NONMEM.
+
+ USAGE:
+ xml_compare myresult1.xml myresult2.xml myprecision.xtl &gt;mydifferences.txt
+
+ where delimiter is {, t s} for {comma tab space}, and  myprecision.xtl
+ is  a  precision  specification or control file.  Default delimiter is
+ space and default control file is xml_compare.xtl.  It  is  useful  to
+ redirect  difference  results  to  a  file,  in this example mydiffer-
+ ences.txt.
+
+ The control file can be quite elaborate, but it  allows  specification
+ of  various precision values for the many different types of values in
+ the NONMEM report XML file, and to ignore certain entries as well.  An
+ example  xml_compare.xtl  file  is  in the util directory, and has the
+ following contents:
+
+ $IGNORE
+ monitor
+ elapsed_time
+ datetime
+ covariance_status
+ termination_status
+ nonmem(version)
+ $PRECISION
+ GENERAL=0.2,0.2 OBJ_BAYES=2.0,0.0 OBJ_SAEM=0,100.0
+ OBJ_ITS=0,5.0 OBJ_IMP=0,10.0 OBJ_F=0,5.0
+ DIAG=0.3,0 OFFDIAG=0,0.5 COR=0.0,0.3 VAR=0.3,0.1 COV=-1.0
+ EIGENVALUES=2.0,0 OBJ_DIRECT=0,100.0
+ correlation_o=-1.0 INVCOVARIANCE_O=-1 INVCOVARIANCE_D=-1
+ etashrink=0,20 epsshrink=0,10
+ METHOD=DIRECT ALL=-1
+ METHOD=SAEM epsshrink=0,20
+
+ The $IGNORE record will ignore all elements that are listed, or just a
+ specific attribute of an element, such as nonmem(version).
+
+ Under the $PRECISION record, a
+ GENERAL=R,A
+
+ can be given for most items, where relative is the relative tolerance,
+ and absolute is the absolute tolerance.  Following the GENERAL  speci-
+ fication, tolerances may be specified for other items.
+
+ Two items of identical element and attributes are compared between the
+ two files, where the equation for comparison is, between  value  X  of
+ xml file 1 and value Y of xml file 2,
+
+ ABS(X-Y)&gt;R*MAX(ABS(X),ABS(Y))+A
+
+ The  OBJ_BAYES is given a special test, as it has a standard deviation
+ with it:
+
+ STD(X,Y)=SQRT(STD(X)2+ STD(Y)2)
+ ABS(X-Y)&gt;R*STD(X,Y)+A
+ In the above example OBJ_BAYES=(2,0) means that if the Bayes objective
+ functions  in the two files differ by more than 2 standard deviations,
+ then the difference is noted.
+
+ To ignore an item for comparison, specify -1.   To  specify  an  exact
+ comparison,  use  0,0.   To refer to a particular optimization method,
+ then enter METHOD=SAEM for example, and  thereafter,  all  entries  of
+ items pertain to that estimation method, until METHOD is changed.
+
+ The METHOD attribute may have one of the following settings:
+
+ FOCE, ITS, IMP, SAEM, DIRECT, BAYES
+
+ For the total list of items, and their scope:
+
+ See INTRODUCTION  TO NONMEM 7, xml_compare Utility Program and its Use
+ for Installation Qualification
+
+ Because of the versatility of selecting which items are to be compared
+ and with what precision, the xml_compare program can be used for batch
+ processing installation qualification procedures, in comparing  NONMEM
+ results  of  a test run against a reference run.  All results given in
+ the standard NONMEM output file are also reported in the XML file.
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

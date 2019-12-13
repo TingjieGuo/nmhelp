@@ -1,0 +1,61 @@
+<HTML><HEAD> <TITLE> mult.utl</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                                MULT                                |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: MULT subroutine
+ CONTEXT: NONMEM utility routine
+
+ USAGE:
+      USE SIZES, ONLY: DPSIZE
+      REAL(KIND=DPSIZE) :: A,B
+      CALL MULT (A,B)
+
+ DISCUSSION:
+ MULT  is  a  NONMEM  utility  routine  that may be called by PRED.  It
+ allows reweighting of the objective  function.   That  is,  it  allows
+ terms  A(i)  and  B(i)  of the contribution to the (default) objective
+ function of the ith individual to be set  to  values  other  than  the
+ defaults,  which are 1.  A(i) multiplies the logarithm of the determi-
+ nant of the variance - covariance matrix for the  ith  individual  and
+ B(i)  multiplies the sum of the squared weighted residuals for the ith
+ individual.
+
+ Input argument:
+
+ A    A variable or constant.
+
+ B    A variable or constant.
+
+ To set A(i) and B(i) to values a and b for the  ith  individual,  PRED
+ should  issue a single call to MULT during any one or more calls to it
+ from NONMEM where ICALL is 2 and some data record from the  ith  indi-
+ vidual is in DATREC.
+
+ At these calls, set A=a and B=b.
+
+ At least one such call to MULT must be issued for each individual.  If
+ more than one such call is issued for the same individual, then A  and
+ B should have the same values across all such calls.
+
+ MULT  can be used whenever ELS is called.  MULT can also be used when-
+ ever NCONTR is called and NCONTR calls CELS.  NCONTR calls CELS  when-
+ ever  CCONTR  is  not called, or when CCONTR is called and CCONTR only
+ calls CELS.
+
+REFERENCES: Guide II Section <a href="II/D.html#4.">D.4<a/>, <a href="II/D.html#4.3.">D.4.3<a/>
+REFERENCES: Guide II <a href="II/fig.html#Figure_20">Figure 20<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

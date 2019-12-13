@@ -1,0 +1,87 @@
+<HTML><HEAD> <TITLE> signal.sup</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               SIGNAL                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: SIGNAL program
+ CONTEXT: NONMEM run
+
+ Program  SIGNAL  is  a  NONMEM utility program.  It allows the user to
+ send a signal to NONMEM while it is running.
+
+ USAGE:
+      signal X
+
+ The following signals may be sent:
+
+  Print toggle: J,R, or P
+  Paraprint toggle: B,A, PA, or PP
+  Next: K or N
+  Stop: E or S
+  Subject Print toggle: T, U, or SU
+
+ DISCUSSION:
+
+ Sometimes NONMEM does not respond to user  input  via  the  ctrl  key.
+ This may occur during a parallel distribution run using MPI, or if the
+ user began NONMEM with the -background  switch.   The  user  may  open
+ another  console  window, copy the program signal.exe (signal in UNIX)
+ from the NONMEM util directory to your run directory, then  enter  any
+ one of these commands:
+
+ Print toggle (monitor estimation progress):
+ signal J
+ signal R
+ signal P
+
+ Paraprint toggle (monitor parallel processing traffic):
+ signal B
+ signal A
+ signal PA
+ signal PP
+
+ Next  (move  on  to next estimation mode or next estimation): signal K
+ signal N
+
+ Stop (end the present run cleanly):
+ signal E
+ signal S
+
+ Subject print toggle:
+ signal T
+ signal U
+ signal SU
+
+ These create one of these files in the current (run) directory:
+ sig.print
+ sig.paraprint
+ sig.next
+ sig.stop
+ sig.subject
+
+ The multiple signals are synonyms.  For example, ctrl-T  is  the  key-
+ board switch, so signal t should match this.  Also, since it is a sub-
+ ject toggle, signal s or signal su are synonyms, suggesting Subject.
+
+ The signal command creates the signal files, and  the  nonmem  program
+ detects the signal file, and immediately deletes it.
+
+ A  second  argument is permitted to specify the run directory, in case
+ you are not executing the signal program from the run directory.
+ signal N  /nonmem/
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

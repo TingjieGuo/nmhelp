@@ -1,0 +1,108 @@
+<HTML><HEAD> <TITLE> noncon.fil</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                       NONMEM CONTROL STREAM                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: NONMEM control records
+ CONTEXT: NONMEM input file
+
+ DISCUSSION:
+ NONMEM control records contain the instructions to NONMEM.  The set of
+ control records is called the NONMEM control stream.  These  are  dif-
+ ferent from NM-TRAN control records.
+
+ When  NM-TRAN  is used, NM-TRAN creates the NONMEM control stream in a
+ file named FCON.  When NM-TRAN is not used, the user  must  create  it
+ himself.
+
+ Each  NONMEM  control  record  begins  with a 3 or 4-character preface
+ (record label) which identifies the record.  They are listed  here  in
+ the same order in which they must appear in the NONMEM control stream.
+ For details of the contents of the records, see NONMEM Users  Guide  V
+ "Introductory Guide", Appendix 4 - NONMEM Control Records (FCON).
+
+ Record type                    Prefix   Corresponding NM-TRAN record
+ FILE                           FILE     none
+ SUPER PROBLEM                  SUPR     $SUPER
+ PROBLEM                        PROB     $PROBLEM
+ DEFAULT                        DFLT     $DEFAULT
+
+ Data set specification records
+ DATA                           DATA     $DATA
+ ITEM                           ITEM     $INPUT
+ INDEX                          INDX     $INDEX
+ LABEL                          LABL     $INPUT,$TABLE,$SCATTER
+ EXTRA EVID                     XVID     $INPUT
+ FORMAT                         FORM     $DATA
+
+ Model specification records
+ FIND                           FIND     $MSFI
+ VERSION                        MSFV     $MSFI
+ STRUCTURE                      STRC     $THETA, $OMEGA, $SIGMA
+ LEVEL                          OLEV     $LEVEL
+
+ Initial estimate records
+ THETA CONSTRAINT               THCN     $THETA
+ THETA                          THTA     $THETA
+ LOWER BOUND                    LOWR     $THETA
+ UPPER BOUND                    UPPR     $THETA
+ DIAGONAL                       DIAG     $OMEGA, $SIGMA
+ BLOCK SET                      BLST     $OMEGA, $SIGMA
+ ETA VALUES                     ETA      $ETAS
+ PHI VALUES                     PHI      $PHIS
+ CHAIN                          CHN      $CHAIN
+ CHAIN FILE                     CFIL     $CHAIN
+ CHAIN DELIMITER                CDLM     $CHAIN
+ CHAIN Order                    ORDR     $CHAIN
+ CHAIN PARAFILE                 CHFL     $CHAIN (not used)
+ OMEGA VALUES                   ANNL     $ANNEAL
+
+ Task specification records
+ SIMULATION                     SIML     $SIMULATION
+ RANDOM SOURCE                  SORC     $SIMULATION
+ SIMULATION PARAFILE            SFIL     $SIMULATION
+ ESTIMATION                     ESTM     $ESTIMATION
+ ESTIMATION                     BEST     $ESTIMATION
+ ESTIMATION PARAFILE            BFIL     $ESTIMATION
+ ESTIMATION PARAFILE            PFIL     $ESTIMATION
+ ESTIMATION FPARAFILE           FFIL     $ESTIMATION
+ ZERO                           ZERO     $ESTIMATION
+ OMIT                           OMIT     $OMIT
+ ESTIMATION GRID                GRID     $ESTIMATION
+ NONPARAMETRIC                  NONP     $NONPARAMETRIC
+ COVARIANCE                     COVR     $COVARIANCE
+ COVARIANCE                     COVT     $COVARIANCE
+ COVARIANCE PARAFILE            CPAR     $COVARIANCE
+ TABLE                          TABL     $TABLE
+ TABLE PARAFILE                 PPAR     $TABLE
+ SCATTERPLOT                    SCAT     $SCATTERPLOT
+
+ Output specification records
+ ESTIMATION DELIMITER           BDLM     $ESTIMATION
+ ESTIMATION MUM                 BMUM     $ESTIMATION
+ ESTIMATION GRD                 BGRD     $ESTIMATION
+ ESTIMATION ORDER               ORDR     $ESTIMATION
+ LFORMAT                        FRML     $TABLE
+ RFORMAT                        FRMR     $TABLE
+ ADDITIONAL DIAGNOSTIC LABELS   LBW1     $TABLE,$SCATTER
+ SYMBOLIC LABELS                LTHT     $ABBR REPLACE
+ SYMBOLIC LABELS                LETA     $ABBR REPLACE
+ SYMBOLIC LABELS                LEPS     $ABBR REPLACE
+
+REFERENCES: Guide I Section <a href="I/B.html#2.">B.2<a/>
+REFERENCES: Guide V Appendix <a href="V/A4.html">4<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

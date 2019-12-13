@@ -1,0 +1,42 @@
+<HTML><HEAD> <TITLE> rocm8.for</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                      OBJECTIVE FUNCTION VALUE                      |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: NONMEM read-only global variables
+ CONTEXT: PRED routine
+
+ USAGE:
+      USE ROCM_REAL, ONLY: OBJECT
+
+ GLOBAL DECLARATION
+      USE SIZES, ONLY: DPSIZE
+      REAL(KIND=DPSIZE) :: OBJECT
+
+ DISCUSSION:
+
+ OBJECT
+      The final value of the objective function.
+
+ This value should only be used at ICALL = 3 (finalization block).
+
+ May be used as a right-hand quantity in abbreviated code.
+
+ Location prior to NONMEM 7: rocm8
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

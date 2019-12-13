@@ -1,0 +1,78 @@
+<HTML><HEAD> <TITLE> raw.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           RAW_ DATA ITEM                           |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Raw-data (RAW_) data item
+ CONTEXT: $INPUT record and NONMEM data set
+
+ USAGE:
+ $INPUT ... RAW_ ...
+
+ DISCUSSION:
+ RAW_ labels NONMEM's raw-data (RAW) data item.  The raw-data data item
+ is optional.  With a nonobservation record (i.e.  MDV=1)  it  controls
+ the definition of the value of the DV item associated with that record
+ that appears in tables or scatterplots (whereas without  the  raw-data
+ item, this DV item is the one in the original data set).  Basically, 0
+ means the displayed DV item is that in the original data  set,  and  1
+ means the DV item is the raw-data-average of original DV items.
+
+ Values are:
+
+ 0    The data record is not a template record.
+
+ 1    The  data record serves as a template record, aiding in the defi-
+      nition of the (particular)  raw-data-average.   The  DV  and  RES
+      items become the raw-data-average and the difference between this
+      average and the PRED item, respectively.  The average is over all
+      observations  in  all  other  data records with user-defined data
+      items matching (i.e. equal to) those occurring  in  the  template
+      record.   (A user-defined data item is a data item not recognized
+      by NONMEM, i.e., not one of ID, L2, DV, MDV, RAW_, MRG_.  It  may
+      be a PREDPP data item.  Specific user-defined data item types may
+      be excluded from the match; see the $OMIT record.)   The  average
+      is  a  two-stage  average; it is the average of within-individual
+      averages.
+
+      Any PRED-defined item stored in the SAVE region and displayed  in
+      a  table  or  scatterplot is handled as is the DV item; it too is
+      replaced by an average of the  corresponding  PRED-defined  items
+      obtained  with observation records.  Thus, several different raw-
+      data-averages can be defined (using the same template).
+
+ With RAW_=1, MDV must also be 1 or 101.  This use of  MDV=1  does  not |
+ prevent,  as  would  ordinarily happen, the DV or RES items from being
+ plotted.
+
+ A plot of DV, RES (and of any PRED-defined item  stored  in  the  SAVE
+ region)  will only include points from records with RAW_=1, unless one
+ explicitly partitions on RAW_.
+
+ If PREDPP is used and NM-TRAN generates MDV, MDV is set to 1  if  RAW_
+ is 1.  If PREDPP is used, NM-TRAN sets RAW_ to 0 (if it is not already
+ 0) when EVID is not equal to 0.
+
+ Warning: If PREDPP is used and NM-TRAN generates EVID, it sets  EVID=2 |
+ for records with MDV=1 and no dosing information.  This causes RAW_ to |
+ be set to 0.  When RAW_ is used, the data set should include  MDV  and |
+ EVID data items.  The values should be MDV=1 and EVID=0 when RAW_&gt;0.
+
+ (See <A HREF="d.htm#data_average_example">data average example</A>, <A HREF="d.htm#data_average_block">data average block</A>).
+
+ REFERENCES: none.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

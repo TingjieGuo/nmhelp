@@ -1,0 +1,93 @@
+<HTML><HEAD> <TITLE> ylo.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                            YLO EXAMPLE                             |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ In  this  example,  blood  concentrations below a known quantification
+ limit (BQL) have been  eliminated  from  the  analysis.   A  one-sided
+ interval  with  lower  boundary  equal  to the quantification limit is
+ defined.  The conditional likelihood for  an  observation  is  "condi-
+ tioned"  on values of the population parameters and also on the condi-
+ tion that the observation is inside the one-sided interval.
+ (See <A HREF="p.htm#pr_y">pr_y</A>, <A HREF="y.htm#ylo_yup">YLO YUP</A>)
+ (See <A HREF="y.htm#ylo_yup">YLO YUP</A> Probability: PR_Y).
+
+ Here is an NM-TRAN control stream.
+
+ $PROB YLO example
+ $INPUT ID TIME DV AMT EVID MDV
+ $DATA ylow.dat IGNORE=C
+ $SUBROUTINES ADVAN=1 TRANS=2
+ $PK
+ CL=THETA(1)*EXP(ETA(1))
+ V=THETA(2)*EXP(ETA(2))
+ K=CL/V
+ S1=V
+
+ $ERROR
+ ; Limit of Quantification (LOQ) is 1
+ ; DV's below LOQ are given MDV=1 in dataset
+ ; PR_Y (PRB) is probability that DV is &gt; LOQ
+ ; PR_Y (PRB) is provided even if MDV is 1
+
+     YLO=1
+     PRB=PR_Y
+     Y = F+ERR(1)
+
+ $THETA
+ (0,0.693); CL
+ (0,24); V
+ $OMEGA
+ 0.09
+ 0.09
+ $SIGMA
+  .5
+ $ESTIMATION
+       MAXEVAL=9999
+       NSIG=4
+       METHOD=COND INTERACTION LAPLACIAN
+       PRINT=5
+ $TABLE ID TIME AMT MDV EVID PRB
+   NOPRINT
+   ONEHEADER
+   FILE=ylo.tab
+
+ Here is a segment of the dataset for a subject with last DV &lt; LOQ
+
+       ID    TIME     DV      AMT   EVID     MDV
+        .      .       .       .      .       .
+        .      .       .       .      .       .
+        .      .       .       .      .       .
+        2       0       0     100     1       1
+        2   0.333    2.47       0     0       0
+        2       2    3.26       0     0       0
+        2       6    2.32       0     0       0
+        2  15.917    2.46       0     0       0
+        2      24       0     100     1       1
+        2      48       0     100     1       1
+        2      72       0     100     1       1
+        2  95.917    4.04       0     0       0
+        2      96       0     100     1       1
+        2   96.08    8.85       0     0       0
+        2     120    3.16       0     0       0
+ C Last observation record (below) has DV &lt; LOQ (LOQ = 1) and MDV = 1
+ C This observation does not contribute to the -2LL estimate. However,
+ C probability that DV is &gt; LOQ can be tabled using PRB=PR_Y.
+        2     168   0.163       0     0       1
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

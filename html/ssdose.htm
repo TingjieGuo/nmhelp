@@ -1,0 +1,92 @@
+<HTML><HEAD> <TITLE> ssdose.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        SS DOSE EVENT RECORD                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Specification of steady-state dose for PREDPP
+ CONTEXT: $INPUT record and NONMEM data set
+
+ DISCUSSION:
+ PREDPP  recognizes two varieties of doses, transient and steady-state.
+ Transient doses are described  separately  (See <A HREF="d.htm#dose_event">dose_event</A>).   Steady-
+ state doses are described here.
+
+ A  steady-state  dose  is  a dose that is imagined to be the last of a
+ series of implied doses, each exactly like the dose in question, given
+ at  a  regular  interval  specified by the II data item and leading to
+ steady-state by the time the steady-state dose is given.
+
+ For steady-state doses, the SS data item must be defined and  positive
+ (See <A HREF="s.htm#ss_data_item">ss_data_item</A>).
+
+ The  ADDL data item may be used on the SS dose event record to specify
+ additional transient doses after the steady-state dose, given  at  the
+ interval II.
+
+ The  CMT data item (See <A HREF="c.htm#cmt">cmt</A>) applies to steady-state doses as to tran-
+ sient doses.
+
+ PK parameters absorption lag (ALAGn),  bioavailability  (Fn),  modeled
+ rates  (Rn)  and modeled durations (Dn) apply to steady-state doses as
+ they do to transient doses, except as noted.
+
+ When absorption lag applies, it is understood to apply to all  implied
+ doses.   Steady-state  is  computed as if there were no ALAG, and then |
+ there is an advance to the appropriate point in the steady-state cycle |
+ (II-ALAG).                                                             |
+ See Guide VI, Section V.F.4, Note 4                                    |
+
+ MTIME parameters do not apply to steady-state doses.                   |
+ See Guide VI, Section V.F.4, Note 3                                    |
+
+ When bioavailability applies, it is understood to apply to all implied
+ doses.
+
+ Values of AMT, RATE, II data items:
+
+ AMT   RATE      II
+
+ &gt;0    0         &gt;0   Steady-state with multiple bolus doses.
+
+ &gt;0    &gt;0        &gt;0   Steady-state with multiple infusions.
+                      The final infusion is started at the event time of
+                      the  SS dose record and continues beyond its event
+                      time.  (More than one infusion continues when  the
+                      duration  of  the steady-state infusion is greater
+                      than II.)
+
+ &gt;0    -1,-2     &gt;0   Steady-state with multiple zero-order bolus doses.
+                      The final infusion is started at the event time of
+                      the  SS dose record and continues beyond its event
+                      time.  (More than one infusion continues when  the
+                      duration  of  the steady-state infusion is greater
+                      than II.)
+
+ 0     0,&gt;0,-1   0    Steady-state with constant infusion.
+                      The infusion terminates at the event time  of  the
+                      SS dose record.  The ADDL data item cannot be used
+                      to specify additional transient doses.  Doses with
+                      rate  0 are useful when the differential equations
+                      coded by the user explicitly provide  for  endoge-
+                      nous drug production.
+                      (The  Initial  Steady  State feature (I_SS) may be |
+                      specified in the model instead of using a  steady- |
+                      state dose record with rate 0.)
+
+REFERENCES: Guide VI Section <a href="VI/V.html#F.">V.F<a/>
+REFERENCES: Guide V Section <a href="V/6.html#8.">6.8<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

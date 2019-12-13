@@ -1,0 +1,132 @@
+<HTML><HEAD> <TITLE> nonmemo.fil</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        NONMEM OUTPUT FILES                         |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: NONMEM output files
+ CONTEXT: NONMEM output file
+
+ DISCUSSION:
+
+ NONMEM produces several output files.
+
+ First  is  the NONMEM report file.  The name of this file is specified
+ by the user on the nmfe command.  Help entries  describe  the  various
+ sections of the report.
+
+ (See <A HREF="d.htm#data_set">DATA_SET</A>,DATA_RECORDS,DATA_ITEMS).
+ (See <A HREF="i.htm#initial_estimate">INITIAL_ESTIMATE</A>,MONITORING_OF_SEARCH).
+ (See <A HREF="m.htm#minimum_value_of_obj._function">MINIMUM_VALUE_OF_OBJ._FUNCTION</A>,FINAL_PARAMETER_ESTIMATE).
+ (See <A HREF="e.htm#etabar">ETABAR</A>,STANDARD_ERROR_OF_ESTIMATE).
+ (See <A HREF="s.htm#shrinkage">SHRINKAGE</A>).
+ (See <A HREF="c.htm#correlation_matrix_of_estimate">CORRELATION_MATRIX_OF_ESTIMATE</A>,COVARIANCE_MATRIX_OF_ESTIMATE).
+
+ With  NONMEM  7,  tag labels are present in the report file to allow a
+ third-party program to find the  appropriate  positions  in  the  file
+ without  having  to  search  for  specific words in the text.  (a more
+ efficient way of extracting numerical results  from  the  analysis  is
+ from  the  raw  and  additional output files (see below)).  Tag labels
+ are:
+
+ #PARA (NM72)
+      This tag identifies the parallelization file and number of  nodes
+      used, if parallel estimation is performed.
+
+ #TBLN (NM72)
+      This  tag  specifies that following it, on the same line, will be
+      found an integer that refers to the  number  of  this  estimation
+      method.  This number is also the table number listed in the title
+      to tables in the various output files  (raw  output  file,  .cov,
+      .cor, etc).  The table number is incremented for each $EST state-
+      ment, across all problems in the control stream file.
+
+ #METH
+      This tag specifies that following it, on the same line,  will  be
+      found  a  text that describes the method, for example First Order
+      Conditional Estimation Method with Interaction.
+
+ #TERM
+      This tag  indicates  that  beginning  on  the  next  lines,  text
+      describes the termination status of the analysis.
+
+ #TERE
+      This  tag  indicates the end of the lines describing the termina-
+      tion status of the analysis.  Thus, a software program may trans-
+      fer all lines between #TERM: and #TERE: to a summary file.
+
+ #OBJT
+      Indicates  that  following  it,  on  the  same  line, is the text
+      describing the objective  function,  such  as  Minimal  Value  Of
+      Objective Function.
+
+ #OBJV
+      Indicates  that  following it, on the same line, is the objective
+      function value.
+
+ #OBJS
+      Indicates that following it, on the same line, is  the  objective
+      function standard deviation (MCMC Bayesian analysis only).
+
+ #OBJN (NM73)
+      Indicates that following it, on the same line, is the nonparamet-
+      ric objective function value.
+
+ #CPUT (NM73)
+      Total CPU time.  It is an accurate representation of the computer
+      usage, whether single or parallel process.  The same problem when
+      run singly or in parallel will report a similar cpu  time.   This
+      is  in  contrast with elapsed time, which is improved with paral-
+      lelization.
+
+ With NONMEM 7, raw and additional output files are generated  to  cap-
+ ture parts of the report file.
+
+ The raw output file is called root.ext, or named by the FILE option of
+ the $ESTIMATION record.
+ (See <A HREF="r.htm#raw_output_file">raw_output_file</A>).
+
+ The additional output files capture portions of the report file.
+ (See <A HREF="a.htm#additional_output_file">additional_output_file</A>).
+ They are:
+
+ root.cov
+ root.clt (NM74)
+ root.cor
+ root.coi
+ root.phi
+ root.phm (NM72)
+ root.shk (NM72)
+ root.shm (NM73)
+ root.grd (NM72)
+ root.xml (NM72)
+ root.cnv (NM72)
+ root.smt (NM72)
+ root.rmt (NM72)
+ root.imp (NM73)
+ root.npd (NM73)
+ root.npe (NM73)
+ root.npi (NM73)
+ root.npl (NM74)
+ root.fgh (NM73)
+ root.agh (NM73)
+ root.cpu (NM73)
+ root.vpd (NM74)
+ root.ets (NM74)
+ msfroot_ETAS
+ msfroot_RMAT, msfroot_SMAT (NM73)
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

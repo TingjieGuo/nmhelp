@@ -1,0 +1,142 @@
+<HTML><HEAD> <TITLE> advan9_15.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                             ADVAN9_15                              |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Choice of Pharmacokinetic Model for PREDPP
+ CONTEXT: Option of NM-TRAN $SUBROUTINES record
+
+ USAGE:
+ $SUBROUTINES [ADVAN=]ADVAN9
+ $SUBROUTINES [ADVAN=]ADVAN15
+
+ SAMPLE:
+ $SUBROUTINE ADVAN9
+ $SUBROUTINE ADVAN15
+
+ DISCUSSION:
+ ADVAN9  and  ADVAN15  are routines in PREDPP's library which implement
+ the general non-linear model with equilibrium compartments.  This gen-
+ eral  non-linear model is used for systems in which a drug is distrib-
+ uted between compartments according to a system of first-order differ-
+ ential-algebraic processes.  It may be useful when the system consists
+ of only stiff differential equations, and  there  are  no  equilibrium
+ compartments (i.e., no algebraic equations).  It may also be used when
+ the system consists of only algebraic equations (i.e., no differential
+ equations).
+
+ A  $MODEL  record  is  required to describe the compartments and their
+ attributes.  The $DES record describes the differential equations,  if
+ any.   The $AES and $AESINITIAL records describe the algebraic expres-
+ sions, if any.
+
+ TOL is required; (See <A HREF="$.htm#$subroutines">$SUBROUTINES</A>).
+
+ TRANS routines that may be used: TRANS1
+
+ Explicit Basic PK parameters:
+
+      P(n) (nth basic PK parameter)
+
+ Implicit basic PK parameters:
+
+      PK-defined variables used also in $AES or $DES blocks
+
+ Additional PK parameters:
+
+ Suppose there are m compartments in the system, including  the  output
+ compartment.  For each compartment n in the system (n=1, ..., m):
+
+      Sn - Scale for nth compartment
+      S0 - Alternate name for scale for output compartment
+
+ For each dosable compartment n in the system:
+
+      Fn - Bioavailability for nth compartment
+      Rn - Rate for nth compartment
+      Dn - Duration for nth compartment
+      ALAGn - Absorption lag for nth compartment
+
+ Other additional PK parameters:
+
+      F0 - Output fraction (also called Fm, FO)
+      XSCALE - Time scale
+      MTIME(i) - Model event times
+
+ With  NONMEM  7.4,  ATOL may be specified for ADVAN9 and ADVAN15.  TOL
+ (relative tolerance) and ATOL (Absolute tolerance) may be specified on
+ the  $SUBROUTINE  record,  the  $TOL record, or by a user-supplied TOL
+ subroutine.  See also the ATOL option of the $ESTIMATION and  $COVARI-
+ ANCE records.
+
+ ATOL  is  not  required.   The  default  is  12  (that is, accuracy is
+ 10**(-12)).  Usually the problem runs quickly when using this setting.
+ On  occasion,  however,  you  may  want to reduce ATOL (usually set it
+ equal to that of TOL), and improve speeds of up to 3 to 4 fold.
+
+ With ADVAN9, the user may find that  the  TOL  option  should  specify
+ larger  NRD  values than for other ADVANs (e.g., ADVAN6).  Values of 7
+ or 8 may not be unreasonable.
+
+ Reserved variable MXSTEP (the  maximum  number  of integration  steps)
+ can  be  specified  for ADVAN9 and ADVAN15, as well as for ADVAN13 and
+ ADVAN14.
+ (See <A HREF="m.htm#mxstep">mxstep</A>).
+
+ With ADVAN9, if there is a period of time during which  some  compart-
+ ment's  amount  should be zero, that compartment should be turned off.
+ Otherwise, very small amounts can appear in the compartment, which can
+ cause difficulties during subsequent time periods.
+
+ By  default,  the  initial  conditions (i.e., compartment amounts) are
+ zero at the start of each individual record. Different initial  condi-
+ tions may be specified using a compartment initialization block in PK.
+ When endogenous drug is provided in the differential  equations,  non-
+ zero  initial  conditions  can  be  computed using a steady-state dose
+ event record with SS&gt;0 and AMT=0 and RATE=0, or using the  I_SS  (Ini-
+ tial  Steady State) feature of MODEL and/or PK.  Note that with either
+ method, steady-state is computed only for  compartments  specified  by
+ differential equations.  The equilibrium compartments are not computed
+ (i.e., the algebraic equations are not evaluated) until the system  is
+ advanced beyond the initial value of TIME.
+ (See <A HREF="c.htm#compartment_initialization_block">Compartment_Initialization_Block</A>, <A HREF="s.htm#ss_dose_event_record">SS_dose</A>).
+ (See <A HREF="$.htm#$model">$model</A>, $pk, model, pk).
+ (See <A HREF="i.htm#initial_steady_state:_i_ss_issmod">Initial_Steady_State:_I_SS</A>,ISSMOD).
+
+ ADVAN9  uses  the Lawrence Livermore National Laboratory (LLNL) solver
+ for differential-algebraic equations, implicit form (LSODI), using the
+ backward differentiation formulas (BDF) for stiff problems.
+
+ ADVAN15  uses IDA from the LLNL SUNDIALS system for differential-alge-
+ braic equations and is a descendent of  the  LSODI1  (ADVAN9)  system.
+ ADVAN15  also  has  a  root-finding algorithm.  The user may choose to
+ make modifications to parameters in ..\pr\IDAU.f90.
+ See ..\guides\idas_guide.pdf and ..\guides\ida_guide.pdf.
+ See INTRODUCTION TO NONMEM 7, section "$SUBROUTINES: Yet  Another  New
+ Differential Equation Solving Method: IDAS (ADVAN15)"
+
+ Required PREDPP Library subroutines:
+ ADVAN9 - ADDA, FCN5, JAC, LEQT22, LSODI1, RES, ZSPOW2
+ ADVAN15 - ADDA, FCN5, JAC, LEQT22, IDA, RES, ZSPOW2
+
+ 1    Analytical  second derivatives used with the Laplacian method are
+      not obtained with ADVAN9 and ADVAN15.  Numerical  second  deriva-
+      tives must be used.
+
+REFERENCES: Guide VI Section <a href="VI/VI.html#B.">VI.B<a/>, <a href="VI/VII.html#C.9.">VII.C.9<a/>
+REFERENCES: Guide IV Section <a href="IV/V.html#C.8.">V.C.8<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

@@ -1,0 +1,70 @@
+<HTML><HEAD> <TITLE> control4.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                          CONTROL4 EXAMPLE                          |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This is file CONTROL4 from NONMEM distribution media
+
+ $PROB  THEOPHYLLINE   POPULATION DATA
+ $INPUT      ID DOSE TIME CP=DV WT
+ $DATA       THEO
+
+ $PRED
+ ;THETA(1)=MEAN ABSORPTION RATE CONSTANT (1/HR)
+ ;THETA(2)=MEAN ELIMINATION RATE CONSTANT (1/HR)
+ ;THETA(3)=SLOPE OF CLEARANCE VS WEIGHT RELATIONSHIP (LITERS/HR/KG)
+ ;DOSE=WT-ADJUSTED DOSE (MG/KG)
+ ;DS=NON-WT-ADJUSTED DOSE (MG)
+    IF (DOSE.NE.0) THEN
+       DS=DOSE*WT
+       W=WT
+    ENDIF
+    KA=THETA(1)+ETA(1)
+    KE=THETA(2)+ETA(2)
+    CL=THETA(3)*W+ETA(3)
+    D=EXP(-KE*TIME)-EXP(-KA*TIME)
+    E=CL*(KA-KE)
+    F=DS*KE*KA/E*D
+    Y=F+EPS(1)
+
+ $THETA  (.1,3,5) (.008,.08,.5) (.004,.04,.9)
+ $OMEGA BLOCK(3)  6 .005 .0002 .3 .006 .4
+ $SIGMA  .4
+
+ $EST     MAXEVAL=450  PRINT=5
+ $COV
+ $TABLE          ID DOSE WT TIME
+ $SCAT           (RES WRES) VS TIME BY ID
+
+ The  data  is file THEO from the NONMEM distribution media.  The first
+ individual's data follows.
+
+          1      4.02      0.         .74     79.6
+          1       .        0.25      2.84       .
+          1       .        0.57      6.57       .
+          1       .        1.12     10.5        .
+          1       .        2.02      9.66       .
+          1       .        3.82      8.58       .
+          1       .        5.1       8.36       .
+          1       .        7.03      7.47       .
+          1       .        9.05      6.89       .
+          1       .       12.12      5.94       .
+          1       .       24.37      3.28       .
+
+REFERENCES: Guide III Section <a href="III/index.html">VI.3<a/>
+REFERENCES: Guide IV Appendix <a href="IV/AII.html">II<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

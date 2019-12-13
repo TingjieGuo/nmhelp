@@ -1,0 +1,80 @@
+<HTML><HEAD> <TITLE> call.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           CALL DATA ITEM                           |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Call (CALL) data item for PREDPP
+ CONTEXT: $INPUT record and NONMEM data set
+
+ USAGE:
+ $INPUT ... CALL ...
+
+ DISCUSSION:
+ CALL  labels  PREDPP's  call  (CALL) data item.  The call data item is
+ optional.  It is used to force calls to PK  and/or  ERROR  subroutines
+ with  event  records  for  which  such calls would not normally occur.
+ (When $PK and/or $ERROR blocks are  present,  the  effect  of  calling
+ these  routines  with  an  event  record is to evaluate the $PK and/or
+ $ERROR abbreviated code for that particular event record.)
+
+ Values are:
+
+ 0    (Default) No forced call; PREDPP takes its normal action.
+
+ 1    Force a call to ERROR with the event record.
+
+ 2    Force a call to PK with the event record.
+
+ 3    Force calls to both PK and ERROR with the event record.
+
+ 10   Call ADVAN9 or ADVAN15  with  the  event  record.   May  be  used
+      whether  or  not  the TIME data item is defined.  May be combined
+      with values 1, 2, and 3.  e.g., CALL = 11 forces calls to  ADVAN9
+      or ADVAN15, and to ERROR with the event record.
+
+ If  the  PK  routine is not called with a given event record, then the
+ basic and additional PK parameters retain the values  they  had  after
+ the  last  call  to  PK.  This would cause a problem if some parameter
+ depends on an data item whose value is different on  the  given  event
+ record than on the last event record for which PK was called.
+
+ If  the  ERROR  routine  is not called with a given event record, then
+ NONMEM's PRED value is a scaled compartment amount.  This would  cause
+ a  problem  if  the  event  record  is  an  other-type event which was
+ included in the data set in order to obtain a prediction  of  (say)  a
+ pharmacodynamic effect.
+
+ The  pattern  of calls to ADVAN9 or ADVAN15 depends on the presence or
+ absence of the TIME data item.
+
+ If TIME is defined, ADVAN9 or ADVAN15 is called by default exactly  as
+ other  ADVAN routines are called: when TIME increases.  CALL=10 may be
+ used to obtain additional calls.  For example, immediately following a
+ bolus  dose  event record one might include an other-type event record
+ having the same value of TIME  and  CALL=10.   ADVAN9  or  ADVAN15  is
+ called,  and  the amounts in the equilibrium compartments are computed
+ based on the amounts in the other compartments.
+
+ If TIME is not defined, ADVAN9 or ADVAN15 is called  by  default  with
+ every event record unless the AES routine specifies the calling proto-
+ col "call once per individual record".  In this case, CALL=10  may  be
+ used to force calls to the ADVAN routine for records subsequent to the
+ first.
+
+REFERENCES: Guide VI Section <a href="VI/V.html#J.">V.J<a/>
+REFERENCES: Guide IV Section <a href="IV/V.html#C.1.">V.C.1<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

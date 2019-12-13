@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 21</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:4px;font-family:Courier;color:#000000;}
+	.ft3{font-size:7px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft5{font-size:4px;line-height:6px;font-family:Courier;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V021.png" alt="background image">
+<DIV style="position:absolute;top:41;left:356"><nobr><span class="ft0">Chapter 2 - NONMEM Examples</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft4">interindividual variability, and stands for the deviation of the individual’s true clearance (CL)<br>from the population value (TVCL, Typical Value of CLearance, which, in turn, is simply<br>THETA(1)). This model is essentially different from the theophylline model, because it incorpo-<br>rates interindividual variability (something that an individual model need not do). Note that since<br>PREDPP ultimately needs the values of microconstants, rather than physiological-based pharma-<br>cokinetic parameters such as clearance, code must be given for K, the rate constant of elimina-<br>tion. There is, though, a simple alternative to writing this additional line of code. It is discussed<br>in Chapter 3 Section 2.1.</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:72"><nobr><span class="ft4">The abbreviated code after the $ERROR record is exactly the same as that with the theophylline<br>data and expresses the same model for lack-of ﬁt between observations and predictions for an<br>individual. The $OMEGA and $SIGMA records, which give NONMEM information about the<br>estimated variances of the ETA and ERR variables, are discussed in Chapter 9, Section 3. Previ-<br>ously the initial estimate of the variance of ERR(1) was given on a $OMEGA record. Here it is<br>given on a $SIGMA record. This difference in NONMEM conventions between individual type<br>data and population type data will be discussed more fully in Chapters 3 and 4.</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:72"><nobr><span class="ft1"><b>3.3. The Output</b></span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:72"><nobr><span class="ft4">NONMEM is again instructed to estimate the parameters and their standard errors. The results<br>are shown in ﬁgures 2.8 and 2.9.</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:87"><nobr><span class="ft5"><b>************************************************************************************************************************<br>******************** ********************<br>******************** MINIMUM VALUE OF OBJECTIVE FUNCTION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:447"><nobr><span class="ft2"><b>********************</b></span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:87"><nobr><span class="ft5"><b>******************** ********************<br>************************************************************************************************************************</b></span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:87"><nobr><span class="ft2"><b>************************************************** 717.203</b></span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:339"><nobr><span class="ft2"><b>**************************************************</b></span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:87"><nobr><span class="ft5"><b>************************************************************************************************************************<br>******************** ********************<br>******************** FINAL PARAMETER ESTIMATE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:447"><nobr><span class="ft2"><b>********************</b></span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:87"><nobr><span class="ft5"><b>******************** ********************<br>************************************************************************************************************************</b></span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:87"><nobr><span class="ft2"><b>THETA - VECTOR OF FIXED EFFECTS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:205"><nobr><span class="ft2"><b>*********************</b></span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:126"><nobr><span class="ft2"><b>TH 1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:162"><nobr><span class="ft2"><b>TH 2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:115"><nobr><span class="ft2"><b>5.48E-03 1.40E+00</b></span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:87"><nobr><span class="ft2"><b>OMEGA - COV MATRIX FOR RANDOM EFFECTS - ETAS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:456;left:252"><nobr><span class="ft2"><b>********</b></span></nobr></DIV>
+<DIV style="position:absolute;top:468;left:126"><nobr><span class="ft2"><b>ETA1 ETA2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:87"><nobr><span class="ft2"><b>ETA1 6.85E-06</b></span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:87"><nobr><span class="ft2"><b>ETA2 0.00E+00</b></span></nobr></DIV>
+<DIV style="position:absolute;top:492;left:151"><nobr><span class="ft2"><b>2.86E-01</b></span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:87"><nobr><span class="ft2"><b>SIGMA - COV MATRIX FOR RANDOM EFFECTS - EPSILONS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:267"><nobr><span class="ft2"><b>****</b></span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:126"><nobr><span class="ft2"><b>EPS1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:87"><nobr><span class="ft2"><b>EPS1 8.01E+00</b></span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:72"><nobr><span class="ft3">Figure 2.8. NONMEM output giving the goodness of ﬁt statistic (the minimum value of the objective function) and the</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:72"><nobr><span class="ft3">parameter estimates for the phenobarbital problem.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-13-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

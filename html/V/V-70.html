@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 70</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Courier;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:5px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft6{font-size:5px;font-family:Times;color:#000000;}
+	.ft7{font-size:7px;font-family:Courier;color:#000000;}
+	.ft8{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V070.png" alt="background image">
+<DIV style="position:absolute;top:41;left:152"><nobr><span class="ft0">Chapter 6 - Data Sets, $DAT A and $INPUT Records, and the Data Preprocessor</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft8">Another way to achieve the same steady-state is by the following:<br>Example:</span></nobr></DIV>
+<DIV style="position:absolute;top:104;left:85"><nobr><span class="ft1"><b>TIME AMT SS II</b></span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:92"><nobr><span class="ft1"><b>20 10. 1 12</b></span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:92"><nobr><span class="ft1"><b>20 5.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:151"><nobr><span class="ft1"><b>2 24</b></span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:72"><nobr><span class="ft8">This describes doses of 10 units every 12 hours, the last of which is given at 8 PM (i.e. at 8 AM<br>and 8 PM daily), plus additional doses of 5 units at 8 PM daily. In both examples, the steady-<br>state levels can be predicted from time 20 hours to time 32 hours.</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:72"><nobr><span class="ft2"><b>8.2.8. Combining Non-Steady-State Doses with Steady-State Doses</b></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:72"><nobr><span class="ft8">Non-steady-state dose records may appear before, among, or after steady-state dose records.<br>Such a dose record may occur <i>before </i>a steady-state dose record to reﬂect a transient dose given<br>among a series of regular doses leading to steady-state, but which is not a part of this series. E.g.,<br>a patient who has been maintained at steady-state takes an extra dose by mistake shortly before<br>his appointment. A non-steady-state dose record may occur <i>after </i>a steady-state dose record in<br>order to continue the pattern of doses beyond the steady-state dose. Ordinarily, steady-state levels<br>can only be predicted between <i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:216"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:220"><nobr><span class="ft0">, the time on the steady-state dose record, and <i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:434"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:438"><nobr><span class="ft0">, the sum of <i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:500"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:302;left:72"><nobr><span class="ft8">and the interdose interval. If it is not only necessary to compute a steady-state prediction between<br><i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:76"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:83"><nobr><span class="ft0">and <i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:105"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:110"><nobr><span class="ft0">, but also after <i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:179"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:315;left:183"><nobr><span class="ft0">, then there must also occur one or more non-steady-state dose records at</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:72"><nobr><span class="ft3"><i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:76"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:80"><nobr><span class="ft0">, <i>t</i></span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:92"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:98"><nobr><span class="ft5">+</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:108"><nobr><span class="ft3"><i>I </i>, etc. with doses just like the steady-state dose. (The &quot;additional doses&quot; data item,</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:72"><nobr><span class="ft8">labeled ADDL, is especially useful for this purpose; see Chapter 12, Section 2.4.)<br>Example:</span></nobr></DIV>
+<DIV style="position:absolute;top:368;left:85"><nobr><span class="ft1"><b>TIME AMT SS II</b></span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:98"><nobr><span class="ft1"><b>8</b></span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:118"><nobr><span class="ft1"><b>10. 1 24</b></span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:92"><nobr><span class="ft1"><b>20 15. 2 24</b></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:92"><nobr><span class="ft1"><b>32 10. 0 0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:420;left:92"><nobr><span class="ft1"><b>44 15. 0 0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:432;left:72"><nobr><span class="ft8">Here, the last two records continue the steady-state pattern of the ﬁrst two. Steady-state levels<br>may be predicted between times 20 and 56.</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:72"><nobr><span class="ft8">Similarly, a steady-state constant infusion may be extended with a non-steady-state infusion. In<br>the example below, steady-state levels can be predicted from time 0 to time 100.</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:85"><nobr><span class="ft1"><b>TIME RATE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:158"><nobr><span class="ft1"><b>AMT SS</b></span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:98"><nobr><span class="ft1"><b>0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:125"><nobr><span class="ft1"><b>30</b></span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:164"><nobr><span class="ft1"><b>0.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:191"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:98"><nobr><span class="ft1"><b>0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:125"><nobr><span class="ft1"><b>30 3000. 0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:72"><nobr><span class="ft2"><b>9. The Output Compartment: Urine Collections and Observations</b></span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:72"><nobr><span class="ft0">In this section we show how urine collections and observations of urine concentration, <i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:465"><nobr><span class="ft6"><i>u</i></span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:470"><nobr><span class="ft0">, can be</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:72"><nobr><span class="ft8">described. The ﬁrst-time reader may prefer to return to this section after reading Section 4.3.3 of<br>Chapter 7. As an example, consider the one-compartment model with ﬁrst-order absorption<br>(ADVAN2). The sequence of events is:</span></nobr></DIV>
+<DIV style="position:absolute;top:608;left:77"><nobr><span class="ft8">6:00 AM A bolus dose of 100 is given.<br>8:00 AM A urine collection is started.<br>9:30 AM <i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:133"><nobr><span class="ft6"><i>u</i></span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:141"><nobr><span class="ft0">and urine volume (UVOL) are measured and a new collection is started.</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:75"><nobr><span class="ft0">11:45 AM <i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:137"><nobr><span class="ft6"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:142"><nobr><span class="ft0">, <i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:155"><nobr><span class="ft6"><i>u</i></span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:159"><nobr><span class="ft0">, and urine volume are measured.</span></nobr></DIV>
+<DIV style="position:absolute;top:664;left:72"><nobr><span class="ft0">The $INPUT record is:</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:77"><nobr><span class="ft7"><b>$INPUT ID TIME EVID UVOL DV CMT AMT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:72"><nobr><span class="ft0">The data records appear as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-62-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

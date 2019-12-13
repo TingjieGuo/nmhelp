@@ -1,0 +1,69 @@
+<HTML><HEAD> <TITLE> mixture.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                       MIXTURE_MODEL EXAMPLE                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ In  this  example  of a mixture model, it is assumed that some unknown
+ fraction of the population has one set of typical values of CL and Vd,
+ and  that  the  remaining  fraction has another set of typical values.
+ Reserved variables of interest:
+
+ MIXNUM
+      NONMEM sets MIXNUM to 1 or 2 according to whether PK is  to  com-
+      pute  parameter values for the 1st or 2nd subpopulations, respec-
+      tively.
+
+ MIXEST
+      For each individual, NONMEM computes an estimate of the number of
+      the  subpopulation  of  which  each  individual  is a member, and
+      stores this estimate in the integer variable MIXEST.
+
+ EST  In the $PK block, MIXEST is stored  in  the  PK-defined  variable
+      EST,  which enables MIXEST to be displayed in tables and scatter-
+      plots.
+
+ $PROB    PHENOBARB POPULATION DATA    MIXTURE MODEL
+ $DATA  DATA2 (6F7.0)
+ $INPUT  ID TIME AMT WT APGR CP=DV
+ $SUBROUTINES ADVAN1 TRANS2
+ $PK
+        CALLFL=1
+        EST=MIXEST
+        IF (MIXNUM.EQ.2) THEN
+          CL=THETA(2)*THETA(1)*EXP(ETA(3))
+          V=THETA(4)*THETA(3)*EXP(ETA(4))
+        ELSE
+          CL=THETA(1)*EXP(ETA(1))
+          V=THETA(3)*EXP(ETA(2))
+        ENDIF
+        S1=V
+ $ERROR
+        Y=F*EXP(EPS(1))
+ $MIX
+        P(1)=THETA(5)
+        P(2)=1.-THETA(5)
+        NSPOP=2
+ $THETA  (0,.0047)  (0,1)  (0,.99)  (0,1)  (0,.5,1)
+ $OMEGA  BLOCK(2) .05  .01  .03
+ $OMEGA  BLOCK(2) SAME
+ $SIGMA  .02
+ $ESTM   MAXEVAL=500   PRINT=5
+ $TABLE ID  EST FIRSTONLY NOAPPEND
+
+ (See <A HREF="d.htm#displayed_values">displayed_values</A>, <A HREF="$.htm#$mix">$mix</A>, mixnum mixest).
+
+REFERENCES: Guide VI Section <a href="VI/III.html#L.2.">III.L.2<a/>, <a href="VI/fig.html#Figure_6">Figure 6<a/>, <a href="VI/fig.html#Figure_23">Figure 23<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

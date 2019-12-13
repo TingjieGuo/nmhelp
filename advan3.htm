@@ -1,0 +1,73 @@
+<HTML><HEAD> <TITLE> advan3.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               ADVAN3                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Choice of Pharmacokinetic Model for PREDPP
+ CONTEXT: Option of NM-TRAN $SUBROUTINES record
+
+ USAGE:
+ $SUBROUTINES [ADVAN=]ADVAN3
+
+ SAMPLE:
+ $SUBROUTINE ADVAN3
+
+ DISCUSSION:
+ ADVAN3  is  a routine in PREDPP's library which implements the kinetic
+ equations for the Two Compartment Linear Model.
+
+ Compt.   Function     Initial   On/Off    Dose      Default    Default
+ No.                   Status    Allowed   Allowed   for Dose   for Obs.
+ 1        Central      On        No        Yes       Yes        Yes
+ 2        Peripheral   On        No        Yes       No         No
+ 3        Output       Off       Yes       No        No         No
+
+ TRANS routines that may  be  used:  TRANS1,  TRANS3,  TRANS4,  TRANS5,
+ TRANS6
+ Basic PK parameters with TRANS1:
+
+      K (rate constant of elimination)
+      K12 (rate constant from central to peripheral)
+      K21 (rate constant from peripheral to central)
+
+ Basic PK parameters with TRANS3: (See <A HREF="t.htm#trans3">TRANS3</A>).
+
+ Basic PK parameters with TRANS4: (See <A HREF="t.htm#trans4">TRANS4</A>).
+
+ Basic PK parameters with TRANS5: (See <A HREF="t.htm#trans5">TRANS5</A>).
+
+ Basic PK parameters with TRANS6: (See <A HREF="t.htm#trans6">TRANS6</A>).
+
+ Additional PK parameters:
+
+      S1 - Scale for central compartment (also called SC)
+      S2 - Scale for peripheral compartment
+      S3 - Scale for output compartment (also called S0)
+      F1 - Bioavailability for central compartment
+      F2 - Bioavailability for peripheral compartment
+      R1 - Rate for central compartment
+      R2 - Rate for peripheral compartment
+      D1 - Duration for central compartment
+      D2 - Duration for peripheral compartment
+      ALAG1 - Absorption lag for central compartment
+      ALAG2 - Absorption lag for peripheral compartment
+      F0 - Output fraction (also called F3, FO)
+      XSCALE - Time scale
+      MTIME(i) - Model event times
+
+REFERENCES: Guide VI Section <a href="VI/VII.html#C.3.">VII.C.3<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

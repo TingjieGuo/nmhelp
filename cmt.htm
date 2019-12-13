@@ -1,0 +1,89 @@
+<HTML><HEAD> <TITLE> cmt.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                         CMT PCMT DATA ITEM                         |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING:  Compartment  (CMT)  and  Prediction  Compartment (PCMT) data
+ items for PREDPP
+ CONTEXT: $INPUT record and NONMEM data set
+
+ USAGE:
+ $INPUT ... CMT PCMT ...
+
+ DISCUSSION:
+ CMT and PCMT label PREDPP's compartment (CMT) and prediction  compart-
+ ment  (PCMT)  data  items.  The compartment and prediction compartment
+ data items are optional.  They may be  used  separately  or  together.
+ Their meanings depend on the particular kind of event record.
+
+ Observation Event:
+      CMT specifies the number of the observation compartment (the com-
+      partment whose scaled drug amount appears as F in the error  rou-
+      tine).  When this number is that of the output compartment, it is
+      allowed to have a negative sign, in which case  the  output  com-
+      partment is turned off after F is obtained.
+      This  is also the case for an output-type compartment, which is a |
+      compartment with attributes INITIALOFF and NODOSE.  (With a  com- |
+      partment  n which is not the output compartment or an output-type |
+      compartment, two records must be used, with the same TIME  value: |
+      the  first  with  CMT=n and EVID=1 to obtain the observation, and |
+      the second with CMT=-n and EVID=2 to turn the compartment off.)
+
+      By convention, the number of the output compartment may  also  be |
+      given  by  the  CMT  data  item  as the number 1000 (this is true |
+      regardless of the type of the event record).  With  small  models |
+      (number  of compartments &lt;= 99), this number may also be given as |
+      100.  With versions of NONMEM prior to 7.3, only small models are |
+      possible, and only 100 may be used.                               |
+
+      When CMT is 0, the default compartment for observations is used.
+      PCMT is ignored.
+
+ Dose Event:
+      CMT  specifies  the number of the compartment into which the dose
+      is introduced.  The dose compartment is turned on if it was  pre-
+      viously  off.   When  CMT is 0, the default compartment for doses
+      receives the dose.
+      PCMT specifies the number of the compartment for which an F value
+      is computed.
+      PCMT may be specified as 1000 or 100 to indicate the default com- |
+      partment for output, similarly to CMT above.                      |
+      When PCMT is 0, the default compartment for observations is used.
+
+ Other-Type Event:
+      A positive value of CMT specifies a compartment to be turned on.
+      A negative value of CMT specifies a compartment to be turned off.
+      When CMT is 0, no change is made in the status  of  any  compart-
+      ment.
+      PCMT is the same as for dose events.
+
+ Reset Event:
+      CMT is ignored.
+      PCMT is the same as for dose events.
+
+ Reset-Dose Event:
+      CMT and PCMT are the same as for dose events.
+
+ Guide  V  (Introductory Guide) has an example of how urine collections
+ and observations of urine concentration can be described in  the  data
+ file,  along  with observations of plasma concentrations.  See Chapter
+ 6, Section 9, The Output Compartment: Urine Collections  and  Observa-
+ tions
+
+REFERENCES: Guide VI Section <a href="VI/V.html#H.">V.H<a/>
+REFERENCES: Guide V Section <a href="V/6.html#9.">6.9<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

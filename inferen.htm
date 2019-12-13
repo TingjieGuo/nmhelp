@@ -1,0 +1,45 @@
+<HTML><HEAD> <TITLE> inferen.out</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                       INFERENTIAL STATISTICS                       |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Inferential statistics
+ CONTEXT: NONMEM output
+
+ DISCUSSION:
+ NONMEM provides estimates of the precision of its parameter estimates.
+
+ Confidence  intervals  for  parameters,  hypothesis tests on parameter
+ values, and model-building  all  require  determination  of  plausible
+ bounds  on  parameters.   These can be assigned if the distribution of
+ the estimates (upon imagined replication of the data set) can be esti-
+ mated.   Asymptotic  statistical  theory  applied  to  extended least-
+ squares estimation (as used in NONMEM) says that the  distribution  of
+ the parameter estimators is multivariate normal, with variance-covari-
+ ance matrix that can be estimated from the data.  NONMEM supplies such
+ an  estimate  of the variance-covariance matrix of the parameter esti-
+ mates (See <A HREF="c.htm#covariance_matrix_of_estimate">covariance matrix of estimate</A>).  The square  roots  of  the
+ diagonal  elements of that matrix are the estimated standard errors of
+ the corresponding  parameter  estimators  (See standard error of esti-
+ mate),  while the off-diagonal elements can be transformed into corre-
+ lation coefficients, and are presented in the  correlation  matrix  of
+ the  parameter  estimates  (See <A HREF="c.htm#correlation_matrix_of_estimate">correlation matrix of estimate</A>).   The
+ inverse of the covariance matrix and the eigenvalues of  the  correla-
+ tion matrix are also available (See <A HREF="$.htm#$covariance">$covariance</A>).
+
+REFERENCES: Guide V Section <a href="V/5.html#4.">5.4<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

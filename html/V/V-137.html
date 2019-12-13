@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 137</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:7px;font-family:Courier;color:#000000;}
+	.ft2{font-size:7px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:7px;line-height:10px;font-family:Courier;color:#000000;}
+	.ft5{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V137.png" alt="background image">
+<DIV style="position:absolute;top:41;left:286"><nobr><span class="ft0">Chapter 12 - Brief Descriptions of Other Features</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft0">References: Users Guide VI (PREDPP) IV.B.2</span></nobr></DIV>
+<DIV style="position:absolute;top:97;left:94"><nobr><span class="ft4"><b>$PROBLEM PHARMACODYNAMIC MODEL USING $ERROR STATEMENTS<br>$INPUT ID TIME AMT INDK INDV DV<br>$DATA EFFDATA<br>$SUBROUTINE ADVAN1<br>$PK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:110"><nobr><span class="ft4"><b>K=INDK<br>V=INDV<br>S1=V</b></span></nobr></DIV>
+<DIV style="position:absolute;top:177;left:94"><nobr><span class="ft1"><b>$ERROR</b></span></nobr></DIV>
+<DIV style="position:absolute;top:187;left:99"><nobr><span class="ft4"><b>EMAX=THETA(1)+ETA(1)<br>C50=THETA(2)+ETA(2)<br>E=EMAX*F/(C50+F)<br>Y=E+ERR(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:94"><nobr><span class="ft1"><b>$THETA 100</b></span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:170"><nobr><span class="ft1"><b>20</b></span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:94"><nobr><span class="ft1"><b>$OMEGA 400</b></span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:170"><nobr><span class="ft1"><b>16</b></span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:94"><nobr><span class="ft4"><b>$SIGMA 4<br>$ESTIMATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:72"><nobr><span class="ft2">Figure 12.1. The input to NONMEM-PREDPP for analysis of effect observations.</span></nobr></DIV>
+<DIV style="position:absolute;top:321;left:72"><nobr><span class="ft3"><b>2.2. Other Pharmacokinetic Models: ADVAN5 through ADVAN9 and ADVAN13</b></span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:72"><nobr><span class="ft5">Appendix 1 lists ADVAN routines for the most commonly-used pharmacokinetic models. Other<br>ADVAN routines are:</span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:75"><nobr><span class="ft5">ADVAN5 (General Linear)<br>ADVAN6 (General Nonlinear)<br>ADVAN7 (General Linear with Real Eigenvalues)<br>ADVAN8 (General Nonlinear Kinetics with Stiff Equations)<br>ADVAN9 (General Nonlinear Kinetics with Equilibrium Compartments)<br>ADVAN13 (General Nonlinear Kinetics using LSODA)</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:72"><nobr><span class="ft5">With the general methods the user deﬁnes a model of up to 99 compartments using special<br>options of the $MODEL record. For a linear model (ADVAN5 and ADVAN7), it is sufﬁcient to<br>specify (directed) compartmental connections and to compute their rate constant parameters with<br>$PK statements. ADVAN 5 and 7 make use of numerical approximations to the matrix exponen-<br>tial. For a nonlinear model (ADVAN6, ADVAN8, ADVAN9, and ADVAN13), differential equa-<br>tions must be supplied to govern the kinetics, via $DES statements. It is possible to specify initial<br>conditions for the differential equations using the I_SS (Initial Steady State) feature. For<br>ADVAN9, algebraic equations may also be supplied via $AES statements. The use of the term<br>’nonlinear’ with ADVAN 6, 8, 9, and 13 only indicates that a system of any type of ﬁrst-order dif-<br>ferential equations is allowed; such equations could be linear or non-linear.</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:72"><nobr><span class="ft5">In all cases, the basic features of PREDPP described in Chapter 7 are still available, such as the<br>ability to introduce doses of any kind to any compartment of the model. It should be noted that<br>the general ADVAN routines are relatively slow. For example, when a general method is used for<br>a model identical to that of an analytic method (ADVAN1 through ADVAN4 or ADVAN10<br>through ADVAN12) the run time increases, usually by an order of magnitude.</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:72"><nobr><span class="ft5">Some ADVAN and SS routines must be told the number of accurate digits that are required in the<br>computation of drug amounts, i.e., the relative tolerance. This is speciﬁed either by the TOL<br>option of the $SUBROUTINES record or by the $TOL record.</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:72"><nobr><span class="ft5">References: Users Guide VI (PREDPP) VI, VII<br>References: Users Guide IV (NM-TRAN) V.C.3, 4, 7-10</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:276"><nobr><span class="ft0">-129-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 77</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V077.png" alt="background image">
+<DIV style="position:absolute;top:41;left:267"><nobr><span class="ft0">Chapter 7 - $SUBROUTINE Record and $PK Record</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:97"><nobr><span class="ft3">pot compartment is part of the model and is the default dose compartment. In these cases, if<br>a dose is to go directly into the central compartment, its compartment number (2) must be<br>present in the CMT data item of the dose record. Note that it is never <i>required </i>that there be<br>doses into the depot compartment. In a study involving mixed oral and IV doses, for exam-<br>ple, some patients may receive only IV doses. All dose event records for such patients will<br>have the value 2 in the CMT data item.</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:72"><nobr><span class="ft0">4. Each model has an output compartment. The amount of drug in this compartment is the</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:97"><nobr><span class="ft3">accumulated amount of drug eliminated from the system and typically represents the<br>amount of drug which accumulates in the urine. This compartment is special. It may not<br>receive a dose. It is initially off, and it remains off (so that the amount therein remains zero)<br>until it is explicitly turned on by an other type event record which has the output compart-<br>ment’s number in the CMT data item. It is computed by &quot;mass balance&quot;, as follows.<br>Between any two points in time, it increases by an amount equal to the amount of drug in<br>the other compartments at the ﬁrst point in time, plus the amount added via doses between<br>the two time points, less the amount remaining in the other compartments at the second<br>point in time. (This difference is multiplied by an output fraction (F0) parameter, if F0 is<br>computed by the PK routine.) The output compartment can be turned off (i.e. its amount<br>reset to zero). If the compartment is interpreted as a urine compartment, this is equivalent to<br>&quot;emptying&quot; the compartment. This is done by putting the <i>negative </i>of its number in the<br>CMT data item of an other type or observation event record.</span></nobr></DIV>
+<DIV style="position:absolute;top:354;left:97"><nobr><span class="ft3">On event records, the output compartment is referred to by the compartment number given<br>in Appendix 1. A PK parameter which refers to the output compartment may use either this<br>number or 0 (zero). Thus, F0 and F2 both denote the output fraction for ADVAN1; simi-<br>larly, S0 and S4 both denote the scale for ADVAN4’s output compartment. SC denotes the<br>scale for any ADVAN’s central compartment.</span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:72"><nobr><span class="ft0">5. Each model has a set of basic (required) pharmacokinetic (PK) parameters, which are the</span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:97"><nobr><span class="ft3">microconstants used to compute the amounts of drug via the kinetic equations for the<br>model. Each one also has a set of additional (optional) PK parameters, including compart-<br>ment scales (Sn), bioavailability fractions (Fn), and output fraction (F0). Compartment<br>scales are typically used to convert amounts to concentrations, but they also can be used for<br>other purposes. Bioavailability fractions multiply dose amounts. The output fraction is<br>described above.</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:72"><nobr><span class="ft0">6. Each model’s basic and additional pharmacokinetic parameters must be computed for it by a</span></nobr></DIV>
+<DIV style="position:absolute;top:530;left:97"><nobr><span class="ft3">subroutine named PK. The error model must be described by a subroutine named ERROR.<br>$PK and $ERROR abbreviated code provide an easy way to specify the essential computa-<br>tions that must occur in these subroutines.</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:72"><nobr><span class="ft2"><b>2.2. Choosing a TRANS Subroutine: Alternative Parameterizations</b></span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:72"><nobr><span class="ft3">As discussed in Chapter 3, we may prefer to use pharmacokinetic parameters in our PK routine<br>other than the microconstants used by PREDPP. Appendix 2 shows several commonly-used<br>parameterizations. The PREDPP package includes a family of subroutines called TRANS rou-<br>tines which are pre-programmed to translate (reparameterize) from these commonly used parame-<br>terizations to the ones expected by PREDPP. Appendix 2 also gives the TRANS routine for each<br>alternative parameterization. As with ADVAN, TRANS is the name of the routine. The names<br>given in Appendix 2 are instances of external subroutine names used in the PREDPP Library.<br>The ﬁrst member of the family, TRANS1, simply translates a set of microconstants into these<br>same microconstants and must be included in the NONMEM load module in lieu of the others<br>when the $PK abbreviated code computes the microconstants.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-69-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,95 @@
+<HTML><HEAD> <TITLE> trans4.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               TRANS4                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Choice of Translator Routine for PREDPP
+ CONTEXT: Option of NM-TRAN $SUBROUTINES record
+
+ USAGE:
+ $SUBROUTINES [TRANS=]TRANS4
+
+ SAMPLE:
+ $SUBROUTINE ADVAN3 TRANS4
+
+ DISCUSSION:
+ TRANS4 is a routine in PREDPP's library which can be used with ADVAN3,
+ ADVAN4, ADVAN11, or ADVAN12.  It performs a reparameterization of  the
+ basic PK parameters to the internal parameters K, K12, K21, and KA.
+
+ Basic PK parameters for ADVAN3, TRANS4:
+
+      CL   clearance
+      V1   central volume
+      Q    intercompartmental clearance
+      V2   peripheral volume
+
+      Relationship:
+      K=CL/V1
+      K12=Q/V1
+      K21=Q/V2
+
+ Basic PK parameters for ADVAN4, TRANS4:
+
+      CL   clearance
+      V2   central volume
+      Q    intercompartmental clearance
+      V3   peripheral volume
+      KA   absorption rate constant
+
+      Relationship:
+      K=CL/V2
+      K23=Q/V2
+      K32=Q/V3
+      KA is unchanged
+
+ Basic PK parameters for ADVAN11, TRANS4:
+
+      CL   clearance
+      V1   central volume
+      Q2   intercompartmental clearance (central and periph. 1)
+      V2   peripheral 1 volume
+      Q3   intercompartmental clearance (central and periph. 2)
+      V3   peripheral 2 volume
+
+      Relationship:
+      K=CL/V1
+      K12=Q2/V1
+      K21=Q2/V2
+      K13=Q3/V1
+      K31=Q3/V3
+
+ Basic PK parameters for ADVAN12, TRANS4:
+
+      CL   clearance
+      V2   central volume
+      Q3   intercompartmental clearance (central and periph 1)
+      V3   peripheral 1 volume
+      Q4   intercompartmental clearance (central and periph 2)
+      V4   peripheral 2 volume
+      KA   absorption rate constant
+
+      Relationship:
+      K=CL/V2
+      K23=Q3/V2
+      K32=Q3/V3
+      K24=Q4/V2
+      K42=Q4/V4
+      KA=KA
+
+REFERENCES: Guide VI Section <a href="VI/VII.html#C.3.">VII.C.3<a/>, <a href="VI/VII.html#C.4.">VII.C.4<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

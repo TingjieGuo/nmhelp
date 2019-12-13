@@ -1,0 +1,48 @@
+<HTML><HEAD> <TITLE> subrouti.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                             SUBROUTINE                             |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Kind of subroutines in NONMEM/PREDPP Executable
+ CONTEXT: Option of NM-TRAN $SUBROUTINES record
+
+ USAGE:
+ $SUBROUTINES [SUBROUTINES=]kind
+
+ SAMPLE:
+ $SUBROUTINE SUBROUTINES=DP
+
+ DISCUSSION:
+ The  SUBROUTINES option tells NM-TRAN how to implement the abbreviated
+ code.  If there is no abbreviated  code,  the  SUBROUTINES  option  is
+ ignored.  Possible values for kind are:
+
+ DP   This  is the default.  NM-TRAN generates FORTRAN subroutines from
+      abbreviated code which compute with double-precision  arithmetic.
+      These subroutines are written into NM-TRAN output file FSUBS.  DP
+      may also be coded DOUBLE or D.  Double-precision versions of NON-
+      MEM routines (and of PREDPP, if used) should be included when the
+      NONMEM executable is constructed.
+
+      NM-TRAN also places into file FREPORT a line describing what kind
+      of subroutines were specified.
+
+ GENERATED DP SUBROUTINES:
+
+REFERENCES: Guide IV Section <a href="IV/III.html#B.6.">III.B.6<a/>
+REFERENCES: Guide III Section <a href="III/index.html">V.5.0, V.7.0, V.8.0<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

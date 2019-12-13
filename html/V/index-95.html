@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 95</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft3{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft4{font-size:7px;font-family:Times;color:#000000;}
+	.ft5{font-size:7px;font-family:Courier;color:#000000;}
+	.ft6{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index095.png" alt="background image">
+<DIV style="position:absolute;top:41;left:312"><nobr><span class="ft0">Chapter 9 - Additional NM-TRAN Records</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft1"><b>4. Specifying Optional Tasks</b></span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:72"><nobr><span class="ft6">Tw o main tasks of NONMEM, the Estimation Step and the Covariance Step, are optional and<br>must be speciﬁcally requested by including the $ESTIMATION and $COVARIANCE records.<br>To skip the Estimation Step, simply omit the $ESTIMATION record. To skip the Covariance<br>Step, simply omit the $COVARIANCE record.</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:72"><nobr><span class="ft6">In every run NONMEM computes and prints the value of the objective function and the ﬁnal<br>parameter estimates. The values printed are based on the ﬁnal parameter estimates if the Estima-<br>tion Step is requested, and are based on the initial estimates if it is not.</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:72"><nobr><span class="ft1"><b>4.1. Requesting the Estimation Step: the $ESTIMATION Record</b></span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:72"><nobr><span class="ft0">In the Estimation Step, NONMEM performs a search to obtain those values of</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:420"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:426"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:432"><nobr><span class="ft3">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:218;left:440"><nobr><span class="ft0">, and (for pop-</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:72"><nobr><span class="ft0">ulation studies)</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:143"><nobr><span class="ft3">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:152"><nobr><span class="ft0">which give the lowest value of the objective function. The output of this step is</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:72"><nobr><span class="ft0">the pages whose titles are &quot;</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:199"><nobr><span class="ft4">MONITORING OF SEARCH:</span></nobr></DIV>
+<DIV style="position:absolute;top:244;left:314"><nobr><span class="ft0">&quot;, &quot;</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:330"><nobr><span class="ft4">MINIMUM VALUE OF OBJECTIVE FUNC-</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:72"><nobr><span class="ft4">TION</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:93"><nobr><span class="ft0">&quot;, and &quot;</span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:128"><nobr><span class="ft4">FINAL PARAMETER ESTIMATE</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:257"><nobr><span class="ft0">&quot;. This step is requested by the presence of the follow-</span></nobr></DIV>
+<DIV style="position:absolute;top:270;left:72"><nobr><span class="ft0">ing statement:</span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:77"><nobr><span class="ft5"><b>$ESTIMATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:72"><nobr><span class="ft6">There are several options, which are described in the NONMEM Users Guide, Part IV. The most<br>frequently used ones are as follows.</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:72"><nobr><span class="ft4">METHOD=0</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:97"><nobr><span class="ft6">NONMEM always sets etas to 0 during the computation of the objective function. Also<br>called the &quot;ﬁrst order (FO) method.&quot; This is the default. It may also be coded as</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:97"><nobr><span class="ft4">METHOD=ZERO</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:164"><nobr><span class="ft0">.</span></nobr></DIV>
+<DIV style="position:absolute;top:386;left:72"><nobr><span class="ft4">METHOD=1</span></nobr></DIV>
+<DIV style="position:absolute;top:402;left:97"><nobr><span class="ft6">NONMEM uses conditional estimates for the etas during the computation of the objective<br>function. METHOD=1 is also called the &quot;ﬁrst order conditional estimation (FOCE)<br>method.&quot; It may also be coded as</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:252"><nobr><span class="ft4">METHOD=CONDITIONAL</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:357"><nobr><span class="ft0">. When the option</span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:444"><nobr><span class="ft4">INTERACTION</span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:97"><nobr><span class="ft6">is also present, the method is called the &quot;FOCE with INTERACTION method&quot;. It is recom-<br>mended for continuous variables unless the data are very sparse. These methods are dis-<br>cussed in Guide VII, Conditional Estimation Methods.</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:72"><nobr><span class="ft4">SIGDIGITS=n</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:97"><nobr><span class="ft0">By default, the search continues until the estimates of all elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:405"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:412"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:417"><nobr><span class="ft3">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:426"><nobr><span class="ft0">, and</span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:450"><nobr><span class="ft3">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:496;left:460"><nobr><span class="ft0">have been</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:97"><nobr><span class="ft6">determined to at least 3 signiﬁcant ﬁgures. Because only 3 signiﬁcant digits are used to<br>print parameter estimates in the output, and for other reasons as well, this amount of accu-<br>racy is often sufﬁcient. However, the SIGDIGITS option can be used to request a different<br>number (n) of signiﬁcant digits.</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:72"><nobr><span class="ft4">MAXEVAL=n</span></nobr></DIV>
+<DIV style="position:absolute;top:578;left:97"><nobr><span class="ft6">The Estimation Step always runs with a speciﬁc limit on the number of objective function<br>evaluations allowed during the search, as a protection against inﬁnite loops and excessively<br>long runs. The default maximum is computed according to the number of parameters being<br>estimated. The MAXEVALS option can be used to request a different number (n) for the<br>maximum number of function evaluations.</span></nobr></DIV>
+<DIV style="position:absolute;top:648;left:72"><nobr><span class="ft4">PRINT=n</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:97"><nobr><span class="ft6">As the Estimation Step progresses, by default it prints intermediate output summarizing the<br>progress of the search. The search proceeds in stages, called iterations. At the end of cer-<br>tain iterations a summarization is printed which consists of the values of the objective func-<br>tion, its gradient vector with respect to the parameters, and the parameter values themselves.<br>By default, this summarization is only printed for the ﬁrst and last iterations. The PRINT<br>option can be used to request a number (n) such that starting from the ﬁrst iteration, only</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-87-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

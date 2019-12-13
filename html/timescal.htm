@@ -1,0 +1,52 @@
+<HTML><HEAD> <TITLE> timescal.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        TIME SCALE PARAMETER                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Time scale (TSCALE) parameter for PREDPP
+ CONTEXT: Additional PK Parameters
+
+ USAGE:
+ $PK
+  TSCALE= ....
+
+ DISCUSSION:
+
+ The time scale parameter is used with PREDPP.  It is an optional addi-
+ tional PK parameter.  With NM-TRAN, it is symbolized in the $PK  block
+ by either of the reserved variables TSCALE or XSCALE.
+
+ If  a  time  scale parameter is modeled by PK, then time itself may be
+ scaled differently between individuals.  There is a single time  scale
+ parameter  that multiplies all rate constants. The parameter acts con-
+ tinuously (and could therefore theoretically  itself  vary  with  time
+ measured  on  an  external  clock).  It  can  only be used with linear
+ kinetic models. If it is not used, it can be ignored. If the value  of
+ the  time  scale  parameter is not computed in PK, it is always under-
+ stood to be 1.
+
+ The time scale parameter does not scale the duration parameter D of  a
+ duration-modeled zero-order bolus dose.
+
+ PREDPP ignores the time scale parameter with general non-linear models
+ (ADVAN6, 8, 9, 13).
+
+ (See <A HREF="p.htm#pk">pk</A>, <A HREF="$.htm#$pk">$pk</A>).
+
+REFERENCES: Guide IV Section <a href="IV/V.html#C.5.">V.C.5<a/>
+REFERENCES: Guide VI Section <a href="VI/III.html#F.8.">III.F.8<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

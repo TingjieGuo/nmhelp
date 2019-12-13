@@ -1,0 +1,83 @@
+<HTML><HEAD> <TITLE> ccontrs.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           CCONTR EXAMPLE                           |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This  example  illustates  the  use of the CONTR and CCONTR stubs with
+ NONMEM 7.  This example was developed by Bill Frame.
+
+ $PROBLEM
+ $DATA NMDATA7.CSV
+ $INPUT ID DV
+ $SUB CONTR=CONTR.txt CCONTR=CCONTR.txt
+ $PRED
+      W=THETA(2)                 ;SD
+      CL=THETA(1)*EXP(ETA(1))    ;CL/F
+      PRE=1/CL                   ; SS ASSUMING INPUT RATE = 1
+      LAM=THETA(3)
+      Y=(PRE**LAM-1)/LAM+EPS(1)*W
+      RES1=(DV-PRE)/W
+ $THETA
+      (0,.1)      ;CL/F
+      (0,2)       ;SD ADDITIVE
+      (0,.251)       ;BOX COX LAMBDA PARAMETER
+ $OMEGA
+      .003
+ $SIGMA
+      1 FIX
+ $EST MAXEVALS=9999 METH=1 PRINT=1
+ $COV PRINT=E
+
+ Files CONTR.txt and CCONTR.txt are as follows:
+
+       SUBROUTINE CONTR (ICALL,CNT,IER1,IER2)
+       DOUBLE PRECISION CNT
+       CALL NCONTR (CNT,IER1,IER2,L2R)
+       RETURN
+       END
+
+       SUBROUTINE CCONTR(I,CNT,P1,P2,IER1,IER2)
+       USE SIZES, ONLY: ISIZE,DPSIZE
+       USE ROCM_REAL,   ONLY: THETA=&gt;THETAC,Y=&gt;DV_ITM2
+       USE NM_INTERFACE,ONLY: CELS
+       IMPLICIT NONE
+       INTEGER(KIND=ISIZE), INTENT(IN OUT) :: I,IER1,IER2
+       REAL(KIND=DPSIZE),   INTENT(IN OUT) :: CNT,P1(:),P2(:,:)
+       REAL(KIND=DPSIZE) :: ONE,TWO,W
+       DATA ONE,TWO/1.00D+00,2.00D+00/
+       SAVE
+       IF (I.LE.1) RETURN
+       W=Y(1)
+       Y(1)=(Y(1)**THETA(3)-ONE)/THETA(3)
+       CALL CELS (CNT,P1,P2,IER1,IER2)
+       Y(1)=W
+       CNT=CNT-TWO*(THETA(3)-ONE)*LOG(Y(1))
+       RETURN
+       END
+
+ The first individual's data follows.
+
+ id,dv
+ 1,223.28
+ 1,41.59
+ 1,87.6
+ 1,72.11
+ 1,216.32
+ 1,118.1
+ 1,232.29
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

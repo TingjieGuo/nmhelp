@@ -1,0 +1,482 @@
+<!-- Creator     : groff version 1.21 -->
+<!-- CreationDate: Tue Mar 14 20:48:36 2017 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part I - Users Basic Guide - Chapter G">NONMEM Users Guide Part I - Users Basic Guide - Chapter G</a><br>
+<a href="# Error Messages">G. Error Messages</a><br>
+<a href="#1 Messages from Processing Data Records">G.1 Messages from Processing Data Records</a><br>
+<a href="#2 Messages from Processing Control Records">G.2 Messages from Processing Control Records</a><br>
+<a href="#3 Messages from the Estimation Step">G.3 Messages from the Estimation Step</a><br>
+<a href="#4 Messages from the Covariance Step">G.4 Messages from the Covariance Step</a><br>
+<a href="#5 Messages from the Table and Scatterplot Steps">G.5 Messages from the Table and Scatterplot Steps</a><br>
+<a href="#5 Messages from the Finalization Step">G.5 Messages from the Finalization Step</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part I - Users Basic Guide - Chapter G
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part I - Users Basic Guide - Chapter G"></a>
+</h2>
+
+
+<h2>G. Error Messages
+<a name=""></a>
+<a name=" Error Messages"></a>
+</h2>
+
+
+<h2>G.1 Messages from Processing Data Records
+<a name="1"></a>
+<a name="1 Messages from Processing Data Records"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The data records are checked for
+three possible errors. Each error generates a message given
+below.</p>
+
+<p style="margin-top: 1em">A) MDV DATA ITEM FOR DATA REC
+NO. n IS INAPPROPRIATE</p>
+
+<p style="margin-top: 1em">Explanation: The MDV data item
+in data record no. n is neither 0 nor 1.</p>
+
+<p style="margin-top: 1em">System Action: Program
+terminates when encountering first such record.</p>
+
+<p style="margin-top: 1em">B) TOT. NO. OF OBSERVATIONS IN
+INDIVIDUAL REC NO. n <br>
+(IN INDIVIDUAL REC ORDERING) EXCEEDS 50</p>
+
+<p style="margin-top: 1em">Explanation: The maximum number
+of observation records allowed in any individual record is
+50. Individual record no. n does not comply with this
+limitation.</p>
+
+<p style="margin-top: 1em">System Action: Program
+terminates when encountering first such record.</p>
+
+<p style="margin-top: 1em">User Response: If there are
+important reasons for using more than 50 observation records
+in an individual record, the limit of 50 may be increased;
+see NONMEM Users Guide, Part III. This will entail
+recompiling parts of NONMEM. Execution time increases
+rapidly with the number of observation records per
+individual record.</p>
+
+<p style="margin-top: 1em">C) WARNING: NO. OF OBS RECS IN
+INDIVIDUAL REC NO. n <br>
+(IN INDIVIDUAL REC ORDERING) EXCEEDS ONE <br>
+WHILE INITIAL ESTIMATE OF WITHIN INDIVIDUAL VARIANCE IS
+ZERO</p>
+
+<p style="margin-top: 1em">Explanation: The initial
+estimate of
+<img src="grohtml-20930-3.png" alt="Image grohtml-20930-3.png">
+is fixed to 0, while intraindividual variability appears to
+exist in the data. Moreover, the Simulation Step is not
+implemented.</p>
+
+<p style="margin-top: 1em">System Action: Continue
+processing. Message is issued only with the first five
+individual records in which the number of observation
+records exceeds one.</p>
+
+<p style="margin-top: 1em">User Response: If it is not
+intended that the number of observation records in
+individual record no. n should exceed one, then correct the
+data set. If it is not intended that the initial estimate of
+<img src="grohtml-20930-4.png" alt="Image grohtml-20930-4.png">
+should be 0, then check the initial estimate. There can be
+circumstances where the intent is to have multiple
+observations in individual records and to fix
+<img src="grohtml-20930-5.png" alt="Image grohtml-20930-5.png">
+to 0. In these circumstances the random intraindividual
+effects in the model have no actual effect on the data since
+<img src="grohtml-20930-6.png" alt="Image grohtml-20930-6.png">
+is 0 and so their values are constant. However, another way
+to arrange that random intraindividual effects have no
+effect is to eliminate them from the model. This is
+accomplished by placing a 0 in field 3 of the initial
+STRUCTURE record and by omitting all control records
+pertaining to
+<img src="grohtml-20930-7.png" alt="Image grohtml-20930-7.png">
+.</p>
+
+<h2>G.2 Messages from Processing Control Records
+<a name="2"></a>
+<a name="2 Messages from Processing Control Records"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Each control record is checked
+for many possible errors, such as there being an integer in
+a control record outside the permitted range, or there being
+a sort code in a TABLE record which appears more than once
+in the record. If an error is found in a control record, a
+self-explanatory error message is printed that directs the
+user to examine this record, and sometimes the particular
+field(s) containing the error. One control record after
+another is checked, and when the first control record (or
+combination of control records) with an error is found,
+NONMEM issues the appropriate error message and terminates.
+Therefore, subsequent control records with errors may not be
+identified until a subsequent NONMEM run.</p>
+
+<h2>G.3 Messages from the Estimation Step
+<a name="3"></a>
+<a name="3 Messages from the Estimation Step"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Besides one possible error
+message from the Estimation Step, there are the three lines
+of output that always appear and that describe the nature of
+the termination of the minimization search. In addition,
+with the default ELS objective function a certain pattern of
+output indicates that with the initial parameter estimate,
+the estimated variance-covariance matrix of some
+individual&rsquo;s set of observations is algorithmically
+singular. This pattern can also occur with a user-specified
+objective function when with the initial parameter estimate
+the user-supplied subprogram CONTR issues return code 1.
+(See NONMEM Users Guide II.) The pattern consists of a)
+termination of the search after the second iteration due to
+rounding errors dominating, b) an exceedingly large value of
+the objective function at the end of the 0th, 1st, and 2nd
+iterations, c) zero gradients (across all STP) at these
+three iterations, d) asterisks for the minimum value of the
+objective function, and e) a final estimate equalling the
+initial estimate. In this case user response should be to
+check i) that a suitable model has been chosen for the data,
+ii) for programming errors in PRED, iii) that reasonable
+initial estimates have been specified, iv) for mistakes in
+the data set. When the Estimation Step is not implemented, a
+pattern consisting of asterisks for the minimum value of the
+objective function should also prompt the same user
+response.</p>
+
+<p style="margin-top: 1em">The error message from the
+Estimation Step is:</p>
+
+<p style="margin-top: 1em">A) PROGRAM TERMINATED BY OBJ,
+ERROR IN CONTR <br>
+WITH INDIVIDUAL n (IN INDIVIDUAL RECORD ORDERING) <br>
+RETURN CODE m</p>
+
+<p style="margin-top: 1em">Explanation: CONTR is the
+user-supplied subprogram for computing the contribution made
+to the objective function from a given individual&rsquo;s
+data. It has encountered an error with individual n, and it
+has issued a return code
+<img src="grohtml-20930-8.png" alt="Image grohtml-20930-8.png">
+.</p>
+
+<p style="margin-top: 1em">System Action: Program
+terminates.</p>
+
+<p style="margin-top: 1em">User Response: Response should
+be appropriate for return code m.</p>
+
+<h2>G.4 Messages from the Covariance Step
+<a name="4"></a>
+<a name="4 Messages from the Covariance Step"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The following error messages
+from the Covariance Step either indicate the reasons why
+various anticipated output is omitted from the Covariance
+Step or give a warning. The system action in each case is to
+continue processing. Reference is made to the R and S
+matrices. These matrices, computed in the Covariance Step,
+are described in NONMEM Users Guide, Part II. The R matrix
+is a numerical approximation to the hessian matrix of the
+objective function evaluated at the final estimate. As such,
+it is desireable that it be nonsingular and positive
+semidefinite. If it is not, then the covariance matrix may
+not be obtainable. If the S matrix is singular, then the
+inverse covariance matrix may not be obtainable.</p>
+
+<p style="margin-top: 1em">A) R MATRIX UNOBTAINABLE</p>
+
+<p style="margin-top: 1em">B) S MATRIX UNOBTAINABLE</p>
+
+<p style="margin-top: 1em">C) R MATRIX ALGORITHMICALLY
+SINGULAR</p>
+
+<p style="margin-top: 1em">D) R MATRIX ALGORITHMICALLY
+SINGULAR <br>
+AND ALGORITHMICALLY NON-POSITIVE SEMIDEFINITE</p>
+
+<p style="margin-top: 1em">E) R MATRIX ALGORITHMICALLY
+NON-POSITIVE SEMIDEFINITE <br>
+BUT NONSINGULAR</p>
+
+<p style="margin-top: 1em">F) S MATRIX ALGORITHMICALLY
+SINGULAR</p>
+
+<p style="margin-top: 1em">G) PSEUDO INVERSE OF S MATRIX
+UNOBTAINABLE</p>
+
+<p style="margin-top: 1em">H) PSEUDO INVERSE OF COVARIANCE
+MATRIX UNOBTAINABLE</p>
+
+<p style="margin-top: 1em">I) EIGENVALUES NO. n AND GREATER
+UNOBTAINABLE</p>
+
+<p style="margin-top: 1em">When messages A and B occur,
+they are accompanied by the messages:</p>
+
+<p style="margin-top: 1em">J) ERROR RMATX-n m</p>
+
+<p style="margin-top: 1em">K) ERROR SMATX-n m</p>
+
+<p style="margin-top: 1em">respectively. These two messages
+are not explained here. If message C occurs, the objective
+function could be flat over some part of the parameter space
+that includes the final estimate. If message D or E occurs,
+the final estimate is not a local minimum. A situation
+giving rise to one of the above messages may also give rise
+to one of the following messages which indicate that certain
+output is being ommitted or indicates that surrogate output
+is generated.</p>
+
+<p style="margin-top: 1em">L) COVARIANCE MATRIX
+UNOBTAINABLE</p>
+
+<p style="margin-top: 1em">M) INVERSE COVARIANCE MATRIX
+UNOBTAINABLE</p>
+
+<p style="margin-top: 1em">N) COVARIANCE MATRIX SET EQUAL
+TO INVERSE OF R MATRIX</p>
+
+<p style="margin-top: 1em">O) COVARIANCE MATRIX SET EQUAL
+TO INVERSE OF S MATRIX</p>
+
+<p style="margin-top: 1em">P) INVERSE OF COVARIANCE MATRIX
+SET EQUAL TO R MATRIX</p>
+
+<p style="margin-top: 1em">Q) INVERSE OF COVARIANCE MATRIX
+SET EQUAL TO S MATRIX</p>
+
+<p style="margin-top: 1em">If the covariance matrix is
+unobtainable, so are the standard errors and the correlation
+matrix.</p>
+
+<p style="margin-top: 1em">In addition to messages A-Q,
+these two messages can occur together:</p>
+
+<p style="margin-top: 1em">R) PROGRAM TERMINATED BY OBJ,
+ERROR IN ELS <br>
+VAR-COV WITH INDIVIDUAL n (IN INDIVIDUAL RECORD ORDERING)
+<br>
+ESTIMATED TO BE ALGORITHMICALLY SINGULAR</p>
+
+<p style="margin-top: 1em">S) MESSAGE ISSUED FROM
+COVARIANCE STEP</p>
+
+<p style="margin-top: 1em">Explanation: With the final
+parameter estimate, the estimated variance-covariance matrix
+of the observations from individual n is algorithmically
+singular.</p>
+
+<p style="margin-top: 1em">System Action: Program
+terminates.</p>
+
+<p style="margin-top: 1em">User Response: The error can
+occur only when the final estimate is the initial estimate
+and only when either the Covariance Step is unconditionally
+implemented or a MSF is used. Respond with i-iv, as
+indicated in section G.3. If MSF is used, check that it is
+the correct one.</p>
+
+<p style="margin-top: 1em">These two messages may also
+occur together:</p>
+
+<p style="margin-top: 1em">T) PROGRAM TERMINATED BY OBJ,
+ERROR IN CONTR <br>
+WITH INDIVIDUAL n (IN INDIVIDUAL RECORD ORDERING) <br>
+RETURN CODE m</p>
+
+<p style="margin-top: 1em">U) MESSAGE ISSUED FROM
+COVARIANCE STEP</p>
+
+<p style="margin-top: 1em">Explanation: CONTR is the
+user-supplied subprogram for computing the contribution made
+to the objective function from a given individual&rsquo;s
+data. It has encountered a fatal error with individual n,
+and it has issued a return code m.</p>
+
+<p style="margin-top: 1em">System Action: Program
+terminates.</p>
+
+<p style="margin-top: 1em">User Response: The error can
+occur only when the final estimate is the initial estimate
+and only when either the Covariance Step is unconditionally
+implemented or a MSF is used. Respond with i-iv, as
+indicated in section G.3. If MSF is used, check that it is
+the correct one. Response should be appropriate for return
+code m.</p>
+
+<h2>G.5 Messages from the Table and Scatterplot Steps
+<a name="5"></a>
+<a name="5 Messages from the Table and Scatterplot Steps"></a>
+</h2>
+
+
+<p style="margin-top: 1em">These two messages may can occur
+together:</p>
+
+<p style="margin-top: 1em">A) PROGRAM TERMINATED BY PRRES,
+ERROR IN ELS <br>
+VAR-COV WITH INDIVIDUAL n (IN INDIVIDUAL RECORD ORDERING)
+<br>
+ESTIMATED TO BE ALGORITHMICALLY SINGULAR</p>
+
+<p style="margin-top: 1em">B) MESSAGE ISSUED FROM x
+STEP</p>
+
+<p style="margin-top: 1em">Explanation: With the final
+parameter estimate, the estimated variance-covariance matrix
+of the observations from individual n is algorithmically
+singular. In message B the x stands for either TABLE or
+SCATTERPLOT, whichever applies.</p>
+
+<p style="margin-top: 1em">System Action: Program
+terminates.</p>
+
+<p style="margin-top: 1em">User Response: The error can
+occur only when the final estimate is the initial estimate
+and only when the Estimation Step is either unconditionally
+implemented or not implemented. Respond with i-iv, as
+indicated in section G.3.</p>
+
+<p style="margin-top: 1em">These two messages may also
+occur together:</p>
+
+<p style="margin-top: 1em">C) PROGRAM TERMINATED BY PRRES,
+ERROR IN CONTR <br>
+WITH INDIVIDUAL n (IN INDIVIDUAL RECORD ORDERING) <br>
+RETURN CODE m</p>
+
+<p style="margin-top: 1em">D) MESSAGE ISSUED FROM x
+STEP</p>
+
+<p style="margin-top: 1em">Explanation: CONTR is the
+user-supplied subprogram for computing the contribution made
+to the objective function from a given individual&rsquo;s
+data. It has encountered a fatal error with individual n,
+and it has issued a return code m. In message D the x stands
+for either TABLE or SCATTERPLOT, whichever applies.</p>
+
+<p style="margin-top: 1em">System Action: Program
+terminates.</p>
+
+<p style="margin-top: 1em">User Response: The error can
+occur only when the final estimate is the initial estimate
+and only when the Estimation Step is either unconditionally
+implemented or not implemented. Respond with i-iv, as
+indicated in section G.3. Response should be appropriate for
+return code m.</p>
+
+<p style="margin-top: 1em">There is another possible
+message from the Scatterplot Step:</p>
+
+<p style="margin-top: 1em">E) RANGE FOR x is ZERO</p>
+
+<p style="margin-top: 1em">Explanation: The data items
+labeled x are to be scatterplotted, but they are all
+equal.</p>
+
+<p style="margin-top: 1em">System Action: Replace the
+scatterplot with this message.</p>
+
+<h2>G.5 Messages from the Finalization Step
+<a name="5"></a>
+<a name="5 Messages from the Finalization Step"></a>
+</h2>
+
+
+<p style="margin-top: 1em">These two messages may can occur
+together:</p>
+
+<p style="margin-top: 1em">A) PROGRAM TERMINATED BY PRRES,
+ERROR IN ELS <br>
+VAR-COV WITH INDIVIDUAL n (IN INDIVIDUAL RECORD ORDERING)
+<br>
+ESTIMATED TO BE ALGORITHMICALLY SINGULAR</p>
+
+<p style="margin-top: 1em">B) MESSAGE ISSUED WHEN CONPAR
+CALLED WITH ICALL=3</p>
+
+<p style="margin-top: 1em">Explanation: With the final
+parameter estimate, the estimated variance-covariance matrix
+of the observations from individual n is algorithmically
+singular. In message B CONPAR refers to the user-supplied
+subprogram for computing condensed parameter values.</p>
+
+<p style="margin-top: 1em">System Action: Program
+terminates.</p>
+
+<p style="margin-top: 1em">User Response: The error can
+occur only when the final estimate is the initial estimate
+and only when the Estimation Step is either unconditionally
+implemented or not implemented. Respond with i-iv, as
+indicated in section G.3.</p>
+
+<p style="margin-top: 1em">These two messages may also
+occur together:</p>
+
+<p style="margin-top: 1em">C) PROGRAM TERMINATED BY PRRES,
+ERROR IN CONTR <br>
+WITH INDIVIDUAL n (IN INDIVIDUAL RECORD ORDERING) <br>
+RETURN CODE m</p>
+
+<p style="margin-top: 1em">D) MESSAGE ISSUED WHEN CONPAR
+CALLED WITH ICALL=3</p>
+
+<p style="margin-top: 1em">Explanation: CONTR is the
+user-supplied subprogram for computing the contribution made
+to the objective function from a given individual&rsquo;s
+data. It has encountered a fatal error with individual n,
+and it has issued a return code m. In message D CONPAR
+refers to the user-supplied subprogram for computing
+condensed parameter values.</p>
+
+<p style="margin-top: 1em">System Action: Program
+terminates.</p>
+
+<p style="margin-top: 1em">User Response: The error can
+occur only when the final estimate is the initial estimate
+and only when the Estimation Step is either unconditionally
+implemented or not implemented. Respond with i-iv, as
+indicated in section G.3. Response should be appropriate for
+return code m.</p>
+
+<p style="margin-top: 1em"><a href="G.html">TOP</a></p>
+
+
+<p style="margin-top: 1em"><a href="index.html">TABLE OF CONTENTS</a></p>
+
+
+<p style="margin-top: 1em"><a href="figures.html">NEXT</a></p>
+<hr>
+</body>
+</html>

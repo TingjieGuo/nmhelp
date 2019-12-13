@@ -1,0 +1,94 @@
+<HTML><HEAD> <TITLE> bayes7.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                          BAYES EXAMPLE 7R                          |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This  is  example7r.ctl  from  the  NONMEM 7 distribution medium.  It,
+ along with the data file, can be found in the examples directory.
+
+ ;Model Desc: Interoccasion Variability
+ ;Project Name: nm7examples
+ ;Project ID: NO PROJECT DESCRIPTION
+
+ $PROB run# example7r
+ $INPUT C SET ID  TIME  AMT RATE EVID MDV CMT DV OCC
+ $ABBR REPLACE ETA(OCC_CL)=ETA(3,4,5)
+ $DATA example7r.csv IGNORE=C
+
+ $SUBROUTINES ADVAN1 TRANS2
+
+ $PK
+ MU_1=THETA(1)
+ MU_2=THETA(2)
+ V=DEXP(MU_1+ETA(1))
+ S1=V
+ VC=V
+ CL=DEXP(MU_2+ETA(2))*EXP(ETA(OCC_CL))
+
+ $ERROR
+ IPRED=F
+ Y = F+F*EPS(1)
+
+ ;Initial Thetas
+ $THETA
+  2.0  ;[MU_1]
+  2.0  ;[MU_2]
+
+ ;Initial omegas
+ $OMEGA BLOCK(2)
+  .3 ;[p]
+  -.01  ;[f]
+  .3 ;[p]
+ $OMEGA BLOCK(1)
+  .1  ;[p]
+ $OMEGA BLOCK(1) SAME(2)
+
+ $SIGMA
+  0.1 ;[p]
+
+ $PRIOR NWPRI
+ ; Degrees of freedom for Prior Omega blocks
+ $OMEGAPD (2.0 FIXED) (1.0 FIXED)
+ ; Prior Omegas
+ $OMEGAP BLOCK(2)
+  .14 FIX
+  0.0 .125
+ $OMEGAP BLOCK(1) .0164 FIX
+ $OMEGAP BLOCK(1) SAME(2)
+
+ $EST METHOD=ITS INTERACTION FILE=example7r.ext   NITER=10000
+      PRINT=5 NOABORT SIGL=8 CTYPE=3 CITER=10
+      NOPRIOR=1 CALPHA=0.05 NSIG=2
+
+ $EST METHOD=SAEM INTERACTION NBURN=30000 NITER=500 SIGL=8
+      ISAMPLE=2 PRINT=10 SEED=1556678 CTYPE=3
+      CITER=10 CALPHA=0.05 NOPRIOR=1
+
+ $EST METHOD=IMP  INTERACTION EONLY=1 NITER=4 ISAMPLE=3000
+      PRINT=1 SIGL=10 NOPRIOR=1 MAPITER=0
+
+ $EST METHOD=BAYES INTERACTION FILE=example7r.txt NBURN=10000
+      NITER=10000 PRINT=100 CTYPE=3 CITER=10
+      CALPHA=0.05 NOPRIOR=0
+
+ $EST METHOD=COND INTERACTION MAXEVAL=9999 NSIG=3 SIGL=10 PRINT=5
+      NOABORT NOPRIOR=1
+      FILE=example7r.ext
+
+ $COV MATRIX=R PRINT=E UNCONDITIONAL
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

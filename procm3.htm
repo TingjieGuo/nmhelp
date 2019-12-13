@@ -1,0 +1,44 @@
+<HTML><HEAD> <TITLE> procm3.for</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        DOSE RECORD: DOSREC                         |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: PREDPP read-only global variables
+ CONTEXT: User-supplied PK, DES, AES routines
+
+ USAGE:
+      USE PROCM_REAL, ONLY: DOSREC
+
+ GLOBAL DECLARATION:
+      USE SIZES, ONLY: VSIZE,DPSIZE
+      REAL(KIND=DPSIZE) :: DOSREC(VSIZE)
+
+ DISCUSSION:
+
+ DOSREC
+      At  a  call to PK which occurs at a non-event dose time (i.e., at
+      the time of an additional or lagged dose),  DOSREC  contains  the
+      (last data record of the) event record describing the dose.
+
+      When PK is called at an event time, DOSREC contains 0's.
+
+ (See <A HREF="d.htm#dose_time_non-event:_dostim">Dose Time Non-Event: DOSTIM</A>).
+
+ Location prior to NONMEM 7: procm3
+
+REFERENCES: Guide VI Section <a href="VI/III.html#I.">III.I<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

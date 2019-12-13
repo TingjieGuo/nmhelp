@@ -1,0 +1,531 @@
+<!-- Creator     : groff version 1.21 -->
+<!-- CreationDate: Fri Jan 12 20:08:08 2018 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part IV - NM-TRAN">NONMEM Users Guide Part IV - NM-TRAN</a><br>
+<a href="#Preface. to 4d Edition">Preface. to 4d Edition</a><br>
+<a href="#General. Improvements to NONMEM">General. Improvements to NONMEM</a><br>
+<a href="#Support. for New Features of PREDPP">Support. for New Features of PREDPP</a><br>
+<a href="#General. Improvements to NM-TRAN">General. Improvements to NM-TRAN</a><br>
+<a href="#NM-TRAN. Data Set and Data Preprocessor">NM-TRAN. Data Set and Data Preprocessor</a><br>
+<a href="#New. features of Abbreviated Code">New. features of Abbreviated Code</a><br>
+<a href="#New. Features for PREDPP">New. Features for PREDPP</a><br>
+<a href="#Other. Control records">Other. Control records</a><br>
+<a href="#About. this document ...">About. this document ...</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part IV - NM-TRAN
+<a name="NONMEM Users Guide Part IV - NM-TRAN"></a>
+</h2>
+
+
+<h2>Preface. to 4d Edition
+<a name="Preface. to 4d Edition"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The appearance of this 4th
+edition of the NM-TRAN Guide coincides with the appearance
+of NM-TRAN 7.4.2 and NONMEM 7.4.2. It contains minor changes
+since the 3d. edition, which appeared with NM-TRAN 7.4.0 and
+NONMEM 7.4.1 and was the first new edition since NM-TRAN
+Version II and NONMEM IV in 1992.</p>
+
+<p style="margin-top: 1em">Significant changes since the
+2nd. edition and the 3d. edition are marked with bars.</p>
+
+<p style="margin-top: 1em">Versions of NM-TRAN are now
+numbered to match those of NONMEM. This version supports the
+new features of NONMEM and PREDPP Versions 7.4.0, 7.4.1, and
+7.4.2 In addition, there are improvements in the level of
+support NM-TRAN provides to usage of NONMEM and PREDPP that
+does not take advantage of any new features of these latest
+versions.</p>
+
+<p style="margin-top: 1em">In the first edition of this
+Guide the terms <b><br>
+individual data</b> <br>
+and <b><br>
+individual data set</b> <br>
+were used. In this edition these terms are replaced <br>
+by <b><br>
+single-subject data</b> <br>
+and <b><br>
+single-subject data set</b> <br>
+The section clarifying the differences between population
+and <br>
+single-subject data and between the use of
+<img src="grohtml-31431-3.png" alt="Image grohtml-31431-3.png">
+and
+<img src="grohtml-31431-4.png" alt="Image grohtml-31431-4.png">
+<br>
+variables with these two kinds of data, section II.C.4, has
+been <br>
+improved, and should be consulted.</p>
+
+<p style="margin-top: 1em">Section II.D discusses the
+analysis of categorical (&quot;odd-type&quot;) data using
+<img src="grohtml-31431-5.png" alt="Image grohtml-31431-5.png">
+variables but no
+<img src="grohtml-31431-6.png" alt="Image grohtml-31431-6.png">
+variables (nmv). NONMEM can also analyze a population data
+set as if the data from each individual were single-subject
+data (&quot;POPULATION WITH UNCONSTRAINED ETAS&quot;); see
+Section III.B.10 (nm73).</p>
+
+<p style="margin-top: 1em">Note the difference between a
+<b>data record</b> (which is a single record, also called a
+<b>line</b> in a data file) and an <b>individual record,</b>
+which is a group of contiguous data records having the same
+value for the ID data item and presumably containing data
+from the same subject.</p>
+
+<h2>General. Improvements to NONMEM
+<a name="General. Improvements to NONMEM"></a>
+</h2>
+
+
+<p style="margin-top: 1em">NM-TRAN supports general
+improvements such as:</p>
+
+<p style="margin-top: 1em">Dynamic allocation of arrays in
+NONMEM, PREDPP, and PREDPP, including compile-time changes
+to SIZES.f90 and run-time changes using the $SIZES record
+(nm71).</p>
+
+<p style="margin-top: 1em">Larger NONMEM data files
+(nm71)</p>
+
+<p style="margin-left:8%; margin-top: 1em">No limit on the
+number of records <br>
+No limit on the length of records <br>
+No limit on the number of items per record <br>
+More characters per data item <br>
+More characters in ID item <br>
+No need for FINISH records</p>
+
+<p style="margin-top: 1em">Increases in the numbers of
+ETA&rsquo;s, EPS&rsquo;s, THETA&rsquo;s; indices may have 3
+digits (nm72).</p>
+
+<p style="margin-top: 1em">Numerical values in $THETA,
+$OMEGA, and $SIGMA may be each up to 30 characters long, and
+may be described in E field notation (nm72).</p>
+
+<p style="margin-top: 1em">When initial estimates of thetas
+are to be estimated, evaluations can now be done for FOCE
+and LAPLACE, not just for FO.</p>
+
+<p style="margin-top: 1em">Parallel processing using option
+PARAFILE of task records $ESTIMATION, $COVARIANCE, $TABLE,
+$SIMULATION (nm72).</p>
+
+<p style="margin-top: 1em">The $CHAIN Record supplies
+initial estimates for an entire problem (nm72).</p>
+
+<p style="margin-top: 1em">The $LEVEL record is used to
+define &quot;super ID&quot; data items, which define
+additional random nesting levels above that of subject ID
+(nm73).</p>
+
+<p style="margin-top: 1em">The $SUPERPROBLEM Record allows
+multiple NONMEM problems to be grouped into superproblems
+and repeated (nmv).</p>
+
+<p style="margin-top: 1em">New reserved data items
+<tt>RAW_</tt> (nmv), <tt>MRG_</tt> (nmv), <tt>RPT_</tt>
+(nmvi) for new features: raw data averages, Expectation,
+Repetition (nmv). New reserved variable TEMPLT can be used
+with raw data averages. New record $OMIT lists data item
+types to be excluded from template matching when raw data
+averages are computed (nmvi).</p>
+
+<p style="margin-top: 1em">Reserved variables CTLO, CTUP
+allow an observation to be the event that the value of a
+normally distributed variable falls in a given interval.
+Reserved variables YLO, YUP allow the likelihood for an
+observation to be conditioned on the observation being in
+(or outside) an interval (nmvi).</p>
+
+<p style="margin-top: 1em">$NONPARAMETRIC Record and
+Non-Parametric Step (nmvi).</p>
+
+<p style="margin-top: 1em">BOOTSTRAP options of
+$NONPARAMETRIC and $SIMULATION Records (nm73)</p>
+
+<p style="margin-top: 1em">PRIOR Feature (nmvi)</p>
+
+<p style="margin-left:8%; margin-top: 1em">The PRIOR
+subroutine allows a penalty function to be specified and
+added to the -2log likelihood function.</p>
+
+<p style="margin-left:8%; margin-top: 1em">$PRIOR Gives
+instructions for generating the PRIOR subroutine. (nmvi)</p>
+
+<p style="margin-left:8%; margin-top: 1em">Informative
+names for $THETA, $OMEGA, $SIGMA (nm73) <br>
+$THETAP Gives prior information for THETA <br>
+$THETAPV Gives variance information for THETA priors. <br>
+$OMEGAP and $OMEGAPD Gives prior information for OMEGA. <br>
+$SIGMAP and $SIGMAPD Gives prior information for SIGMA.</p>
+
+<p style="margin-top: 1em">The $DEFAULT record can be used
+to specify defaults for NONMEM (nm74).</p>
+
+<p style="margin-top: 1em">The MISDAT option of $DATA
+defines one or more particular numerical values to indicate
+a missing data value in the data set, which is displayed on
+$TABLE outputs, but is safely interpreted as 0 by other
+steps of NONMEM (nm74)</p>
+
+<h2>Support. for New Features of PREDPP
+<a name="Support. for New Features of PREDPP"></a>
+</h2>
+
+
+<p style="margin-top: 1em">New ADVAN routines: ADVAN11,
+ADVAN12 (nmv), ADVAN13, ADVAN14, ADVAN15 (nm74)</p>
+
+<p style="margin-top: 1em">Larger models with more
+compartments.</p>
+
+<p style="margin-top: 1em">Compartment intialization
+feature (A_0, A_0FLG variables) (nmvi).</p>
+
+<p style="margin-top: 1em">Model event times (MTIME
+variables) (nmvi).</p>
+
+<p style="margin-top: 1em">Initial steady state feature
+(I_SS variable and I_SS option of $MODEL) (nmvi).</p>
+
+<p style="margin-top: 1em">Extra EVID values (XVID1, XVID2,
+XVID3, XVID4, XVID5 variables) (nm72).</p>
+
+<p style="margin-top: 1em">Negative values for TIME data
+item (nm74).</p>
+
+<p style="margin-top: 1em">Output-type compartments. This
+has always been a feature of PREDPP, but was not documented
+previously.</p>
+
+<h2>General. Improvements to NM-TRAN
+<a name="General. Improvements to NM-TRAN"></a>
+</h2>
+
+
+<p style="margin-top: 1em">All control records and
+abbreviated code are case independent (nm72).</p>
+
+<p style="margin-top: 1em">Continuation character &amp; may
+be used at the end of any line of the control stream to
+indicate that the line is to be continued, including control
+records as well as abbreviated code (nm73).</p>
+
+<p style="margin-top: 1em">Data item labels and
+user-defined variable names in abbreviated code may have
+more characters (SD), and may use underscore &quot;_&quot;
+(nm7).</p>
+
+<p style="margin-top: 1em">Filenames on control records may
+be longer and may use underscore (nmvi)</p>
+
+<p style="margin-top: 1em">Abbreviated code INCLUDE
+statement (nmv) and $INCLUDE record (nmvi) allow parts of
+the model to be defined in other files. The file
+nonmem_reserved_general is of special interest (nm73).</p>
+
+<p style="margin-top: 1em">Changes to FSUBS:</p>
+
+<p style="margin-left:8%; margin-top: 1em">Rearrangement of
+generated code (because 1st. eta partials need not always be
+computed) (nm72) <br>
+$ABBR option NOFASTDER can be used to prevent the
+rearrangement (nm72). <br>
+$ABBR DERIV1=NO prevents the computation of 1st. eta
+partials (nm74)</p>
+
+<p style="margin-left:8%; margin-top: 1em">MODULES instead
+of COMMONS (nm7) (Note that appendices 4, 7 and 9 show the
+code as generated by NONMEM VI, in which named COMMONs were
+still used.)</p>
+
+<p style="margin-left:8%; margin-top: 1em">Dynamic memory
+allocation: pointers (nm7)</p>
+
+<p style="margin-top: 1em">NM-TRAN Library subroutines
+(with input from FLIB) are no longer supported (nm72)</p>
+
+<h2>NM-TRAN. Data Set and Data Preprocessor
+<a name="NM-TRAN. Data Set and Data Preprocessor"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Tab character may be used to
+separate data items. This allows &quot;Excel txt (tab
+delimited)&quot; files (nmvi2.0)</p>
+
+<p style="margin-top: 1em">TIME and II data items can have
+format hh:mm:ss (i.e., hours:minutes:seconds) (nm73)</p>
+
+<p style="margin-top: 1em">More digits in relative time
+(nmv)</p>
+
+<p style="margin-top: 1em">NM-TRAN detects blank records;
+$DATA record option BLANKOK may be used (nmvi2.0)</p>
+
+<p style="margin-top: 1em">Better handling of ill-formed
+files (nmvi2.0)</p>
+
+<p style="margin-top: 1em">$DATA LAST20 option for
+2-character years (nmv)</p>
+
+<p style="margin-top: 1em">$DATA TRANSLATE=(list) option to
+convert hours to days (nmv)</p>
+
+<p style="margin-top: 1em">$DATA IGNORE/ACCEPT=(list)
+options to select records by data item value (nmvi)</p>
+
+<p style="margin-top: 1em">$DATA NOOPEN option for multiple
+problem data (nmv)</p>
+
+<p style="margin-top: 1em">$DATA RECORDS=label option to
+select records by contiguous values of a data item
+(nmvi)</p>
+
+<p style="margin-top: 1em">A change in the rule for
+generated ID data item when the L2 item is defined; see
+Section II.C.4.2 (nmvi)</p>
+
+<h2>New. features of Abbreviated Code
+<a name="New. features of Abbreviated Code"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Nested parenthesis <br>
+Nested IF statements <br>
+Re-definition of random variables <br>
+Recursive code <br>
+CALL SIMETA, CALL SIMEPS, CALL RANDOM, CALL PASS, CALL SUPP
+<br>
+DO WHILE, ENDDO, RETURN , WRITE, PRINT statements <br>
+DO WHILE (DATA) statement <br>
+More FORTRAN intrinsic functions and user-written
+FUNC&rsquo;s <br>
+Protected versions of intrinsic functions, and $ABBR PROTECT
+(nm74) <br>
+Pre-defined vector variables VECTRA(10), VECTRB(10),
+VECTRC(10).... <br>
+User-defined functions and vectors using $ABBR FUNCTION and
+$ABBR VECTOR (nm74) <br>
+Tests of ICALL value <br>
+Reserved variables CNTID, IIDX <br>
+Reserved variables OMEGA(i,j), SIGMA(i,j) <br>
+Reserved variables SETHET(i,j), SETHETR(i,j), SEOMEG(i,j),
+SESIGM(i,j)</p>
+
+<p style="margin-top: 1em">Abbreviated code can use
+&quot;END PROBLEM&quot; phrase or reserved variable SKIP_ to
+cause premature termination of a problem, sub-problem, or
+superproblem (nmvi).</p>
+
+<p style="margin-top: 1em">MU_ variables may be defined.
+NM-TRAN checks for mistakes in MU modeling and issues
+warnings; $ABBR record option NOCHECKMU can be used to turn
+off these warnings (nm72).</p>
+
+<p style="margin-top: 1em"><tt>$ABBR REPLACE</tt>
+left_string = right_string (nm73,nm74)</p>
+
+<p style="margin-left:8%; margin-top: 1em">Allows for
+replacement of any strings in abbreviated code. More
+complicated forms allow replacement by data item and
+parameter, which is a compact way of writing complicated
+abbreviated code. Also allows symbolic labeling for thetas,
+etas, and epsilons (label substitution) in NONMEM outputs.
+Label substitution can be controlled with NOSUB option of
+$DEFAULT as well as individual $ESTIMATION, $TABLE and $SCAT
+records (nm74).</p>
+
+<p style="margin-top: 1em"><tt>$ABBR DECLARE</tt> [type]
+[DOWHILE] name [(dimension [,dimension])] ... (nm73)</p>
+
+<p style="margin-left:8%; margin-top: 1em">Used to define
+user-defined arrays and vectors for abbreviated code, and
+INTEGER variables and DOWHILE variables for use as
+subscripts and looping.</p>
+
+<p style="margin-top: 1em">$MIX Abbreviated code for the
+NONMEM MIX subroutine (nmv).</p>
+
+<h2>New. Features for PREDPP
+<a name="New. Features for PREDPP"></a>
+</h2>
+
+
+<p style="margin-top: 1em">$PK and $ERROR</p>
+
+<p style="margin-left:8%; margin-top: 1em">Calling protocol
+phrases <br>
+Implicit save variables <br>
+Compartment amounts (A(i)) are reserved variables on the
+right</p>
+
+<p style="margin-top: 1em">$BIND Specifies which values
+from event records are used in PK subroutines at non-event
+times.</p>
+
+<p style="margin-top: 1em">$AES, $DES Use of theta, data
+record items on the right</p>
+
+<p style="margin-top: 1em">$DES and $SUBROUTINES: ATOL,
+SSTOL, SSATOL (nm74)</p>
+
+<p style="margin-top: 1em">$INFN Abbreviated code for the
+INFN subroutine (nmvi)</p>
+
+<h2>Other. Control records
+<a name="Other. Control records"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Options and records of
+particular interested are listed here.</p>
+
+<p style="margin-top: 1em">$THETAI Instructions for
+generating a subroutine that <br>
+transforms the initial values of THETA (nm73).</p>
+
+<p style="margin-top: 1em">$THETAR Instructions for
+generating a subroutine that transforms the final values of
+THETA (nm73).</p>
+
+<p style="margin-top: 1em">$THETA, $OMEGA, $SIGMA Records
+Repeated value feature (nm72)</p>
+
+<p style="margin-left:8%; margin-top: 1em">Any initial
+value or group of initial values may be enclosed in
+parentheses and followed by &quot;x
+<img src="grohtml-31431-9.png" alt="Image grohtml-31431-9.png">
+&quot;, which means to replicate the values within
+parentheses n times: <tt>(</tt>value<tt>)</tt>x
+<img src="grohtml-31431-10.png" alt="Image grohtml-31431-10.png"></p>
+
+<p style="margin-top: 1em">$OMEGA, $SIGMA Records VALUES
+option</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><tt>BLOCK(</tt>n<tt>)VALUES(diag,odiag)</tt></p>
+
+<p style="margin-left:8%; margin-top: 1em">Supplies initial
+values for a block such that the initial estimates of the
+diagonal elements are all the same, specified by
+&quot;diag&quot;, and the initial estimates of the
+off-diagonal elements are all the same, specified by
+&quot;odiag&quot;.</p>
+
+<p style="margin-top: 1em">$OMEGA and $SIGMA Records
+Alternative Inputs for Values (nm72)</p>
+
+<p style="margin-left:8%; margin-top: 1em">Options
+<tt>STANDARD CORRELATON CHOLESKY</tt> may be used as well as
+the default options <tt>VARIANCE COVARIANCE</tt></p>
+
+<p style="margin-top: 1em">$ESTIMATION Record</p>
+
+<p style="margin-left:8%; margin-top: 1em">A sequence of
+two or more $ESTIMATION records within a given problem will
+result in the sequential execution of separate NONMEM
+Estimation Steps. With earlier versions, multiple
+$ESTIMATION records in the same problem were considered to
+continue a single $ESTIMATION record (nm7).</p>
+
+<p style="margin-left:8%; margin-top: 1em">Options
+<tt>LIKELIHOOD</tt> and <tt>-2LOGLIKELIHOOD</tt> are used
+when there is odd-type data. <tt>PREDICTION</tt> is the
+default for ordinary data (nmv).</p>
+
+<p style="margin-left:8%; margin-top: 1em">There are many
+new options, e.g., for Bayesian methods. See INTRODUCTION TO
+NONMEM 7 and Guide VIII Help.</p>
+
+<p style="margin-top: 1em">$TABLE and $SCAT</p>
+
+<p style="margin-left:8%; margin-top: 1em">Special
+diagnostic items NPRED, NRES, NWRES, etc. (nm71) <br>
+Elements of VECTR&rsquo;s (nmvi) <br>
+Elements G11, G21, etc. of G and H (nmvi) <br>
+ETA&rsquo;s and ranges of ETA&rsquo;s (nm73,nm74) <br>
+New output variable OBJI and NPD (nm72)</p>
+
+<p style="margin-top: 1em">$TABLE Record</p>
+
+<p style="margin-left:8%; margin-top: 1em">More items per
+table record (50) (PDT in SIZES) (nm72)</p>
+
+<p style="margin-left:8%; margin-top: 1em">APPEND|NOAPPEND
+Specifies if DV, PRED, RES, WRES should be appended
+(nmv)</p>
+
+<p style="margin-left:8%; margin-top: 1em">FIRSTONLY
+Selects only the first record of each individual record for
+the table (nmv)</p>
+
+
+<p style="margin-left:8%; margin-top: 1em">NOFORWARD|FORWARD
+Controls positioning in Table file with multiple problem
+runs (nmv)</p>
+
+<p style="margin-left:8%; margin-top: 1em">FORMAT, LFORMAT,
+RFORMAT Provides alternate formats for lines in tables and
+additional output files (nm72)</p>
+
+<p style="margin-left:8%; margin-top: 1em">EXCLUDE_BY
+Excludes data records (rows) from the table according to
+variable values (nm74)</p>
+
+<p style="margin-top: 1em">$MSFI Options ONLYREAD (nmvi),
+MSFTEST (nm73), VERSION (nm74)</p>
+
+<p style="margin-top: 1em">$SIMULATION Option STRAT
+(nm73)</p>
+
+<p style="margin-top: 1em">$COVARIANCE Options STRAT
+(nm73), RESUME (nm73)</p>
+
+<h2>About. this document ...
+<a name="About. this document ..."></a>
+</h2>
+
+
+<p style="margin-top: 1em">Vertical lines appear in the
+right margin, marking changes or additions to the text that
+may be of particular interest.</p>
+
+<p style="margin-top: 1em">This preface mentions some of
+the most important changes to NM-TRAN, but is not complete.
+NONMEM Users Guide VIII and on-line help and Introduction to
+NONMEM 7 should also be consulted.</p>
+
+<p style="margin-top: 1em"><a href="P.html">TOP</a> <br>
+<a href="index.html">TABLE OF CONTENTS</a> <br>
+ <a href="I.html">NEXT CHAPTER ...</a></p>
+<hr>
+</body>
+</html>

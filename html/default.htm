@@ -1,0 +1,58 @@
+<HTML><HEAD> <TITLE> default.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        DEFAULT COMPARTMENT                         |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Default compartments for kinetic models with PREDPP
+ CONTEXT: NONMEM data set
+
+ DISCUSSION:
+
+  The  prediction  computed  by  PREDPP is a scaled drug amount in some
+ compartment called the observation compartment.  Every dose  is  input
+ into some dose compartment.
+
+ With  every  kinetic  model there are designated a default observation
+ compartment and a default dose compartment. For some  kinetic  models,
+ these  designations  are  built into the model definition; for others,
+ these designations are given by the user in the user subroutine  MODEL
+ (or in $MODEL abbreviated code).
+
+ Unless  otherwise specified on an observation event record by means of
+ the compartment data item (CMT), the observation compartment is  taken
+ to  be the default observation compartment. Unless otherwise specified
+ on a dose event record by means of the compartment data item, the dose
+ compartment is taken to be the default dose compartment.
+
+ The  models  for  which  default  designations are built-in are listed
+ here.  The numbers are the compartment numbers.
+
+ Model     Default dose compartment   Default observation compartment
+
+ ADVAN1               1                              1
+ ADVAN2               1                              2
+ ADVAN3               1                              1
+ ADVAN4               1                              2
+ ADVAN10              1                              1
+ ADVAN11              1                              1
+ ADVAN12              1                              2
+
+ (See <A HREF="c.htm#cmt">cmt</A>, <A HREF="$.htm#$model">$model</A>, model).
+
+REFERENCES: Guide VI Section <a href="VI/V.html#H.">V.H<a/>, <a href="VI/VI.html#B.">VI.B<a/>, <a href="VI/VII.html#C.">VII.C<a/>
+REFERENCES: Guide IV Section <a href="IV/V.html#C.4.">V.C.4<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

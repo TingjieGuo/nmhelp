@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 58</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Courier;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:7px;font-family:Courier;color:#000000;}
+	.ft5{font-size:7px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V058.png" alt="background image">
+<DIV style="position:absolute;top:41;left:152"><nobr><span class="ft0">Chapter 6 - Data Sets, $DAT A and $INPUT Records, and the Data Preprocessor</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft6">though this is platform-dependent and should be tested carefully. When there are no commas or<br>tabs, the value &quot;.&quot; or 0 <i>must </i>be used to hold the place of a null data item. The two lines above<br>could have been entered as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:131"><nobr><span class="ft2"><b>2 320. 0. 0.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:131"><nobr><span class="ft2"><b>2,,.27,1.71</b></span></nobr></DIV>
+<DIV style="position:absolute;top:142;left:72"><nobr><span class="ft0">(Note the use in the second line of adjacent commas &quot;,,&quot; to denote a null data item.)</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:72"><nobr><span class="ft6">The contents of the data items must be purely numeric; i.e., character values such as Y, N, M or F<br>may not be recorded. Instead, numeric codes such as 0 or 1 must be used.</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:72"><nobr><span class="ft6">With NONMEM VI, the number of data items per data record is given by constant PD in ﬁle<br>SIZES. The default value is 20. With NONMEM 7.1, the default value is 50. With NONMEM<br>7.2, there is no limit on the number of data items per data record.</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:72"><nobr><span class="ft3"><b>2.3. Clinical Data and Data Conversion</b></span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:72"><nobr><span class="ft6">Clinical data often has a &quot;hierarchical&quot; ﬁle structure, with (say) two record formats: a patient<br>record, containing ﬁxed information about a patient (ID number, sex, age, prior history of smok-<br>ing or drug use, etc), followed by one or more visit records, containing doses and physical obser-<br>vations during the course of the study. Visit records may not even contain the same number of<br>items as patient records, nor have the same format. The hierarchy is shown schematically in ﬁg-<br>ure 6.2.</span></nobr></DIV>
+<DIV style="position:absolute;top:344;left:104"><nobr><span class="ft4"><b>Patient record</b></span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:115"><nobr><span class="ft4"><b>Visit record</b></span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:115"><nobr><span class="ft4"><b>Visit record</b></span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:115"><nobr><span class="ft4"><b>...</b></span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:104"><nobr><span class="ft4"><b>Patient record</b></span></nobr></DIV>
+<DIV style="position:absolute;top:409;left:115"><nobr><span class="ft4"><b>Visit record</b></span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:115"><nobr><span class="ft4"><b>Visit record</b></span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:115"><nobr><span class="ft4"><b>...</b></span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:72"><nobr><span class="ft5">Figure 6.2. A hierarchical data ﬁle. Patient and visit records have different formats.</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:72"><nobr><span class="ft6">NONMEM cannot accept such data. For NONMEM, the (ﬁxed) information on the &quot;patient&quot;<br>record must be copied onto every &quot;visit&quot; record, and the &quot;patient&quot; records must be eliminated.<br>This is the user’s responsibility and is typically done in a one-time data conversion step using the<br>system editor and/or a specially written computer program. If an individual’s data is to be deleted<br>because he did not complete the study or had an adverse outcome, it should be done at this time.<br>In addition, numeric codes should be substituted for alphabetic codes. Clinical data sometimes<br>includes multi-digit, non-consecutive patient identiﬁcation numbers drawn from some patient<br>identiﬁcation system. Such patient identiﬁcation numbers can be used with NONMEM as the<br>identiﬁcation data item described in Section 6.2. However, it is preferable to append to each<br>patient’s data records numbers from the sequence 1, 2, 3, ..., for use as the ID data item. This will<br>make it easier to read a scatterplot which includes ID along one of the axes (e.g., residual vs ID).</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:72"><nobr><span class="ft6">When there is a large amount of data, we strongly suggest that a small amount of data (from one<br>or two individuals) be prepared for NONMEM-PREDPP analysis and a run in which only tables<br>and scatterplots are output be made to check that the data is correctly prepared before a great deal<br>of labor is expended on the remainder.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-50-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

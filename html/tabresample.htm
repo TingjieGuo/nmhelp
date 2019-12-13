@@ -1,0 +1,86 @@
+<HTML><HEAD> <TITLE> tabresample.sup</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           TABLE_RESAMPLE                           |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: TABLE_RESAMPLE program
+ CONTEXT: NONMEM run
+
+ The utility program table_resample performs a resampling of importance
+ sampling (SIR) data in the NONMEM raw  output  file.   Such  data  are
+ present  when  the option SIRSAMPLE of the $COVARIANCE record is used.
+ (See NONMEM 74 Guide, "Importance Sampling of the  Variance-Covariance
+ of   the   Parameter   Estimates").   Table_resample  produces a table
+ file.  Samples are weighted according to the  WEIGHT  column.   If  no
+ WEIGHT column is present, WEIGHT is assumed to be equal among all sam-
+ ples.
+
+ USAGE:
+ table_resample inputfile outputfile delimiter newsize seed start end
+
+ Inputfile name
+      should be the raw NONMEM file (root.ext).
+
+ outputfile
+      The results are written to outputfile, which is required.
+
+ Delimiter
+      same as the delimiters that is used in  the  input  file  (s  for
+      space, t for tab, comma default)
+
+ start and end
+      The range of iterations to be resampled (default is all non-nega-
+      tive iterations).
+
+ newsize
+      Size of the new samples, when seed &gt; 0.
+
+ seed=0
+      Non-randomized expansion of the samples, based on WEIGHT column
+
+ seed&gt;0
+      Randomized starting at seed, with repeated samples allowed If the
+      user  chooses seed&gt;0, then newsize samples will be generated ran-
+      domly and with replacement, in proportion to the WEIGHT column.
+
+ seed&lt;0
+      Randomized starting  at  abs(seed),  with  repeated  samples  not
+      allowed.
+
+      If  the  user chooses seed=0, then newsize samples will be gener-
+      ated, each line of the original root.ext file being  repeated  in
+      proportion  to  its WEIGHT value, and these repeated samples will
+      be placed in root_new.ext. Thus the  weight  of  each  sample  is
+      physically  expressed in the manner of repeated rows of that sam-
+      ple.  To assure that  integer  truncation  does  not  render  the
+      smaller  weighted  samples  to  be  not at all expressed, newsize
+      should be something like 10000, or  even  100000.  The  resulting
+      file,  root_new.ext,  will  have  the  same  structure as a BAYES
+      result  file,  without  the  WEIGHT  column,  and  the  R  script
+      bayesplot.R  or  Splus script bayesplot.ssc, available in Pdx-Pop
+      5.1, may be used to view histograms, quantile plots, and quantile
+      tables.
+
+      The  seed&lt;0 should be used only if newsize&lt;&lt;min(oldsize of origi-
+      nal file, end-start+1) that is, you just want a  to  pick  a  few
+      samples.
+
+ See also table_quant (tabquant) program.
+
+ EXAMPLE:
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

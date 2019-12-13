@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 97</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:7px;font-family:Courier;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index097.png" alt="background image">
+<DIV style="position:absolute;top:41;left:312"><nobr><span class="ft0">Chapter 9 - Additional NM-TRAN Records</span></nobr></DIV>
+<DIV style="position:absolute;top:79;left:77"><nobr><span class="ft1"><b>$SCATTERPLOT RES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:79;left:185"><nobr><span class="ft1"><b>VS WT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:72"><nobr><span class="ft4">The word UNIT requests a unit-slope line, which is the line PRED=DV. Figures 2.10 and 2.11<br>show the resulting output.</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:72"><nobr><span class="ft0">Similarly, the word ORD0 can be used to request a zero line on the ordinate axis.</span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:72"><nobr><span class="ft4">It is possible to generate several scatterplots with a single record, by using a list of data item<br>names:</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:77"><nobr><span class="ft1"><b>$SCATTERPLOT (PRED,RES,WRES) VS WT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:72"><nobr><span class="ft0">This produces three scatterplots, and has the same effect as the three records:</span></nobr></DIV>
+<DIV style="position:absolute;top:191;left:77"><nobr><span class="ft1"><b>$SCATTERPLOT PRED VS WT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:77"><nobr><span class="ft1"><b>$SCATTERPLOT RES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:185"><nobr><span class="ft1"><b>VS WT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:217;left:77"><nobr><span class="ft1"><b>$SCATTERPLOT WRES VS WT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:72"><nobr><span class="ft4">Sometimes it is desirable to partition a scatterplot into a number of separate scatterplots. For<br>example, if the data contain both plasma and urine observations, it would be better to separate the<br>scatterplot of PRED vs. DV into one scatterplot where the DV values are the plasma observations,<br>and another one where the DV values are the urine observations. To do this, it is necessary to<br>specify a partitioning data item, in this case, the CMT data item, which gives the compartment<br>number of the observation. The following record could be used.</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:77"><nobr><span class="ft1"><b>$SCATTERPLOT PRED VS DV BY CMT UNIT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:72"><nobr><span class="ft4">This will produce separate scatterplots: one with plasma observations (CMT=1 if ADVAN1 is<br>used), and one with urine observations (CMT=2 if ADVAN1 is used).</span></nobr></DIV>
+<DIV style="position:absolute;top:352;left:72"><nobr><span class="ft0">Tw o partitioning items can also be speciﬁed:</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:77"><nobr><span class="ft1"><b>$SCATTERPLOT PRED VS DV BY CMT SEX UNIT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:72"><nobr><span class="ft4">One scatterplot is produced for each unique <i>combination </i>of values of the two partitioning data<br>items.</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:72"><nobr><span class="ft3"><b>6. Placement and Order of Records</b></span></nobr></DIV>
+<DIV style="position:absolute;top:433;left:72"><nobr><span class="ft0">Tw o main rules control the placement and order of records within a NM-TRAN control ﬁle:</span></nobr></DIV>
+<DIV style="position:absolute;top:450;left:97"><nobr><span class="ft4">The $INPUT record must appear <i>before </i>any records which contain data item names ($PK,<br>$ERROR, $TABLE, $SCATTERPLOT)</span></nobr></DIV>
+<DIV style="position:absolute;top:480;left:97"><nobr><span class="ft4">The $SUBROUTINE, $PK, and $ERROR records should appear in the indicated order, but<br>do not have to be consecutive.</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:72"><nobr><span class="ft4">The records $DAT A, $THETA, $OMEGA, $SIGMA, $ESTIMATION, $COVARIANCE, $TA-<br>BLE, and $SCATTERPLOT can be placed anywhere among the control records, in any order.<br>However, NONMEM always performs its tasks in a ﬁxed order:</span></nobr></DIV>
+<DIV style="position:absolute;top:548;left:100"><nobr><span class="ft4">Estimation Step<br>Covariance Step<br>Table Step<br>Scatterplot Step</span></nobr></DIV>
+<DIV style="position:absolute;top:600;left:72"><nobr><span class="ft4">Thus, even if the $TABLE record precedes the $ESTIMATION record, the values of PRED, RES,<br>and WRES in the table will be based on the ﬁnal parameter estimates.</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:72"><nobr><span class="ft3"><b>7. INCLUDE records</b></span></nobr></DIV>
+<DIV style="position:absolute;top:656;left:72"><nobr><span class="ft0">One or more records of the form</span></nobr></DIV>
+<DIV style="position:absolute;top:674;left:77"><nobr><span class="ft1"><b>INCLUDE filename n</b></span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:72"><nobr><span class="ft4">may appear anywhere among the NM-TRAN control records. The characters INCLUDE may be<br>upper- or lower-case. &quot;n&quot; is an optional integer, and gives the number of copies (default is 1).</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-89-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

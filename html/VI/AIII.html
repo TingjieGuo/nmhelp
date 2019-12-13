@@ -1,0 +1,562 @@
+<!-- Creator     : groff version 1.21 -->
+<!-- CreationDate: Tue Apr 25 13:28:08 2017 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part VI - PREDPP">NONMEM Users Guide Part VI - PREDPP</a><br>
+<a href="#Appendix.III. MTIME Details">Appendix.III. MTIME Details</a><br>
+<a href="#3.III.A. GENERAL DESCRIPTION">3.III.A. GENERAL DESCRIPTION</a><br>
+<a href="#3.III.B. EXAMPLES">3.III.B. EXAMPLES</a><br>
+<a href="#3.Example. of indicator variable values">3.Example. of indicator variable values</a><br>
+<a href="#3.Examples. of use of model time parameters">3.Examples. of use of model time parameters</a><br>
+<a href="#3.Other. Examples of the Use of Model Time Parameters">3.Other. Examples of the Use of Model Time Parameters</a><br>
+<a href="#3.III.C. RULES FOR COINCIDENCE OF TIMES">3.III.C. RULES FOR COINCIDENCE OF TIMES</a><br>
+<a href="#3.III.D. IMPLEMENTATION DETAILS">3.III.D. IMPLEMENTATION DETAILS</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part VI - PREDPP
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part VI - PREDPP"></a>
+</h2>
+
+
+<h2>Appendix.III. MTIME Details
+<a name="Appendix.III."></a>
+<a name="Appendix.III. MTIME Details"></a>
+</h2>
+
+
+<h2>3.III.A. GENERAL DESCRIPTION
+<a name="3.III.A."></a>
+<a name="3.III.A. GENERAL DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Model event times are additional
+PK parameters defined in the PK routine or $PK block. A
+model event time is not associated with any compartment,
+but, like an absorption lag time, defines a time to which
+the system is advanced. When the time is reached, certain
+new indicator variables are set and a call to PK is made. At
+this call (and/or subsequent to this call) PK or DES or AES
+or ERROR can use the indicator variables to change some
+aspect of the system, e.g., a term in a differential
+equation, or the rate of an infusion. This feature may be
+used with any ADVAN routine and does not require that extra
+compartments be added to the model or that dummy doses be
+included in the data set. There may be up to PCT model event
+times, where PCT is defined in PSIZES and TSIZES. Its
+current value is 30.</p>
+
+<p style="margin-top: 1em">Model times are independent of
+non-event dose times. See below (Rules for coincidence of
+times) when model times happen to coincide with other
+times.</p>
+
+<p style="margin-top: 1em">In abbreviated code, the model
+event times have reserved names MTIME(i), where i is an
+integer from 1 to PCT.</p>
+
+<p style="margin-top: 1em">The indicator variables
+currently implemented have reserved names MNEXT(i) and
+MPAST(i), each corresponding to the MTIME(i) variable with
+the same index i. An indicator variable may be used in the
+PK, ERROR, DES, or AES routine (as a right-hand quantity in
+abbreviated codes). An indicator variable may not be used on
+the right (other than in a write/ print statement) unless
+the corresponding MTIME has already been defined. It is not
+required that one or more indicator variables be used.</p>
+
+<p style="margin-top: 1em">There is no requirement that the
+MTIME(i) be in ascending order. That is, MTIME(i) may be
+less than, equal to, or greater than MTIME(i+1). Any
+MTIME(i) may be negative or have the value 0, in which case
+MPAST(i)=1 always and MNEXT(i)=0 always.</p>
+
+<p style="margin-top: 1em">There may be gaps in the
+sequence of any length. E.g., PK may define MTIME(i) and
+MTIME(i+2) but not MTIME(i+1). This has the same effect as
+including the code MTIME(i+1)=0.</p>
+
+<p style="margin-top: 1em">PK may redefine MTIME(i). See
+&quot;Example 3&quot; below.</p>
+
+<p style="margin-top: 1em">An ETA may be used in the
+definition of MTIME(i).</p>
+
+<p style="margin-top: 1em">PREDPP sets all indicator
+variables to 0 at start of an IR and at RESET events.</p>
+
+<p style="margin-top: 1em">MNEXT(i)=1 when PREDPP calls PK
+prior to the advance to MTIME(i), and remains 1 during the
+advance from the previous time to MTIME(i). Otherwise,
+MNEXT(i)=0. (The previous time may be an event time,
+non-event time, or model event time).</p>
+
+<p style="margin-top: 1em">MPAST(i)=0 until the call to PK
+subsequent to the one for which MNEXT(i)=1. At that call
+MPAST(i)=1. It then retains this value, unless MTIME is
+redefined, in which case MPAST will be appropriately
+redefined as another step function.</p>
+
+<p style="margin-top: 1em">Another related variable is
+MNOW. MNOW=i if this is a call to PK such that MNEXT(i)=1
+for some i. MNOW=0 otherwise.</p>
+
+<p style="margin-top: 1em">Model event time MTIME is not a
+dose-related feature and has no effect on steady-state
+doses. See Note 3 of chapter V.</p>
+
+<h2>3.III.B. EXAMPLES
+<a name="3.III.B."></a>
+<a name="3.III.B. EXAMPLES"></a>
+</h2>
+
+
+<h2>3.Example. of indicator variable values
+<a name="3.Example."></a>
+<a name="3.Example. of indicator variable values"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Suppose there are three MTIMES,
+and MTIME(1)&lt;MTIME(2)&lt;MTIME(3).</p>
+
+<pre style="margin-top: 1em">           MTIME(1)      MTIME(2)      MTIME(3)
+ ............|(.............|(.............|(................time axis...
+  MNEXT(1)=1     MNEXT(2)=1    MNEXT(3)=1
+                 MPAST(1)=1
+                               MPAST(2)=1
+                                              MPAST(3)=1</pre>
+
+
+<p style="margin-top: 1em">Another way to draw the same
+picture:</p>
+
+<pre style="margin-top: 1em">          MTIME(1)      MTIME(2)      MTIME(3)
+ ............|..............|..............|..................
+ 011111111111100000000000000000000000000000000000000   MNEXT(1)
+ 000000000000011111111111111100000000000000000000000   MNEXT(2)
+ 000000000000000000000000000011111111111111100000000   MNEXT(3)
+ 000000000000011111111111111111111111111111111111111   MPAST(1)
+ 000000000000000000000000000011111111111111111111111   MPAST(2)
+ 000000000000000000000000000000000000000000011111111   MPAST(3)</pre>
+
+
+<p style="margin-top: 1em">If the relationship
+MTIME(1)&lt;MTIME(2)&lt;MTIME(3) does not hold, imagine the
+picture above with indices i, j, k (a permutation of 1, 2,
+3) such that MTIME(i)&lt;MTIME(j)&lt;MTIME(k)</p>
+
+<p style="margin-top: 1em">Event times (both dose and
+non-dose) can occur anywhere above. See below (Rules for
+coincidence of times).</p>
+
+<p style="margin-top: 1em">If model event times depend on
+ETAS, so do the values of indicator variables. However, the
+effect of the model event times or of the indicator
+variables on the eta-derivatives of the state vector is
+handled by PREDPP in such a way that the indicator variables
+are *not* random variables, and their eta-derivatives are
+always 0.</p>
+
+<h2>3.Examples. of use of model time parameters
+<a name="3.Examples."></a>
+<a name="3.Examples. of use of model time parameters"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Example 1. Flexible input</p>
+
+<p style="margin-top: 1em">There is an infusion with
+modeled rate. <br>
+The rate is 400*EXP(ETA(1)) from time 0 to 1.5 <br>
+The rate is 300*EXP(ETA(2)) from time 1.5 to 2.5 <br>
+The rate is 200*EXP(ETA(3)) from time 2.5 till end of
+infusion.</p>
+
+<p style="margin-top: 1em">Code in $PK:</p>
+<pre>        MTIME(1)=1.5
+        MTIME(2)=2.5
+        R1=   400*EXP(ETA(1))*(1-MPAST(1))
+        R1=R1+300*EXP(ETA(2))*(MPAST(1)-MPAST(2))
+        R1=R1+200*EXP(ETA(3))*MPAST(2)
+        WRITE (82,*) TIME,MNOW,MNEXT(1),MNEXT(2),MPAST(1),MPAST(2),R1,TSTATE
+
+    Events at times 0, 1, 3.
+    Values in fort.82 are        TIME MNOW  MNEXT1 MNEXT2 MPAST1 MPAST2     R1 TSTATE
+       0.00   0.00   0.00   0.00   0.00   0.00 400.00   0.00
+       1.00   0.00   0.00   0.00   0.00   0.00 400.00   0.00
+       3.00   1.00   1.00   0.00   0.00   0.00 400.00   1.00
+       3.00   2.00   0.00   1.00   1.00   0.00 300.00   1.50
+       3.00   0.00   0.00   0.00   1.00   1.00 200.00   2.50</pre>
+
+
+<p style="margin-top: 1em">Example 2. Here are three
+versions of an EHC control stream. <br>
+(EHC stands for Enterohepatic Recycling.) <br>
+All give identical results. The transfer of drug from <br>
+compt. 4 to 1 is controlled by &quot;FLAG&quot;:</p>
+
+<p style="margin-top: 1em">DADT(1)=-KA*A(1)+K41*A(4)*FLAG
+<br>
+DADT(4)=K1G*A(2)-K41*A(4)*FLAG</p>
+
+<p style="margin-top: 1em">1) No use of model event times.
+<br>
+Define 2 dummy compts. (5 and 6) and dummy doses with lag
+times</p>
+
+<p style="margin-top: 1em">CID DOSE TIME DV EVID CMT <br>
+101 10 0 0 1 2 <br>
+101 1 0 0 1 5 <br>
+101 1 0 0 1 6 <br>
+101 0 2.0 0 0 2</p>
+
+<p style="margin-top: 1em">In $PK <br>
+ALAG5=THETA(8)*EXP(ETA(8)) <br>
+DELTA=THETA(9)*EXP(ETA(9)) <br>
+ALAG6=ALAG5+DELTA</p>
+
+<p style="margin-top: 1em">1a) Define FLAG in $DES <br>
+$DES <br>
+FLAG=0.0 <br>
+IF (T.GE.ALAG5) FLAG=1 <br>
+IF (T.GE.ALAG5.AND.DOSTIM.EQ.ALAG5) FLAG=0 <br>
+IF (T.GE.ALAG5.AND.DOSTIM.EQ.0.AND.TIME.EQ.ALAG5) FLAG=0
+<br>
+IF (T.GE.ALAG6) FLAG=0 <br>
+IF (T.GE.ALAG6.AND.DOSTIM.EQ.ALAG6) FLAG=1 <br>
+IF (T.GE.ALAG6.AND.DOSTIM.EQ.0.AND.TIME.EQ.ALAG6) FLAG=1</p>
+
+<p style="margin-top: 1em">1b) Define FLAG in $PK <br>
+$PK <br>
+IF (NEWIND.LT.2) THEN <br>
+FLAG=0.0 <br>
+OLDTIM=0 <br>
+ENDIF <br>
+IF (OLDTIM.EQ.ALAG5) FLAG=1 <br>
+IF (OLDTIM.EQ.ALAG6) FLAG=0 <br>
+OLDTIM=DOSTIM</p>
+
+<p style="margin-top: 1em">2) Use of model event times.
+<br>
+No dummy compartments, no dummy doses</p>
+
+<p style="margin-top: 1em">CID DOSE TIME DV EVID CMT <br>
+101 10 0 0 1 2 <br>
+101 0 2.0 0 0 2</p>
+
+<p style="margin-top: 1em">2a) Define MTIMES and FLAG in
+$PK <br>
+$PK <br>
+MTIME(1)=THETA(8)*EXP(ETA(8)) <br>
+DELTA=THETA(9)*EXP(ETA(9)) <br>
+MTIME(2)=MTIME(1)+DELTA <br>
+FLAG=MPAST(1)-MPAST(2)</p>
+
+<p style="margin-top: 1em">2b) Define FLAG in $DES. <br>
+Might give better run time than 2a. <br>
+In 2a, FLAG is considered by NMTRAN to be an implicit basic
+PK <br>
+parameter and hence its eta derivatives (which are always 0)
+are <br>
+included in the chain rule calculations. In 2b, FLAG is
+known <br>
+not to have derivatives because it is DES-defined.</p>
+
+<p style="margin-top: 1em">$PK <br>
+MTIME(1)=THETA(8)*EXP(ETA(8)) <br>
+DELTA=THETA(9)*EXP(ETA(9)) <br>
+MTIME(2)=MTIME(1)+DELTA <br>
+$DES <br>
+FLAG=MPAST(1)-MPAST(2)</p>
+
+<p style="margin-top: 1em">Example 3. MTIME&rsquo;s may be
+changed.</p>
+
+<p style="margin-top: 1em">Suppose there are events at
+times 0 and 10 but one wants to advance <br>
+in increments of 1 with stops at times 1, 2, 3, .... , 9,
+10. <br>
+This code does not work:</p>
+
+<p style="margin-top: 1em">IF (TIME.EQ.0) THEN <br>
+MTIME(1)=0 <br>
+ELSE <br>
+MTIME(1)=MTIME(1)+1 <br>
+ENDIF</p>
+
+<p style="margin-top: 1em">Instead, use</p>
+
+<p style="margin-top: 1em">IF (TIME.EQ.0) THEN <br>
+TEMP=0 <br>
+ELSE <br>
+TEMP=TEMP+1 <br>
+ENDIF <br>
+MTIME(1)=TEMP</p>
+
+<p style="margin-top: 1em">Reason: If a basic or additional
+PK parameters is set conditionally <br>
+in the $PK block, NM-TRAN inserts statements setting it to 0
+so <br>
+that, if it is not set by the $PK block, its value is 0. In
+the <br>
+code that does not work, MTIME(1) does not retain its value
+from <br>
+one call to the next. In the code that does work, TEMP
+(being a <br>
+PK-defined item that does not depend on etas) does retain
+its <br>
+value.</p>
+
+<h2>3.Other. Examples of the Use of Model Time Parameters
+<a name="3.Other."></a>
+<a name="3.Other. Examples of the Use of Model Time Parameters"></a>
+</h2>
+
+
+<p style="margin-top: 1em">&quot;Model Time
+Examples&quot;.</p>
+
+<p style="margin-top: 1em">Some of the above examples are
+also found in Guide VIII and in on-line help entry for
+examples.</p>
+
+<p style="margin-top: 1em">&quot;Using MTIME to Model
+Periodic Discontinuities in $DES&quot;</p>
+
+<p style="margin-top: 1em">Contains important examples of
+modelling circadian rhythm. In Guide VIII and in on-line
+help entry for examples. This help entry also describes the
+following control streams.</p>
+
+<p style="margin-top: 1em">Indirect response model</p>
+
+<p style="margin-top: 1em">idr_circexa.ctl in the NONMEM
+examples directory.</p>
+
+<p style="margin-top: 1em">Step Function model</p>
+
+<p style="margin-top: 1em">step_circexa.ctl in the NONMEM
+examples directory.</p>
+
+<p style="margin-top: 1em">See ehc.exa (Enterhepatic
+circulation example). This gives a fully worked-out example
+for EHC. It cannot be used with Steady-State doses. This
+example also gives an alternative model, a smooth step model
+using Hill terms in a sigmoid emax model. This may be used
+with Steady-State doses.</p>
+
+<h2>3.III.C. RULES FOR COINCIDENCE OF TIMES
+<a name="3.III.C."></a>
+<a name="3.III.C. RULES FOR COINCIDENCE OF TIMES"></a>
+</h2>
+
+
+<p style="margin-top: 1em">(1) MTIME(i)=MTIME(j)</p>
+
+<p style="margin-top: 1em">There are two calls to PK.
+Assuming i&lt;j, the calls are described by:</p>
+
+<pre>        MNEXT(i) MNEXT(j) MPAST(i) MPAST(j)  MNOW</pre>
+
+
+<p style="margin-top: 1em">call #1 1 0 0 0 1 call #2 0 1 1
+0 2</p>
+
+<p style="margin-top: 1em">(2) MTIME(i)=ALAGj</p>
+
+<p style="margin-top: 1em">MNEXT(i) and DOSTIM are set on
+separate calls to PK. <br>
+First, MNEXT(i). Then, DOSTIM. <br>
+E.g., code in $PK is</p>
+
+<pre>    ALAG1=.5
+    MTIME(1)=ALAG1
+    WRITE (82,*) TIME,MNOW,MNEXT(1),MPAST(1),DOSTIM,TSTATE    Events at times 0, 1, 3.
+    Values in fort.82 are       TIME   MNOW  MNEXT  MPAST DOSTIM TSTATE
+       0.00   0.00   0.00   0.00   0.00     0
+       1.00   1.00   1.00   0.00   0.00     0
+       1.00   0.00   0.00   1.00   0.50    .5
+       1.00   0.00   0.00   1.00   0.00    .5
+       3.00   0.00   0.00   1.00   0.00   1.0</pre>
+
+
+<p style="margin-top: 1em">(3) MTIME(i)=event time</p>
+
+<p style="margin-top: 1em">Two calls. First MTIME(1). Then,
+event time.</p>
+
+<p style="margin-top: 1em">E.g., code in $PK is</p>
+<pre>    MTIME(1)=1
+    WRITE (82,*) TIME,MNOW,MNEXT(1),MPAST(1),TSTATE    Events at times 0, 1, 3
+    Values in fort.82 are       TIME   MNOW   MNEXT  MPAST  TSTATE
+       0.00   0.00   0.00   0.00   0
+       1.00   1.00   1.00   0.00   0
+       1.00   0.00   0.00   1.00   1
+       3.00   0.00   0.00   1.00   1
+    compare with</pre>
+
+<p style="margin-top: 1em">(3a) ALAGj=event time:</p>
+
+<p style="margin-top: 1em">Two calls. First, ALAG1. Then,
+event time. <br>
+E.g., code in $PK is</p>
+
+<pre>    ALAG1=1
+    WRITE (72,*) TIME,DOSTIM,TSTATE   Events at times 0, 1, 3
+   Values in fort.72 are       TIME  DOSTIM TSTATE
+       0.00   0.00      0
+       1.00   1.00      0
+       1.00   0.00      1
+       3.00   0.00      1</pre>
+
+
+<p style="margin-top: 1em">(4) MTIME(i)=additional dose
+time</p>
+
+<p style="margin-top: 1em">MNEXT(i) and DOSTIM are set on
+separate calls to PK. <br>
+First, MNEXT(i). Then, DOSTIM.</p>
+
+<p style="margin-top: 1em">E.g., code in $PK is</p>
+
+<pre>    MTIME(1)=.5
+    WRITE (82,*) TIME,MNOW,MNEXT(1),MPAST(1),DOSTIM,TSTATE    Events at times 0, 1, 3.
+    Dose at time 0 specifies ADDL=1, II=.5
+    Values in fort.82 are       TIME   MNOW  MNEXT  MPAST DOSTIM TSTATE
+       0.00   0.00   0.00   0.00   0.00 0.00
+       1.00   1.00   1.00   0.00   0.00 0.00
+       1.00   0.00   0.00   1.00   0.50 0.50
+       1.00   0.00   0.00   1.00   0.00 0.50
+       3.00   0.00   0.00   1.00   0.00 1.00</pre>
+
+
+<p style="margin-top: 1em">(5) MTIME(i)=additional dose
+time = event time</p>
+
+<p style="margin-top: 1em">There are three calls to PK.
+<br>
+MNEXT(i) and DOSTIM are set on separate calls to PK. <br>
+First, MNEXT(i). Then, DOSTIM. Finally, a call at event
+time.</p>
+
+<p style="margin-top: 1em">E.g., code in $PK is</p>
+
+<pre>    MTIME(1)=1
+    WRITE (82,*) TIME,MNOW,MNEXT(1),MPAST(1),DOSTIM,TSTATE    Events at times 0, 1, 3.
+    Dose at time 0 specifies ADDL=1, II=1
+    Values in fort.82 are       TIME   MNOW  MNEXT  MPAST DOSTIM TSTATE
+       0.00   0.00   0.00   0.00   0.00   0.00
+       1.00   1.00   1.00   0.00   0.00   0.00
+       1.00   0.00   0.00   1.00   1.00   1.00
+       1.00   0.00   0.00   1.00   0.00   1.00
+       3.00   0.00   0.00   1.00   0.00   1.00    compare with</pre>
+
+
+<p style="margin-top: 1em">(5a) MTIME(i)= lagged dose time
+= event time</p>
+
+<p style="margin-top: 1em">There are three calls to PK.
+<br>
+MNEXT(i) and DOSTIM are set on separate calls to PK. <br>
+First, MNEXT(i). Then, DOSTIM. Finally, a call at event
+time.</p>
+
+<p style="margin-top: 1em">E.g., code in $PK is</p>
+
+<pre>    MTIME(1)=1
+    ALAG1=1
+    WRITE (82,*) TIME,MNOW,MNEXT(1),MPAST(1),DOSTIM,TSTATE    Events at times 0, 1, 3.
+    Dose at time 0 specifies ADDL=1, II=1
+    Values in fort.82 are       TIME   MNOW  MNEXT  MPAST DOSTIM TSTATE
+       0.00   0.00   0.00   0.00   0.00   0.00
+       1.00   1.00   1.00   0.00   0.00   0.00
+       1.00   0.00   0.00   1.00   1.00   1.00
+       1.00   0.00   0.00   1.00   0.00   1.00
+       3.00   0.00   0.00   1.00   2.00   1.00
+       3.00   0.00   0.00   1.00   0.00   2.00</pre>
+
+
+<h2>3.III.D. IMPLEMENTATION DETAILS
+<a name="3.III.D."></a>
+<a name="3.III.D. IMPLEMENTATION DETAILS"></a>
+</h2>
+
+
+<p style="margin-top: 1em">MTIME parameters are defined in
+a MODULE. The declaration is:</p>
+
+<pre style="margin-top: 1em">MODULE PKERR_REAL USE SIZES, ONLY : DPSIZE,PCT
+ REAL(KIND=DPSIZE) :: MTIME(PCT)</pre>
+
+
+<p>END MODULE PKERR_REAL</p>
+
+<p style="margin-top: 1em">where the size is given in
+SIZES.f90 by PARAMETER (PCT=30) and PCT can be changed with
+the $SIZES record.</p>
+
+<p style="margin-top: 1em">In FSUBS, the generated PK
+routine contains</p>
+<pre>USE PKERR_REAL,ONLY: MTIME</pre>
+
+<p style="margin-top: 1em">PK contains code to copy MTIME
+parameters and their eta derivatives to GG. If there are
+gaps in the sequence of MTIME parameters, the corresponding
+positions in GG are left as-is. Since GG is initialized to 0
+before calls to PK, the effective value of omitted MTIME
+parameters is 0.</p>
+
+<p style="margin-top: 1em">The MTIME array is never listed
+in NMPRD4. Therefore, if an MTIME parameter is to be
+displayed in a table or scatter it must be copied to a
+PK-defined variable in NMPRD4. E.g.,</p>
+
+<pre style="margin-top: 1em">MTIME(1)=...
+MT1=MTIME(1)&nbsp;
+ ...
+$TABLE MT1</pre>
+
+
+<p style="margin-top: 1em">Another reason for defining
+MTIME in a MODULE is to make it available to the ERROR
+routine via the same USE statement. All other basic and
+additional parameters are available to ERROR only if listed
+in NMPRD4. If MTIME is defined in ERROR, then the values of
+the MTIME parameters are available as well. However, eta
+derivatives are not included in MTIME, only in GG. (This is
+done to save space and compute time.) Hence the ERROR
+routine should not use MTIME parameters in such a way as to
+influence the value of Y if those parameters have eta
+derivatives. NM-TRAN gives an appropriate warning if an
+MTIME variable is used in the $ERROR block.</p>
+
+<p style="margin-top: 1em">Values of MTIME may be used in
+DES and AES, where they are obtained from the subroutine
+argument P (which is really GG) and may have eta
+derivatives.</p>
+
+<p style="margin-top: 1em"><a href="AIII.html">TOP</a> <br>
+<a href="index.html">TABLE OF CONTENTS</a> <br>
+ <a href="AIV.html">NEXT APPENDIX ...</a></p>
+<hr>
+</body>
+</html>

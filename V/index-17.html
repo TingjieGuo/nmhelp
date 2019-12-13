@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 17</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft2{font-size:5px;font-family:Times;color:#000000;}
+	.ft3{font-size:5px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index017.png" alt="background image">
+<DIV style="position:absolute;top:41;left:356"><nobr><span class="ft0">Chapter 2 - NONMEM Examples</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft6">abbreviated code (the $PK record, along with this abbreviated code is called the $PK block).<br>Some of the parameters that NONMEM estimates are denoted by</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:385"><nobr><span class="ft1">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:397"><nobr><span class="ft0">herein, and are labeled</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:72"><nobr><span class="ft6">THETA in NONMEM input and output. The model speciﬁed in ﬁgure 2.1 is very simple. It says<br>that a different unknown constant (NONMEM parameter) is to be assigned to each pharmacoki-<br>netic parameter: ﬁrst-order absorption rate, KA (line 1 of the PK block, after the $PK record -<br>THETA(1)), rate constant of elimination, K (line 2 - THETA(2)), and volume of distribution, V<br>(line 3 - THETA(3)). The S2 parameter (a so-called scale parameter) is discussed in Chapter 3,<br>Section 2.2.</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:72"><nobr><span class="ft0">The sixth input record (ﬁgure 2.1 - 11</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:247"><nobr><span class="ft2"><i>th</i></span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:258"><nobr><span class="ft0">line) signals the start of the user’s speciﬁcation of the</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:72"><nobr><span class="ft7">(statistical) model for the lack of ﬁt of the pharmacokinetic model to the data. This speciﬁcation<br>is given in the next line of abbreviated code (the $ERROR record, along with this line of abbrevi-<br>ated code is called the $ERROR block). The model here says that observations differ from pre-<br>dictions by an additive error (ERR(1)).</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:72"><nobr><span class="ft0">Record 7 ($THETA) gives NONMEM information about possible values of each element of</span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:486"><nobr><span class="ft1">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:495"><nobr><span class="ft0">in</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:72"><nobr><span class="ft6">the format: lower bound, initial estimate, upper bound. When, as in this particular record, only<br>two numbers are given for an element of</span></nobr></DIV>
+<DIV style="position:absolute;top:277;left:253"><nobr><span class="ft1">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:259"><nobr><span class="ft0">, these are understood to mean the lower bound and ini-</span></nobr></DIV>
+<DIV style="position:absolute;top:293;left:72"><nobr><span class="ft6">tial estimate; the upper bound is unlimited. Record 8 ($OMEGA) gives NONMEM an initial esti-<br>mate of the variance of ERR(1). This statistical parameter is often denoted by</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:434"><nobr><span class="ft1">σ</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:442"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:307;left:450"><nobr><span class="ft0">in statistical</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:72"><nobr><span class="ft0">discussions, but with data from a single individual, it is denoted by</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:375"><nobr><span class="ft4">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:387"><nobr><span class="ft0">in NONMEM documenta-</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:72"><nobr><span class="ft6">tion, and by OMEGA in NONMEM input and output. It is understood that a variance parameter<br>is always nonnegative. The $OMEGA record is further discussed in Chapter 9, Section 3.</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:72"><nobr><span class="ft5"><b>2.3. The Output</b></span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:72"><nobr><span class="ft6">Record 9 ($ESTIMATION) instructs NONMEM to obtain estimates of the parameters, and the<br>next record ($COVARIANCE) asks that it also obtain standard errors of the parameter estimates.<br>The output is shown in ﬁgure 2.4. It requires little discussion. The ﬁrst item, the minimum value<br>of the objective function, is a goodness of ﬁt statistic, much like a sum of squares (and as with a<br>sum of squares, the lower the value, the better the ﬁt). The parameter estimates (the parameter<br>values at which the objective function is minimized) and their standard errors follow. Note that<br>the estimate of OMEGA, too, has a standard error. Unlike most ﬁtting programs, NONMEM<br>treats this parameter like any other.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:282"><nobr><span class="ft0">-9-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

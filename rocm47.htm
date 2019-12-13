@@ -1,0 +1,40 @@
+<HTML><HEAD> <TITLE> rocm47.for</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        MIXTURE MODEL: MIXPT                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: NONMEM read-only global variables
+ CONTEXT: PRED routine
+
+ USAGE:
+      USE ROCM_REAL, ONLY: MIXPT=&gt;MIXP_RAW
+
+ GLOBAL DECLARATION:
+      USE SIZES, ONLY: MMX,DPSIZE
+      REAL(KIND=DPSIZE) :: MIXP_RAW(MMX)
+
+ DISCUSSION:
+
+  MIXPT
+      At  ICALL=6,  (the  final  estimate of) the mixture probabilities
+      associated with the individual  record  containing  the  template
+      data record are stored in MIXPT.
+
+ Location prior to NONMEM 7: rocm47
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

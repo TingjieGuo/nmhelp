@@ -1,0 +1,334 @@
+<HTML><HEAD> <TITLE> nmfe.sup</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        NMFE UTILITY PROGRAM                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: The name of a computer program
+ CONTEXT: NONMEM support utility routine
+
+ USAGE:
+
+  nmfe74  controlfile reportfile [-background]
+          [-prsame] [-prcompile] [-prdefault] [-tprdefault]
+          [-trskip] [-nobuild]
+          [-maxlim=1]  [-maxlim=2]  [-maxlim=3]
+          [-rundir=directoryname] [-runpdir=directoryname]
+          [-parafile=filename]
+          [-parafprint=n]
+          [-nmexec=filename] [-xmloff]
+          [-licfile=filename]
+          [-locfile=filename]
+          [-simparon] [-flushtime&gt;=0.0]
+
+ Default, if used in the run directory:
+ nmfe74 controlfile reportfile
+ -prsame (if possible; else -prcompile)
+ -rundir=run
+ -runpdir=temp_dir -nmexec=nonmem
+ -licfile=../license/nonmem.lic
+
+ Options may need to be in quotes, e.g.,
+ nmfe74 CONTROL5 REPORT5.res "-prsame"
+
+ The  name  of the command indicates the version of NONMEM, e.g. nmfe74
+ denotes NONMEM 7.4.0.  The command will be shown generically as  nmfe7
+ in  this  help  file.  For details specific to an earlier release than
+ NONMEM 7.4.0, see the help file for that release.
+
+ OPTIONS:
+
+ controlfile
+      Name of the input file containing the NM-TRAN control stream.
+
+ reportfile
+      Name of the output file into which  NONMEM  writes  the  results.
+      Also called "the standard results" file.
+
+ -prcompile,-prsame,-prdefault,-tprdefault
+      By  default,  nmfe7  copies the required PREDPP routines from the
+      nonmem  ..\pr  and  ..\resource  directories  into  a   subfolder
+      temp_dir  of  the  current  directory  and  compiles the routines
+      there.  (Some of these routines are needed  even  when  $PRED  is
+      used.)  This is referred to as "pr recompilation".  The resulting
+      object files are then linked with NONMEM,  and  the  nonmem  exe-
+      cutable  is created.  In a subsequent run, nmfe7 will skip the pr
+      recompilation if the same ADVAN/TRANS (or a $PRED) are used,  and
+      the  size  of the problem (e.g., size of OMEGA and SIGMA) has not
+      changed.
+
+ -prcompile
+      Force pr recompilation, in case the run does not appear  to  exe-
+      cute properly when no pr recompilation occurs.
+
+ -prsame
+      Force  the skipping of pr recompilation.  Used when nmfe7 detects
+      a change in the previous run from the present run, but  the  user
+      is  convinced  there is no significant change.  Uses the compiled
+      files from the previous run.
+
+ -prdefault
+      Do not recompile any routines other than FSUBS.  Use the  precom-
+      piled routines in ..\pr and ..\resource directories.  May be used
+      if it is sufficient to use default values in  sizes.f90  for  the
+      various parameters (see ..\util\prsizes.f90 for the list of those
+      that are used.).  Any NONMEM parameters that are not  used  (that
+      is,  those  not  listed in prsizes.f90) will still be dynamically
+      sized.
+
+ -tprdefault
+      Tests if is okay to do -prdefault.  If it is not  okay,  then  it
+      will  test  if  there are compiled pr routines in temp_dir direc-
+      tory,and if they are appropriate for the present model.   If  so,
+      it  will  not recompile those pr routines, and use those that are
+      already there.  If not, it will perform a fresh  PREDPP  compile.
+      May be combined with either -prcompile or -prsame.
+
+ -tprdefault -prcompile
+      Tests  if  is  okay to do -prdefault.  If it is not okay, then it
+      will perform a fresh compile of the  particular  ..\pr  routines,
+      even   if  there  were  appropriate  ones  in  temp_dir  already.
+      (-prcompile forces a compile regardless of whether it was  neces-
+      sary).
+
+ -tprdefault -prsame
+      Tests  if  is  okay to do -prdefault.  If it is not okay, then it
+      will use those in temp_dir, assuming that  they  are  appropriate
+      for the present problem.
+
+ -trskip
+      Requests  that the NMTRAN step be skipped.  The -trskip option is
+      useful if you wish to modify FSUBS.f90 created by a previous run,
+      and  insert  extra  debug  lines into FSUBS.f90, and prevent your
+      modified FSUBS.f90 from being over-written  by  NMTRAN  (it  will
+      still be compiled).
+
+      -trskip  and  any one of -prskip, -prnoskip, or -prstatic options
+      may be used together, or -trskip may be used by itself.
+
+ -nobuild
+      Prevents a new nonmem executable from being  built,  particularly
+      useful for a series of nonmem runs during boostrap procedures.
+
+ -maxlim=[1|2|3]
+      With  maxlim=1,  then  LIM1,  LIM3, LIM4, LIM13, and Lim15 (those
+      used during estimation, and therefore  by  workers  in  a  paral-
+      lelization  problem), will be set to the size needed to assure no
+      buffer files are used, and everything is stored  in  memory,  for
+      the  particular  prolem.   With -maxlim=2, then LIM1, LIM2, LIM3,
+      LIM4, LIM5, LIM6, LIM7, LIM8, LIM13, LIM15, and  LIM16  are  also
+      sized  to  what  is  needed  to  assure that buffer files are not
+      needed.  With -maxlim=3, then MAXRECID will  also  be  sized,  to
+      MAXDREC,  the  largest number of records in any individual.  With
+      maxlim=3, it is preferred to also use -tprdefault, or -prcompile,
+      but  not  -prdefault, as NMTRAN's optional resizing of the PREDPP
+      size parameter MAXRECID may conflict with the -prdefault option
+
+ -rundir=directoryname
+      Specifies a directory for the NONMEM run if it is different  from
+      the  present  working  directory.   The directory must exist, and
+      must contain all necessary input files, such as the  controlfile,
+      msf files, and data files.
+
+ -runpdir=directoryname
+      Specifies  a  directory  for  the compile if it is different from
+      temp_dir.  This is useful if you are repeatedly going between two
+      or  more  problems,  so that often they need to be pr recompiled,
+      and you want to save time. Specify a unique  temporary  directory
+      for the compilation for each problem.
+
+ -parafile=filename
+      Name  of  the  "parallel file" (the parallelization profile) that
+      controls parallelization (distributed computing).   Default  file
+      name if not specified: parallel.pnm.  For details on the content,
+      see the INTRODUCTION TO NONMEM 7.  Versions prior to  NONMEM  7.2
+      do not support parallel computing.                                |
+
+ -parafprint=n                                                          |
+      Sometimes  the  parallelization  log  files can become very large |
+      during the $EST and $COV steps. Each of these records have paraf- |
+      print  options  to control the print intervals.  Or, you can con- |
+      trol the print iterations globally with the -parafprint option at |
+      the command line.
+
+ -locfile=filename
+      Name  of  a  file  to override the default file called "nmloc" or
+      "nmloc.bat".  This is the location file, which gives the path for
+      compiler  or  MPI system.  The nmfe7 script will display a state-
+      ment as to what path it uses.  E.g.,  "Pathlist  information  for
+      compiler  and  MPI  systems  are located in nmpathlist.txt" where
+      nmpathlist.txt describes which verson of nmloc is being used.
+
+ -nmexec=filename
+      Specifies an alternate name for the NONMEM executable instead  of
+      the  default  nonmem.exe  (windows) or nonmem (Linux).  Note that
+      when parallelization is used, this name must be specified in  the
+      pnm file.  Example:
+
+      nmfe7 controlfile reportfile -nmexec=nonmem2 -parafile=mpi2.pnm
+      Suppose mpi2.pnm is based on mpilinux_onecomputer.pnm, which con-
+      tains
+      1:mpirun -wdir "$PWD" -n 1 ./nonmem  $*
+      2:-wdir "$PWD/wrk_mpi" -n 1 ./nonmem &lt;control_stream&gt; &lt;licfile&gt;
+
+      Then mpi2.pnm must be changed as follows:
+      1:mpirun -wdir "$PWD" -n 1 ./nonmem2  $*
+      2:-wdir "$PWD/wrk_mpi" -n 1 ./nonmem2 &lt;control_stream&gt; &lt;licfile&gt;
+
+ -background
+      If "-background" is present NONMEM does not poll the terminal for
+      ctrl characters (See <A HREF="b.htm">below.</A>)
+
+ -xmloff
+      Turns  off production of the XML output file root.xml, where root
+      is the root name of the control stream file.  This may  speed  up
+      fast  computational  problems  such  as $SIM on simple models and
+      small data sets.                                                  |
+
+ -simparon                                                              |
+      Turn on parallelization during simulation step.                   |
+
+ -flushtime&gt;=0.0                                                        |
+      File buffer contents are flushed to file not more frequently than |
+      flushtime  seconds  (1.0  second)  is  default.   Floating number |
+      allowed.
+
+ DISCUSSION:
+
+ NMFE7.bat and NMFE7 are front-end tools for running NONMEM  7.   Their
+ use  is  optional.   NMFE7.BAT  is a MS-DOS batch program.  NMFE7 is a
+ UNIX C-shell script.  Both are supplied on the NONMEM  7  distribution
+ medium.
+
+ They  should  be  placed in a directory in the user's path.  Both make
+ use of the support utilities nmlink7 and compile7, which are also sup-
+ plied on the NONMEM 7 distribution medium.
+
+ Both  execute  the  following  steps, stopping after any step in which
+ errors occur:
+
+ 1)   NM-TRAN processes the NM-TRAN control stream, which is found in a
+      file  whose  name  is  given  as the first command-line argument.
+      With NONMEM 7.2 and higher, both lower and upper case may be used
+      for  all  user-defined  and reserved words in the control stream. |
+      With NONMEM 7.3 and higher, & may be used at the end of any  line |
+      of  the control stream to indicate that the line is to be contin- |
+      ued, including control  records  as  well  as  abbreviated  code. |
+      Lines  may be longer than 160 characters long. The maximum length |
+      is given by FSD in resource/SIZES.f90.   (FSD=67000  with  NONMEM |
+      7.3).  This step is omitted if option -trskip is used.
+
+ 2)   NMLINK7  creates  the file LINK.LNK (a list of object files to be
+      included in the NONMEM executable).  With NONMEM 7, compile7 cre-
+      ates  the  file compile7.lnk (a list of PREDPP routines to be re-
+      compiled with the current  array  sizes)  and  a  work  directory
+      temp_dir is created.  All files listed in compile7.lnk are copied
+      to temp_dir and compiled. They are then copied to the current run
+      directory.   The  recompilation  of  PREDPP  routines  can take a
+      noticeable amount of  time.   This  step  is  skipped  if  option
+      -prsame or -prdefault is used.
+      (See <A HREF="$.htm#$sizes">$sizes.ctl</A>).
+
+ 3)   If  a  file  FSUBS.f90  of generated and/or user-supplied FORTRAN
+      code was created by NM-TRAN, it is compiled  by  the  FORTRAN  90
+      compiler.
+
+ 4)   Utility  program   nonmem_mpi.exe  is called to check if parallel
+      processing is requested, what transfer type is to  be  used,  and
+      make sure the parallel file is syntactically okay.  Either of two
+      sets of messages will appear at the console:
+      Exit status = 1
+        IN MPI
+      This indicates that parallel proccesing using the MPI  method  is
+      requested.   MPI  libraries  will  be included in the NONMEM exe-
+      cutable.
+
+      Exit status = 0
+      IN REGULAR/FILE TRANSFER
+      This indicates that no parallel processing was requested, or par-
+      allel  processing  uses  the  FPI (file transfer) method.  No MPI
+      library is needed.
+
+ 5)   The NONMEM executable nonmem.exe (nonmem in UNIX) is created.
+
+ 6)   The NONMEM executable is run.  It is passed an  option  -licfile,
+      which  tells it where to find the NONMEM license file. Typically,
+      this is the file nonmem.lic in the sub-directory license  of  the
+      directory in which NONMEM was installed.
+      First, arrays are allocated dynamically, according to information
+      supplied by NM-TRAN in files FSIZES.
+      (See <A HREF="$.htm#$sizes">$sizes</A>).
+      Processing may be performed as a single CPU process, or distruted
+      among multiple cores or nodes, as specified in the parallel file.
+      (See <A HREF="p.htm#parallel">parallel</A>).
+      The  output  file  whose name is given as the second command-line
+      argument is created. During the run, NONMEM output can  be  found
+      in  the  file  OUTPUT.   When  the run terminates, file OUTPUT is
+      copied to the output file and then removed.
+
+ While NONMEM 7 and higher is running, the following  may  be  used  if
+ "-backgound" was not present:
+
+ ctrl-J
+      Turn  console  iteration  printing  on/off during the  Estimation
+      Step (Default is on).
+
+ ctrl-K
+      Stop the Estimation Step, which completes its output, and goes on
+      to next mode or estimation method.
+
+ ctrl-E
+      Exit program gracefully.
+
+ ctrl-T
+      Monitor  the  progress of each individual during an estimation by
+      toggling ctrl-T.  Wait 15 seconds or more to observe a  subject's
+      ID,  and individual objective function value.  It is also good to
+      test that the problem did not hang if a console  output  had  not
+      been observed for a long while.
+
+ The  signal  program  may  be used in situations where NONMEM does not
+ respond to the ctrl key.
+ (See <A HREF="s.htm#signal">signal</A>).
+
+ EXAMPLES OF USAGE:
+
+ nmfe7 CONTROL5 REPORT5.res
+ nmfe7 CONTROL5 REPORT5.res -background &gt;& consout &
+ (Trailing & is used in UNIX to run the command in the background.)
+
+ Other files are created by nmfe7 and NONMEM:
+
+ FSUBS_MU.F90
+      Contains SUBROUTINE MUMODEL2.  This subroutine contains only  the
+      code  that  is  needed  to compute any MU parameters (MU_1, MU_2,
+      etc.) that were defined in $PK or $PRED abbreviated code.  It  is
+      also included in FSUBS.
+
+ FSUBS and FSUBS.f90
+      These are identical. They contain both the content of FSUBS as it
+      was in previous versions of  NONMEM  (generated  subroutines  PK,
+      PRED, MODEL, etc., plus any user-supplied code), and also subrou-
+      tine MUMODEL2.  Note that user-supplied code must be  in  Fortran
+      90 format.
+
+ With  NONMEM  7  and higher, additional output files are created, with
+ names controlfile.xxx, where xxx is ext, cov, etc.
+ (See <A HREF="a.htm#additional_output_files">additional_output_files</A>).
+ (See <A HREF="r.htm#raw_output_file">raw_output_file</A>).
+
+REFERENCES: Guide III Section <a href="III/index.html">IV.1.0, V.7.0<a/>
+REFERENCES: Guide  Section <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

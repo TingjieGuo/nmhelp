@@ -1,0 +1,59 @@
+<HTML><HEAD> <TITLE> advan1.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               ADVAN1                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Choice of Pharmacokinetic Model for PREDPP
+ CONTEXT: Option of NM-TRAN $SUBROUTINES record
+
+ USAGE:
+ $SUBROUTINES [ADVAN=]ADVAN1
+
+ SAMPLE:
+ $SUBROUTINE ADVAN1
+
+ DISCUSSION:
+ ADVAN1  is  a routine in PREDPP's library which implements the kinetic
+ equations for the One Compartment Linear Model.
+
+ Compt.   Function   Initial   On/Off    Dose      Default    Default
+ No.                 Status    Allowed   Allowed   for Dose   for Obs.
+ 1        Central    On        No        Yes       Yes        Yes
+ 2        Output     Off       Yes       No        No         No
+
+ TRANS routines that may be used: TRANS1, TRANS2
+
+ Basic PK parameter with TRANS1:
+
+      K (rate constant of elimination)
+
+ Basic PK parameters with TRANS2: (See <A HREF="t.htm#trans2">TRANS2</A>).
+
+ Additional PK parameters:
+
+      S1 - Scale for central compartment (also called SC)
+      S2 - Scale for output compartment (also called S0)
+      F1 - Bioavailability for central compartment
+      R1 - Rate for central compartment
+      D1 - Duration for central compartment
+      ALAG1 - Absorption lag for central compartment
+      F0 - Output fraction (also called F2, FO)
+      XSCALE - Time scale
+      MTIME(i) - Model event times
+
+REFERENCES: Guide VI Section <a href="VI/VII.html#C.1.">VII.C.1<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

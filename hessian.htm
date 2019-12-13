@@ -1,0 +1,70 @@
+<HTML><HEAD> <TITLE> hessian.out</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                              HESSIAN                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: A matrix computed by NONMEM
+ CONTEXT: NONMEM output
+
+ DISCUSSION:
+
+ The  Hessian  matrix  is the second derivative matrix of the objective
+ function with respect to the parameters of the model.  NONMEM computes
+ Hessian matrices for several purposes.
+
+ Estimation Step
+      A rough numerical approximation to the Hessian is maintained dur-
+      ing the minimization search.  The following message in the inter-
+      mediate output refers to this matrix:
+
+      RESET HESSIAN
+
+      Explanation:  The search starts with the Hessian set to the iden-
+      tity matrix. The Hessian is updated after each iteration, using a
+      rank  1  update  procedure.  When  there  is no longer a sensible
+      direction to take, but convergence has not  been  achieved,  this
+      may be due to inadequacy of the updated Hessian. Then the Hessian
+      is reset to a certain positive semi-definite diagonal matrix, and
+      a  new direction computed from this matrix (and the gradient vec-
+      tor) is tried.
+
+      The appearance of the message indicates why  an  unusually  large
+      number of function evaluations were used for the iteration (extra
+      ones were needed to compute the new Hessian and  perform  a  line
+      search  along  the  new  direction) and why an unusually long CPU
+      time was needed for the  iteration  (if  intermediate  output  is
+      being  monitored). Its appearance suggests that the search is not
+      going easily, and perhaps (not necessarily) something is wrong.
+
+ Covariance Step
+      A good numerical approximation to the Hessian is computed at  the
+      final parameter estimates. It is referred to as the R matrix.
+
+ Obtaining Conditional Estimates
+      In  this case, the Hessian matrix is the second derivative matrix
+      of the conditional objective function.  The following error  mes-
+      sages refer to this matrix:
+
+      HESSIAN OF OBJ. FUNCT. FOR COMPUTING CONDITIONAL ESTIMATE IS
+      NON POSITIVE DEFINITE
+
+      NUMERICAL HESSIAN OF OBJ. FUNC. ...
+
+REFERENCES: Guide IV Section <a href="IV/III.html#B.15.">III.B.15<a/>
+REFERENCES: Guide V Section <a href="V/12.html#4.6.">12.4.6<a/>
+REFERENCES: Guide VII Section <a href="VII/II.html#A.">II.A<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

@@ -1,0 +1,72 @@
+<HTML><HEAD> <TITLE> siml2.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        SIMULATION_2 EXAMPLE                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This  is  an example of simulation with population data.  It is a con-
+ tinuation of Simulation Example 1.
+
+ First, during the Simulation Step, values of the covariate WT are sim-
+ ulated,  as  well  as DV values, as PK-defined items SIMWT.  Normally-
+ distributed values of ETA(3) are used.  Values of  CL  are  calculated
+ based on SIMWT.  SIMWT replaces WT in the table file, and, because the
+ ONLYSIM option is used, tabled values of SIMWT are simulated values.
+
+ Second, this process is repeated 10 times, using  the  same model,  by
+ means  of  the   SUBPROBLEMS option.  The table file contains the con-
+ catenated output of all the subproblems, and is the simulated data for
+ 20 individuals.
+
+ $PROBLEM Simulation of population data and weight
+ $INPUT ID TIME WT AMT DV
+ $DATA SIMORIG IGNORE=#
+ $SUBROUTINE ADVAN1
+ $PK
+      SIMWT=70+70*ETA(3)
+      CL=THETA(1)*SIMWT*EXP(ETA(1))
+      V=THETA(2)*EXP(ETA(2))
+      K=CL/V
+      S1=V
+ $ERROR
+      Y=F+F*EPS(1)
+ $THETA  .0625  10
+ $OMEGA .09 .05 .04
+ $SIGMA .01
+ $SIMULATION (9215690) ONLYSIM SUBPROBLEMS=10
+ $TABLE ID TIME SIMWT AMT NOPRINT FILE=SIMDATA2 NOHEADER
+
+ SIMORIG is the same as with Simulation Example 1.  Contents of SIMORIG
+ (for the first two individuals) follow.
+
+ #  ID TIME WT AMT DV
+     1   0  80 100  .
+     1   1  80   .  .
+     2   0  75 100  .
+     2   2  75   .  .
+
+ Contents of SIMDATA2 follow, with floating-point notation converted to
+ fixed-point for the convenience of the reader.
+
+ 1.    0.   77.486  100.    0.000   10.000    0.000    0.000
+ 1.    1.   77.486    0.    6.825    6.457    0.369    0.000
+ 2.    0.   72.882  100.    0.000   10.000    0.000    0.000
+ 2.    2.   72.882    0.    3.515    4.169   -0.653    0.000
+
+REFERENCES: Guide IV Section <a href="IV/III.html#B.13.">III.B.13<a/>, <a href="IV/IV.html#I.">IV.I<a/>
+REFERENCES: Guide V Section <a href="V/12.html#4.8.">12.4.8<a/>
+REFERENCES: Guide  VI Section <a href=" VI/III.html#C.">III.C<a/>, <a href=" VI/III.html#E.">III.E<a/>, <a href=" VI/IV.html#B.">IV.B<a/>, <a href=" VI/IV.html#G.1.">IV.G.1<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

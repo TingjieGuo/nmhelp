@@ -1,0 +1,91 @@
+<HTML><HEAD> <TITLE> nonpar.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                       NONPARAMETRIC EXAMPLE                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ DISCUSSION:
+
+ Three  examples  are  given  of  the NONPARAMETRIC step in NONMEM.  In
+ examples 1 and 2, it is assumed that there only two etas in the  prob-
+ lem.  With more than two etas, insert the appropriate additional code.
+
+ Example 1
+
+ This  example  illustrates  how  the cumulative density can be plotted
+ versus the conditional etas.
+
+ The following code is inserted in the $PRED or $PK block.
+
+ DN1=CDEN_(1)
+ DN2=CDEN_(2)
+
+ The following control records are used.  Note that with the  $NONPARA-
+ METRIC  record,  the  MARGINALS  option is the default and need not be
+ coded explicitly.
+
+ $ESTIMATION  POSTHOC  PRINT=1
+ $NONPARAMETRIC MARGINALS
+ $SCAT DN1 VS ETA1
+ $SCAT DN2 VS ETA2
+
+ Example 2
+
+ This example illustrates how both the conditional etas and the  condi-
+ tional  nonparametric etas (CNPE) can be obtained, and how they can be
+ compared.
+ (See <A HREF="c.htm#comact">comact</A>).
+
+ The following code is inserted in the $PRED or $PK block:
+
+ ;CONDITIONAL PARAMETRIC ETAS
+ IF (COMACT.EQ.2) ET1A=ETA(1)
+ IF (COMACT.EQ.2) ET2A=ETA(2)
+ ;CONDITIONAL NONPARAMETRIC ETAS (CNPE)
+ IF (COMACT.EQ.3) ET1=ETA(1)
+ IF (COMACT.EQ.3) ET2=ETA(2)
+
+ The following control statements may  be  used.   The  first  two  are
+ required;  the $SCATTER and $TABLE statements are examples of what can
+ be used.
+
+ $ESTIMATION POSTHOC
+ $NONP ETAS
+ ; Examine distribution of nonparametric etas
+ $SCAT ET1 VS ID
+ $SCAT ET2 VS ID
+ ; Compare parametric and nonparametric etas
+ $SCAT ET1A VS ET1
+ $SCAT ET2A VS ET2
+ $TABLE ID ET1A ET2A ET1 ET2 NOPRINT
+
+ Example 3
+
+ This example shows the specific statements needed to simulate  from  a
+ nonparametric  distribution using a Model Specification file generated
+ from a previous analysis using $NONPARAMETRIC.
+
+ ; Model specification file from a previous analysis using $NONPARAMETRIC
+ $MSFI nonpfit.msf
+
+ ; Second seed will be used for simulation using the nonparametric density
+ ; Must include TRUE=FINAL, otherwise initial instead of final parameter
+ ; estimates will be used.
+
+ $SIMULATION (3432192) (6348371 NONPARAMETRIC) TRUE=FINAL
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

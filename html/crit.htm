@@ -1,0 +1,75 @@
+<HTML><HEAD> <TITLE> crit.stb</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                                CRIT                                |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: CRIT subroutine
+ CONTEXT: User-supplied subroutine; replaces a NONMEM routine
+
+ USAGE:
+      SUBROUTINE CRIT (ICALL,J,N,WRES,V)
+      USE SIZES, ONLY: ISIZE,DPSIZE
+      INTEGER(KIND=ISIZE), INTENT(IN)     :: J,N
+      INTEGER(KIND=ISIZE), INTENT(IN)     :: ICALL
+      REAL(KIND=DPSIZE),   INTENT(OUT)    :: V
+      REAL(KIND=DPSIZE),   INTENT(IN)     :: WRES(*)
+      END SUBROUTINE CRIT
+
+ DISCUSSION:
+ The  CRIT  subroutine  is used to modify the NONMEM objective function
+ used with the First-Order (or the Extended Least  Squares)  Estimation
+ method.   This  objective function may be regarded as being the sum of
+ contributions computed from each individual record.  The first term in
+ the contribution from an individual record is independent of data, but
+ the second term in the contribution is the sum of the squared weighted
+ residuals  for  the  data in the record.  The weights are functions of
+ the model parameters and are obtained so that  with  a  given  set  of
+ parameter  values,  assumed  to  be  the  true  parameter values, each
+ weighted residual has unit variance and all the weighted residuals are
+ mutually  uncorrelated.   With  the  CRIT  routine,  a function of the
+ weighted residuals other than the sum of their squares may be  substi-
+ tuted  for  the second term.  The function may vary between individual
+ records.  The CRIT routine is called by  NONMEM  with  one  individual
+ record  after  another  (individual  records  without observations are
+ skipped).
+
+ Input argument:
+
+ ICALL
+      Similar to ICALL for PRED subroutine.
+      0 - First call to CRIT in the run
+      1 - First call to CRIT in the current problem
+      2 - Computation of function value required
+
+ J    Number of individual record
+
+ N    Number of observations in the individual record
+
+ WRES Vector of weighted residuals (as  many  residuals  as  there  are
+      observations)
+
+ Output argument:
+
+ V    Value of function
+
+ Note:  When a user CRIT is supplied, NONMEM subroutine CELS may not be
+ called.
+
+REFERENCES: Guide II Section <a href="II/C.html#6.">C.6<a/>, <a href="II/fig.html#Figure_8">Figure 8<a/>
+REFERENCES: Guide III Section <a href="III/index.html">V.5.0<a/>
+REFERENCES: Guide IV Section <a href="IV/III.html#B.6.">III.B.6<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

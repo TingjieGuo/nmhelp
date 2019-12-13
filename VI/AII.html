@@ -1,0 +1,872 @@
+<!-- Creator     : groff version 1.21 -->
+<!-- CreationDate: Tue Apr 25 13:28:08 2017 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part VI - PREDPP">NONMEM Users Guide Part VI - PREDPP</a><br>
+<a href="#Appendix.II. Another Example: Theophylline">Appendix.II. Another Example: Theophylline</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part VI - PREDPP
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part VI - PREDPP"></a>
+</h2>
+
+
+<h2>Appendix.II. Another Example: Theophylline
+<a name="Appendix.II."></a>
+<a name="Appendix.II. Another Example: Theophylline"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The population theophylline
+example of Guide I, section F, can be specified using
+PREDPP, as shown in this appendix. A NONMEM control stream,
+and PK and ERROR routines, are given on the following pages.
+A NM-TRAN control stream, using abbreviated PK and ERROR
+codes, is also given. The results are essentially identical
+to those given in Guide I, figures 76-83. Unlike the example
+of Guide I, the data set is not embedded in the control
+stream; it is found in a separate file, also given in this
+appendix. (This is unrelated to the fact that PREDPP is
+used.) A file stream, pointing to the data file, is also
+given.</p>
+
+<p style="margin-top: 1em">This example uses ADVAN2, which
+implements an analytic computation for the one compartment
+linear model with first-order absorption. The same example
+can be handled using ADVAN6 and ADVAN7, although it is less
+efficient to use subroutines implementing
+&quot;numerical&quot; computations for general models when
+an analytic ADVAN for a specific model can be used. However,
+it may be instructive for the user to examine how all three
+ADVAN&rsquo;s can be used for the same example, and to
+examine additional user-supplied codes to be used with these
+ADVAN&rsquo;s. Therefore, this appendix also gives PK,
+MODEL, DES, and TOL routines to be used with ADVAN6, and PK
+and MODEL routines to be used with ADVAN7.</p>
+
+<p style="margin-top: 1em">Finally, NM-TRAN control streams
+corresponding to the use of ADVAN6 and ADVAN7 with this
+example are also given. These use the very same data set as
+does the NONMEM control stream. However, the last two data
+item types, EVID and MDV, are ignored. Though NM-TRAN can
+always properly process these data item types, it can ignore
+them with this example.</p>
+
+<p align="center" style="margin-top: 1em">FCON Stream</p>
+
+<pre style="margin-top: 1em">FILE    FSTREAM
+PROB    THEOPHYLLINE   POPULATION DATA
+DATA       1   0 144   7   0   0   0   0
+ITEM       1   4   7  11   1   0   0   0   0   0   0   0   0   0   0
+INDX       6   3   2   0   0   0   0   0   0   0   0
+XVID       0   0   0   0   0
+MSDT     0.00000000000000E+000
+LABL                             ID,                          DOSE                               TIME,                            CP
+                                 WT,                          EVID
+                                MDV</pre>
+
+
+<p>LBW1 IWRS,IPRD <br>
+IRS,NPRED <br>
+NRES,NWRES <br>
+NIWRES,NIPRED <br>
+NIRES,CPRED <br>
+CRES,CWRES <br>
+CIWRES,CIPRED <br>
+CIRES,PREDI <br>
+RESI,WRESI <br>
+IWRESI,IPREDI <br>
+IRESI,CPREDI <br>
+CRESI,CWRESI <br>
+CIWRESI,CIPREDI <br>
+CIRESI,EPRED <br>
+ERES,EWRES <br>
+EIWRES,EIPRED <br>
+EIRES,NPDE <br>
+ECWRES,NPD <br>
+OBJI <br>
+LRES SIGMA LTHT LETA LEPS FORM (5F10.0,2F2.0) STRC 3 3 1 0 0
+0 1 1 0 STRC 1 3 THCN 1 0 0 0 THTA 3.000000000000000E+00,
+8.000000000000000E-02, 4.000000000000000E-02 LOWR
+1.000000000000000E-01, 8.000000000000000E-03,
+4.000000000000000E-03 UPPR 5.000000000000000E+00,
+5.000000000000000E-01, 9.000000000000000E-01 BLST
+6.000000000000000E+00, 5.000000000000000E-03,
+3.000000000000000E-01 <br>
+2.000000000000000E-04, 6.000000000000000E-03,
+4.000000000000000E-01 <br>
+DIAG 4.000000000000000E-01 DFLT -1 ESTM 0 450 3 5 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 <br>
+0 0 0 0 -1 -1 0 0 0 <br>
+BEST -100 -100 -100 -100 -100.00000 -100 <br>
+-100 -100 -100.00000 -2147483647 -100 -100 <br>
+-100 -100.00000 -100 -100-0.10000E+03 -100 <br>
+-100 -100 0 -100 -100 -100.00000 <br>
+-100 -100 -100 -100-0.10000E+03-0.10000E+03 <br>
+-100 -100 1 -100 -100 <br>
+-100 -100 -2147483647 -100 -100-0.10000E+03 <br>
+-100-0.10000E+03-0.10000E+03 -100 0 -100 <br>
+-100 -100 -100-0.10000E+03-0.10000000E+03 -100 <br>
+-100 -100 -100 -100-0.10000000E+03-0.10000000E+03 <br>
+
+-0.10000000E+03-0.10000000E+03-0.10000000E+03-0.10000000E+03-0.10000000E+03-0.10000000E+03
+<br>
+-0.10000000E+03-0.10000000+301-0.10000000+301 <br>
+-100-100-100-100-100-100 <br>
+-100 -100 -100-0.10000000E+03-0.10000000E+03-0.10000000E+03
+<br>
+-100 -100 -100-0.10000000E+03-0.10000000E+03-100 <br>
+-100 -100 -100 -100 <br>
+BFIL BDLM BMUM BGRD ORDR PFIL -100 FFIL 0 COVR 0 0 0 0 0 0 1
+0 0 COVT -1 -1 -1 -1 0 0 -1 -1 -1 -1 -1 -1 -1-1-1TOS <br>
+-1 -1 -1-0.10000E+03-0.10000E+03-0.10000E+03</p>
+
+<p style="margin-top: 1em">CPAR -1 TABL 1 1 PPAR -1
+TABL 1 4 1 0 2 0 5 0 3 0 <br>
+0 0 0 0 0 0 0 0-1 0 <br>
+FRML FRMR FETA SCAT 1 2 SCAT 3 9 1 1 0 0 0 0 0 <br>
+0 0 0 -1 <br>
+SCAT 3 10 1 1 0 0 0 0 0 <br>
+0 0 0 -1</p>
+
+<p align="center" style="margin-top: 1em">File Stream</p>
+<pre style="margin-top: 1em">DATA    FDATA
+****</pre>
+
+<p align="center" style="margin-top: 1em">Data Set</p>
+
+<pre style="margin-top: 1em">         1      4.02      0.                 79.6  1 1
+         1                0.         .74           0 0
+         1                0.25      2.84           0 0
+         1                0.57      6.57           0 0
+         1                1.12     10.5            0 0
+         1                2.02      9.66           0 0
+         1                3.82      8.58           0 0
+         1                5.1       8.36           0 0
+         1                7.03      7.47           0 0
+         1                9.05      6.89           0 0
+         1               12.12      5.94           0 0
+         1               24.37      3.28           0 0
+         2      4.4       0.                 72.4  1 1
+         2                0.        0.             0 0
+         2                 .27      1.72           0 0
+         2                 .52      7.91           0 0
+         2                1.        8.31           0 0
+         2                1.92      8.33           0 0
+         2                3.5       6.85           0 0
+         2                5.02      6.08           0 0
+         2                7.03      5.4            0 0
+         2                9.        4.55           0 0
+         2               12.        3.01           0 0
+         2               24.3        .90           0 0
+         3      4.53      0.                 70.5  1 1
+         3                0.        0.             0 0
+         3                 .27      4.4            0 0
+         3                 .58      6.9            0 0
+         3                1.02      8.2            0 0
+         3                2.02      7.8            0 0
+         3                3.62      7.5            0 0
+         3                5.08      6.2            0 0
+         3                7.07      5.3            0 0
+         3                9.        4.9            0 0
+         3               12.15      3.7            0 0
+         3               24.17      1.05           0 0
+         4      4.4       0.                 72.7  1 1
+         4                0.        0.             0 0
+         4                 .35      1.89           0 0
+         4                 .6       4.6            0 0
+         4                1.07      8.6            0 0
+         4                2.13      8.38           0 0
+         4                3.5       7.54           0 0
+         4                5.02      6.88           0 0
+         4                7.02      5.78           0 0
+         4                9.02      5.33           0 0
+         4               11.98      4.19           0 0
+         4               24.65      1.15           0 0
+         5      5.86      0.                 54.6  1 1
+         5                0.        0.             0 0
+         5                 .3       2.02           0 0
+         5                 .52      5.63           0 0
+         5                1.       11.4            0 0
+         5                2.02      9.33           0 0
+         5                3.5       8.74           0 0
+         5                5.02      7.56           0 0
+         5                7.02      7.09           0 0
+         5                9.1       5.9            0 0
+         5               12.        4.37           0 0
+         5               24.35      1.57           0 0
+         6      4.        0.                 80.   1 1
+         6                0.        0.             0 0
+         6                 .27      1.29           0 0
+         6                 .58      3.08           0 0
+         6                1.15      6.44           0 0
+         6                2.03      6.32           0 0
+         6                3.57      5.53           0 0
+         6                5.        4.94           0 0
+         6                7.        4.02           0 0
+         6                9.22      3.46           0 0
+         6               12.1       2.78           0 0
+         6               23.85       .92           0 0
+         7      4.95      0.                 64.6  1 1
+         7                0.         .15           0 0
+         7                 .25       .85           0 0
+         7                 .5       2.35           0 0
+         7                1.02      5.02           0 0
+         7                2.02      6.58           0 0
+         7                3.48      7.09           0 0
+         7                5.        6.66           0 0
+         7                6.98      5.25           0 0
+         7                9.        4.39           0 0
+         7               12.05      3.53           0 0
+         7               24.22      1.15           0 0
+         8      4.53      0.                 70.5  1 1
+         8                0.        0.             0 0
+         8                 .25      3.05           0 0
+         8                0.52      3.05           0 0
+         8                 .98      7.31           0 0
+         8                2.02      7.56           0 0
+         8                3.53      6.59           0 0
+         8                5.05      5.88           0 0
+         8                7.15      4.73           0 0
+         8                9.07      4.57           0 0
+         8               12.1       3.             0 0
+         8               24.12      1.25           0 0
+         9      3.1       0.                 86.4  1 1
+         9                0.        0.             0 0
+         9                 .3       7.37           0 0
+         9                 .63      9.03           0 0
+         9                1.05      7.14           0 0
+         9                2.02      6.33           0 0
+         9                3.53      5.66           0 0
+         9                5.02      5.67           0 0
+         9                7.17      4.24           0 0
+         9                8.8       4.11           0 0
+         9               11.6       3.16           0 0
+         9               24.43      1.12           0 0
+        10      5.5       0.                 58.2  1 1
+        10                0.         .24           0 0
+        10                 .37      2.89           0 0
+        10                 .77      5.22           0 0
+        10                1.02      6.41           0 0
+        10                2.05      7.83           0 0
+        10                3.55     10.21           0 0
+        10                5.05      9.18           0 0
+        10                7.08      8.02           0 0
+        10                9.38      7.14           0 0
+        10               12.1       5.68           0 0
+        10               23.7       2.42           0 0
+        11      4.92      0.                 65.   1 1
+        11                0.        0.             0 0
+        11                 .25      4.86           0 0
+        11                 .5       7.24           0 0
+        11                 .98      8.             0 0
+        11                1.98      6.81           0 0
+        11                3.6       5.87           0 0
+        11                5.02      5.22           0 0
+        11                7.03      4.45           0 0
+        11                9.03      3.62           0 0
+        11               12.12      2.69           0 0
+        11               24.08       .86           0 0
+        12      5.3       0.                 60.5  1 1
+        12                0.        0.             0 0
+        12                 .25      1.25           0 0
+        12                 .5       3.96           0 0
+        12                1.        7.82           0 0
+        12                2.        9.72           0 0
+        12                3.52      9.75           0 0
+        12                5.07      8.57           0 0
+        12                7.07      6.59           0 0
+        12                9.03      6.11           0 0
+        12               12.05      4.57           0 0
+        12               24.15      1.17           0 0</pre>
+
+
+<p align="center" style="margin-top: 1em">PK Routine To Be
+Used With ADVAN2</p>
+
+<pre style="margin-top: 1em">      SUBROUTINE PK(ICALL,IDEF,THETA,IREV,EVTREC,NVNT,INDXS,IRGG,GG,NETAS)</pre>
+
+
+<p>! PK SUBROUTINE FOR THE THEOPHYLLINE POPULATION DATA !
+USED WITH ADVAN2 AND TRANS1 ! CLEARANCE PROPORTIONAL TO
+WEIGHT ! SCALING PARAMETER IS VOLUME/WEIGHT SINCE DOSE IS
+WEIGHT-ADJUSTED <br>
+USE NMPRD4P <br>
+USE SIZES, ONLY: DPSIZE,ISIZE <br>
+USE PRDIMS, ONLY: GPRD,HPRD,GERD,HERD,GPKD <br>
+USE NMPRD_REAL,ONLY: ETA,EPS <br>
+USE NMPRD_INT, ONLY:
+MSEC=&gt;ISECDER,MFIRST=&gt;IFRSTDER,COMACT,COMSAV,IFIRSTEM
+<br>
+USE NMPRD_INT, ONLY: MDVRES,ETASXI,NPDE_MODE,NOFIRSTDERCODE
+<br>
+USE NMPRD_REAL, ONLY: DV_LOQ <br>
+USE NMPRD_INT, ONLY: IQUIT <br>
+USE PROCM_INT, ONLY: NEWIND=&gt;PNEWIF <br>
+USE NMBAYES_REAL, ONLY: LDF <br>
+IMPLICIT REAL(KIND=DPSIZE) (A-Z) <br>
+REAL(KIND=DPSIZE) :: EVTREC <br>
+SAVE <br>
+INTEGER(KIND=ISIZE) :: FIRSTEM <br>
+INTEGER(KIND=ISIZE) :: ICALL,IDEF,IREV,NVNT,INDXS,IRGG,NETAS
+<br>
+DIMENSION ::
+IDEF(7,*),THETA(*),EVTREC(IREV,*),INDXS(*),GG(IRGG,GPKD+1,*)
+<br>
+FIRSTEM=IFIRSTEM <br>
+IF (ICALL &lt;= 1) THEN <br>
+CALL ASSOCNMPRD4 <br>
+! SET UP IDEF ARRAY: <br>
+IDEF( 1,0001)= -9 <br>
+! CALL PK ONCE PER INDIV. REC. <br>
+IDEF( 1,0002)= 1 <br>
+IDEF( 1,0003)= 0 <br>
+IDEF( 1,0004)= 0 <br>
+IDEF( 2,0003)= 0 <br>
+IDEF( 2,0004)= 0 <br>
+! ROW INDEX FOR SCALING PARAMETER FOR COMPT. 2 <br>
+IDEF( 3,0002)= 4 <br>
+CALL GETETA(ETA) <br>
+IF (IQUIT == 1) RETURN <br>
+RETURN <br>
+ENDIF <br>
+IF (NEWIND /= 2) THEN <br>
+IF (ICALL == 4) THEN <br>
+CALL SIMETA(ETA) <br>
+ELSE <br>
+CALL GETETA(ETA) <br>
+ENDIF <br>
+IF (IQUIT == 1) RETURN <br>
+ENDIF <br>
+! level 0 <br>
+! REGULAR CALL TO PK: ! WEIGHT <br>
+WT=EVTREC(NVNT,005) <br>
+KA=THETA(001)+ETA(001) <br>
+K=THETA(002)+ETA(002) <br>
+CL=THETA(003)*WT+ETA(003) <br>
+SC=CL/K/WT <br>
+IF (FIRSTEM == 1) THEN <br>
+! A000031 = DERIVATIVE OF KA W.R.T. ETA(001) <br>
+A000031=1.D0 <br>
+! A000032 = DERIVATIVE OF K W.R.T. ETA(002) <br>
+A000032=1.D0 <br>
+B000001=1.D0/K/WT <br>
+! A000034 = DERIVATIVE OF SC W.R.T. ETA(003) <br>
+A000034=B000001 <br>
+B000002=-CL/K/K/WT <br>
+! A000035 = DERIVATIVE OF SC W.R.T. ETA(002) <br>
+A000035=B000002*A000032 <br>
+! ELIMINATION RATE CONSTANT <br>
+GG(0001,1,1)=K <br>
+GG(0001,0003,1)=A000032 <br>
+! ABSORPTION RATE CONSTANT <br>
+GG(0003,1,1)=KA <br>
+GG(0003,0002,1)=A000031 <br>
+! SCALING <br>
+GG(0004,1,1)=SC <br>
+GG(0004,0003,1)=A000035 <br>
+GG(0004,0004,1)=A000034 <br>
+ELSE <br>
+GG(0001,1,1)=K <br>
+GG(0003,1,1)=KA <br>
+GG(0004,1,1)=SC <br>
+ENDIF <br>
+IF (MSEC == 1) THEN <br>
+B000004=-1.D0/K/K/WT <br>
+! A000037 = DERIVATIVE OF B000001 W.R.T. ETA(002) <br>
+A000037=B000004*A000032 <br>
+B000005=-1.D0/K/K/WT <br>
+B000006=CL/K/K/K/WT <br>
+! A000039 = DERIVATIVE OF B000002 W.R.T. ETA(002) <br>
+A000039=B000006*A000032 <br>
+B000007=CL/K/K/K/WT <br>
+! A000040 = DERIVATIVE OF B000002 W.R.T. ETA(002) <br>
+A000040=B000007*A000032+A000039 <br>
+! A000041 = DERIVATIVE OF A000035 W.R.T. ETA(002) <br>
+A000041=A000032*A000040 <br>
+! A000042 = DERIVATIVE OF A000035 W.R.T. ETA(003) <br>
+A000042=A000032*B000005 <br>
+GG(0004,0003,0003)=A000041 <br>
+GG(0004,0004,0003)=A000042 <br>
+ENDIF <br>
+RETURN <br>
+END</p>
+
+<p align="center" style="margin-top: 1em">ERROR Routine To
+Be Used With ADVAN2, ADVAN6, and ADVAN7</p>
+
+<pre style="margin-top: 1em">!  ERROR SUBROUTINE FOR THE THEOPHYLLINE POPULATION DATA      SUBROUTINE ERROR (ICALL,IDEF,THETA,IREV,EVTREC,NVNT,INDXS,F,G,HH)
+      USE NMPRD4P
+      USE SIZES,     ONLY: DPSIZE,ISIZE
+      USE PRDIMS,    ONLY: GPRD,HPRD,GERD,HERD,GPKD
+      USE NMPRD_REAL,ONLY: ETA,EPS
+      USE NMPRD_INT, ONLY: MSEC=&gt;ISECDER,MFIRST=&gt;IFRSTDER,IQUIT,IFIRSTEM
+      USE NMPRD_INT, ONLY: MDVRES,ETASXI,NPDE_MODE,NOFIRSTDERCODE
+      USE NMPRD_REAL, ONLY: DV_LOQ
+      USE NMPRD_INT, ONLY: NEWL2
+      USE PROCM_INT, ONLY: NEWIND=&gt;PNEWIF
+      IMPLICIT REAL(KIND=DPSIZE) (A-Z)
+      REAL(KIND=DPSIZE) :: EVTREC
+      SAVE
+      INTEGER(KIND=ISIZE) :: ICALL,IDEF,IREV,NVNT,INDXS
+      DIMENSION :: IDEF(*),THETA(*),EVTREC(IREV,*),INDXS(*)
+      REAL(KIND=DPSIZE) :: G(GERD,*),HH(HERD,*)
+      INTEGER(KIND=ISIZE) :: FIRSTEM
+      FIRSTEM=IFIRSTEM
+      IF (ICALL &lt;= 1) THEN
+      CALL ASSOCNMPRD4</pre>
+
+
+<p>! CALL ERROR ONLY ONCE <br>
+IDEF(2)=2 <br>
+HH(1,1)=1.0D0 <br>
+IDEF(3)=000 <br>
+RETURN <br>
+ENDIF <br>
+IF (ICALL == 4) THEN <br>
+IF (NEWL2 == 1) THEN <br>
+CALL SIMEPS(EPS) <br>
+IF (IQUIT == 1) RETURN <br>
+ENDIF <br>
+ENDIF <br>
+! level 0 <br>
+Y=F+EPS(001) <br>
+IF (FIRSTEM == 1) THEN !1 <br>
+ENDIF !1 <br>
+F=Y <br>
+RETURN <br>
+END</p>
+
+<p align="center" style="margin-top: 1em">NM-TRAN Control
+Stream To Be Used With ADVAN2</p>
+<pre style="margin-top: 1em">$PROB  THEOPHYLLINE   POPULATION DATA
+$INPUT      ID DOSE=AMT TIME CP=DV WT
+$DATA       DATAFILE  (5F10.0)
+
+$SUBROUTINES  ADVAN2
+
+
+$PK
+;THETA(1)=MEAN ABSORPTION RATE CONSTANT (1/HR)
+;THETA(2)=MEAN ELIMINATION RATE CONSTANT (1/HR)
+;THETA(3)=SLOPE OF CLEARANCE VS WEIGHT RELATIONSHIP (LITERS/HR/KG)
+;SCALING PARAMETER=VOLUME/WT SINCE DOSE IS WEIGHT-ADJUSTED   CALLFL=1
+   KA=THETA(1)+ETA(1)
+   K=THETA(2)+ETA(2)
+   CL=THETA(3)*WT+ETA(3)
+   SC=CL/K/WT</pre>
+
+
+<p style="margin-top: 1em">$THETA (.1,3,5) (.008,.08,.5)
+(.004,.04,.9) $OMEGA BLOCK(3) 6 .005 .0002 .3 .006 .4</p>
+
+<p style="margin-top: 1em">$ERROR <br>
+Y=F+EPS(1)</p>
+
+<p style="margin-top: 1em">$SIGMA .4</p>
+
+<p style="margin-top: 1em">$EST MAXEVAL=450 PRINT=5 $COV
+$TABLE ID DOSE WT TIME $SCAT (RES WRES) VS TIME BY ID</p>
+
+<p align="center" style="margin-top: 1em">PK Routine To Be
+Used With ADVAN6 and ADVAN7</p>
+
+<pre style="margin-top: 1em">      SUBROUTINE PK(ICALL,IDEF,THETA,IREV,EVTREC,NVNT,INDXS,IRGG,GG,NETAS)</pre>
+
+
+<p>! PK SUBROUTINE FOR THE THEOPHYLLINE POPULATION DATA !
+USED WITH ADVAN6 AND ADVAN7, AND TRANS1 ! CLEARANCE
+PROPORTIONAL TO WEIGHT ! SCALING PARAMETER IS VOLUME/WEIGHT
+SINCE DOSE IS WEIGHT-ADJUSTED <br>
+USE NMPRD4P <br>
+USE SIZES, ONLY: DPSIZE,ISIZE <br>
+USE PRDIMS, ONLY: GPRD,HPRD,GERD,HERD,GPKD <br>
+USE NMPRD_REAL,ONLY: ETA,EPS <br>
+USE NMPRD_INT, ONLY:
+MSEC=&gt;ISECDER,MFIRST=&gt;IFRSTDER,COMACT,COMSAV,IFIRSTEM
+<br>
+USE NMPRD_INT, ONLY: MDVRES,ETASXI,NPDE_MODE,NOFIRSTDERCODE
+<br>
+USE NMPRD_REAL, ONLY: DV_LOQ <br>
+USE NMPRD_INT, ONLY: IQUIT <br>
+USE PROCM_INT, ONLY: NEWIND=&gt;PNEWIF <br>
+USE NMBAYES_REAL, ONLY: LDF <br>
+IMPLICIT REAL(KIND=DPSIZE) (A-Z) <br>
+REAL(KIND=DPSIZE) :: EVTREC <br>
+SAVE <br>
+INTEGER(KIND=ISIZE) :: FIRSTEM <br>
+INTEGER(KIND=ISIZE) :: ICALL,IDEF,IREV,NVNT,INDXS,IRGG,NETAS
+<br>
+DIMENSION ::
+IDEF(7,*),THETA(*),EVTREC(IREV,*),INDXS(*),GG(IRGG,GPKD+1,*)
+<br>
+FIRSTEM=IFIRSTEM <br>
+IF (ICALL &lt;= 1) THEN <br>
+CALL ASSOCNMPRD4 <br>
+! SET UP IDEF ARRAY: <br>
+IDEF( 1,0001)= -9 <br>
+! CALL PK ONCE PER INDIV. REC. <br>
+IDEF( 1,0002)= 1 <br>
+! ROW INDEX FOR SCALING PARAMETER FOR COMPT. 2 <br>
+IDEF( 1,0003)= 0 <br>
+IDEF( 1,0004)= 0 <br>
+IDEF( 2,0003)= 0 <br>
+IDEF( 2,0004)= 0 <br>
+IDEF( 3,0002)= 3 <br>
+CALL GETETA(ETA) <br>
+IF (IQUIT == 1) RETURN <br>
+RETURN <br>
+ENDIF <br>
+IF (NEWIND /= 2) THEN <br>
+IF (ICALL == 4) THEN <br>
+CALL SIMETA(ETA) <br>
+ELSE <br>
+CALL GETETA(ETA) <br>
+ENDIF <br>
+IF (IQUIT == 1) RETURN <br>
+ENDIF <br>
+! level 0 <br>
+WT=EVTREC(NVNT,005) <br>
+KA=THETA(001)+ETA(001) <br>
+KE=THETA(002)+ETA(002) <br>
+CL=THETA(003)*WT+ETA(003) <br>
+S2=CL/KE/WT <br>
+P000001=KA <br>
+P000002=KE <br>
+! REGULAR CALL TO PK: ! WEIGHT <br>
+IF (FIRSTEM == 1) THEN <br>
+B000001=1.D0/KE/WT <br>
+! A000034 = DERIVATIVE OF S2 W.R.T. ETA(003) <br>
+A000034=B000001 <br>
+B000002=-CL/KE/KE/WT <br>
+! A000035 = DERIVATIVE OF S2 W.R.T. ETA(002) <br>
+A000035=B000002 <br>
+! A000046 = DERIVATIVE OF P000001 W.R.T. ETA(001) <br>
+A000046=1.D0 <br>
+! A000047 = DERIVATIVE OF P000002 W.R.T. ETA(002) <br>
+A000047=1.D0 <br>
+! ABSORPTION RATE CONSTANT <br>
+GG(0001,1,1)=P000001 <br>
+GG(0001,0002,1)=A000046 <br>
+! ELIMINATION RATE CONSTANT <br>
+GG(0002,1,1)=P000002 <br>
+GG(0002,0003,1)=A000047 <br>
+! SCALING <br>
+GG(0003,1,1)=S2 <br>
+GG(0003,0003,1)=A000035 <br>
+GG(0003,0004,1)=A000034 <br>
+ELSE <br>
+GG(0001,1,1)=P000001 <br>
+GG(0002,1,1)=P000002 <br>
+GG(0003,1,1)=S2 <br>
+ENDIF <br>
+IF (MSEC == 1) THEN <br>
+B000005=-1.D0/KE/KE/WT <br>
+B000006=-1.D0/KE/KE/WT <br>
+B000007=CL/KE/KE/KE/WT <br>
+B000008=CL/KE/KE/KE/WT <br>
+! A000041 = DERIVATIVE OF B000002 W.R.T. ETA(002) <br>
+A000041=B000008+B000007 <br>
+! A000042 = DERIVATIVE OF A000035 W.R.T. ETA(002) <br>
+A000042=A000041 <br>
+! A000043 = DERIVATIVE OF A000035 W.R.T. ETA(003) <br>
+A000043=B000006 <br>
+GG(0003,0003,0003)=A000042 <br>
+GG(0003,0004,0003)=A000043 <br>
+ENDIF <br>
+RETURN <br>
+END</p>
+
+<p align="center" style="margin-top: 1em">MODEL Routine To
+Be Used With ADVAN6</p>
+
+<pre style="margin-top: 1em">      SUBROUTINE MODEL (IDNO,NCM,NPAR,IR,IATT,LINK)</pre>
+
+
+<p>! DEFINES A 1 COMPARTMENT MODEL WITH DRUG DEPOT
+COMPARTMENT ! COMPT1: DRUG DEPOT COMPT2: CENTRAL COMPT <br>
+USE PRMOD_CHAR, ONLY: NAME <br>
+USE SIZES, ONLY: DPSIZE,ISIZE,SD <br>
+USE PRDIMS, ONLY: GPRD,HPRD,GERD,HERD,GPKD <br>
+INTEGER(KIND=ISIZE) :: IDNO,NCM,NPAR,IR,IATT,LINK,I,J <br>
+DIMENSION :: IATT(IR,*),LINK(IR,*) <br>
+SAVE <br>
+INTEGER(KIND=ISIZE), DIMENSION (2,7) :: MOD <br>
+CHARACTER(LEN=SD), DIMENSION(2) :: CMOD <br>
+DATA (MOD(I, 1),I= 1, 2)/&amp; <br>
+! INITIAL STATUS: OFF ON <br>
+0,1 / <br>
+DATA (MOD(I, 2),I= 1, 2)/&amp; <br>
+! ON/OFF ALLOWED: YES NO <br>
+1,0 / <br>
+DATA (MOD(I, 3),I= 1, 2)/&amp; <br>
+! DOSE ALLOWED: YES YES <br>
+1,1 / <br>
+DATA (MOD(I, 4),I= 1, 2)/&amp; <br>
+! DEFAULT FOR OBSERVATIONS: NO YES <br>
+0,1 / <br>
+DATA (MOD(I, 5),I= 1, 2)/&amp; <br>
+! DEFAULT FOR DOSES: YES NO <br>
+1,0 / <br>
+DATA (MOD(I, 6),I= 1, 2)/&amp; <br>
+0,0 / <br>
+DATA (MOD(I, 7),I= 1, 2)/&amp; <br>
+0,0 / <br>
+DATA (CMOD(I),I= 1, 2) &amp; <br>
+/&rsquo;DEPOT&rsquo;,&rsquo;CENTRAL&rsquo;/ <br>
+FORALL (I=1:2) NAME(I)=CMOD(I) <br>
+FORALL (I=1:2,J=1:7) IATT(I,J)=MOD(I,J) <br>
+IDNO=9999 <br>
+NCM= 2 <br>
+NPAR=002 <br>
+RETURN <br>
+END</p>
+
+<p align="center" style="margin-top: 1em">DES Routine To Be
+Used With ADVAN6</p>
+
+<pre style="margin-top: 1em">      SUBROUTINE DES (A,P,T,DADT,IR,DA,DP,DT)</pre>
+
+
+<p>! DES SUBROUTINE FOR THE THEOPHYLLINE POPULATION DATA
+<br>
+USE NMPRD4P <br>
+USE SIZES, ONLY: DPSIZE,ISIZE <br>
+USE PRDIMS, ONLY: GPRD,HPRD,GERD,HERD,GPKD <br>
+USE NMPRD_INT, ONLY: IERPRD,NETEXT,IQUIT <br>
+USE NMPRD_CHAR,ONLY: ETEXT <br>
+USE NMPRD_INT, ONLY:
+MSEC=&gt;ISECDER,MFIRST=&gt;IFRSTDER,IFIRSTEM,IFIRSTEMJAC
+<br>
+USE PRCOM_INT, ONLY: MITER <br>
+USE NMPRD_INT, ONLY: MDVRES,ETASXI,NPDE_MODE,NOFIRSTDERCODE
+<br>
+USE NMPRD_REAL, ONLY: DV_LOQ <br>
+USE PRMOD_INT, ONLY: ICALL=&gt;ICALLD,IDEFD,IDEFA <br>
+IMPLICIT REAL(KIND=DPSIZE) (A-Z) <br>
+SAVE <br>
+INTEGER(KIND=ISIZE) :: IR <br>
+DIMENSION :: A(*),P(*),DADT(*),DA(IR,*),DP(IR,*),DT(*) <br>
+INTEGER(KIND=ISIZE) :: FIRSTEM,IFIRSTEMJACIN <br>
+IF(MITER==1.OR.MITER==4) IFIRSTEM=1 <br>
+FIRSTEM=IFIRSTEM <br>
+IFIRSTEMJACIN=IFIRSTEMJAC <br>
+IF(NOFIRSTDERCODE/=1) THEN <br>
+IFIRSTEMJAC=FIRSTEM <br>
+ELSE <br>
+IFIRSTEMJAC=0 <br>
+ENDIF <br>
+IF(IFIRSTEMJACIN==-2) RETURN <br>
+IF (ICALL == 1) THEN <br>
+CALL ASSOCNMPRD4 <br>
+IDEFD(1)= 0 <br>
+IDEFD(2)=0 <br>
+DA( 1,1)=0014280 <br>
+DA( 2,1)=0028441 <br>
+DA( 3,1)=0028560 <br>
+DA( 4,1)=0014311 <br>
+DA( 5,1)=0028472 <br>
+DA( 6,1)=0028592 <br>
+DA( 7,1)=0000000 <br>
+DP( 1,1)=0014280 <br>
+DP( 2,1)=0028441 <br>
+DP( 3,1)=0028560 <br>
+DP( 4,1)=0000000 <br>
+DT( 1)=0000000 <br>
+RETURN <br>
+ENDIF <br>
+! level 0 <br>
+! level 0 <br>
+DADT(1)=-P(001)*A(1) <br>
+DADT(2)=P(001)*A(1)-P(002)*A(2) <br>
+IF (FIRSTEM == 1) THEN ! 1 <br>
+! E000004 = DERIVATIVE OF DADT(1) W.R.T. A(001) <br>
+E000004=-P(001) <br>
+! F000081 = DERIVATIVE OF DADT(1) W.R.T. P(001) <br>
+F000081=-A(1) <br>
+! E000006 = DERIVATIVE OF DADT(2) W.R.T. A(001) <br>
+E000006=P(001) <br>
+! E000007 = DERIVATIVE OF DADT(2) W.R.T. A(002) <br>
+E000007=-P(002) <br>
+! F000082 = DERIVATIVE OF DADT(2) W.R.T. P(001) <br>
+F000082=A(1) <br>
+! F000083 = DERIVATIVE OF DADT(2) W.R.T. P(002) <br>
+F000083=-A(2) <br>
+ENDIF !1 <br>
+IF (MSEC == 1) THEN <br>
+! E000005 = DERIVATIVE OF F000081 W.R.T. A(001) <br>
+E000005=-1.D0 <br>
+! E000008 = DERIVATIVE OF F000082 W.R.T. A(001) <br>
+E000008=1.D0 <br>
+! E000009 = DERIVATIVE OF F000083 W.R.T. A(002) <br>
+E000009=-1.D0 <br>
+ENDIF !msec <br>
+IF (FIRSTEM == 1) THEN !2 <br>
+DA( 1,1)=E000004 <br>
+DA( 2,1)=E000006 <br>
+DA( 3,1)=E000007 <br>
+DP( 1,1)=F000081 <br>
+DP( 2,1)=F000082 <br>
+DP( 3,1)=F000083 <br>
+ENDIF !2 <br>
+IF (MSEC == 1) THEN <br>
+DA( 4,1)=E000005 <br>
+DA( 5,1)=E000008 <br>
+DA( 6,1)=E000009 <br>
+ENDIF <br>
+RETURN <br>
+END</p>
+
+<p align="center" style="margin-top: 1em">TOL Routine To Be
+Used With ADVAN6</p>
+
+<pre style="margin-top: 1em">!  TOL SUBROUTINE FOR THE THEOPHYLLINE POPULATION DATA      SUBROUTINE TOL(NRD,ANRD,NRDC,ANRDC)
+      USE SIZES,     ONLY: ISIZE
+      INTEGER(KIND=ISIZE) :: NRD(0:*), ANRD(0:*), NRDC(0:*), ANRDC(0:*)
+      NRD(1)=5
+      RETURN
+      END</pre>
+
+
+<p align="center" style="margin-top: 1em">NM-TRAN Control
+Stream To Be Used With ADVAN6</p>
+<pre style="margin-top: 1em">$PROB  THEOPHYLLINE   POPULATION DATA
+$INPUT      ID DOSE=AMT TIME CP=DV WT
+$DATA       DATAFILE  (5F10.0)
+
+$SUBROUTINES  ADVAN6  TOL=5
+$MODEL COMP=(DEPOT,INITIALOFF,DEFDOSE) COMP=(CENTRAL,DEFOBS,NOOFF)
+
+
+$PK
+;THETA(1)=MEAN ABSORPTION RATE CONSTANT (1/HR)
+;THETA(2)=MEAN ELIMINATION RATE CONSTANT (1/HR)
+;THETA(3)=SLOPE OF CLEARANCE VS WEIGHT RELATIONSHIP (LITERS/HR/KG)
+;SCALING PARAMETER=VOLUME/WT SINCE DOSE IS WEIGHT-ADJUSTED   CALLFL=1
+   KA=THETA(1)+ETA(1)
+   KE=THETA(2)+ETA(2)
+   CL=THETA(3)*WT+ETA(3)
+   S2=CL/KE/WT</pre>
+
+
+<p style="margin-top: 1em">$THETA (.1,3,5) (.008,.08,.5)
+(.004,.04,.9) $OMEGA BLOCK(3) 6 .005 .0002 .3 .006 .4</p>
+
+<p style="margin-top: 1em">$DES <br>
+DADT(1)=-KA*A(1) <br>
+DADT(2)= KA*A(1)-KE*A(2)</p>
+
+<p style="margin-top: 1em">$ERROR <br>
+Y=F+EPS(1)</p>
+
+<p style="margin-top: 1em">$SIGMA .4</p>
+
+<p style="margin-top: 1em">$EST MAXEVAL=450 PRINT=5 $COV
+$TABLE ID DOSE WT TIME $SCAT (RES WRES) VS TIME BY ID</p>
+
+<p align="center" style="margin-top: 1em">MODEL Routine To
+Be Used With ADVAN7</p>
+
+<pre style="margin-top: 1em">      SUBROUTINE MODEL (IDNO,NCM,NPAR,IR,IATT,LINK)</pre>
+
+
+<p>! DEFINES A 1 COMPARTMENT LINEAR MODEL WITH FIRST-ORDER
+ABSORPTION ! COMPT1: DRUG DEPOT COMPT2: CENTRAL COMPT <br>
+USE PRMOD_CHAR, ONLY: NAME <br>
+USE SIZES, ONLY: DPSIZE,ISIZE,SD <br>
+USE PRDIMS, ONLY: GPRD,HPRD,GERD,HERD,GPKD <br>
+INTEGER(KIND=ISIZE) :: IDNO,NCM,NPAR,IR,IATT,LINK,I,J <br>
+DIMENSION :: IATT(IR,*),LINK(IR,*) <br>
+SAVE <br>
+INTEGER(KIND=ISIZE), DIMENSION (2,7) :: MOD <br>
+CHARACTER(LEN=SD), DIMENSION(2) :: CMOD <br>
+DATA (MOD(I, 1),I= 1, 2)/&amp; <br>
+! INITIAL STATUS: OFF ON <br>
+0,1 / <br>
+DATA (MOD(I, 2),I= 1, 2)/&amp; <br>
+! ON/OFF ALLOWED: YES NO <br>
+1,0 / <br>
+DATA (MOD(I, 3),I= 1, 2)/&amp; <br>
+! DOSE ALLOWED: YES YES <br>
+1,1 / <br>
+DATA (MOD(I, 4),I= 1, 2)/&amp; <br>
+! DEFAULT FOR OBSERVATIONS: NO YES <br>
+0,1 / <br>
+DATA (MOD(I, 5),I= 1, 2)/&amp; <br>
+! DEFAULT FOR DOSES: YES NO <br>
+1,0 / <br>
+DATA (MOD(I, 6),I= 1, 2)/&amp; <br>
+0,0 / <br>
+DATA (MOD(I, 7),I= 1, 2)/&amp; <br>
+0,0 / <br>
+DATA (CMOD(I),I= 1, 2) &amp; <br>
+! COMPARTMENT NAMES <br>
+/&rsquo;DEPOT&rsquo;,&rsquo;CENTRAL&rsquo;/ <br>
+FORALL (I=1:2) NAME(I)=CMOD(I) <br>
+FORALL (I=1:2,J=1:7) IATT(I,J)=MOD(I,J) <br>
+IDNO=9999 <br>
+NCM= 2 <br>
+NPAR=002 <br>
+! SET LINK: ! K12 <br>
+LINK( 1,002)=001 <br>
+! K20 <br>
+LINK( 2,003)=002 <br>
+RETURN <br>
+END</p>
+
+<p align="center" style="margin-top: 1em">NM-TRAN Control
+Stream To Be Used With ADVAN7</p>
+<pre style="margin-top: 1em">$PROB  THEOPHYLLINE   POPULATION DATA
+$INPUT      ID DOSE=AMT TIME CP=DV WT
+$DATA       DATAFILE  (5F10.0)
+
+$SUBROUTINES  ADVAN7
+$MODEL COMP=(DEPOT,INITIALOFF,DEFDOSE) COMP=(CENTRAL,DEFOBS,NOOFF)
+
+
+$PK
+;THETA(1)=MEAN ABSORPTION RATE CONSTANT (1/HR)
+;THETA(2)=MEAN ELIMINATION RATE CONSTANT (1/HR)
+;THETA(3)=SLOPE OF CLEARANCE VS WEIGHT RELATIONSHIP (LITERS/HR/KG)
+;SCALING PARAMETER=VOLUME/WT SINCE DOSE IS WEIGHT-ADJUSTED   CALLFL=1
+   K12=THETA(1)+ETA(1)
+   K20=THETA(2)+ETA(2)
+   CL=THETA(3)*WT+ETA(3)
+   S2=CL/K20/WT</pre>
+
+
+<p style="margin-top: 1em">$THETA (.1,3,5) (.008,.08,.5)
+(.004,.04,.9) $OMEGA BLOCK(3) 6 .005 .0002 .3 .006 .4</p>
+
+<p style="margin-top: 1em">$ERROR <br>
+Y=F+EPS(1)</p>
+
+<p style="margin-top: 1em">$SIGMA .4</p>
+
+<p style="margin-top: 1em">$EST MAXEVAL=450 PRINT=5 $COV
+$TABLE ID DOSE WT TIME $SCAT (RES WRES) VS TIME BY ID</p>
+
+<p style="margin-top: 1em"><a href="AII.html">TOP</a> <br>
+<a href="index.html">TABLE OF CONTENTS</a> <br>
+ <a href="AIII.html">NEXT APPENDIX ...</a></p>
+<hr>
+</body>
+</html>

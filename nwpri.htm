@@ -1,0 +1,331 @@
+<HTML><HEAD> <TITLE> nwpri.utl</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               NWPRI                                |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: NWPRI subroutine
+ CONTEXT: NONMEM utility routine
+
+ USAGE:
+      USE SIZES, ONLY: ISIZE,DPSIZE
+      INTEGER (KIND=ISIZE) :: NTHETA,NETA,NEPS,NTHP,NETP,NEPP,NPEXP
+      INTEGER (KIND=ISIZE) :: ITYP,NSAM,ISS
+      REAL (KIND=DPSIZE), ONLY: CNT
+      REAL (KIND=DPSIZE), ONLY: PLEV
+      INTEGER (KIND=ISIZE) :: ICALL
+      CALL NWPRI (NTHETA,NETA,NEPS,NTHP,NETP,NEPP,NPEXP,ITYP,PLEV, &
+                  NSAM,ISS,CNT)
+
+ DISCUSSION:
+ The user-written PRIOR subroutine allows a penalty function based on a
+ frequency prior to be specified and  added  to  the  -2log  likelihood
+ function  (Gisleskog  et al, JPP, 2002, p. 473-505).  This serves as a
+ constraint on THETA, OMEGA, and SIGMA estimates and thus as a way  for
+ stable  estimates of these parameters to be obtained with insufficient
+ data.  NWPRI may be called by  PRIOR.   (See <A HREF="p.htm#prior">prior</A>).   It  computes  a
+ function  based  on  a  frequency prior that has a multivariate normal
+ form for THETA, and also, in the case of population data,  an  inverse
+ Wishart  form  for OMEGA (independent from the normal for THETA).  The
+ parameters of these forms are called "hyperparameters", and  the  mod-
+ eler fixes these to values of his/her choice.
+
+ Using NWPRI, several penalties functions, each with a different set of
+ values for the hyperparameters, may be used simultaneously.  Each  set
+ of  values  may  be thought to arise from a different prior experiment
+ (study).  In actuality, there is a way to combine the  several  penal-
+ ties  functions into one (see above reference), and this is what NWPRI
+ computes.
+
+ When NWPRI is used during a Simulation  Step,  it  produces  a  random
+ value  of  THETA and a random value of OMEGA from the frequency prior.
+ (See <A HREF="s.htm#simulation">Simulation example</A>).
+ (See <A HREF="n.htm#nwpri_examples">nwpri example</A>).
+ If NWPRI is used at ICALL=2, it need not be used at ICALL=4, and vice-
+ versa.
+
+ NWPRI should always be called at ICALL=0 or ICALL=1.
+
+ Use only NWPRI for the new $ESTIMATION methods of NONMEM 7.
+
+ Arguments
+
+ Input arguments:
+
+  NTHETA,NETA,NEPS
+      NTHETA=number of Thetas to be estimated
+      NETA=number of Etas to be estimated
+      NEPS=number of epsilons to be estimated
+      These are The dimensions of the THETA, OMEGA, and SIGMA arrays of
+      the parameters that enter into the model for the data.
+
+      Before NONMEM 7.3, NEPS was ignored.   With  odd-type  population |
+      data  or with non-odd-type single-subject data, where OMEGA takes
+      the place of SIGMA, the input argument NETA must be set.
+
+  NTHP,NETP,NEPP
+      NTHP=number of thetas which have a prior
+      NETP=number of Omegas with prior
+      NEPP=Number of Sigmas with prior
+
+      The prior will only affect the  initial  subvector  of  THETA  of
+      dimension  NTHP  and  the initial submatrix of OMEGA of dimension
+      NETP (i.e. the submatrix consisting of the  intersection  of  the
+      first   NETP rows and the first NETP columns of OMEGA).  The ini-
+      tial subvector and submatrix are called the prior-affected  parts
+      of  THETA  and  OMEGA.   If  NTHP=0  (NETP=0), the prior does not
+      affect THETA (OMEGA) at all.  During the Simulation  Step,  simu-
+      lated  values  for  the  affected  parts  of  THETA and OMEGA are
+      obtained according to the prior distribution, and "the  simulated
+      values"  for  the  unaffected parts of THETA and OMEGA are simply
+      taken to be the values given in  the  NONMEM  control  stream  or
+      input  Model  Specification  record.  Before NONMEM 7.3, NEPP was |
+      ignored.
+
+  NPEXP
+      The number of prior experiments.
+
+  ITYP
+      Relevant only if NWPRI is called during a Simulation Step.   Val-
+      ues are
+
+      0:  The  value of the THETA vector is obtained from simple random
+      sampling.
+
+      1: Within the given problem, NWPRI is to be  called  a  specified
+      number  (NSAM) of times to obtain this number of different values
+      of the THETA vector.  These values are obtained by  generating  a
+      Latin  sample  of  size  NSAM  from equiprobable partitions of an
+      ellipsoid in THETA space (hyper-ellipsoidal  sampling),  followed
+      by sampling a point "uniformly" from each partition.  This scheme
+      may be used, for example, when the problem has NSAM  subproblems,
+      in  which  case, NWPRI would be called NSAM times, once each time
+      during the problem when ICALL=4, and at each of  these  calls,  a
+      different random value of THETA will be produced.
+
+      2: Just as with value 1, but the NSAM values are obtained by gen-
+      erating a Latin sample of size NSAM from equiprobable  partitions
+      of an ellipsoid in THETA space (hyper-ellipsoidal sampling), fol-
+      lowed by taking the "center point" of each partition.
+
+      In all three cases,  each  new  value  of  the  OMEGA  matrix  is
+      obtained from simple random sampling.
+
+      After  each  call to NWPRI, the simulated values for THETA, OMEGA
+      and SIGMA may be found in global variables and thus they are com-
+      municated  directly  to  NONMEM.   (See PRIOR_Simulation:_Parame-
+      ters).
+
+  PLEV
+      When NWPRI is being used at ICALL=0 or 1, but NWPRI will  not  be
+      used  at  ICALL=4  (i.e. during the Simulation Step), PLEV can be
+      set to 0.  When it is being used at ICALL=2, PLEV can also be set
+      to  0.   When  NWPRI is being used at ICALL=0 or 1 and it will be
+      used at ICALL=4, or when it is being used at ICALL=4,  then  PLEV
+      must be set to a fraction strictly less than 1, e.g. 0.999.  PLEV |
+      is double precision with NONMEM 7, and is single  precision  with |
+      NONMEM VI.
+
+      A value of THETA will actually be obtained using a truncated mul-
+      tivariate normal distribution, i.e. from an ellipsoidal region R1
+      over  which  only  a fraction of mass of the normal occurs.  This
+      fraction is given by PLEV.  The distribution is further truncated
+      to  R2,  the  subregion of R1 lying within the rectangular bound-
+      aries defined on  the  $THETA  record.   Simple  random  sampling
+      occurs  in  R2.   Latin  sampled partitions are partitions of R1.
+      However, when ITYP=1, if a uniformly sampled point from a  parti-
+      tion  lies outside R2, it is replaced by a point obtained by sim-
+      ple random sampling from R2.  When ITYP=2, if the center point of
+      a partition lies outside R2, an abort occurs.
+
+  NSAM
+      Relevant  only if NWPRI is called during a Simulation Step.  Con-
+      sider two cases.  a) Latin hyper-ellipsoid sampling is used  with
+      ITYP=1,  and  b) simple random sampling along with the adjustment
+      for small sample correlation effect is used (see next input argu-
+      ment).   In  case  a) NSAM should equal the exact total number of
+      different values of THETA that must eventually be  produced  over
+      the  entire  NONMEM  problem.   In case b) NSAM should be no less
+      than this number.
+
+   ISS
+      Relevant only if NWPRI is called during  a  Simulation  Step.   A
+      THETA value is obtained by transforming a value from the standard
+      multivariate normal distribution  -  called  here  "the  standard
+      value".   The  correlation  matrix  of the standard normal is the
+      identity matrix.  When NSAM is small, the  estimated  correlation
+      matrix  from the sampled standard values might not be quite close
+      to the identity matrix - this is here called  "the  small  sample
+      correlation effect".
+
+      1: An adjustment is made for the small sample correlation effect,
+      by first transforming the NSAM standard  values  altogether  into
+      new  values  which  are  very nearly standard multivariate normal
+      values and such that the sample correlation matrix of  these  new
+      values is exactly the identity matrix.
+
+      0: No adjustment is made for the small sample correlation effect.
+
+ Output argument:
+
+  CNT Relevant only if NWPRI is called at ICALL=2.  CNT is the penalty.
+
+ Use of $PRIOR
+
+ A  $PRIOR  record  may be used instead of a user-written PRIOR subrou-
+ tine, in which case the input arguments listed above may be  specified
+ as  options  of  $PRIOR,  and the value of CNT may be displayed in the
+ NONMEM output.  (See <A HREF="$.htm#$prior">$prior</A>).
+
+ Use of $THETA, $OMEGA, $SIGMA records
+
+ Specifying the multivariate normal form for THETA (NTHP&gt;0):
+
+ After the usual set of $THETA records, add  a  second  set  of  $THETA
+ records  giving  the  mean  of the multivariate normal.  The values on
+ these records must be fixed.  They should number NTHP altogether.
+
+ After the usual set of $OMEGA records, add  a  second  set  of  $OMEGA
+ records giving the variance-covariance matrix of the multivariate nor-
+ mal.  (If there are no etas in the model, there will not  be  a  usual
+ set  of  $OMEGA  records.)  The values on these records must be fixed.
+ They should number (NTHP+1)xNTHP/2 altogether, including implicit 0's,
+ which  may  occur because the variance-covariance matrix of the normal
+ may be block-diagonal.  If a (regular) theta is fixed, the correspond-
+ ing  values  of  the mean and variance-covariance matrix of the normal
+ are ignored.
+
+ Specifying the inverse Wishart form  for  OMEGA  (NETAP&gt;0;  population
+ data only):
+
+ After  the second set of $OMEGA records (or if NTHP=0, after the first
+ set of $OMEGA records), add another set of $OMEGA records  giving  the
+ mode  of  the  inverse  Wishart.   The values on these records must be
+ fixed.   They  should  number  (NETP+1)xNETP/2  altogether,  including
+ implicit  0's, which may occur because the mode of the inverse Wishart
+ may be block-diagonal.  If the prior-affected part of OMEGA  is  given
+ as  a block-diagonal matrix, then the mode must conform to this struc-
+ ture.  The SAME attribute can be used.
+
+ With each diagonal block of (the prior-affected part of) OMEGA,  there
+ corresponds  a  number of "degrees of freedom" of the inverse Wishart.
+ All blocks of a given block set are constrained to be equal (by  using
+ the SAME attribute), and therefore, to each of these blocks there cor-
+ responds the same number of degrees of freedom.  After the second  set
+ of  $THETA  records  (or  if  NTHP=0,  after  the  first set of $THETA
+ records), add another set of $THETA records, giving for each block set
+ in  turn  the  number of degrees of freedom for the blocks of the set.
+ The values on these records must be fixed.  There should  be  as  many
+ values as there are block sets with the prior-affected part of OMEGA.
+
+ The inverse Wishart for a given block of OMEGA may be explicitly given
+ as "perfectly flat" by specifying the number of degrees of freedom  to
+ be  the negative of the dimension of the block, minus 1.  In this case
+ the mode for the block may be simply taken to be the 0 matrix (or  any
+ positive  definite  matrix).   If  a block is fixed, the corresponding
+ values of the mode and number of degrees of freedom are ignored.
+
+ With NONMEM 7.3 and higher, you can use more informative record  names |
+ that  obviate  the need for specific ordering of the additional $THETA |
+ and $OMEGA records used by NWPRI, and provide  an  alternative  source |
+ for values of arguments NTHETA, NETA, et al.                           |
+
+ $THETAP for theta priors                                               |
+ $THETAPV for variance-covariance matrix for theta's                    |
+ $OMEGAP for OMEGA prior                                                |
+ $OMEGAPD for degrees of freedom (or dispersion factor) for omega prior |
+ $SIGMAP for SIGMA prior                                                |
+ $SIGMAPD for degrees of freedom (or dispersion factor) for sigma prior |
+
+ If  the  informative  record names are used, the records may be in any |
+ order, and the options of $PRIOR need not be specified.  Note that the |
+ name  of the record describes the kind of information it gives, rather |
+ than the structure of the information.  E.g., in  the  example  below, |
+ $THETAPV  is  used  instead  of  an $OMEGA record and $OMEGAPV is used |
+ instead of a $THETA record.                                            |
+ (See <A HREF="$.htm#$thetap">$thetap</A>, $omegap, $sigmap)
+
+ Examples
+
+ Here are three examples of extra $THETA and $OMEGA records  specifying
+ prior  information  from an experiment.  This information concerns all
+ the regular elements of THETA and OMEGA.  All examples are shown  with
+ a $PRIOR record although a PRIOR subroutine could be used instead.
+
+ $PRIOR NWPRI NTHETA=3 NETA=3 NTHP=3 NETP=3 NPEXP=1
+   ...
+ $THETA 3 FIX .08 FIX .04 FIX
+ $THETA 100 FIX
+ $OMEGA BLOCK (3) .494 .00207 .0000847 .000692 .0000471 .0000292 FIX
+ $OMEGA BLOCK (3) .7 .04 .05 .02 .06 .08 FIX
+
+ Perhaps it might be more perspicuous to organize the prior information
+ thusly:
+
+ $PRIOR NWPRI NTHETA=3 NETA=3 NTHP=3 NETP=3 NPEXP=1
+   ...
+ ;prior information for THETA
+ $THETA 3 FIX .08 FIX .04 FIX
+ $OMEGA BLOCK (3) .494 .00207 .0000847 .000692 .0000471 .0000292 FIX
+
+ ;prior information for OMEGA
+ $OMEGA BLOCK (3) .7 .04 .05 .02 .06 .08 FIX
+ $THETA 100 FIX
+
+ With NONMEM 7.3 and higher, informative record names can be used:      |
+
+ $PRIOR NWPRI                                                           |
+   ...                                                                  |
+ ;prior information for THETA                                           |
+ $THETAP 3 FIX .08 FIX .04 FIX                                          |
+ $THETAPV BLOCK (3) .494 .00207 .0000847 .000692 .0000471 .0000292 FIX  |
+
+ ;prior information for OMEGA                                           |
+ $OMEGAP BLOCK (3) .7 .04 .05 .02 .06 .08 FIX                           |
+ $OMEGAPD 100 FIX                                                       |
+
+ Multiple Experiments
+
+ There may be prior information from a number of experiments, in  which
+ case  the  $THETA  and  $OMEGA records specifying this information for
+ each experiment may be stacked, e.g.
+
+ ;usual records
+ $THETA  (0,4,10) (0,.09,.5) (.004,.01,.9)
+ $OMEGA BLOCK (3) .7 .04 .05 .02 .06 .08
+
+ ;prior information from experiment 1
+ $THETA 3 FIX .08 FIX .04 FIX
+ $THETA 100 FIX
+ $OMEGA BLOCK (3) .494 .00207 .0000847 .000692 .0000471 .0000292 FIX
+ $OMEGA BLOCK (3) .7 .04 .05 .02 .06 .08 FIX
+
+ ;prior information from experiment 2
+ $THETA 2 FIX .05 FIX .04 FIX
+ $THETA 50 FIX
+ $OMEGA BLOCK (3) .6 .003 .0001 .0004 .00001 .00003 FIX
+ $OMEGA BLOCK (3) .9 .02 .05 .01 .06 .09 FIX
+
+ Blocking on the variance-covariance matrix  of  the  normal  form  for
+ THETA need not be the same across experiments.
+
+ Limitation:
+
+ There  must be at least one THETA parameter and one OMEGA parameter in
+ the model.
+
+ REFERENCES: None
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

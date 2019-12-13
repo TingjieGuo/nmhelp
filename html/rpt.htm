@@ -1,0 +1,46 @@
+<HTML><HEAD> <TITLE> rpt.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           RPT_ DATA ITEM                           |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: REPEAT (RPT_) data item
+ CONTEXT: $INPUT record and NONMEM data set
+
+ USAGE:
+ $INPUT ... RPT_ ...
+
+ DISCUSSION:
+ RPT_  labels  NONMEM's  repeat  data  item.   The  repeat data item is
+ optional.  It is used as an alternative way to mark a data record as a
+ repetition  base.   (For another way of doing this, global "Repetition
+ Variables" RPTI,RPTO,RPTON,PRDFL may be used.)
+
+ Permissible values of RPT_ are:
+
+ 0    The data record is not a repetition base.
+
+ n (n between 1 and 5)
+      The data record is marked as a "repetition base  with  value  n",
+      i.e.   as the first of a series of contiguous records of the cur-
+      rent individual  record  (with  single-subject  data,  contiguous
+      records of the data set) which may be repeated.
+      See repeatf.ctl in the examples directory.                        |
+
+ (See <A HREF="r.htm#repetition_variables">Repetition_Variables</A>).
+
+ REFERENCES: none.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

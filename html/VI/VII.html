@@ -1,0 +1,1744 @@
+<!-- Creator     : groff version 1.21 -->
+<!-- CreationDate: Tue Apr 25 13:28:04 2017 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part VI - PREDPP - Chapter VII">NONMEM Users Guide Part VI - PREDPP - Chapter VII</a><br>
+<a href="#VII. The NONMEM-PREDPP Load Module">VII. The NONMEM-PREDPP Load Module</a><br>
+<a href="#VII.A. Introduction">VII.A. Introduction</a><br>
+<a href="#VII.B. The PREDPP Library">VII.B. The PREDPP Library</a><br>
+<a href="#VII.C. ADVAN">VII.C. ADVAN</a><br>
+<a href="#VII.C.1. ADVAN1 One Compartment Linear Model">VII.C.1. ADVAN1 One Compartment Linear Model</a><br>
+<a href="#VII.C.2. ADVAN2 One Compartment Linear Model with First Order Absorption">VII.C.2. ADVAN2 One Compartment Linear Model with First Order Absorption</a><br>
+<a href="#VII.C.3. ADVAN3 Two Compartment Linear Mammillary Model">VII.C.3. ADVAN3 Two Compartment Linear Mammillary Model</a><br>
+<a href="#VII.C.4. ADVAN4 Two Compartment Linear Mammillary Modelwith First Order Absorption">VII.C.4. ADVAN4 Two Compartment Linear Mammillary Modelwith First Order Absorption</a><br>
+<a href="#VII.C.5. ADVAN5 General Linear Model">VII.C.5. ADVAN5 General Linear Model</a><br>
+<a href="#VII.C.6. ADVAN6 General Nonlinear Model">VII.C.6. ADVAN6 General Nonlinear Model</a><br>
+<a href="#VII.C.7. ADVAN7 General Linear Model with Real Eigenvalues">VII.C.7. ADVAN7 General Linear Model with Real Eigenvalues</a><br>
+<a href="#VII.C.8. ADVAN8 General Nonlinear Model with Stiff Differential Equations">VII.C.8. ADVAN8 General Nonlinear Model with Stiff Differential Equations</a><br>
+<a href="#VII.C.9. ADVAN9 General Nonlinear Model with Equilibrium Compartments">VII.C.9. ADVAN9 General Nonlinear Model with Equilibrium Compartments</a><br>
+<a href="#VII.C.10. ADVAN10 One Compartment Model with Michaelis-Menten Elimination">VII.C.10. ADVAN10 One Compartment Model with Michaelis-Menten Elimination</a><br>
+<a href="#VII.C.11. ADVAN11 Three Compartment Linear Model">VII.C.11. ADVAN11 Three Compartment Linear Model</a><br>
+<a href="#VII.C.12. ADVAN12 Three Compartment Linear Model with First Order Absorpt">VII.C.12. ADVAN12 Three Compartment Linear Model with First Order Absorpt</a><br>
+<a href="#VII.C.13. ADVAN13 General Nonlinear Model With Stiff/Nonstiff Equations (NM 71)">VII.C.13. ADVAN13 General Nonlinear Model With Stiff/Nonstiff Equations (NM 71)</a><br>
+<a href="#VII.C.14. ADVAN14 General Nonlinear Model With Stiff/Nonstiff Equations (NM 74)">VII.C.14. ADVAN14 General Nonlinear Model With Stiff/Nonstiff Equations (NM 74)</a><br>
+<a href="#VII.C.15. ADVAN15 General Nonlinear Model with Equilibrium Compartments (NM 74)">VII.C.15. ADVAN15 General Nonlinear Model with Equilibrium Compartments (NM 74)</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part VI - PREDPP - Chapter VII
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part VI - PREDPP - Chapter VII"></a>
+</h2>
+
+
+<h2>VII. The NONMEM-PREDPP Load Module
+<a name="VII."></a>
+<a name="VII. The NONMEM-PREDPP Load Module"></a>
+</h2>
+
+
+<h2>VII.A. Introduction
+<a name="VII.A."></a>
+<a name="VII.A. Introduction"></a>
+</h2>
+
+
+<p style="margin-top: 1em">To use PREDPP a number of PREDPP
+subroutines must be linked with the NONMEM
+subroutines.&dagger; This is described in detail in Guide
+III. Briefly, the PREDPP subroutines consist of five
+varieties: <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; The NONMEM load
+module is also referred to as the NONMEM executable.
+Typically, it is named nonmem.exe (windows) or nonmem
+(Linux). <br>
+---------- <br>
+</cite></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">(1)</p></td>
+<td width="3%"></td>
+<td width="92%">
+
+
+<p style="margin-top: 1em">Routines supplied by the NONMEM
+Project Group (e.g. PRED), each of whose presence in a
+NONMEM-PREDPP load module is independent of the choice of
+the pharmacokinetic model.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">(2)</p></td>
+<td width="3%"></td>
+<td width="92%">
+
+
+<p style="margin-top: 1em">Routines supplied by the user
+(i.e. PK and ERROR), each of which must be present in a
+NONMEM-PREDPP load modudule.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">(3)</p></td>
+<td width="3%"></td>
+<td width="92%">
+
+
+<p style="margin-top: 1em">Routines supplied by the NONMEM
+Project Group (e.g. ADVAN1, TRANS1), each of whose presence
+in a NONMEM-PREDPP load module depends on the choice of the
+pharmacokinetic model and the set of basic parameters.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">(4)</p></td>
+<td width="3%"></td>
+<td width="92%">
+
+
+<p style="margin-top: 1em">Routines supplied by the user
+(e.g. DES), each of whose presence in a NONMEM-PREDPP load
+module depends on the choice of the pharmacokinetic model
+(these are described in Chapter VI).</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">(5)</p></td>
+<td width="3%"></td>
+<td width="92%">
+
+
+<p style="margin-top: 1em">Auxilliary subroutines and
+files.</p> </td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">With NONMEM 7,
+subroutine MUMODEL2 is required. This subroutine should
+contain only the code that is needed to compute any MU
+parameters (MU_1, MU_2, etc.) that are used in PK or PRED.
+When NM-TRAN is used, subroutine MUMODEL2 is always included
+in FSUBS. It is an empty subroutine unless MU parameters are
+defined in $PK or $PRED abbreviated code.</p>
+
+<p style="margin-left:8%; margin-top: 1em">With NONMEM 7,
+subroutine FSIZESR is required. NONMEM dynamically allocates
+the sizes of its arrays at run-time, based on the values in
+FSIZESR. When NM-TRAN is used, FSIZESR is included in
+FSUBS.</p>
+
+<p style="margin-left:8%; margin-top: 1em">Arrays internal
+to PREDPP are statically allocated to improve run times.
+Starting with NONMEM 7.2, module PRSIZES is required to
+specify the array sizes. When PREDPP is installed, module
+PRSIZES is found in file resource/SIZES.f90. When nmfe is
+used, a new version of the module is generated in file
+prsizes.f90. Some of the constants in PRSIZES are assessed
+for the current problem; others are copied from default
+values in SIZES.f90. If nmfe performs &quot;pr
+recompilation&quot;, the appropriate routines from PREDPP
+are recompiled (in directory temp_dir) using constants from
+prsizes.f90. (Some of the constants in PRSIZES are also used
+to compile subroutine PRED when PREDPP is not used.
+Subroutine PRED may be user-supplied or generated from $PRED
+abbreviated code.) Note that nmfe options such as -prdefault
+may be used to override pr recompilation.</p>
+
+<p style="margin-left:8%; margin-top: 1em">The user may
+override many of the parameter values in FSIZES and prsizes
+with the $SIZES record.</p>
+
+<p style="margin-left:8%; margin-top: 1em">See Introduction
+to NONMEM 7, Dynamic Memory Allocation, for information
+about dynamic and static allocation. See Guide VIII and
+on-line help for information about nmfe.</p>
+
+<p style="margin-top: 1em">Subroutines of category (1) and
+(3) are present in the pr directory of the installed nonmem
+directory, although nmfe may use recompiled versions in
+temp_dir as described above. Subroutines of categories (2)
+and (4) are not present in pr. They must be in the FSUBS
+file. Subroutines in FSUBS include those that are generated
+from NM-TRAN abbreviated code (see Guide IV), and
+user-written subroutines specified on the $SUBROUTINES
+record. The latter are copied to FSUBS for compilation.</p>
+
+<p style="margin-top: 1em">Subroutines of category (1) are:
+PRED, PREDI, CHECK, SADVAN, SSS, INFN. The user can
+substitute a user-written routine for the INFN found on the
+distribution medium; see section VI.A. Another subroutine of
+category 1 is subroutine SSS0. Its entry name is SSS, and it
+may be substituted for the regular SSS routine when there
+are no steady-state doses in the data set (i.e. no nonzero
+steady-state data items appearing in dose event records).
+The advantage in doing this is mainly to save space in
+computer memory if space is a problem.</p>
+
+<p style="margin-top: 1em">Subroutines of category (3)
+constitute the PREDPP Library. Their use is described in the
+next section.</p>
+
+<h2>VII.B. The PREDPP Library
+<a name="VII.B."></a>
+<a name="VII.B. The PREDPP Library"></a>
+</h2>
+
+
+<p style="margin-top: 1em">With every NONMEM-PREDPP load
+module two subroutines are required, ADVAN and TRANS.
+Choices for each are found in the PREDPP Library. Some
+choices for ADVAN require additional subroutines from the
+Library, as well as certain user-supplied subroutines
+described in chapter VI.</p>
+
+<p style="margin-top: 1em">Choices for ADVAN are named
+ADVAN1, ADVAN2, etc. These are informal names; the formal
+name for each routine is ADVAN since this is the entry name
+used in the calling program in PREDPP. Similarly, choices
+for TRANS are informally named TRANS1, TRANS2, etc.</p>
+
+<p style="margin-top: 1em">In addition to an ADVAN and
+TRANS subroutine, a NONMEM-PREDPP load module may require an
+SS subroutine. The SS routine computes steady-state
+kinetics. If the computation of steady-state kinetics is
+specified in the data set, then an SS routine is required in
+the load module. Otherwise, an SS routine is still required,
+<i>unless</i> SSS0 is used (see section VII.A). For the
+analytic ADVANs, there is a one-to-one correspondence
+between ADVAN and SS subroutines. (With early versions of
+PREDPP, it was possible to use SS6 with analytic ADVANS.
+This is no longer supported.) So, for example, if the user
+chooses ADVAN3, then SS3 is also chosen. The SS6 subroutine
+computes steady-state kinetics in a very general way and may
+be used with the general ADVANs: ADVAN6, ADVAN8, ADVAN10,
+ADVAN13, ADVAN14. With ADVAN9 and ADVAN15 only SS9 can be
+used. Some SS routines also require additional subroutines
+from the Library, as well as certain user-supplied
+subroutines. NM-TRAN creates a file FREPORT that describes
+exactly which subroutines are needed for the NONMEM load
+module.</p>
+
+<h2>VII.C. ADVAN
+<a name="VII.C."></a>
+<a name="VII.C. ADVAN"></a>
+</h2>
+
+
+<p style="margin-top: 1em">In the next subsections
+characterisics of each of the various ADVAN routines are
+tabled, including definitions of the various TRANS routines.
+With each ADVAN, the basic and additional PK parameters that
+are allowed with the ADVAN are listed. Variable names used
+in abbreviated code are used.</p>
+
+<p style="margin-top: 1em">To compute the kinetic equations
+for a kinetic model, PREDPP - but more precisely, the chosen
+ADVAN - uses an internal set of parameters. For a linear
+kinetic model these parameters are the microconstants, i.e.
+rate constants, of the model. If the model is a general
+linear model, the MODEL subroutine specifies a numbering of
+these parameters (see section VI.B). The kinetic equations
+for a general nonlinear kinetic model PREDPP essentially
+consist of the differential-algebraic equations given by the
+user in the DES and AES routines to describe the model (see
+sections VI.C and VI.E). The parameters of these equations
+comprise the internal set of parameters.</p>
+
+<p style="margin-top: 1em">There are only certain TRANS
+routines from the PREDPP Library that may be used with each
+choice of an ADVAN routine. (However, a user-supplied TRANS
+routine may be used; see section III.M.) It can be seen in
+the following subsections that with an ADVAN implementing a
+general linear or general nonlinear model, the only TRANS
+subroutine that may be used is TRANS1. In this case the set
+of basic PK parameters for TRANS1 is the same as the set of
+internal parameters, and TRANS1 translates each basic
+parameter into itself.</p>
+
+<h2>VII.C.1. ADVAN1 One Compartment Linear Model
+<a name="VII.C.1."></a>
+<a name="VII.C.1. ADVAN1 One Compartment Linear Model"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartments:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-3842.png" alt="Image grohtml-3842.png"></p>
+
+<p style="margin-top: 1em">Maximum number of basic PK
+parameters: 2</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-3843.png" alt="Image grohtml-3843.png"></p>
+
+<p style="margin-top: 1em">Additional PK Parameters:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-3844.png" alt="Image grohtml-3844.png"></p>
+
+<p style="margin-top: 1em">Steady-state subroutines:
+SS1</p>
+
+<p style="margin-top: 1em">Other required user or Library
+routines: none</p>
+
+<h2>VII.C.2. ADVAN2 One Compartment Linear Model with First Order Absorption
+<a name="VII.C.2."></a>
+<a name="VII.C.2. ADVAN2 One Compartment Linear Model with First Order Absorption"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartments:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-3845.png" alt="Image grohtml-3845.png"></p>
+
+<p style="margin-top: 1em">Maximum number of basic PK
+parameters: 3</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-3846.png" alt="Image grohtml-3846.png"></p>
+
+<p style="margin-top: 1em">Additional PK Parameters:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-3847.png" alt="Image grohtml-3847.png"></p>
+
+<p style="margin-top: 1em">Steady-state subroutines:
+SS2</p>
+
+<p style="margin-top: 1em">Other required user or Library
+routines: none</p>
+
+<h2>VII.C.3. ADVAN3 Two Compartment Linear Mammillary Model
+<a name="VII.C.3."></a>
+<a name="VII.C.3. ADVAN3 Two Compartment Linear Mammillary Model"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartments:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-3848.png" alt="Image grohtml-3848.png"></p>
+
+<p style="margin-top: 1em">Maximum number of basic PK
+parameters: 4</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-3849.png" alt="Image grohtml-3849.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-38410.png" alt="Image grohtml-38410.png"></p>
+
+<p style="margin-top: 1em">Additional PK Parameters:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-38411.png" alt="Image grohtml-38411.png"></p>
+
+<p style="margin-top: 1em">Steady-state subroutine: SS3</p>
+
+<p style="margin-top: 1em">Other required user or Library
+routines: none</p>
+
+<h2>VII.C.4. ADVAN4 Two Compartment Linear Mammillary Modelwith First Order Absorption
+<a name="VII.C.4."></a>
+<a name="VII.C.4. ADVAN4 Two Compartment Linear Mammillary Modelwith First Order Absorption"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartments:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-38412.png" alt="Image grohtml-38412.png"></p>
+
+<p style="margin-top: 1em">Maximum number of basic PK
+parameters: 5</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-38413.png" alt="Image grohtml-38413.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-38414.png" alt="Image grohtml-38414.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-38415.png" alt="Image grohtml-38415.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-38416.png" alt="Image grohtml-38416.png"></p>
+
+<p style="margin-top: 1em">Additional PK Parameters:</p>
+
+<p>S1 scaling parameter for depot compartment <br>
+S2 or SC scaling parameter for central compartment <br>
+S3 scaling parameter for peripheral compartment <br>
+S4 or S0 scaling parameter for output compartment <br>
+F1 bioavailability for depot compartment <br>
+F2 bioavailability for central compartment <br>
+F3 bioavailability for peripheral compartment <br>
+R1 rate for depot compartment <br>
+R2 rate for central compartment <br>
+R3 rate for peripheral compartment <br>
+D1 duration for depot compartment <br>
+D2 duration for central compartment <br>
+D3 duration for peripheral compartment <br>
+ALAG1 absorption lag time for depot compartment <br>
+ALAG2 absorption lag time for central compartment <br>
+ALAG3 absorption lag time for peripheral compartment <br>
+F0 or F4 or FO output fraction <br>
+XSCALE time scale parameter <br>
+MTIME(i) model event time parameters</p>
+
+<p style="margin-top: 1em">Steady-state subroutine: SS4</p>
+
+<p style="margin-top: 1em">Other required user or library
+routines: none</p>
+
+<h2>VII.C.5. ADVAN5 General Linear Model
+<a name="VII.C.5."></a>
+<a name="VII.C.5. ADVAN5 General Linear Model"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartment attributes set by
+subroutine MODEL. Suppose there are m compartments in the
+system, including the output compartment.</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+<p>Basic PK Parameters <br>
+TRANS1 Kij or KiTj rate constant from compartment i to
+compartment j <br>
+Ki0 or KiT0 rate constant from comparment i to output
+compartment <br>
+Kin+1 or KiTn+1 rate constant from comparment i to output
+compartment</p>
+
+<p style="margin-top: 1em">Additional PK parameters:</p>
+
+<p>For each comparment n in the system: <br>
+Sn scaling parameter for compt. n <br>
+S0 alternate name for scaling parameter for compt. m (output
+compt.) <br>
+For each dosable comparment n in the system: <br>
+Fn bioavailability for compt. n <br>
+Rn rate for compt. n <br>
+Dn duration for compt. n <br>
+ALAGn absorption lag time for compt. n <br>
+Other additional PK parameters: <br>
+F0 or Fm or FO output fraction <br>
+XSCALE time scale parameter <br>
+MTIME(i) model event time parameters</p>
+
+<p style="margin-top: 1em">Steady-state subroutine: SS5</p>
+
+<p style="margin-top: 1em">Other required user or library
+routines: <br>
+User: MODEL <br>
+Library: REXPON, RXSUBS</p>
+
+<p style="margin-top: 1em">Notes:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">ADVAN5 and SS5 may be used when
+the eigenvalues of the rate constant matrix are complex,
+e.g. with a physiolgical-based pharmacokinetic flow model.
+If the eigenvalues are known to be real (which is true for
+many pharmacokinetic systems), then it is more efficient to
+use ADVAN7 and SS7.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">ADVAN5 and SS5 are based on a
+method involving the matrix exponential. The algorithm is
+described in &quot;Contributions to the computation of the
+matrix exponential&quot; by K.C. Ng. Report 212 of the
+Center for Pure and Applied Mathematics, University of
+California, Berkeley (1984). See also &quot;A recurrence
+among the elements of functions of triangular matrices&quot;
+by B.N. Parlett. Linear Algebra and Its Applications 14,
+117-121 (1976).</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">3.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">The Laplacian method is not
+directly supported with ADVAN5. The $ESTIMATION record must
+include the NUMERICAL option with LAPLACIAN.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">4.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">Use of the letter T as a
+separator between the two compartment numbers of a basic PK
+parameter is optional unless there are two possible
+interpretations of the numbers that follow K. E.g., with 12
+compartments, K111 is ambiguous. It should be coded K1T11 or
+K11T1, depending if it symbolizes the rate constant from
+compartment 1 to compartment 11 or from compartment 11 to
+compartment 1.</p></td></tr>
+</table>
+
+<h2>VII.C.6. ADVAN6 General Nonlinear Model
+<a name="VII.C.6."></a>
+<a name="VII.C.6. ADVAN6 General Nonlinear Model"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartment attributes set by
+subroutine MODEL. Suppose there are m compartments in the
+system, including the output compartment.</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+<p>TRANS1 Explicit Basic PK Parameters <br>
+P(i) ith. basic PK parameter <br>
+Implicit Basic PK parameters <br>
+variable A $PK-defined variable also used in the $DES
+block</p>
+
+<p style="margin-top: 1em">Additional PK parameters:</p>
+
+<p>For each comparment n in the system: <br>
+Sn scaling parameter for compt. n <br>
+S0 alternate name for scaling parameter for compt. m (output
+compt.) <br>
+For each dosable comparment n in the system: <br>
+Fn bioavailability for compt. n <br>
+Rn rate for compt. n <br>
+Dn duration for compt. n <br>
+ALAGn absorption lag time for compt. n <br>
+Other additional PK parameters: <br>
+F0 or Fm or FO output fraction <br>
+XSCALE time scale parameter <br>
+MTIME(i) model event time parameters</p>
+
+<p style="margin-top: 1em">Steady-state subroutine: SS5</p>
+
+<p style="margin-top: 1em">Other required user or library
+routines: <br>
+User: MODEL, DES, TOL <br>
+Library: DVERK1, FCN1</p>
+
+<p style="margin-top: 1em">Notes:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">ADVAN6 uses IMSL&rsquo;s DVERK,
+a Runge-Kutta-Verner fifth and sixth order of method of
+integration, for nonstiff problems.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">If SS6 is used, Library routines
+ZSPOW1 and FCN2 are also required.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">3.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">See Chapter VI Section D.B for
+specification of relative and absolute tolerance. With
+ADVAN6, the specifications for compartment 1 apply to all
+compartments.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">4.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">There is a limit on the number
+of times the differential equations are computed during any
+one integration over a state interval. NONMEM may terminate
+when this limit is reached, in which case an appropriate
+message appears. The limit is given by MAXFCN in SIZES.
+(With NONMEM 74, this is 1000000.) The $SIZES record may be
+used to supply a different value for MAXFCN.</p></td></tr>
+</table>
+
+<h2>VII.C.7. ADVAN7 General Linear Model with Real Eigenvalues
+<a name="VII.C.7."></a>
+<a name="VII.C.7. ADVAN7 General Linear Model with Real Eigenvalues"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartment attributes set by
+subroutine MODEL. Suppose there are m compartments in the
+system, including the output compartment.</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+<p>TRANS1 Basic PK Parameters <br>
+Kij or KiTj rate constant from compartment i to compartment
+j <br>
+Ki0 or KiT0 rate constant from comparment i to output
+compartment <br>
+Kin+1 or KiTn+1 rate constant from comparment i to output
+compartment</p>
+
+<p style="margin-top: 1em">Additional PK parameters:</p>
+
+<p>For each comparment n in the system: <br>
+Sn scaling parameter for compt. n <br>
+S0 alternate name for scaling parameter for compt. m (output
+compt.) <br>
+For each dosable comparment n in the system: <br>
+Fn bioavailability for compt. n <br>
+Rn rate for compt. n <br>
+Dn duration for compt. n <br>
+ALAGn absorption lag time for compt. n <br>
+Other additional PK parameters: <br>
+F0 or Fm or FO output fraction <br>
+XSCALE time scale parameter <br>
+MTIME(i) model event time parameters</p>
+
+<p style="margin-top: 1em">Steady-state subroutine: SS7</p>
+
+<p style="margin-top: 1em">Other required user or library
+routines: <br>
+User: MODEL <br>
+Library: RRXPON, RXSUBS</p>
+
+<p style="margin-top: 1em">Notes:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">ADVAN7 and SS7 may be used when
+the eigenvalues of the rate constant matrix are known to be
+real (which is true for many pharmacokinetic systems). It is
+more efficient to use ADVAN7 than ADVAN5 in this case.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">ADVAN7 and SS7 are based on a
+method involving the matrix exponential. The algorithm is a
+modification of that described in &quot;Contributions to the
+computation of the matrix exponential&quot; by K.C. Ng.
+Report 212 of the Center for Pure and Applied Mathematics,
+University of California, Berkeley (1984). See also &quot;A
+recurrence among the elements of functions of triangular
+matrices&quot; by B.N. Parlett. Linear Algebra and Its
+Applications 14, 117-121 (1976).</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">3.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">The Laplacian method is not
+directly supported with ADVAN7. The $ESTIMATION record must
+include the NUMERICAL option with LAPLACIAN.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">4.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">Use of the letter T as a
+separator between the two compartment numbers of a basic PK
+parameter is optional unless there are two possible
+interpretations of the numbers that follow K. E.g., with 12
+compartments, K111 is ambiguous. It should be coded K1T11 or
+K11T1, depending if it symbolizes the rate constant from
+compartment 1 to compartment 11 or from compartment 11 to
+compartment 1.</p></td></tr>
+</table>
+
+<h2>VII.C.8. ADVAN8 General Nonlinear Model with Stiff Differential Equations
+<a name="VII.C.8."></a>
+<a name="VII.C.8. ADVAN8 General Nonlinear Model with Stiff Differential Equations"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartment attributes set by
+subroutine MODEL. Suppose there are m compartments in the
+system, including the output compartment.</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+<p>TRANS1 Explicit Basic PK Parameters <br>
+P(i) ith. basic PK parameter <br>
+Implicit Basic PK parameters <br>
+variable A $PK-defined variable also used in the $DES
+block</p>
+
+<p style="margin-top: 1em">Additional PK parameters:</p>
+
+<p>For each comparment n in the system: <br>
+Sn scaling parameter for compt. n <br>
+S0 alternate name for scaling parameter for compt. m (output
+compt.) <br>
+For each dosable comparment n in the system: <br>
+Fn bioavailability for compt. n <br>
+Rn rate for compt. n <br>
+Dn duration for compt. n <br>
+ALAGn absorption lag time for compt. n <br>
+Other additional PK parameters: <br>
+F0 or Fm or FO output fraction <br>
+XSCALE time scale parameter <br>
+MTIME(i) model event time parameters</p>
+
+<p style="margin-top: 1em">Steady-state subroutine: SS6</p>
+
+<p style="margin-top: 1em">Other required user or library
+routines: <br>
+User: MODEL, DES, TOL <br>
+Library: DGEAR1, FCN1, FCN3 <br>
+See Note 2 regarding use of SS6</p>
+
+<p style="margin-top: 1em">Notes:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">ADVAN8 uses IMSL&rsquo;s DGEAR,
+the Gear method of numerical integration, for stiff
+problems.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">If SS6 is used, Library routines
+ZSPOW1 and FCN2 are also required.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">3.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">See Chapter VI Section D.B for
+specification of relative and absolute tolerance. With
+ADVAN8, the specifications for compartment 1 apply to all
+compartments.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">4.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">There is a limit on the number
+of times the differential equations are computed during any
+one integration over a state interval. NONMEM may terminate
+when this limit is reached, in which case an appropriate
+message appears. The limit is given by MAXFCN in SIZES.
+(With NONMEM 74, this is 1000000.) The $SIZES record may be
+used to supply a different value for MAXFCN.</p></td></tr>
+</table>
+
+<h2>VII.C.9. ADVAN9 General Nonlinear Model with Equilibrium Compartments
+<a name="VII.C.9."></a>
+<a name="VII.C.9. ADVAN9 General Nonlinear Model with Equilibrium Compartments"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartment attributes set by
+subroutine MODEL. Suppose there are m compartments in the
+system, including the output compartment.</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+<p>TRANS1 Explicit Basic PK Parameters <br>
+P(n) nth. basic PK parameter <br>
+Implicit Basic PK parameters <br>
+variable A $PK-defined variable also used in the $AES or
+$DES block</p>
+
+<p style="margin-top: 1em">Additional PK parameters:</p>
+
+<p>For each comparment n in the system: <br>
+Sn scaling parameter for compt. n <br>
+S0 alternate name for scaling parameter for compt. m (output
+compt.) <br>
+For each dosable comparment n in the system: <br>
+Fn bioavailability for compt. n <br>
+Rn rate for compt. n <br>
+Dn duration for compt. n <br>
+ALAGn absorption lag time for compt. n <br>
+Other additional PK parameters: <br>
+F0 or Fm or FO output fraction <br>
+XSCALE time scale parameter <br>
+MTIME(i) model event time parameters <br>
+Steady-state subroutine: SS9</p>
+
+<p style="margin-top: 1em">Other required user or library
+routines: <br>
+User: MODEL, DES, AES, TOL <br>
+Library: ADDA, FCN5, JAC, LEQT22, LSODI1, RES, ZSPOW2</p>
+
+<p style="margin-top: 1em">Notes:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">ADVAN9 uses the Livermore solver
+for ordinary differential equations, implicit form (LSODI),
+using the backward differentiation formulas (BDF) for stiff
+problems. ADVAN9 may be used with a system of
+differential-algebraic equations specifying the kinetics of
+a system with equilibrium compartments. It may be used with
+a system consisting of only algebraic equations. It may also
+be useful when the system consists of only stiff
+differential equations, and there are no equilibrium
+compartments.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">If SS9 is used, Library routines
+ZSPOW1, FCN2, and FCN4 are also required.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">3.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">See Chapter VI Section D.B for
+specification of relative and absolute tolerance. As of
+NM74, for ADVAN9 <b>only</b>, ATOL=99 specifies that
+variable, calculated ATOL values are to be derived, in
+accordance with an algorithm that is present in ADVAN9.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">4.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">When there are no equilibrium
+compartments, the AES routine is not called, but a dummy
+routine may need to be included in the load module if the
+loader considers an unresolved reference to be a fatal
+error.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">5.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">The Laplacian method is not
+directly supported with ADVAN9. The $ESTIMATION record must
+include the NUMERICAL option with LAPLACIAN.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">6.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">There is a limit on the number
+of times the differential equations are computed during any
+one integration over a state interval. NONMEM may terminate
+when this limit is reached, in which case an appropriate
+message appears. The limit is given by MAXFCN in SIZES.
+(With NONMEM 74, this is 1000000.) The $SIZES record may be
+used to supply a different value for MAXFCN.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">7.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">There is a limit on the maximum
+number of integration steps. For ADVAN9, it is the largest
+possible integer value, Reserved variable MXSTEP may be set
+in $PK to a smaller value.</p></td></tr>
+</table>
+
+<h2>VII.C.10. ADVAN10 One Compartment Model with Michaelis-Menten Elimination
+<a name="VII.C.10."></a>
+<a name="VII.C.10. ADVAN10 One Compartment Model with Michaelis-Menten Elimination"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartments:</p>
+
+<p>Compt. Function Initial On/Off Dose Default Default <br>
+No. Status Allowed Allowed for Dose for Obs. <br>
+1 Central On No Yes Yes Yes <br>
+2 Output Off Yes No No No</p>
+
+<p style="margin-top: 1em">Maximum number of basic PK
+parameters: 3</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+<p>Basic PK Parameters <br>
+TRANS1 1. VM maximum rate <br>
+2. KM Michaelis constant <br>
+3. skip</p>
+
+<p style="margin-top: 1em">Additional PK Parameters:</p>
+
+<p>S1 or SC scaling parameter for central compartment <br>
+S2 or S0 scaling parameter for output compartment <br>
+F1 bioavailability for central compartment <br>
+R1 rate for central compartment <br>
+D1 duration for central compartment <br>
+ALAG1 absorption lag time for central compartment <br>
+F0 or F2 or FO output fraction <br>
+XSCALE time scale parameter <br>
+MTIME(i) model event time parameters</p>
+
+<p style="margin-top: 1em">Steady-state subroutines:
+SS6</p>
+
+<p style="margin-top: 1em">Other required user or library
+routines: <br>
+User: TOL <br>
+Library: MMPHI <br>
+See Note 2 regarding use of SS6</p>
+
+<p style="margin-top: 1em">Notes:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">1</p></td>
+<td width="8%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">The computations are based on:
+Beal, S.L. (1983), &quot;Computation of the explicit
+solution to the Michaelis-Menten equation&quot;, Journal of
+Pharmacokinetics and Biopharmaceutics 11, 641-657.</p></td></tr>
+</table>
+
+<h2>VII.C.11. ADVAN11 Three Compartment Linear Model
+<a name="VII.C.11."></a>
+<a name="VII.C.11. ADVAN11 Three Compartment Linear Model"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartments:</p>
+
+<p>Compt. Function Initial On/Off Dose Default Default <br>
+No. Status Allowed Allowed for Dose for Obs. <br>
+1 Central On No Yes Yes Yes <br>
+2 Peripheral 1 On No Yes No No <br>
+3 Peripheral 2 On No Yes No No <br>
+4 Output Off Yes No No No</p>
+
+<p style="margin-top: 1em">Maximum number of basic PK
+parameters: 6</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+<p>Basic PK Parameters <br>
+TRANS1 1. K rate constant of elimination <br>
+2. K12 rate constant from central to peripheral 1 <br>
+3. K21 rate constant from peripheral 1 to central <br>
+4. K13 rate constant from central to peripheral 2 <br>
+5. K31 rate constant from peripheral 2 to central <br>
+6. skip <br>
+Basic PK Parameters <br>
+TRANS4 1. CL clearance <br>
+2. V1 central volume <br>
+3. Q2 intercompartmental clearance (central and periph. 1)
+<br>
+4. V2 peripheral 1 volume <br>
+5. Q3 intercompartmental clearance (central and periph. 2)
+<br>
+6. V3 peripheral 2 volume <br>
+relationship: K = CL/V1 <br>
+K12=Q2/V1 <br>
+K21=Q2/V2 <br>
+K13=Q3/V1 <br>
+K31=Q3/V3 <br>
+Basic PK Parameters <br>
+TRANS6 1. ALPHA
+<img src="grohtml-384-56.png" alt="Image grohtml-384-56.png">
+<br>
+2. BETA
+<img src="grohtml-384-57.png" alt="Image grohtml-384-57.png">
+<br>
+3. GAMMA
+<img src="grohtml-384-58.png" alt="Image grohtml-384-58.png">
+<br>
+4. K21 rate constant peripheral 1 to central <br>
+5. K31 rate constant peripheral 2 to central <br>
+6. skip <br>
+relationship: K = (ALPHA * BETA * GAMMA)/(K21 * K31) <br>
+K13 = (P + K31 * K31 - K31 * S - K * K21) / (K21 - K31) <br>
+K12 = S -K -K13 -K21 - K31</p>
+
+<p style="margin-top: 1em">where: <br>
+S = ALPHA + BETA + GAMMA <br>
+P = ALPHA * BETA + ALPHA * GAMMA + BETA * GAMMA</p>
+
+<p style="margin-top: 1em">constraint:
+ALPHA&lt;K21&lt;BETA&lt;K31&lt;GAMMA <br>
+or: ALPHA&lt;K31&lt;BETA&lt;K21&lt;GAMMA <br>
+The roles of ALPHA, BETA, GAMMA, K21, K32, K12, and K13 <br>
+are symmetric and are exchangeable.</p>
+
+<p style="margin-top: 1em">Additional PK Parameters:</p>
+
+<p>S1 or SC scaling parameter for central compartment <br>
+S2 scaling parameter for peripheral 1 compartment <br>
+S3 scaling parameter for peripheral 2 compartment <br>
+S4 or S0 scaling parameter for output compartment <br>
+F1 bioavailability for central compartment <br>
+F2 bioavailability for peripheral 1 compartment <br>
+F3 bioavailability for peripheral 2 compartment <br>
+R1 rate for central compartment <br>
+R2 rate for peripheral 1 compartment <br>
+R3 rate for peripheral 2 compartment <br>
+D1 duration for central compartment <br>
+D2 duration for peripheral 1 compartment <br>
+D3 duration for peripheral 2 compartment <br>
+ALAG1 absorption lag time for central compartment <br>
+ALAG2 absorption lag time for peripheral 1 compartment <br>
+ALAG3 absorption lag time for peripheral 2 compartment <br>
+F0 or F4 or FO output fraction <br>
+XSCALE time scale parameter <br>
+MTIME(i) model event time parameters</p>
+
+<p style="margin-top: 1em">Steady-state subroutines: SS11
+or SS6</p>
+
+<p style="margin-top: 1em">Other required user or Library
+routines: none <br>
+See Note 2 regarding use of SS6</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">The Laplacian method is not
+directly supported with ADVAN11. The $ESTIMATION record must
+include the NUMERICAL option with LAPLACIAN.</p></td></tr>
+</table>
+
+<h2>VII.C.12. ADVAN12 Three Compartment Linear Model with First Order Absorpt
+<a name="VII.C.12."></a>
+<a name="VII.C.12. ADVAN12 Three Compartment Linear Model with First Order Absorpt"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartments:</p>
+
+<p>Compt. Function Initial On/Off Dose Default Default <br>
+No. Status Allowed Allowed for Dose for Obs. <br>
+1 Depot Off Yes Yes Yes No <br>
+2 Central On No Yes No Yes <br>
+3 Peripheral 1 On No Yes No No <br>
+4 Peripheral 2 On No Yes No No <br>
+5 Output Off Yes No No No</p>
+
+<p style="margin-top: 1em">Maximum number of basic PK
+parameters: 7</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+<p>Basic PK Parameters <br>
+TRANS1 1. K rate constant of elimination <br>
+2. K23 rate constant from central to peripheral 1 <br>
+3. K32 rate constant from peripheral 1 to central <br>
+4. K24 rate constant from central to peripheral 2 <br>
+5. K42 rate constant from peripheral 2 to central <br>
+6. skip <br>
+7. Ka absorption rate constant <br>
+Basic PK Parameters <br>
+TRANS4 1. CL clearance <br>
+2. V2 central volume <br>
+3. Q3 intercompartmental clearance (central and periph. 1)
+<br>
+4. V3 peripheral 1 volume <br>
+5. Q4 intercompartmental clearance (central and periph. 2)
+<br>
+6. V4 peripheral 2 volume <br>
+7. Ka absorption rate constant <br>
+relationship: K = CL/V2 <br>
+K23=Q3/V2 <br>
+K32=Q3/V3 <br>
+K24=Q4/V2 <br>
+K42=Q4/V4 <br>
+Ka = Ka <br>
+Basic PK Parameters <br>
+TRANS6 1. ALPHA
+<img src="grohtml-384-65.png" alt="Image grohtml-384-65.png">
+<br>
+2. BETA
+<img src="grohtml-384-66.png" alt="Image grohtml-384-66.png">
+<br>
+3. GAMMA
+<img src="grohtml-384-67.png" alt="Image grohtml-384-67.png">
+<br>
+4. K32 rate constant peripheral 1 to central <br>
+5. K42 rate constant peripheral 2 to central <br>
+6. skip <br>
+7. Ka absorption rate constant <br>
+relationship: K = (ALPHA * BETA * GAMMA)/(K32 * K42) <br>
+K24 = (P + K42 * K42 - K42 * S - K * K32) / (K32 - K42) <br>
+K23 = S -K -K24 -K32 - K42 <br>
+Ka = Ka</p>
+
+<p style="margin-top: 1em">where: <br>
+S = ALPHA + BETA + GAMMA <br>
+P = ALPHA * BETA + ALPHA * GAMMA + BETA * GAMMA</p>
+
+<p style="margin-top: 1em">constraint:
+ALPHA&lt;K32&lt;BETA&lt;K42&lt;GAMMA <br>
+or: ALPHA&lt;K42&lt;BETA&lt;K32&lt;GAMMA <br>
+The roles of ALPHA, BETA, GAMMA, K32, K42, K23, and K24 <br>
+are symmetric and are exchangeable.</p>
+
+<p style="margin-top: 1em">Additional PK Parameters:</p>
+
+<p>S1 scaling parameter for depot compartment <br>
+S2 or SC scaling parameter for central compartment <br>
+S3 scaling parameter for peripheral 1 compartment <br>
+S4 scaling parameter for peripheral 2 compartment <br>
+S5 or S0 scaling parameter for output compartment <br>
+F1 bioavailability depot compartment <br>
+F2 bioavailability central compartment <br>
+F3 bioavailability for peripheral 1 compartment <br>
+F4 bioavailability for peripheral 2 compartment <br>
+R1 rate depot compartment <br>
+R2 rate central compartment <br>
+R3 rate for peripheral 1 compartment <br>
+R4 rate for peripheral 2 compartment <br>
+D1 duration depot compartment <br>
+D2 duration central compartment <br>
+D3 duration for peripheral 1 compartment <br>
+D4 duration for peripheral 2 compartment <br>
+ALAG1 absorption lag time depot compartment <br>
+ALAG2 absorption lag time central compartment <br>
+ALAG3 absorption lag time for peripheral 1 compartment <br>
+ALAG4 absorption lag time for peripheral 2 compartment <br>
+F0 or F5 or FO output fraction <br>
+XSCALE time scale parameter <br>
+MTIME(i) model event time parameters</p>
+
+<p style="margin-top: 1em">Steady-state subroutines: SS12
+or SS6</p>
+
+<p style="margin-top: 1em">Other required user or Library
+routines: none <br>
+See Note 2 regarding use of SS6</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">The Laplacian method is not
+directly supported with ADVAN12. The $ESTIMATION record must
+include the NUMERICAL option with LAPLACIAN.</p></td></tr>
+</table>
+
+<h2>VII.C.13. ADVAN13 General Nonlinear Model With Stiff/Nonstiff Equations (NM 71)
+<a name="VII.C.13."></a>
+<a name="VII.C.13. ADVAN13 General Nonlinear Model With Stiff/Nonstiff Equations (NM 71)"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartment attributes set by
+subroutine MODEL. Suppose there are m compartments in the
+system, including the output compartment.</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+<p>TRANS1 Explicit Basic PK Parameters <br>
+P(n) nth. basic PK parameter <br>
+Implicit Basic PK parameters <br>
+variable A $PK-defined variable also used in the $DES
+block</p>
+
+<p style="margin-top: 1em">Additional PK parameters:</p>
+
+<p>For each comparment n in the system: <br>
+Sn scaling parameter for compt. n <br>
+S0 alternate name for scaling parameter for compt. m (output
+compt.) <br>
+For each dosable comparment n in the system: <br>
+Fn bioavailability for compt. n <br>
+Rn rate for compt. n <br>
+Dn duration for compt. n <br>
+ALAGn absorption lag time for compt. n <br>
+Other additional PK parameters: <br>
+F0 or Fm or FO output fraction <br>
+XSCALE time scale parameter <br>
+MTIME(i) model event time parameters</p>
+
+<p style="margin-top: 1em">Steady-state subroutine: SS6</p>
+
+<p style="margin-top: 1em">Other required user or library
+routines: <br>
+User: MODEL, DES, TOL <br>
+Library: LSODA, FCN1, JAC2&dagger; <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; <br>
+With NONMEM 7.1 through NONMEM 7.3, the required subroutines
+are <br>
+ZSPOW2, LEQT22, LSODA, RES, ADDA, JAC, FCN5 <br>
+---------- <br>
+</cite></p>
+
+<p style="margin-top: 1em">Notes:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">ADVAN13 uses the Livermore
+solver for ordinary differential equations (LSODA), with
+automatic method switching for stiff (BDF) and non-stiff
+(Adams method) problems.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">If SS6 is used, Library routines
+ZSPOW1 and FCN2 are also required.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">3.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">See Chapter VI Section D.B for
+specification of relative and absolute tolerance.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">4.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">There is a limit on the number
+of times the differential equations are computed during any
+one integration over a state interval. NONMEM may terminate
+when this limit is reached, in which case an appropriate
+message appears. The limit is given by MAXFCN in SIZES.
+(With NONMEM 74, this is 1000000.) The $SIZES record may be
+used to supply a different value for MAXFCN.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">5.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">There is a limit on the maximum
+number of integration steps. For ADVAN13, it is 10000.
+Reserved variable MXSTEP may be set in $PK to a larger
+value.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">6.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">With NONMEM 7.4, the Laplacian
+Method is supported with ADVAN13. With NONMEM 7.1 through
+7.3, the Laplacian method is not directly supported with
+ADVAN13 and the $ESTIMATION record must include the
+NUMERICAL option with LAPLACIAN.</p></td></tr>
+</table>
+
+<h2>VII.C.14. ADVAN14 General Nonlinear Model With Stiff/Nonstiff Equations (NM 74)
+<a name="VII.C.14."></a>
+<a name="VII.C.14. ADVAN14 General Nonlinear Model With Stiff/Nonstiff Equations (NM 74)"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartment attributes set by
+subroutine MODEL. Suppose there are m compartments in the
+system, including the output compartment.</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+<p>TRANS1 Explicit Basic PK Parameters <br>
+P(n) nth. basic PK parameter <br>
+Implicit Basic PK parameters <br>
+variable A $PK-defined variable also used in the $DES
+block</p>
+
+<p style="margin-top: 1em">Additional PK parameters:</p>
+
+<p>For each comparment n in the system: <br>
+Sn scaling parameter for compt. n <br>
+S0 alternate name for scaling parameter for compt. m (output
+compt.) <br>
+For each dosable comparment n in the system: <br>
+Fn bioavailability for compt. n <br>
+Rn rate for compt. n <br>
+Dn duration for compt. n <br>
+ALAGn absorption lag time for compt. n <br>
+Other additional PK parameters: <br>
+F0 or Fm or FO output fraction <br>
+XSCALE time scale parameter <br>
+MTIME(i) model event time parameters</p>
+
+<p style="margin-top: 1em">Steady-state subroutine: SS6</p>
+
+<p style="margin-top: 1em">Other required user or library
+routines: <br>
+User: MODEL, DES, TOL <br>
+Library: CVODE, FCN1, JAC2 <br>
+See Note 2 regarding use of SS6</p>
+
+<p style="margin-top: 1em">Notes:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">ADVAN14 uses CVODES from the
+LLNL SUNDIALS system for ordinary differential equations and
+is a descendent of LSODA (ADVAN13). The user may choose to
+make modifications to ..\pr\CVODEU.f90.</p></td></tr>
+</table>
+
+<p style="margin-left:33%;">See ..ides</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">If SS6 is used, Library routines
+ZSPOW1 and FCN2 are also required.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">3.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">See Chapter VI Section D.B for
+specification of relative and absolute tolerance.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">4.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">There is a limit on the number
+of times the differential equations are computed during any
+one integration over a state interval. NONMEM may terminate
+when this limit is reached, in which case an appropriate
+message appears. The limit is given by MAXFCN in SIZES.
+(With NONMEM 74, this is 1000000.) The $SIZES record may be
+used to supply a different value for MAXFCN.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">5.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">There is a limit on the maximum
+number of integration steps. For ADVAN14, it is 10000.
+Reserved variable MXSTEP may be set in $PK to a larger
+value.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">6.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">ADVAN14 also has a root-finding
+algorithm. See the comments in CVODEU.f90 for its use.</p></td></tr>
+</table>
+
+<h2>VII.C.15. ADVAN15 General Nonlinear Model with Equilibrium Compartments (NM 74)
+<a name="VII.C.15."></a>
+<a name="VII.C.15. ADVAN15 General Nonlinear Model with Equilibrium Compartments (NM 74)"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Compartment attributes set by
+subroutine MODEL. Suppose there are m compartments in the
+system, including the output compartment.</p>
+
+<p style="margin-top: 1em">TRANS subroutines that may be
+used:</p>
+
+<p>TRANS1 Explicit Basic PK Parameters <br>
+P(n) nth. basic PK parameter <br>
+Implicit Basic PK parameters <br>
+variable A $PK-defined variable also used in the $DES
+block</p>
+
+<p style="margin-top: 1em">Additional PK parameters:</p>
+
+<p>For each comparment n in the system: <br>
+Sn scaling parameter for compt. n <br>
+S0 alternate name for scaling parameter for compt. m (output
+compt.) <br>
+For each dosable comparment n in the system: <br>
+Fn bioavailability for compt. n <br>
+Rn rate for compt. n <br>
+Dn duration for compt. n <br>
+ALAGn absorption lag time for compt. n <br>
+Other additional PK parameters: <br>
+F0 or Fm or FO output fraction <br>
+XSCALE time scale parameter <br>
+MTIME(i) model event time parameters</p>
+
+<p style="margin-top: 1em">Steady-state subroutine: SS9</p>
+
+<p style="margin-top: 1em">Other required user or library
+routines: <br>
+User: MODEL, DES, TOL <br>
+Library: ADDA, FCN5, JAC, LEQT22, IDA, RES, ZSPOW2</p>
+
+<p style="margin-top: 1em">Notes:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">ADVAN15 uses IDA from the LLNL
+SUNDIALS system for differential-algebraic equations and is
+a descendent of the LSODI1 (ADVAN9) system. The user may
+choose to make modifications to parameters in
+..rIDAU.f90.</p> </td></tr>
+</table>
+
+<p style="margin-left:33%;">See ..idesidas_guide.pdf and
+..idesida_guide.pdf. <br>
+See INTRODUCTION TO NONMEM 7, section &quot;$SUBROUTINES:
+Yet Another New Differential Equation Solving Method: IDAS
+(ADVAN15)&quot; <br>
+ADVAN15 may be used with a system of differential-algebraic
+equations specifying the kinetics of a system with
+equilibrium compartments. It may also be useful when the
+system consists of only stiff differential equations, and
+there are no equilibrium compartments.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">If SS9 is used, Library routines
+ZSPOW1, FCN2, and FCN4 are also required.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">3.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">See Chapter VI Section D.B for
+specification of relative and absolute tolerance.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">4.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">When there are no equilibrium
+compartments, the AES routine is not called, but a dummy
+routine may need to be included in the load module if the
+loader considers an unresolved reference to be a fatal
+error.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">5.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">The Laplacian method is not
+directly supported with ADVAN15. The $ESTIMATION record must
+include the NUMERICAL option with LAPLACIAN.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">6.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">There is a limit on the number
+of times the differential equations are computed during any
+one integration over a state interval. NONMEM may terminate
+when this limit is reached, in which case an appropriate
+message appears. The limit is given by MAXFCN in SIZES.
+(With NONMEM 74, this is 1000000.) The $SIZES record may be
+used to supply a different value for MAXFCN.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">7.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">There is a limit on the maximum
+number of integration steps. For ADVAN15, it is 10000.
+Reserved variable MXSTEP may be set in $PK to a larger
+value.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">8.</p></td>
+<td width="6%"></td>
+<td width="89%">
+
+
+<p style="margin-top: 1em">ADVAN15 also has a root-finding
+algorithm. See the comments in IDAU.f90 for its use.</p></td></tr>
+</table>
+
+
+<p style="margin-top: 1em"><a href="AI.html">APPENDIX I ...</a></p>
+
+<p style="margin-top: 1em"><a href="VII.html">TOP</a> <br>
+<a href="index.html">TABLE OF CONTENTS</a> <br>
+ <a href="VIII.html">NEXT CHAPTER ...</a></p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<HTML><HEAD> <TITLE> recid2.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        RECORDS=ID EXAMPLE 2                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This fully-worked out example shows how the RECORDS=ID option of $DATA
+ and the INCLUDE statement may be used to analyze the Theophyline  data
+ set  THEOPP  as  separate  individuals.  The NONMEM control file is as
+ follows.
+
+   $PROB  THEOPHYLLINE POPULATION DATA; Analysis of Individuals
+   ; Modification of CONTROL5 control steam
+   $INPUT      ID DOSE=AMT TIME CP=DV WT
+   $DATA       THEOPP RECS=ID
+   ;RECS=ID:  Data set will be read until ID changes or end-of-file
+
+   $SUBROUTINES  ADVAN2
+
+   $PK
+   ;THETA(1)=MEAN ABSORPTION RATE CONSTANT (1/HR)
+   ;THETA(2)=MEAN ELIMINATION RATE CONSTANT (1/HR)
+   ;THETA(3)=SLOPE OF CLEARANCE VS WEIGHT RELATIONSHIP (LITERS/HR/KG)
+   ;SCALING PARAMETER=VOLUME/WT SINCE DOSE IS WEIGHT-ADJUSTED
+      CALLFL=1
+      KA=THETA(1)
+      K=THETA(2)
+      CL=THETA(3)*WT
+      SC=CL/K/WT
+
+   $THETA  (.1,3,5) (.008,.08,.5) (.004,.04,.9)
+   $OMEGA .4
+   ;For single subject data OMEGA is residual variance.
+
+   $ERROR
+      Y=F+ERR(1)
+   ;ERR must be used instead of EPS.
+
+   $EST MAXEVAL=450  PRINT=5
+
+   $COV SPECIAL
+   ;SPECIAL is required to obtain the variance-covariance matrix for
+   ;single-subject data.
+
+   $TABLE ID DOSE WT TIME NOPRINT ONEHEADER FILE=indest.tab
+
+   $TABLE ID KA K CL SC NOPRINT FIRSTONLY ONEHEADER NOAPPEND
+          FILE=indest.par
+   INCLUDE indest.txt 11
+   ; INCLUDE: Inserts copies of the file named indest.txt for each
+   ; additional individual.
+
+ The contents of file indest.txt are:
+
+   $PROB  THEOPHYLLINE POPULATION DATA; Analysis of Individuals
+   $INPUT      ID DOSE=AMT TIME CP=DV WT
+   $DATA       THEOPP RECS=ID NOREWIND
+   ;NOREWIND: data set will be read starting after the previous individual
+
+   $THETA  (.1,3,5) (.008,.08,.5) (.004,.04,.9)
+
+   $OMEGA .4
+   ;For single subject data OMEGA is residual variance
+
+   $EST MAXEVAL=450  PRINT=5
+
+   $COV SPECIAL
+   ;SPECIAL is required to obtain the variance-covariance matrix for
+   ;single-subject data
+
+   $TABLE ID DOSE WT TIME NOPRINT ONEHEADER FORWARD FILE=indest.tab
+
+   $TABLE ID KA K CL SC NOPRINT FIRSTONLY ONEHEADER FORWARD NOAPPEND
+     FILE=indest.par
+
+ An alternate approach for single-subject data is available with NONMEM |
+ 7.  OMEGA diagonal values are fixed to a special value 1.0E+06.        |
+ See  Guide  Introduction_7  "Single-Subject  Analysis using Population |
+ with Unconstrained ETAs ".
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

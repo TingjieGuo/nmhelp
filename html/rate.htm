@@ -1,0 +1,57 @@
+<HTML><HEAD> <TITLE> rate.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           RATE DATA ITEM                           |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Dose Rate (RATE) data item for PREDPP
+ CONTEXT: $INPUT record and NONMEM data set
+
+ USAGE:
+ $INPUT ... RATE ...
+
+ DISCUSSION:
+ RATE  labels  PREDPP's dose rate (RATE) data item.  The dose rate data
+ item is optional.  In a dose or reset-dose event record  it  can  take
+ four kinds of values.
+
+ 0    The dose is an instantaneous bolus dose.
+
+ &gt;0   The  dose  is  an infusion, and the value of RATE gives its rate.
+      If this is not a steady-state infusion, the AMT data item must be
+      positive also.  If this is a steady-state dose event record, both
+      AMT and RATE may be 0; (See <A HREF="s.htm#ss_dose_event_record">ss dose</A>).
+
+ -1   The dose is a zero-order bolus dose,  i.e.,  an  infusion,  whose
+      rate  is  modeled  in the PK routine.  As an example, suppose the
+      compartment being dosed is numbered 1 (e.g., the  CMT  data  item
+      contains  1,  or  it  contains 0 and compartment 1 is the default
+      compartment for doses).  The $PK abbreviated code must  define  a
+      value  for  R1,  the  rate  parameter  for  compartment  1, e.g.,
+      R1=THETA(4)+ETA(4)
+
+ -2   The dose is a zero-order bolus dose,  i.e.,  an  infusion,  whose
+      duration  is  modeled  in the PK routine.  As an example, suppose
+      the compartment being dosed is numbered  1  as  above.   The  $PK
+      abbreviated code must define a value for D1, the duration parame-
+      ter for compartment 1, e.g., D1=THETA(4)+ETA(4)
+
+ RATE must be 0 for observation, other-type, and reset event records.
+
+ (See <A HREF="d.htm#dose">dose</A>, <A HREF="s.htm#steady_state">steady_state_dose</A>).
+REFERENCES: Guide VI Section <a href="VI/V.html#E.">V.E<a/>
+REFERENCES: Guide V Section <a href="V/6.html#8.">6.8<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

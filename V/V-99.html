@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 99</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:10px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:7px;font-family:Courier;color:#000000;}
+	.ft4{font-size:7px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft6{font-size:7px;line-height:10px;font-family:Courier;color:#000000;}
+	.ft7{font-size:7px;line-height:10px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V099.png" alt="background image">
+<DIV style="position:absolute;top:77;left:203"><nobr><span class="ft0"><b>Chapter 10 - Reading the Output</b></span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:72"><nobr><span class="ft1"><b>1. What This Chapter is About</b></span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:72"><nobr><span class="ft5">This chapter describes NONMEM’s output in detail. Each page of a NONMEM-PREDPP output<br>ﬁle is shown and discussed.</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:72"><nobr><span class="ft5">The input ﬁle to NM-TRAN is that of ﬁgure 2.12, which is reproduced here as ﬁgure 10.1 for<br>convenience.</span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:121"><nobr><span class="ft3"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:195;left:149"><nobr><span class="ft3"><b>$PROBLEM PHENOBARB WITH WEIGHT IN MODELS FOR CL AND V</b></span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:121"><nobr><span class="ft3"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:205;left:149"><nobr><span class="ft3"><b>$INPUT ID TIME AMT WT APGR DV</b></span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:121"><nobr><span class="ft3"><b>3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:149"><nobr><span class="ft3"><b>$DATA INDATA</b></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:121"><nobr><span class="ft3"><b>4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:149"><nobr><span class="ft3"><b>$SUBROUTINE ADVAN1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:121"><nobr><span class="ft3"><b>5</b></span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:149"><nobr><span class="ft3"><b>$PK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:121"><nobr><span class="ft3"><b>6</b></span></nobr></DIV>
+<DIV style="position:absolute;top:245;left:165"><nobr><span class="ft3"><b>TVCL=THETA(1)+THETA(3)*WT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:121"><nobr><span class="ft3"><b>7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:165"><nobr><span class="ft3"><b>CL=TVCL+ETA(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:121"><nobr><span class="ft3"><b>8</b></span></nobr></DIV>
+<DIV style="position:absolute;top:265;left:165"><nobr><span class="ft3"><b>TVVD=THETA(2)+THETA(4)*WT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:121"><nobr><span class="ft3"><b>9</b></span></nobr></DIV>
+<DIV style="position:absolute;top:275;left:165"><nobr><span class="ft3"><b>V=TVVD+ETA(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:116"><nobr><span class="ft6"><b>10 ; THE FOLLOWING ARE REQUIRED BY PREDPP<br>11 K=CL/V<br>12 S1=V<br>13 $ERROR<br>14 Y=F+ERR(1)<br>15 $THETA</b></span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:192"><nobr><span class="ft3"><b>(0,.0027) (0,.70) .0018</b></span></nobr></DIV>
+<DIV style="position:absolute;top:335;left:327"><nobr><span class="ft3"><b>.5</b></span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:116"><nobr><span class="ft3"><b>16 $OMEGA</b></span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:192"><nobr><span class="ft3"><b>.000007, .3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:116"><nobr><span class="ft3"><b>17 $SIGMA</b></span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:198"><nobr><span class="ft3"><b>8</b></span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:116"><nobr><span class="ft6"><b>18 $ESTIMATION PRINT=5<br>19 $COVARIANCE<br>20 $TABLE ID TIME AMT WT APGR DV<br>21 $SCATTER</b></span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:208"><nobr><span class="ft3"><b>PRED VS DV</b></span></nobr></DIV>
+<DIV style="position:absolute;top:395;left:273"><nobr><span class="ft3"><b>UNIT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:116"><nobr><span class="ft3"><b>22 $SCATTER</b></span></nobr></DIV>
+<DIV style="position:absolute;top:405;left:208"><nobr><span class="ft3"><b>RES VS WT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:424;left:72"><nobr><span class="ft7">Figure 10.1. The NM-TRAN input ﬁle (same as ﬁgure 2.12). The line numbers on the left are not actually part of the<br>ﬁle.</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:72"><nobr><span class="ft1"><b>2. NONMEM Describes its Inputs</b></span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:72"><nobr><span class="ft5">The ﬁrst page of NONMEM’s output is shown in ﬁgure 10.2. In this page, NONMEM repeats<br>(&quot;echos&quot;) the instructions it was given in the control ﬁle and describes the data ﬁle. The ﬁrst page<br>of the output should be checked carefully. Problems in a NONMEM run can often be traced to<br>errors in the problem speciﬁcation. For example, always check that the initial parameter esti-<br>mates were entered correctly.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft2">-91-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,2345 @@
+<!-- Creator     : groff version 1.21 -->
+<!-- CreationDate: Sat Mar 23 14:10:32 2013 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM"></a>
+<a href="#Chapter 1 - NONMEM">Chapter 1 - NONMEM</a><br>
+<a href="#General">General</a><br>
+<a href="#1. More Etas, Epsilons, Thetas">1. More Etas, Epsilons, Thetas</a><br>
+<a href="#Changes to NONMEM Inputs">Changes to NONMEM Inputs</a><br>
+<a href="#2. Band Symmetric Matrices">2. Band Symmetric Matrices</a><br>
+<a href="#3. Superproblems">3. Superproblems</a><br>
+<a href="#4. COVARIANCE Record">4. COVARIANCE Record</a><br>
+<a href="#5. TABLE Record">5. TABLE Record</a><br>
+<a href="#6. Large Data Files">6. Large Data Files</a><br>
+<a href="#7. Marginal (MRG_) Data Item">7. Marginal (MRG_) Data Item</a><br>
+<a href="#8. Raw-Data (RAW_) Data Item">8. Raw-Data (RAW_) Data Item</a><br>
+<a href="#9. Model Specification Files">9. Model Specification Files</a><br>
+<a href="#Changes to NONMEM Output Files">Changes to NONMEM Output Files</a><br>
+<a href="#10. New Output File INTER">10. New Output File INTER</a><br>
+<a href="#11. NONMEM Report">11. NONMEM Report</a><br>
+<a href="#Changes to User-Written Code">Changes to User-Written Code</a><br>
+<a href="#12. PRED Routine Declarations">12. PRED Routine Declarations</a><br>
+<a href="#13. ICALL">13. ICALL</a><br>
+<a href="#14. NEWIND">14. NEWIND</a><br>
+<a href="#15. F">15. F</a><br>
+<a href="#16. NONMEM Read-Only Commons">16. NONMEM Read-Only Commons</a><br>
+<a href="#17. NONMEM-PRED Commons">17. NONMEM-PRED Commons</a><br>
+<a href="#18. The PASS Routine">18. The PASS Routine</a><br>
+<a href="#19. The MIX Routine">19. The MIX Routine</a><br>
+<a href="#New Methods of Estimation">New Methods of Estimation</a><br>
+<a href="#20. METHOD=HYBRID ZERO=list">20. METHOD=HYBRID ZERO=list</a><br>
+<a href="#21. CENTERING, FO">21. CENTERING, FO</a><br>
+<a href="#22. NUMERICAL">22. NUMERICAL</a><br>
+<a href="#23. LIKELIHOOD, -2LOGLIKELIHOOD">23. LIKELIHOOD, -2LOGLIKELIHOOD</a><br>
+<a href="#24. CONTR, CCONTR">24. CONTR, CCONTR</a><br>
+<a href="#Chapter 2 - PREDPP">Chapter 2 - PREDPP</a><br>
+<a href="#PK, TRANS, and ERROR routines">PK, TRANS, and ERROR routines</a><br>
+<a href="#25. PK, TRANS, and ERROR Routine Declarations">25. PK, TRANS, and ERROR Routine Declarations</a><br>
+<a href="#26. More Parameters">26. More Parameters</a><br>
+<a href="#27. Common for DOSTIM">27. Common for DOSTIM</a><br>
+<a href="#28. Active Etas">28. Active Etas</a><br>
+<a href="#29. Common PRRAND">29. Common PRRAND</a><br>
+<a href="#30.">30.</a><br>
+<a href="#31.">31.</a><br>
+<a href="#ERROR">ERROR</a><br>
+<a href="#32. ERROR&rsquo;s IDEF">32. ERROR&rsquo;s IDEF</a><br>
+<a href="#Event Records">Event Records</a><br>
+<a href="#33. The Dose Rate (RATE) Data Item">33. The Dose Rate (RATE) Data Item</a><br>
+<a href="#34. The Steady State (SS) Data Item">34. The Steady State (SS) Data Item</a><br>
+<a href="#Other User Subroutines">Other User Subroutines</a><br>
+<a href="#INFN">INFN</a><br>
+<a href="#35. Use of an INFN Argument">35. Use of an INFN Argument</a><br>
+<a href="#MODEL">MODEL</a><br>
+<a href="#36. More Compartments and More Parameters">36. More Compartments and More Parameters</a><br>
+<a href="#37. Models with No Basic PK parameters">37. Models with No Basic PK parameters</a><br>
+<a href="#DES">DES</a><br>
+<a href="#38. DES Routine Declarations">38. DES Routine Declarations</a><br>
+<a href="#39. Structure for DA, DP, DT: Full vs. Compact">39. Structure for DA, DP, DT: Full vs. Compact</a><br>
+<a href="#40. DES Initialization at ICALL=1">40. DES Initialization at ICALL=1</a><br>
+<a href="#41. Displayed DES-defined Items">41. Displayed DES-defined Items</a><br>
+<a href="#42. Theta and EVTREC are Usable Directly">42. Theta and EVTREC are Usable Directly</a><br>
+<a href="#43. Use of DOSTIM and DOSREC in DES">43. Use of DOSTIM and DOSREC in DES</a><br>
+<a href="#44. Time T in DES routines">44. Time T in DES routines</a><br>
+<a href="#AES">AES</a><br>
+<a href="#45. AES Initialization at ICALL=1">45. AES Initialization at ICALL=1</a><br>
+<a href="#46. Displayed AES-defined Items">46. Displayed AES-defined Items</a><br>
+<a href="#47. Theta and EVTREC are Usable Directly">47. Theta and EVTREC are Usable Directly</a><br>
+<a href="#48. Use of DOSTIM and DOSREC in AES">48. Use of DOSTIM and DOSREC in AES</a><br>
+<a href="#49. Time T in AES routines">49. Time T in AES routines</a><br>
+<a href="#The PREDPP Library">The PREDPP Library</a><br>
+<a href="#50. Laplacian Method">50. Laplacian Method</a><br>
+<a href="#51. ADVAN5">51. ADVAN5</a><br>
+<a href="#52. ADVAN7">52. ADVAN7</a><br>
+<a href="#53. ADVAN9 as an Algebraic Equation Solver">53. ADVAN9 as an Algebraic Equation Solver</a><br>
+<a href="#54.">54.</a><br>
+<a href="#55. ADVAN11">55. ADVAN11</a><br>
+<a href="#56. ADVAN12">56. ADVAN12</a><br>
+<a href="#57. TRANS6">57. TRANS6</a><br>
+<a href="#Chapter 3 - NM-TRAN">Chapter 3 - NM-TRAN</a><br>
+<a href="#General">General</a><br>
+<a href="#58. Warning Messages">58. Warning Messages</a><br>
+<a href="#59. Day-Time Translation: the Year 2000">59. Day-Time Translation: the Year 2000</a><br>
+<a href="#60. More Digits After Day-Time Translation">60. More Digits After Day-Time Translation</a><br>
+<a href="#61. TIME and II Data Items: Conversion to Days">61. TIME and II Data Items: Conversion to Days</a><br>
+<a href="#62. Generated ID Data Items">62. Generated ID Data Items</a><br>
+<a href="#Control Records">Control Records</a><br>
+<a href="#63. INCLUDE Records">63. INCLUDE Records</a><br>
+<a href="#64. Filenames on Control Records">64. Filenames on Control Records</a><br>
+<a href="#65. $PROBLEM Record">65. $PROBLEM Record</a><br>
+<a href="#66. $DATA Record">66. $DATA Record</a><br>
+<a href="#67. $SUBROUTINES Record">67. $SUBROUTINES Record</a><br>
+<a href="#68. $THETA Record">68. $THETA Record</a><br>
+<a href="#69. $MSFI Record">69. $MSFI Record</a><br>
+<a href="#70. $ESTIMATION Record">70. $ESTIMATION Record</a><br>
+<a href="#71. $SIMULATION Record">71. $SIMULATION Record</a><br>
+<a href="#72. $TABLE Record">72. $TABLE Record</a><br>
+<a href="#73. $SCATTERPLOT Record">73. $SCATTERPLOT Record</a><br>
+<a href="#74. $MIX Record">74. $MIX Record</a><br>
+<a href="#Abbreviated Code">Abbreviated Code</a><br>
+<a href="#75. New Features">75. New Features</a><br>
+<a href="#76. Restrictions on the Use of Random Variables in Abbreviated Code">76. Restrictions on the Use of Random Variables in Abbreviated Code</a><br>
+<a href="#77. Improved Computation of Powers">77. Improved Computation of Powers</a><br>
+<a href="#78. Right-Hand Quantities">78. Right-Hand Quantities</a><br>
+<a href="#79. Pseudo-Statements">79. Pseudo-Statements</a><br>
+<a href="#80. ICALL Blocks">80. ICALL Blocks</a><br>
+<a href="#NM-TRAN with PREDPP">NM-TRAN with PREDPP</a><br>
+<a href="#81. $BIND Record">81. $BIND Record</a><br>
+<a href="#82. $MODEL Record">82. $MODEL Record</a><br>
+<a href="#83. $PK Record">83. $PK Record</a><br>
+<a href="#84. $ERROR Record">84. $ERROR Record</a><br>
+<a href="#85. $DES Record">85. $DES Record</a><br>
+<a href="#86. $AESINITIAL Record">86. $AESINITIAL Record</a><br>
+<a href="#87. $AES Record">87. $AES Record</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide - NONMEM V Supplemental Guide<a name="I."></a>
+<a name="NONMEM"></a>
+</h2>
+
+
+<h2>Chapter 1 - NONMEM
+<a name="Chapter"></a>
+<a name="Chapter 1 - NONMEM"></a>
+</h2>
+
+
+<h2>General
+<a name="General"></a>
+</h2>
+
+
+<h2>1. More Etas, Epsilons, Thetas
+<a name="1."></a>
+<a name="1. More Etas, Epsilons, Thetas"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The maximum number of</p>
+
+
+<p align="center"><img src="grohtml-18573-3.png" alt="Image grohtml-18573-3.png"></p>
+
+<p>&rsquo;s allowable is set at 40.</p>
+
+<p style="margin-top: 1em">The maximum number of
+<img src="grohtml-18573-4.png" alt="Image grohtml-18573-4.png">
+&rsquo;s +
+<img src="grohtml-18573-5.png" alt="Image grohtml-18573-5.png">
+&rsquo;s allowable is set at 30.</p>
+
+<p style="margin-top: 1em">The maximum number of parameters
+that may be estimated (not fixed in some way) is set to
+70.</p>
+
+<p style="margin-top: 1em">The maximum number of
+<img src="grohtml-18573-6.png" alt="Image grohtml-18573-6.png">
+&rsquo;s allowable when the Laplacian estimation method is
+used with analytic second derivatives is set to 10.</p>
+
+<p style="margin-top: 1em">These maxima may be
+increased.</p>
+
+<p style="margin-top: 1em">See Guide III
+<a href="../III/III.html#2.9.1.">III.2.9.1</a></p>
+
+<h2>Changes to NONMEM Inputs
+<a name="Changes"></a>
+<a name="Changes to NONMEM Inputs"></a>
+</h2>
+
+
+<h2>2. Band Symmetric Matrices
+<a name="2."></a>
+<a name="2. Band Symmetric Matrices"></a>
+</h2>
+
+
+<p style="margin-top: 1em">An initial estimate of a
+diagonal block of ether the OMEGA or SIGMA matrices may have
+a band symmetric form, in which case the final estimate has
+the same form.</p>
+
+<h2>3. Superproblems
+<a name="3."></a>
+<a name="3. Superproblems"></a>
+</h2>
+
+
+<p style="margin-top: 1em">A superproblem is a sequence of
+problems within a NONMEM run that can be iterated. With
+every iteration each problem is run exactly as was specified
+for the first iteration. Differences in the results from a
+given problem between iterations are due to differences to
+input files that have been made by later problems within the
+superproblem or, when the problem involves simulation, to
+different random numbers being used. There can be a
+one-level nesting of superproblems, one superproblem within
+another.</p>
+
+<p style="margin-top: 1em">With NM-TRAN a superproblem is
+specified by including the record</p>
+
+<p style="margin-top: 1em"><tt>$SUPERPROBLEM SCOPE=n
+ITERATION=m</tt></p>
+
+<p style="margin-top: 1em">before the first $PROBLEM record
+of the superproblem.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$super.htm">$super</a></p>
+
+<h2>4. COVARIANCE Record
+<a name="4."></a>
+<a name="4. COVARIANCE Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Field 1 of the NONMEM COVARIANCE
+record may no longer have the value 1 (Covariance Step
+unconditionally implemented). It may have only values 0
+(Conditionally implemented) or 2 (omitted).</p>
+
+<p style="margin-top: 1em">The option
+<tt>UNCONDITIONAL</tt> of the NM-TRAN $COVARIANCE record is
+obsolete and is ignored; the Covariance Step cannot be
+implemented if the Estimation Step terminates
+unsuccessfully.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$covar.htm">$covariance</a></p>
+
+<h2>5. TABLE Record
+<a name="5."></a>
+<a name="5. TABLE Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Options <tt>PRINT</tt>,
+<tt>NOPRINT</tt>, <tt>HEADER</tt>, <tt>NOHEADER</tt>, and
+<tt>FILE</tt> of the NM-TRAN $TABLE record apply to the
+table defined by the record, and only to this table. They
+must be re-specified for each table to which they apply.</p>
+
+<p style="margin-top: 1em">Tables may be written to the
+same or to different table files.</p>
+
+<p style="margin-top: 1em">The list of labels may be as
+long as 50 with the <tt>NOPRINT</tt> option.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$table.htm">$table</a></p>
+
+<h2>6. Large Data Files
+<a name="6."></a>
+<a name="6. Large Data Files"></a>
+</h2>
+
+
+<p style="margin-top: 1em">NONMEM no longer needs a FINISH
+record when there are 10,000 or more records and when the
+NONMEM data set coincides with the NM-TRAN data set. If
+there is no FINISH record, the data are read to
+end-of-file.</p>
+
+<h2>7. Marginal (MRG_) Data Item
+<a name="7."></a>
+<a name="7. Marginal (MRG_) Data Item"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The marginal data item is a new
+NONMEM data item type. It identifies records for which
+NONMEM computes and displays marginal quantities
+(expectations). <tt>MRG_</tt> is a reserved label for this
+data item.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../mrg.htm">mrg</a> ,
+<a href="../expect.htm">expectation</a></p>
+
+<h2>8. Raw-Data (RAW_) Data Item
+<a name="8."></a>
+<a name="8. Raw-Data (RAW_) Data Item"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The raw-data data item is a new
+NONMEM data item type. It identifies template records for
+which NONMEM computes and displays raw-data averages.
+<tt>RAW_</tt> is a reserved label for this data item.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../raw.htm">raw</a> ,
+<a href="../datavg.htm">data_average_block</a> ,
+<a href="../datav.htm">data_average_example</a></p>
+
+<h2>9. Model Specification Files
+<a name="9."></a>
+<a name="9. Model Specification Files"></a>
+</h2>
+
+
+<p style="margin-top: 1em">When intermediate output is
+requested in the Estimation Step, and a Model Specification
+File is also requested, NONMEM updates the MSF with every
+iteration summary. Thus, a run can be efficiently continued
+after it has been interrupted.</p>
+
+<p style="margin-top: 1em">With previous versions of NONMEM
+it was not possible to input a MSF to repeat the Estimation
+Step using a method other than the one used to write the
+MSF. This is possible with NONMEM V, as long as the MSF
+contains the results of a search that terminated
+successfully.</p>
+
+<h2>Changes to NONMEM Output Files
+<a name="Changes"></a>
+<a name="Changes to NONMEM Output Files"></a>
+</h2>
+
+
+<h2>10. New Output File INTER
+<a name="10."></a>
+<a name="10. New Output File INTER"></a>
+</h2>
+
+
+<p style="margin-top: 1em">It is now possible to see the
+iteration estimates in the original parameterization for
+those iterations whose summaries appear in intermediate
+printout, providing a MSFO is used. The estimates may be
+found in file INTER, which will exist only during the
+duration of the run.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$estimat.htm">$estimation</a> ,
+<a href="../monitori.htm">monitoring of search</a></p>
+
+<h2>11. NONMEM Report
+<a name="11."></a>
+<a name="11. NONMEM Report"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Minor changes have been made to
+the wording of certain lines in the NONMEM and PREDPP
+output. In addition, it is possible that the results of the
+Estimation and Covariance Steps may be slightly different
+than with earlier versions of NONMEM.</p>
+
+<p style="margin-top: 1em">When a population conditional
+estimation method is used, for each element of
+<img src="grohtml-18573-7.png" alt="Image grohtml-18573-7.png">
+, the average conditional estimate of this element across
+individuals conditional on the final population parameter
+estimates (
+<img src="grohtml-18573-8.png" alt="Image grohtml-18573-8.png">
+) is output (<b>ETABAR</b>), along with a P-value (<b>P
+VAL.</b>) indicating how far the average is from 0.</p>
+
+<p style="margin-top: 1em">The labels for
+<img src="grohtml-18573-9.png" alt="Image grohtml-18573-9.png">
+&rsquo;s appearing in the output are ETA1, ETA2, ... ETA9,
+ET10, ET11, ... ET70 and ETA(1), ETA(2), etc.</p>
+
+<p style="margin-top: 1em">Output from the Covariance Step
+will look the same as before, except that when the sizes of
+the arrays that are printed exceed the largest size that can
+occur with NONMEM version IV (i.e. 75x75), an alternative
+form of output for these arrays is used. This is a
+compressed form that may be advantageous to view, even if
+the sizes of the array do not exceed 75x75. With this form,
+all zero values due to a parameter being fixed in some way
+are not printed. Compressed format is obtainable for arrays
+of all sizes by including the option <tt>COMPRESS</tt> on
+the $COVARIANCE record.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$covar.htm">$covariance</a></p>
+
+<p style="margin-top: 1em">The range of data records
+contributing to a scatterplot is printed in the header of
+the scatterplot when the user has explicitly specified this
+range or when the range doesn&rsquo;t include all the
+records that one might want to examine.</p>
+
+<p style="margin-top: 1em">Simulated
+<img src="grohtml-18573-10.png" alt="Image grohtml-18573-10.png">
+values are displayable in tables and scatterplots provided
+that the <tt>ETA</tt> array is defined in common NMPRD7
+(which is automatic when abbreviated code is used) and
+provided the option ONLYSIMULATION appears on the
+$SIMULATION record.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../nmprd7.htm">nmprd7</a></p>
+
+<h2>Changes to User-Written Code
+<a name="Changes"></a>
+<a name="Changes to User-Written Code"></a>
+</h2>
+
+
+<h2>12. PRED Routine Declarations
+<a name="12."></a>
+<a name="12. PRED Routine Declarations"></a>
+</h2>
+
+
+<p style="margin-top: 1em">User-written PRED routines for
+population data that worked with previous versions of NONMEM
+will not work with NONMEM V until the declarations in these
+routines have been revised to reflect the larger numbers of
+<img src="grohtml-18573-11.png" alt="Image grohtml-18573-11.png">
+&rsquo;s and
+<img src="grohtml-18573-12.png" alt="Image grohtml-18573-12.png">
+&rsquo;s allowed with NONMEM V. <br>
+(No change is needed to an old $PRED block, however.)</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../pred.htm">pred</a></p>
+
+<h2>13. ICALL
+<a name="13."></a>
+<a name="13. ICALL"></a>
+</h2>
+
+
+<p style="margin-top: 1em"><tt>ICALL</tt> is an input
+argument of PRED, PK and other user-written routines.
+<tt>ICALL</tt> may now take values 5 and 6. These occur when
+NONMEM is computing expectations and raw data averages,
+which are new features of NONMEM V.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../icall.htm">icall,</a>
+<a href="../expect.htm">expectation,</a>
+<a href="../datavg.htm">data_average_block</a> ,
+<a href="../mrg.htm">mrg_</a> ,
+<a href="../raw.htm">raw_</a></p>
+
+<h2>14. NEWIND
+<a name="14."></a>
+<a name="14. NEWIND"></a>
+</h2>
+
+
+<p style="margin-top: 1em">NEWIND is an argument of PRED
+and INFN and is available to PK and ERROR routines. The
+values of NEWIND have changed slightly.</p>
+
+<p style="margin-top: 1em"><tt>NEWIND=0</tt>: First record
+of the data set. THETA value may differ from value at last
+call with this record.</p>
+
+<p style="margin-top: 1em"><tt>NEWIND=1</tt>: First record
+of the data set, THETA value does not differ from value at
+last call with this record, and PRED is nonrecursive (with
+previous versions of NONMEM, this record would have had
+NEWIND=0).</p>
+
+<p style="margin-top: 1em"><tt>NEWIND=1</tt>: First record
+of a subsequent individual record.</p>
+
+<p style="margin-top: 1em"><tt>NEWIND=2</tt>: Subsequent
+data record of an individual record.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../pred.htm">pred</a> ,
+<a href="../$pred.htm">$pred</a> ,
+<b><a href="../procm1.htm">procm1</a></b></p>
+
+<h2>15. F
+<a name="15."></a>
+<a name="15. F"></a>
+</h2>
+
+
+<p style="margin-top: 1em">With the Simulation Step, PRED
+may return the simulated observation as the DV data item,
+rather than in the argument F. With odd-type data the
+simulated observation must be returned as the DV data
+item.</p>
+
+<p style="margin-top: 1em">See below
+<a href="#23.">23 (Likelihood)</a></p>
+
+<h2>16. NONMEM Read-Only Commons
+<a name="16."></a>
+<a name="16. NONMEM Read-Only Commons"></a>
+</h2>
+
+
+<p style="margin-top: 1em">There are new NONMEM read-only
+commons and changes to certain existing commons (in
+particular, ROCM6).</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../noncom.htm">NONMEM commons</a> as well as
+separate entries for each common.</p>
+
+<h2>17. NONMEM-PRED Commons
+<a name="17."></a>
+<a name="17. NONMEM-PRED Commons"></a>
+</h2>
+
+
+<p style="margin-top: 1em">There are new NONMEM-PRED
+commons and changes to certain existing commons.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../noncom.htm">NONMEM commons</a> as well as
+separate entries for each common.</p>
+
+<p style="margin-top: 1em">User-written PRED routines that
+are recursive should signal this fact to NONMEM using COMMON
+NMPRD8.</p>
+
+<h2>18. The PASS Routine
+<a name="18."></a>
+<a name="18. The PASS Routine"></a>
+</h2>
+
+
+<p style="margin-top: 1em">PASS now stores the data record
+as PASSRC in common NMPRD9, as well as in PRED&rsquo;s
+argument DATREC. It stores the NEWIND value as NEWND in
+common ROCM34, as well as in PRED&rsquo;s argument
+NEWIND.</p>
+
+<p style="margin-top: 1em">When PASS is used, any
+PRED-defined items that are displayed are now available in
+common NMPRD4 with each data record. If one is using $PRED,
+one may simply refer to these items by name as one is
+&quot;passing through the data&quot; If one is using PREDPP
+and an INFN routine, and the items are computed in $PK or
+$ERROR, then one should store the items in the reserved
+region of NMPRD4 so that, if the INFN uses PASS, the INFN
+routine can know where to refer to these items.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../rocm34.htm">rocm34</a> ,
+<a href="../nmprd9.htm">nmprd9</a></p>
+
+<h2>19. The MIX Routine
+<a name="19."></a>
+<a name="19. The MIX Routine"></a>
+</h2>
+
+
+<p style="margin-top: 1em">A MIX routine need only set
+NSPOP once, at the problem initialization call (ICALL=1).
+This number may no longer change between individuals.
+However, if for a given individual, the second (for example)
+subpopulation doesn&rsquo;t apply, then set P(2)=0 when MIX
+is called for that individual.</p>
+
+<p style="margin-top: 1em">With earlier versions of NONMEM,
+a displayed value of an
+<img src="grohtml-18573-13.png" alt="Image grohtml-18573-13.png">
+was obtained under the subpopulation estimated as most
+probable. On the other hand, the displayed value of a
+PRED-defined variable was obtained using the estimate of
+<img src="grohtml-18573-14.png" alt="Image grohtml-18573-14.png">
+obtained under the highest-numbered of the subpopulations.
+With NONMEM V, the displayed value is obtained using the
+displayed value of
+<img src="grohtml-18573-15.png" alt="Image grohtml-18573-15.png">
+(i.e., under the most probable subpopulation). Values of the
+PRED-defined variable obtained using estimates of
+<img src="grohtml-18573-16.png" alt="Image grohtml-18573-16.png">
+under different subpopulations may be obtained and displayed
+as usual (by storing these values in COM variables allocated
+from the save region of common NMPRD4).</p>
+
+<p style="margin-top: 1em">With the FO method, it has been
+possible to use a common
+<img src="grohtml-18573-17.png" alt="Image grohtml-18573-17.png">
+with two submodels. When conditional estimates are used,
+this has heretofore not been possible. Now it is possible.
+The conditional estimates of a common
+<img src="grohtml-18573-18.png" alt="Image grohtml-18573-18.png">
+will differ between the two submodels.</p>
+
+<p style="margin-top: 1em">See Guide
+<a href="../VII/index.html">VII</a></p>
+
+<h2>New Methods of Estimation
+<a name="New"></a>
+<a name="New Methods of Estimation"></a>
+</h2>
+
+
+<h2>20. METHOD=HYBRID ZERO=list
+<a name="20."></a>
+<a name="20. METHOD=HYBRID ZERO=list"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The Hybrid method is a hybrid
+between the FO and FOCE methods. The first-order expansion
+in
+<img src="grohtml-18573-19.png" alt="Image grohtml-18573-19.png">
+is made about a vector some of whose elements are 0 and
+others of which are a type of conditional estimate.</p>
+
+<p style="margin-top: 1em">This method may be specified
+with $NM-TRAN, using the options METHOD=HYBRID and ZERO=list
+on the $ESTIMATION record.</p>
+
+<p style="margin-top: 1em">See Guide
+<a href="../VII/index.html">VII</a> <br>
+See Guide VIII <a href="../$estimat.htm">$estimation</a></p>
+
+<h2>21. CENTERING, FO
+<a name="21."></a>
+<a name="21. CENTERING, FO"></a>
+</h2>
+
+
+<p style="margin-top: 1em">A conditional estimation method
+may use centering, which constrains the average conditional
+estimate of
+<img src="grohtml-18573-20.png" alt="Image grohtml-18573-20.png">
+to be nearly 0. This is useful when the amount of data per
+individual is large and when there is a large degree of
+model misspecification. A better fit (albeit perhaps not a
+very good fit, as the model is misspecified) can result.
+This method should not be used during model development.</p>
+
+<p style="margin-top: 1em">This method may be specified
+with $NM-TRAN, using the options METHOD=COND and CENTERING
+on the $ESTIMATION record. The option LAPLACIAN can also be
+used.</p>
+
+<p style="margin-top: 1em">With centering, the First-Order
+model, obtained by using the first-order expansion in
+<img src="grohtml-18573-21.png" alt="Image grohtml-18573-21.png">
+about the zero vector, may be used.</p>
+
+<p style="margin-top: 1em">This method may be specified
+with $NM-TRAN, using the options METHOD=COND, CENTERING, and
+FO on the $ESTIMATION record. The option LAPLACIAN cannot be
+used (because the model is linear in
+<img src="grohtml-18573-22.png" alt="Image grohtml-18573-22.png">
+).</p>
+
+<p style="margin-top: 1em">See Guide
+<a href="../VII/index.html">VII</a> <br>
+See Guide VIII <a href="../$estimat.htm">estimation</a></p>
+
+<h2>22. NUMERICAL
+<a name="22."></a>
+<a name="22. NUMERICAL"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The Laplacian method may be
+implemented using numerical second derivatives. Use of
+analytical second derivatives is preferable, but there are
+situations where it may be useful to try using numerical
+second derivatives. Use of numerical derivatives may result
+in significantly longer computation time.</p>
+
+<p style="margin-top: 1em">Numerical second derivatives may
+be specified with $NM-TRAN, using the options METHOD=COND,
+LAPLACIAN, and NUMERICAL on the $ESTIMATION record.</p>
+
+<p style="margin-top: 1em">See Guide
+<a href="../VII/index.html">VII</a> <br>
+See Guide VIII <a href="../$estimat.htm">$estimation</a></p>
+
+<h2>23. LIKELIHOOD, -2LOGLIKELIHOOD
+<a name="23."></a>
+<a name="23. LIKELIHOOD, -2LOGLIKELIHOOD"></a>
+</h2>
+
+
+<p style="margin-top: 1em">By default, objective functions
+used with NONMEM are least-squares type functions, and as
+such, need not be considered to be related to likelihood
+functions. However, NONMEM allows data to be analyzed with
+an objective function equal to -2log likelihood for the
+data, and this is particularly necessary when the
+intraindividual distributions of the data are discrete
+and/or very asymmetrical. (For the purposes of this
+discussion, such data are called &quot;odd-type&quot; data.)
+To accomplish this, the value of F returned by the PRED
+routine with an observation may be set to the value of the
+conditional likelihood of
+<img src="grohtml-18573-23.png" alt="Image grohtml-18573-23.png">
+for the observation, given the values of the model
+parameters
+<img src="grohtml-18573-24.png" alt="Image grohtml-18573-24.png">
+, rather than set to a prediction for the observation. The
+matrices G and H should be the usual derivatives of the
+expression used for F.</p>
+
+<p style="margin-top: 1em">This different use of F is
+signaled by using the option LIKELIHOOD on the $ESTIMATION
+record. It is assumed that first-order type approximations
+are not being used, and so the LAPLACIAN option should also
+appear.</p>
+
+<p style="margin-top: 1em">Alternatively, F may be set to
+the value of -2log conditional likelihood of
+<img src="grohtml-18573-25.png" alt="Image grohtml-18573-25.png">
+for the observation. This is signaled by using the option
+-2LOGLIKELIHOOD (or simply -2LL) in the $ESTIMATION
+record.</p>
+
+<p style="margin-top: 1em">Odd-type data may also be
+simulated. For this purpose, PRED must return the value of a
+simulated observation as the DV data item (rather than in
+the argument F, as with standard-type data), a technique
+that will work even when the data are of standard-type.</p>
+
+<p style="margin-top: 1em">See below
+<a href="#59.">59 (Generated ID Data Items)</a> <br>
+See Guide VIII <a href="../$estimat.htm">$estimation</a> ,
+<a href="../logit2.htm">logistic_regression_example</a></p>
+
+<h2>24. CONTR, CCONTR
+<a name="24."></a>
+<a name="24. CONTR, CCONTR"></a>
+</h2>
+
+
+<p style="margin-top: 1em">With earlier versions of NONMEM,
+odd-type data have been analyzed using special routines
+CONTR and CCONTR, which are not supported by the NONMEM
+Project Group. All versions of CONTR and CCONTR that have
+been used for this purpose with earlier versions of NONMEM
+should not be used with version V. The option LIKELIHOOD
+should be used instead. <br>
+<a name="II."></a></p>
+
+<h2>Chapter 2 - PREDPP
+<a name="Chapter"></a>
+<a name="Chapter 2 - PREDPP"></a>
+</h2>
+
+
+<h2>PK, TRANS, and ERROR routines
+<a name="PK,"></a>
+<a name="PK, TRANS, and ERROR routines"></a>
+</h2>
+
+
+<h2>25. PK, TRANS, and ERROR Routine Declarations
+<a name="25."></a>
+<a name="25. PK, TRANS, and ERROR Routine Declarations"></a>
+</h2>
+
+
+<p style="margin-top: 1em">PK, TRANS, and ERROR
+user-written subroutines for population data that worked
+with previous versions of NONMEM will not work with NONMEM V
+until the declarations in these routines have been revised
+to reflect the larger numbers of</p>
+
+
+<p align="center"><img src="grohtml-18573-27.png" alt="Image grohtml-18573-27.png"></p>
+
+<p>&rsquo;s and
+<img src="grohtml-18573-28.png" alt="Image grohtml-18573-28.png">
+&rsquo;s allowed with NONMEM V. (No change is needed to
+abbreviated code in an old $PK or $ERROR block,
+however.)</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../pk.htm">pk</a> ,
+<a href="../error.htm">error</a> ,
+<a href="../transf.htm">trans</a></p>
+
+<h2>26. More Parameters
+<a name="26."></a>
+<a name="26. More Parameters"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The maximum number of rows in GG
+(i.e., of basic and additional PK parameters) increases from
+30 to 50. If necessary, this maximum can be increased even
+further.</p>
+
+<p style="margin-top: 1em">See Guide III
+<a href="../III/IV.html#1.3.">IV.1.3</a>
+<a href="../III/V.html#2.6.">V.2.6</a> <br>
+See Guide VIII <a href="../pk.htm">pk</a> ,
+<a href="../sizes.htm">psizes</a> ,
+<a href="../sizes.htm">tsizes</a></p>
+
+<h2>27. Common for DOSTIM
+<a name="27."></a>
+<a name="27. Common for DOSTIM"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Variable DOSTIM and its
+<img src="grohtml-18573-29.png" alt="Image grohtml-18573-29.png">
+derivatives are defined in read-only common PROCM2. (In the
+documentation for PREDPP III, the variable was called DOST.
+The name has been changed to DOSTIM for documentation
+purposes. This does not require any change to existing PK
+routines.) The declaration of common PROCM2 has changed to
+reflect the larger number of
+<img src="grohtml-18573-30.png" alt="Image grohtml-18573-30.png">
+&rsquo;s allowed with NONMEM V.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../procm2.htm">procm2</a> ,
+<a href="../$pk.htm">$pk</a></p>
+
+<h2>28. Active Etas
+<a name="28."></a>
+<a name="28. Active Etas"></a>
+</h2>
+
+
+<p style="margin-top: 1em">A user written PK, TRANS, or
+ERROR routine may compute derivatives for all
+<img src="grohtml-18573-31.png" alt="Image grohtml-18573-31.png">
+&rsquo;s, or optionally, to reduce run time, only for active
+<img src="grohtml-18573-32.png" alt="Image grohtml-18573-32.png">
+&rsquo;s.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../procm5.htm">procm5</a></p>
+
+<h2>29. Common PRRAND
+<a name="29."></a>
+<a name="29. Common PRRAND"></a>
+</h2>
+
+
+<p style="margin-top: 1em">With PREDPP Version III,
+realizations of the
+<img src="grohtml-18573-33.png" alt="Image grohtml-18573-33.png">
+and
+<img src="grohtml-18573-34.png" alt="Image grohtml-18573-34.png">
+variables in the ERROR and PK routines may have been stored
+in a PREDPP common PRRAND. With PREDPP Version IV,
+<img src="grohtml-18573-35.png" alt="Image grohtml-18573-35.png">
+&rsquo;s may be stored in a new NONMEM common, NMPRD7. This
+allows simulated
+<img src="grohtml-18573-36.png" alt="Image grohtml-18573-36.png">
+&rsquo;s to be automatically displayable by NONMEM. ERROR
+may store
+<img src="grohtml-18573-37.png" alt="Image grohtml-18573-37.png">
+&rsquo;s in common PRRAND, but the declaration is different
+than it was previously. Declarations for PRRAND in old
+user-written PK and ERROR routines should be modified to
+include both NMPRD7 and PRRAND.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../nmprd7.htm">nmprd7</a> ,
+<a href="../prrand.htm">prrand</a></p>
+
+<h2>30.
+<a name="30."></a>
+</h2>
+
+
+
+<p style="margin-top: 1em"><a href="../prcomg.htm">prcomg</a></p>
+
+<h2>31.
+<a name="31."></a>
+</h2>
+
+
+
+<p style="margin-top: 1em"><a href="../procmw.htm">procmw</a></p>
+
+<h2>ERROR
+<a name="ERROR"></a>
+</h2>
+
+
+<h2>32. ERROR&rsquo;s IDEF
+<a name="32."></a>
+<a name="32. ERROR&rsquo;s IDEF"></a>
+</h2>
+
+
+<p style="margin-top: 1em">At ICALL=1, a value may
+optionally be stored in <tt>IDEF(</tt>3<tt>)</tt> to reduce
+run time. No existing ERROR routine need be changed.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../error.htm">error</a></p>
+
+<h2>Event Records
+<a name="Event"></a>
+<a name="Event Records"></a>
+</h2>
+
+
+<h2>33. The Dose Rate (RATE) Data Item
+<a name="33."></a>
+<a name="33. The Dose Rate (RATE) Data Item"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Documentation change. Guide VI
+(pre 1998 editions) states: &quot;A 0 indicates that the
+dose is an instantaneous bolus dose.&quot; There is an
+exception: a record with AMT=0, RATE=0, SS&gt;0, and II=0
+allows steady-state amounts to be computed by PREDPP based
+on system input given by the DES routine. This is useful
+when the differential equations provide for endogenous drug
+production. Furthermore, with NONMEM V, NM-TRAN supplies
+EVID=1 (dose event) for such records. Note that with NONMEM
+IV, NM-TRAN supplied EVID=0 (observation event) for such
+records, which is not correct. Consequently, if such records
+were present in the data set, the user had to provide the
+EVID item.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../ssdose.htm">ss dose event record</a></p>
+
+<h2>34. The Steady State (SS) Data Item
+<a name="34."></a>
+<a name="34. The Steady State (SS) Data Item"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The SS data item may take the
+value 3. It is useful only with SS6 and SS9.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../ss.htm">ss data item</a></p>
+
+<h2>Other User Subroutines
+<a name="Other"></a>
+<a name="Other User Subroutines"></a>
+</h2>
+
+
+<h2>INFN
+<a name="INFN"></a>
+</h2>
+
+
+<h2>35. Use of an INFN Argument
+<a name="35."></a>
+<a name="35. Use of an INFN Argument"></a>
+</h2>
+
+
+<p style="margin-top: 1em">At ICALL=0, INFN may now change
+the value of the first argument from 0 to a number in the
+range 1-8999. PREDPP prints this number in the output to
+help the user identify his own code. No existing INFN
+routine need be changed.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../infn.htm">infn</a></p>
+
+<h2>MODEL
+<a name="MODEL"></a>
+</h2>
+
+
+<h2>36. More Compartments and More Parameters
+<a name="36."></a>
+<a name="36. More Compartments and More Parameters"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The maximum number of
+user-defined compartments with a general ADVAN routine
+increases from 9 to 19. If necessary, these maxima can be
+increased even further.</p>
+
+<p style="margin-top: 1em">See Guide III IV.1.3, V.1.6
+<a href="../III/IV.html#1.3.">IV.1.3</a> ,
+<a href="../III/V.html#1.6.">V.1.6</a></p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../pk.htm">pk</a> ,
+<a href="../sizes.htm">psizes</a> ,
+<a href="../sizes.htm">tsizes</a></p>
+
+<h2>37. Models with No Basic PK parameters
+<a name="37."></a>
+<a name="37. Models with No Basic PK parameters"></a>
+</h2>
+
+
+<p style="margin-top: 1em">With ADVAN routines 6, 8, and 9,
+MODEL may now define models with no basic PK parameters.</p>
+
+<p style="margin-top: 1em">See below
+<a href="#40.">40. (Theta and EVTREC are Usable Directly)</a></p>
+
+<h2>DES
+<a name="DES"></a>
+</h2>
+
+
+<h2>38. DES Routine Declarations
+<a name="38."></a>
+<a name="38. DES Routine Declarations"></a>
+</h2>
+
+
+<p style="margin-top: 1em">A new argument DT must be
+declared. The partial derivative of DADT(i) with respect to
+T must be stored in DT(i). Old DES routines may or may not
+require a change. If T does not appear on the right side of
+any differential equation, then all elements of DT are zero
+and DES need not compute them because they are initialized
+to zero by PREDPP. If in addition the Fortran compiler
+and/or system loader does not consider it to be a fatal
+error if a calling routine passes more arguments to a
+subroutine than the subroutine declares, then old DES
+routines will still work. With some platforms, e.g.,
+Microsoft, there will be an unresolved external reference,
+and it will be necessary to modify existing user-written DES
+routines to declare the new argument DT.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../des.htm">des</a></p>
+
+<h2>39. Structure for DA, DP, DT: Full vs. Compact
+<a name="39."></a>
+<a name="39. Structure for DA, DP, DT: Full vs. Compact"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Arrays DA, DP, DT can have
+&quot;full&quot; format, as has been used in the past. E.g.,
+DA is defined as DA(10,10), where DA(i,j) is the partial
+derivative of DADT(i) with respect to A(j). Now, they may
+also have &quot;compact&quot; format, in which (e.g.) DA is
+defined to be in effect one-dimensional and only those
+derivatives that can be non-zero for the the particular
+model have defined positions in the array and need be
+computed.</p>
+
+<p style="margin-top: 1em">Existing DES routines can be
+used with no change (but see 36). However, compact arrays
+are required with the Laplacian method if second-partial
+derivatives are computed analytically. The use of
+&quot;compact&quot; format is optional with other methods.
+Note that, by default, NM-TRAN implements $DES blocks using
+compact formats. More information about compact array
+formats may be obtained by consultation with the NONMEM
+Project Group.</p>
+
+<p style="margin-top: 1em">The option <tt>DES</tt> of the
+$ABBREVIATED record specifies the format of the arrays
+returned by the DES routine: <tt>FULL</tt> or
+<tt>COMPACT</tt>.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$abbrevi.htm">$abbreviated</a> ,
+<a href="../des.htm">des</a> ,
+<a href="../prdde1.htm">prdde1</a></p>
+
+<h2>40. DES Initialization at ICALL=1
+<a name="40."></a>
+<a name="40. DES Initialization at ICALL=1"></a>
+</h2>
+
+
+<p style="margin-top: 1em">PREDPP Version IV makes an
+initialization call to the DES routine. This call does not
+occur with earlier versions of PREDPP. A new common is
+defined in PREDPP for DES and AES initialization:</p>
+
+<pre style="margin-top: 1em">   COMMON /PRDDE1/ICALL,IDEFD(2),IDEFA(2)
+   INTEGER ICALL,IDEFD,IDEFA</pre>
+
+
+<p style="margin-top: 1em">ICALL has the same value as PK
+and ERROR&rsquo;s ICALL argument. At ICALL=1, DES may
+optionally store values in IDEFD in order to improve run
+time. Values may be stored in DADT, etc., as at other calls,
+but these values are ignored.</p>
+
+<p style="margin-top: 1em">No changes are required to any
+existing DES routine because of this change. However, at
+ICALL=1 a user-written DES routine that does not check ICALL
+will compute DADT, etc., using values that PK computed (at
+ICALL=1) with the first event record and compartment amounts
+that are 0. There is some risk of arithmetic difficulties
+if, for example, a compartment amount of 0 is raised to a
+power. If this occurs, the user should insert the following
+statement at the top of the routine:</p>
+<pre>      IF (ICALL.EQ.1) RETURN</pre>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../des.htm">des</a> ,
+<a href="../prdde1.htm">prdde1</a></p>
+
+<h2>41. Displayed DES-defined Items
+<a name="41."></a>
+<a name="41. Displayed DES-defined Items"></a>
+</h2>
+
+
+<p style="margin-top: 1em">DES-defined items may be
+displayed in tables or scatterplots and are computed at the
+event time in the data record. With previous versions of
+PREDPP, the displayed items might have been computed at a
+slightly different time and might have had slightly
+different values.</p>
+
+<h2>42. Theta and EVTREC are Usable Directly
+<a name="42."></a>
+<a name="42. Theta and EVTREC are Usable Directly"></a>
+</h2>
+
+
+<p style="margin-top: 1em">New PREDPP read-only commons
+contain the current THETA vector and the current event
+record (the event record to which the system is being
+advanced). Thus these quantities can be directly referenced
+by DES (rather than obtained as PK parameters). Similarly,
+$DES abbreviated code may now include direct reference to
+THETA elements and data record items. This may improve run
+time.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../procm6.htm">procm6</a> ,
+<a href="../procm7.htm">procm7</a></p>
+
+<h2>43. Use of DOSTIM and DOSREC in DES
+<a name="43."></a>
+<a name="43. Use of DOSTIM and DOSREC in DES"></a>
+</h2>
+
+
+<p style="margin-top: 1em">PREDPP defines variables DOSTIM
+and DOSREC in commons PROCM2 and PROCM3. Their use in DES
+was not previously documented.</p>
+
+<p style="margin-top: 1em">A DES routine may test DOSTIM
+and DOSREC in a logical condition. It may use them on the
+right-hand side of an assignment statement. If DOSTIM is a
+random variable, DOSTIM must not be used in DES or $DES.
+However, DOSTIM may always be used in a $PK block or PK
+routine to define a random variable which may be used in the
+DES routine.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../des.htm">des</a> ,
+<a href="../procm2.htm">procm2</a> ,
+<a href="../procm3.htm">procm3</a></p>
+
+<h2>44. Time T in DES routines
+<a name="44."></a>
+<a name="44. Time T in DES routines"></a>
+</h2>
+
+
+<p style="margin-top: 1em">With PREDPP Version III, if a
+rate parameter, duration parameter, or absorption lag time
+parameter is a random variable, then T may be used only in
+logical conditions.</p>
+
+<p style="margin-top: 1em">This restriction is now removed.
+Time T may be used freely in DES routines and in $DES
+abbreviated code.</p>
+
+<h2>AES
+<a name="AES"></a>
+</h2>
+
+
+<h2>45. AES Initialization at ICALL=1
+<a name="45."></a>
+<a name="45. AES Initialization at ICALL=1"></a>
+</h2>
+
+
+<p style="margin-top: 1em">PREDPP Version IV makes an
+initialization call to the AES routine. This call does not
+occur with earlier versions of PREDPP. A new common is
+defined in PREDPP for DES and AES initialization:</p>
+
+<pre style="margin-top: 1em">   COMMON /PRDDE1/ICALL,IDEFD(2),IDEFA(2)
+   INTEGER ICALL,IDEFD,IDEFA</pre>
+
+
+<p style="margin-top: 1em">ICALL has the same value as PK
+and ERROR&rsquo;s ICALL argument. At ICALL=1, AES may
+optionally store values in IDEFA in order to improve run
+time. Values may be stored in A, etc., as at other calls,
+but these values are ignored. At ICALL=1, INIT has the value
+1.</p>
+
+<p style="margin-top: 1em">No changes are required to any
+existing AES routine because of this change. However, at
+ICALL=1, a user-written AES routine that does not check
+ICALL will compute A, etc., using values that PK computed
+(at ICALL=1) with the first event record and compartment
+amounts that are 0. There is some risk of arithmetic
+difficulties if, for example, a compartment amount of 0 is
+raised to a power. If this occurs, the user should insert
+the following statement at the top of the routine:</p>
+
+<pre style="margin-top: 1em">      IF (ICALL.EQ.1) RETURN</pre>
+
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../aes.htm">aes</a> ,
+<a href="../prdde1.htm">prdde1</a></p>
+
+<h2>46. Displayed AES-defined Items
+<a name="46."></a>
+<a name="46. Displayed AES-defined Items"></a>
+</h2>
+
+
+<p style="margin-top: 1em">AES-defined items may be
+displayed in tables or scatterplots and are computed at the
+event time in the data record. With previous versions of
+PREDPP, the displayed items might have been computed at a
+slightly different time and might have had slightly
+different values.</p>
+
+<h2>47. Theta and EVTREC are Usable Directly
+<a name="47."></a>
+<a name="47. Theta and EVTREC are Usable Directly"></a>
+</h2>
+
+
+<p style="margin-top: 1em">New PREDPP read-only commons
+contain the current THETA vector and the current event
+record (the event record to which the system is being
+advanced). Thus these quantities can be directly referenced
+by AES (rather than obtained as PK parameters). Similarly,
+$AES abbreviated code may now include direct reference to
+THETA elements and data record items. This may improve run
+time.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../procm6.htm">procm6</a> ,
+<a href="../procm7.htm">procm7</a></p>
+
+<h2>48. Use of DOSTIM and DOSREC in AES
+<a name="48."></a>
+<a name="48. Use of DOSTIM and DOSREC in AES"></a>
+</h2>
+
+
+<p style="margin-top: 1em">PREDPP defines variables DOSTIM
+and DOSREC in commons PROCM2 and PROCM3. Their use in AES
+was not previously documented.</p>
+
+<p style="margin-top: 1em">A DES routine may test DOSTIM
+and DOSREC in a logical condition. It may use them on the
+right-hand side of an assignment statement. If DOSTIM is a
+random variable, DOSTIM must not be used in AES or $AES.
+However, DOSTIM may always be used in a $PK block or PK
+routine to define a random variable which may be used in the
+AES routine.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../aes.htm">aes</a> ,
+<a href="../procm2.htm">procm2</a> ,
+<a href="../procm3.htm">procm3</a></p>
+
+<h2>49. Time T in AES routines
+<a name="49."></a>
+<a name="49. Time T in AES routines"></a>
+</h2>
+
+
+<p style="margin-top: 1em">With PREDPP Version III, if a
+rate parameter, duration parameter or absorption lag time
+parameter is a random variable, then T may appear explicitly
+in the algebraic equations, as long as no differential
+equation depends on the equilibrium compartment amounts.</p>
+
+<p style="margin-top: 1em">With PREDPP Version IV, this
+restriction has been removed.</p>
+
+<h2>The PREDPP Library
+<a name="The"></a>
+<a name="The PREDPP Library"></a>
+</h2>
+
+
+<h2>50. Laplacian Method
+<a name="50."></a>
+<a name="50. Laplacian Method"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The analytic Laplacian method is
+supported with all ADVAN, TRANS and SS routines with these
+exceptions:</p>
+
+<p style="margin-left:3%; margin-top: 1em">ADVAN5 ADVAN7
+ADVAN11 ADVAN12 SS5 SS7 SS11 SS12</p>
+
+<p style="margin-top: 1em">With the above routines, the the
+Laplacian method may be used, but only if the $ESTIMATION
+record includes the option <tt>NUMERICAL</tt>.</p>
+
+<p style="margin-top: 1em">(For ADVAN11 and SS11, and
+ADVAN12 and SS12, see below <a href="#52.">ADVAN11</a> ,
+<a href="#53.">ADVAN12</a>)</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$estimat.htm">$estimation</a></p>
+
+<h2>51. ADVAN5
+<a name="51."></a>
+<a name="51. ADVAN5"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Substantial time savings are
+possible when the PK routine limits calls to once per
+individual record (<tt>CALLFL=1</tt> or <tt>ONCE PER
+IR</tt>).</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../callpr.htm">calling protocol</a></p>
+
+<h2>52. ADVAN7
+<a name="52."></a>
+<a name="52. ADVAN7"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Substantial time savings are
+possible when the PK routine limits calls to once per
+individual record (<tt>CALLFL=1</tt> or <tt>ONCE PER
+IR</tt>).</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../callpr.htm">calling protocol</a></p>
+
+<p style="margin-top: 1em">There is new error message. An
+example of this message follows:</p>
+
+<pre style="margin-top: 1em">    NUMERICAL DIFFICULTIES OBTAINING THE SOLUTION.  NON-REAL
+    EIGENVALUES. PERHAPS ADVAN5 SHOULD BE USED FOR THIS PROBLEM.
+    &quot;LARGEST&quot; VALUE ALONG SUBDIAGONAL OF SCHUR MATRIX:  0.423E-01
+    (DIAG: 0.84E+00 0.84E+00)</pre>
+
+
+<p style="margin-top: 1em">If the maximum value printed is
+very small (e.g., E-15), then the computations will probably
+proceed correctly if the error message is suppressed;
+information about suppressing the message may be obtained by
+consultation with the NONMEM Project Group. If the maximum
+value is sizeable (e.g., E-01), then the model should be
+scrutinized and if there are no mistakes, ADVAN5 should be
+used.</p>
+
+<h2>53. ADVAN9 as an Algebraic Equation Solver
+<a name="53."></a>
+<a name="53. ADVAN9 as an Algebraic Equation Solver"></a>
+</h2>
+
+
+<p style="margin-top: 1em">ADVAN9 allows the user to define
+a model consisting only of equilibrium compartments, in
+which case ADVAN9 becomes a purely algebraic equation
+solver. The quantities A(i) may be thought of as unknowns to
+be determined rather than as &quot;compartment&quot;
+amounts.</p>
+
+<p style="margin-top: 1em">Several changes are associated
+with this use of ADVAN9:</p>
+
+<p style="margin-top: 1em">Records with EVID=1 and EVID=4
+(dose, reset and dose) may not be present in the data set
+because doses cannot be placed in equilibrium compartments.
+Similarly, data items related to doses (RATE, AMT, SS, II,
+ADDL) may or may not be used in the data set. If used, they
+must contain null values.</p>
+
+<p style="margin-top: 1em">The TIME data item is
+optional.</p>
+
+<p style="margin-top: 1em">If TIME is used, ADVAN9 is
+called exactly as other ADVAN routines are called: when the
+value of TIME increases.</p>
+
+<p style="margin-top: 1em">If TIME is not defined, the AES
+routine specifies the calling protocol for ADVAN9: call with
+every event record (the default) or once per individual
+record.</p>
+
+<p style="margin-top: 1em">If calls to ADVAN9 are limited,
+the CALL data item may be defined in the data set and given
+the value 10 to force additional calls to ADVAN9.</p>
+
+<p style="margin-top: 1em">No calls to the DES routine
+occur. The DES routine may be omitted if the linker permits
+an unresolved external reference, or may be a dummy routine
+(stub) that simply executes a return statement. With
+NM-TRAN, a $DES block may not be present but NM-TRAN
+generates code for a dummy DES routine.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../aes.htm">aes</a> ,
+<a href="../prdde1.htm">prdde1</a> ,
+<a href="../call.htm">call data item</a></p>
+
+<h2>54.
+<a name="54."></a>
+</h2>
+
+
+<h2>55. ADVAN11
+<a name="55."></a>
+<a name="55. ADVAN11"></a>
+</h2>
+
+
+<p style="margin-top: 1em">ADVAN11 implements the Three
+Compartment Linear Model. It uses a subroutine EXP3 from the
+PREDPP library. It may be used with TRANS1, TRANS4, and
+TRANS6.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../advan11.htm">advan11</a> ,
+<a href="../trans4.htm">trans4</a> ,
+<a href="../trans6.htm">trans6</a></p>
+
+<h2>56. ADVAN12
+<a name="56."></a>
+<a name="56. ADVAN12"></a>
+</h2>
+
+
+<p style="margin-top: 1em">ADVAN12 implements the Three
+Compartment Linear Model with First Order Absorption. It
+uses subroutines EXP3 and EXP4 from the PREDPP library. It
+may be used with TRANS1, TRANS4, and TRANS6.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../advan12.htm">advan12</a> ,
+<a href="../trans4.htm">trans4</a> ,
+<a href="../trans6.htm">trans6</a></p>
+
+<h2>57. TRANS6
+<a name="57."></a>
+<a name="57. TRANS6"></a>
+</h2>
+
+
+<p style="margin-top: 1em">TRANS6 may be used with ADVAN3,
+ADVAN4, ADVAN11 and ADVAN12. The parameters are ALPHA, BETA
+and (with ADVAN11 and ADVAN12) GAMMA, plus rate constants
+from peripheral compartments to to the central
+compartment.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../trans6.htm">trans6</a> <br>
+<a name="III."></a></p>
+
+<h2>Chapter 3 - NM-TRAN
+<a name="Chapter"></a>
+<a name="Chapter 3 - NM-TRAN"></a>
+</h2>
+
+
+<h2>General
+<a name="General"></a>
+</h2>
+
+
+<h2>58. Warning Messages
+<a name="58."></a>
+<a name="58. Warning Messages"></a>
+</h2>
+
+
+<p style="margin-top: 1em">NM-TRAN Version III generates
+various informational and warning messages. These messages
+are not fatal (NONMEM may still be run) and may be ignored.
+Warning messages can be suppressed or their numbers limited
+for a given run by use of a new NM-TRAN control record
+$WARNINGS.</p>
+
+<p style="margin-top: 1em">See Guide III
+<a href="../III/V.html#2.1.4.">V.2.1.4</a> <br>
+See Guide VIII <a href="../$warning.htm">$warning</a></p>
+
+<h2>59. Day-Time Translation: the Year 2000
+<a name="59."></a>
+<a name="59. Day-Time Translation: the Year 2000"></a>
+</h2>
+
+
+<p style="margin-top: 1em">All versions of NMTRAN process
+the year correctly when all four digits are coded. However,
+earlier versions of NM-TRAN than III assume that two digit
+years are in the 1900&rsquo;s. With NM-TRAN Version III, a
+constant <tt>LAST20</tt> specifies the highest 2-digit year
+nn that is assumed to be in the 21st. century, i.e., to
+represent 20nn. By default, this constant has the value -1,
+and all 2-digit years remain in the 1900&rsquo;s.
+<tt>LAST20</tt> can be changed at installation time. It can
+also be changed at run time using the <tt>LAST20</tt> option
+of the $DATA record. As an example, consider this fragment
+of data:</p>
+
+<pre style="margin-top: 1em"># TIME DROP=DATE
+    0  12-31-99
+    0  01-01-00</pre>
+
+
+<p style="margin-top: 1em">Earlier versions of NM-TRAN, and
+the present version with <tt>LAST20</tt> set to -1, produce
+an error message:</p>
+
+<pre style="margin-top: 1em">(DATA ERROR)      RECORD     2, DATA ITEM  2: ******
+ELAPSED TIME MAY NOT BE NEGATIVE.</pre>
+
+
+<p style="margin-top: 1em">With <tt>LAST20</tt> set to 0 or
+any larger value, there is no error. The second year is
+understood to represent 2000. The elapsed time is 24
+hours.</p>
+
+<p style="margin-top: 1em">With earlier versions of
+NM-TRAN, and with <tt>LAST20</tt> set to -1, the years
+&quot;00&quot; and &quot;0&quot; are not leap years. With
+<tt>LAST20</tt> set to 0 or any larger value, they are
+understood to be</p>
+
+
+<p align="center"><img src="grohtml-18573-39.png" alt="Image grohtml-18573-39.png"></p>
+
+<p>, which is a leap year. This changes the translation of
+dates that span February to March.</p>
+
+<p style="margin-top: 1em">A warning message related to
+leap year can be controlled at installation time.</p>
+
+<p style="margin-top: 1em">See Guide III
+<a href="../III/V.html#2.1.5.">V.2.1.5</a> <br>
+See Guide VIII <a href="../$data.htm">$data</a></p>
+
+<h2>60. More Digits After Day-Time Translation
+<a name="60."></a>
+<a name="60. More Digits After Day-Time Translation"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Previous versions of NM-TRAN
+provide four digits (xxxx.xx) for the TIME data item after
+day-time translation. This allows TIME to be at most
+approximately 416 days (416*24=9984 hours). NM-TRAN III
+provides five digits (xxxxx.xx), which allows TIME to be at
+most approximately 4166 days. Furthermore, when the $DATA
+record includes the option <tt>WIDE</tt>, six digits
+(xxxxxx.xx) are provided.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$data.htm">$data</a></p>
+
+<h2>61. TIME and II Data Items: Conversion to Days
+<a name="61."></a>
+<a name="61. TIME and II Data Items: Conversion to Days"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The option <tt>TRANSLATE</tt> on
+the $DATA record directs NM-TRAN to divide the contents of
+the TIME and/or II data items by 24, thus converting hours
+to days. The user must insure that the units of PK
+parameters such as CL or K are consistent with this.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$data.htm">$data</a></p>
+
+<h2>62. Generated ID Data Items
+<a name="62."></a>
+<a name="62. Generated ID Data Items"></a>
+</h2>
+
+
+<p style="margin-top: 1em">NM-TRAN infers that the data are
+population data when certain things are true of the control
+stream. Add to the list in Guide IV Chapter II section C.4.2
+the following:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">6.</p></td>
+<td width="5%"></td>
+<td width="92%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">6</p></td>
+<td width="5%"></td>
+<td width="92%">
+
+
+<p style="margin-top: 1em">An $ESTIMATION record includes
+the option <tt>LIKELIHOOD</tt> or <tt>-2LOGLIKELIHOOD</tt>,
+and an abbreviated code is present which uses
+<img src="grohtml-18573-40.png" alt="Image grohtml-18573-40.png">
+&rsquo;s.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">7</p></td>
+<td width="5%"></td>
+<td width="92%">
+
+
+<p style="margin-top: 1em">The $ESTIMATION record includes
+the option <tt>LIKELIHOOD</tt> or <tt>-2LOGLIKELIHOOD</tt>,
+and an $OMEGA record is used.</p></td></tr>
+</table>
+
+<p style="margin-top: 1em">In these cases the user need not
+supply the L1 data item label on the $INPUT record, although
+it is not incorrect to do so.</p>
+
+<p style="margin-top: 1em">NM-TRAN generates one or the
+other of the following warning messages in all cases. This
+permits the user to verify that NM-TRAN has made the correct
+inference.</p>
+
+<p style="margin-top: 1em"><tt>(WARNING 1) NM-TRAN
+INFERS THAT THE DATA ARE SINGLE-SUBJECT. <br>
+(WARNING 2) NM-TRAN INFERS THAT THE DATA ARE
+POPULATION.</tt></p>
+
+<h2>Control Records
+<a name="Control"></a>
+<a name="Control Records"></a>
+</h2>
+
+
+<h2>63. INCLUDE Records
+<a name="63."></a>
+<a name="63. INCLUDE Records"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Records whose first non-blank
+characters are <tt>INCLUDE</tt> may be present anywhere in
+the control stream. Such a record causes NM-TRAN to read
+records from a given file into the control stream.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../include.htm">include</a></p>
+
+<h2>64. Filenames on Control Records
+<a name="64."></a>
+<a name="64. Filenames on Control Records"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Filenames on NM-TRAN records may
+consist of as many characters as fit on a single line. A
+filename may not contain embedded spaces. If it contains
+commas, semicolons, or parentheses, or if it starts with an
+equal sign, then it must be surrounded by single quotes
+&rsquo; or double quotes &quot; <br>
+An option name may not be used as a filename unless it is
+surrounded by quotes.</p>
+
+<h2>65. $PROBLEM Record
+<a name="65."></a>
+<a name="65. $PROBLEM Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The text following
+<tt>$PROBLEM</tt> is optional.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$problem.htm">$problem</a></p>
+
+<h2>66. $DATA Record
+<a name="66."></a>
+<a name="66. $DATA Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">When the format option is
+omitted, the maximum record size in the NM-TRAN data set is
+increased from 300 to 999 characters.</p>
+
+<p style="margin-top: 1em">The option <tt>IGNORE</tt>
+allows records starting with any alphabetic characters (not
+just a single specified character) to be ignored. The
+character # is the default. Records in the NM-TRAN data set
+whose first character is # are ignored, even if the $DATA
+record does not include the <tt>IGNORE</tt> option.</p>
+
+<p style="margin-top: 1em">The option <tt>NOOPEN</tt>
+specifies that the data set is not to be opened by NM-TRAN.
+This is useful in a multi-problem control stream when the
+data set is created by an earlier problem.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$data.htm">$data</a></p>
+
+<h2>67. $SUBROUTINES Record
+<a name="67."></a>
+<a name="67. $SUBROUTINES Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">With $SUBROUTINES LIBRARY,
+different abbreviated code may be present in different
+problems of a multiple-problem run.</p>
+
+<p style="margin-top: 1em">The name to which a subname is
+set may be a filename as described in
+<a href="#61.">61 (Filenames on Control Records)</a>
+above.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$subrout.htm">$subroutine</a> ,
+<a href="../subrouti.htm">subroutine</a></p>
+
+<h2>68. $THETA Record
+<a name="68."></a>
+<a name="68. $THETA Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">A new option
+<tt>NOABORTFIRST</tt> applies to the Initial Estimates
+Step.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$theta.htm">$theta</a></p>
+
+<h2>69. $MSFI Record
+<a name="69."></a>
+<a name="69. $MSFI Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The characters &quot;=n&quot; of
+the <tt>NPOPETAS</tt> are optional. The option may be coded
+<tt>POPETAS</tt>. This option can be used to inform NM-TRAN
+that the data are population data. This may be needed when
+the $ESTIMATION record does not appear.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$msfi.htm">$msfi</a></p>
+
+<h2>70. $ESTIMATION Record
+<a name="70."></a>
+<a name="70. $ESTIMATION Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">New options of the $ESTIMATION
+record are described in Chapter 1 of this guide.</p>
+
+<h2>71. $SIMULATION Record
+<a name="71."></a>
+<a name="71. $SIMULATION Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">NM-TRAN provides an initial call
+to SIMETA and SIMEPS. Additional calls to SIMETA and SIMEPS
+can be specified explicitly in abbreviated code in
+simulation blocks.</p>
+
+<p style="margin-top: 1em">Data can be transgenerated using
+abbreviated code in a simulation block.</p>
+
+<p style="margin-top: 1em">With the option
+<tt>ONLYSIMULATION</tt>, simulated
+<img src="grohtml-18573-41.png" alt="Image grohtml-18573-41.png">
+values are displayable by using <tt>ETA</tt> labels in
+$TABLE and $SCATTERPLOTS provided that the <tt>ETA</tt>
+array is defined in common NMPRD7, as is automatically the
+case when $PK, $ERROR, and $PRED abbreviated code is
+used.</p>
+
+<p style="margin-top: 1em">Options <tt>REQUESTFIRST</tt>
+and <tt>REQUESTSECOND</tt> cause NONMEM to compute first and
+second partial eta-derivatives during the Simulation
+Step.</p>
+
+<p style="margin-top: 1em">Option <tt>NOPREDICTION</tt> can
+be used with <tt>ONLYSIMULATION</tt> and indicates both that
+the simulated value is returned in the DV data item, and
+that etas (if any) are population etas.
+<tt>NOPREDICTION</tt> may be needed when the $SIMULATION
+record appears, and the $ESTIMATION record does not
+appear.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$simulat.htm">$simulation</a> ,
+<a href="../simulat.htm">simulation block</a> ,
+<a href="../nmprd7.htm">nmprd7</a></p>
+
+<h2>72. $TABLE Record
+<a name="72."></a>
+<a name="72. $TABLE Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">In a multi-problem run, the list
+may include PRED-defined labels from a prior problem.</p>
+
+<p style="margin-top: 1em">The characters <tt>ETA(A)</tt>
+and <tt>ETAA</tt> are no longer accepted as symbolizing
+<tt>ETA(10)</tt>.</p>
+
+<p style="margin-top: 1em">There are new options:</p>
+
+<pre style="margin-top: 1em">FIRSTONLY
+FORWARD NOFORWARD
+APPEND NOAPPEND</pre>
+
+
+<p style="margin-top: 1em">See Guide VIII
+<tt><a href="../$table.htm">$table</a></tt></p>
+
+<h2>73. $SCATTERPLOT Record
+<a name="73."></a>
+<a name="73. $SCATTERPLOT Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">There are new options:</p>
+
+<pre style="margin-top: 1em">FIRSTONLY
+ABS0 NOABS0
+NOORD0
+OBSONLY</pre>
+
+
+<p style="margin-top: 1em">See Guide VIII
+<tt><a href="../$scatter.htm">$scatter</a></tt></p>
+
+<h2>74. $MIX Record
+<a name="74."></a>
+<a name="74. $MIX Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The $MIX record marks the
+beginning of abbreviated code for the MIX routine.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../mix.htm">mix</a></p>
+
+<h2>Abbreviated Code
+<a name="Abbreviated"></a>
+<a name="Abbreviated Code"></a>
+</h2>
+
+
+<h2>75. New Features
+<a name="75."></a>
+<a name="75. New Features"></a>
+</h2>
+
+
+<p style="margin-top: 1em">FORTRAN <tt>CALL</tt>, <tt>DO
+WHILE</tt>, <tt>ENDDO</tt>, and <tt>RETURN</tt> statements
+may be used under certain circumstances.</p>
+
+<p style="margin-top: 1em">FORTRAN functions <tt>SIN</tt>,
+<tt>COS</tt>, and <tt>ABS</tt> are allowed, and may have
+random variable arguments. Note that the partial derivative
+of <tt>ABS(X)</tt> with respect to
+<img src="grohtml-18573-42.png" alt="Image grohtml-18573-42.png">
+is mathematically undefined at X=0. We are arbitrarily
+defining it to be dX/d
+<img src="grohtml-18573-43.png" alt="Image grohtml-18573-43.png">
+. If the prediction depends on X, X must always be either
+positive or negative.</p>
+
+<p style="margin-top: 1em">Parentheses may be nested.</p>
+
+<p style="margin-top: 1em">Parentheses may be used in
+arithmetic expressions that are part of conditional
+expressions, but not when the parentheses include
+<tt>.AND.</tt> or <tt>.OR.</tt>.</p>
+
+<p style="margin-top: 1em">Conditional statements may be
+nested, unless random variables appear anywhere in the inner
+or outer blocks.</p>
+
+<p style="margin-top: 1em">FORTRAN <tt>WRITE</tt> and
+<tt>PRINT</tt> statements may be used, with
+restrictions.</p>
+
+<p style="margin-top: 1em">Variables in generated code that
+symbolize (first-, and second-) partial
+<img src="grohtml-18573-44.png" alt="Image grohtml-18573-44.png">
+-derivatives of random variables will have different names
+with NM-TRAN Version III than with Version II.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../write.htm">write print</a> ,
+<a href="../abbrevia.htm">abbreviated</a></p>
+
+<h2>76. Restrictions on the Use of Random Variables in Abbreviated Code
+<a name="76."></a>
+<a name="76. Restrictions on the Use of Random Variables in Abbreviated Code"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Random variables may be assigned
+using conditional statements. Old code (using indicator
+variables) is still valid.</p>
+
+<p style="margin-top: 1em">Random variables may be
+redefined, and may appear on the right hand side of
+conditional assignment statements. They may be used
+recursively in their own redefinition.</p>
+
+<p style="margin-top: 1em">If a random variable is defined
+by &quot;incomplete&quot; conditionals (i.e., conditionals
+which do not include both true and false cases), and all
+tests fail, the random variable has the value zero. This is
+a major difference between random and non-random variables.
+Consider these examples:</p>
+
+<pre style="margin-top: 1em">  IF (WT.GT.0) K=WT*THETA(1)*EXP(ETA(1))
+  IF (WT.GT.0) TVV=WT*THETA(1)</pre>
+
+
+<p style="margin-top: 1em">If <tt>WT</tt> is
+<img src="grohtml-18573-45.png" alt="Image grohtml-18573-45.png">
+, <tt>K</tt> is zero. <br>
+If <tt>WT</tt> is
+<img src="grohtml-18573-46.png" alt="Image grohtml-18573-46.png">
+, <tt>TVV</tt> retains its prior value, which may have been
+computed with a previous event record.</p>
+
+<p style="margin-top: 1em">When a <tt>COM(</tt>i<tt>)</tt>
+variable is defined by incomplete conditional statements and
+all tests fail, the variable retains its value (as do
+non-random variables).</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../abbrevia.htm">abbreviated</a></p>
+
+<h2>77. Improved Computation of Powers
+<a name="77."></a>
+<a name="77. Improved Computation of Powers"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Although when B=0 and P&gt;0 the
+computation R=B**P is mathematically defined and is 0, some
+floating point processors fail with a floating point error.
+NM-TRAN now causes powers to be computed, in both generated
+and Library codes, in a manner that avoids floating point
+errors in this circumstance. In effect, powers are now
+computed as in a work-around that has been suggested to
+numerous NONMEM users who have asked for help with this
+difficulty:</p>
+
+<pre style="margin-top: 1em"> Q=0
+ IF (B.EQ.0) Q=1
+ R=(1-Q)*(B+Q)**P</pre>
+
+
+<p style="margin-top: 1em">If the work-around is already
+part of the abbreviated code it may be removed, but there is
+no harm if it remains; the generated or Library code will
+execute correctly, albeit more slowly than necessary.</p>
+
+<h2>78. Right-Hand Quantities
+<a name="78."></a>
+<a name="78. Right-Hand Quantities"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The reserved variable Y may now
+appear on the right-hand side in $PRED and $ERROR
+abbreviated code, e.g., <tt>LOGY=LOG(Y)</tt>.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$pred.htm">$pred</a> ,
+<a href="../$error.htm">$pred</a></p>
+
+<p style="margin-top: 1em">The variable <tt>MIXP</tt>
+symbolizes a mixture probability computed by subroutine
+MIX.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../mix.htm">mix</a> ,
+<a href="../mixnum.htm">mixp</a> ,
+<a href="../rocm25.htm">rocm25</a></p>
+
+<p style="margin-top: 1em">Right-hand quantities of
+interest with simulation are <tt>NREP</tt> and
+<tt>IREP</tt>. Right hand-quantities of interest with
+multiple problem runs and with super problems are
+<tt>NPROB</tt>, <tt>IPROB</tt>, <tt>S1NUM</tt>,
+<tt>S2NUM</tt>, <tt>S1NIT</tt>, <tt>S2NIT</tt>,
+<tt>S1IT</tt>, and <tt>S2IT</tt>.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../rocm10.htm">rocm10</a> ,
+<a href="../rocm14.htm">rocm14</a></p>
+
+<p style="margin-top: 1em">If NM-TRAN appends the EVID
+and/or MDV data items, then EVID and MDV may appear on the
+right-hand side in $PK, $ERROR, $DES, and $AES abbreviated
+codes.</p>
+
+<h2>79. Pseudo-Statements
+<a name="79."></a>
+<a name="79. Pseudo-Statements"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The statement</p>
+
+<p style="margin-top: 1em"><tt>COMRES=-1</tt></p>
+
+<p style="margin-top: 1em">may optionally be enclosed
+within parentheses, and, if so, may optionally be coded on
+the first line of the block, e.g.</p>
+
+<p style="margin-top: 1em"><tt>$PRED (COMRES=-1)</tt></p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$abbrevi.htm">$abbreviated</a></p>
+
+<h2>80. ICALL Blocks
+<a name="80."></a>
+<a name="80. ICALL Blocks"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Abbreviated code between an IF
+statement that tests <tt>ICALL</tt> and the matching
+<tt>ENDIF</tt> is referred to as an ICALL block. E.g.,</p>
+
+<pre style="margin-top: 1em">  IF (ICALL.EQ.4) THEN
+    ... ICALL block ....
+  ENDIF</pre>
+
+
+<p style="margin-top: 1em">In general, there is no reason
+to include code testing for <tt>ICALL.EQ.2</tt> (regular
+call). Such code should normally not be in an ICALL block,
+as it is, in effect, the default code.</p>
+
+<p style="margin-top: 1em">In this section, ICALL blocks
+that test for values other than 2 are discussed. Such blocks
+are named according to the value of <tt>ICALL</tt>:</p>
+
+<p style="margin-left:3%; margin-top: 1em"><tt>0</tt> Run
+initialization block <tt><br>
+1</tt> Problem initialization block <tt><br>
+3</tt> Problem finalization block <tt><br>
+4</tt> Simulation block <tt><br>
+5</tt> Expectation block <tt><br>
+6</tt> Data Average block</p>
+
+<p style="margin-top: 1em">The code within an ICALL block
+may include nested IF statements but if so, any test of
+<tt>ICALL</tt> must be in the outermost IF statement.</p>
+
+<p style="margin-top: 1em">In an ICALL block, nested
+<tt>IF</tt> statements may include random variables but
+eta-derivatives are not computed.</p>
+
+<p style="margin-top: 1em">Certain FORTRAN statements are
+permitted in ICALL blocks.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-185735.png" alt="Image grohtml-185735.png"></p>
+
+<p><tt>ICALL</tt> values 0,1,3 are not appropriate for $PK
+and $ERROR. <tt><br>
+ICALL</tt> value 6 is not appropriate for $PK.</p>
+
+<p style="margin-top: 1em">RETURN statements must be used
+with caution because their use may by-pass desired actions
+of the routine.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../simulat.htm">simulation</a> ,
+<a href="../expect.htm">expectation</a> ,
+<a href="../datavg.htm">data average</a>
+<a href="../initfinl.htm">initialization-finalization</a> ,
+<a href="../abbrevia.htm">abbreviated</a></p>
+
+<h2>NM-TRAN with PREDPP
+<a name="NM-TRAN"></a>
+<a name="NM-TRAN with PREDPP"></a>
+</h2>
+
+
+<h2>81. $BIND Record
+<a name="81."></a>
+<a name="81. $BIND Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The $BIND record is permitted
+with user-written PK routines as well as with $PK
+abbreviated code.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$bind.htm">$bind</a></p>
+
+<h2>82. $MODEL Record
+<a name="82."></a>
+<a name="82. $MODEL Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The total number of compartments
+other than the output compartment defined on the $MODEL
+record may be as large as 19. If necessary, this maximum can
+be increased even further.</p>
+
+<p style="margin-top: 1em">See Guide III
+<a href="../III/IV.html#1.3.">IV.1.3</a> ,
+<a href="../III/V.html#1.6.">V.1.6</a> <br>
+See Guide VIII <a href="../$model.htm">$model</a> ,
+<a href="../pk.htm">pk</a> ,
+<a href="../sizes.htm">psizes</a> ,
+<a href="../sizes.htm">tsizes</a></p>
+
+<p style="margin-top: 1em">The name of a compartment may
+not be identical to an attribute unless it is enclosed in
+quotes (&rsquo; or &quot;). E.g., <tt>COMP=(DEFOBS)</tt> is
+not permitted but <tt>COMP=(&quot;DEFOBS&quot; ,DEFOBS)</tt>
+is permitted.</p>
+
+<p style="margin-top: 1em">When the number of compartments
+for ADVAN5 or ADVAN7 exceeds 10, the LINK clause syntax
+<tt>Knm=k</tt> may be ambiguous. The letter <tt>T</tt> may
+be used to separate the two compartment numbers
+<tt>KnTm</tt>.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../advan57.htm">advan5 advan7</a></p>
+
+<p style="margin-top: 1em">With ADVAN9, all compartments
+may have the attribute <tt>EQUILIBRIUM</tt>.</p>
+
+<h2>83. $PK Record
+<a name="83."></a>
+<a name="83. $PK Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">When the number of compartments
+for ADVAN5 or ADVAN7 exceeds 10, the reserved variable
+<tt>Knm</tt> may be ambiguous. The letter <tt>T</tt> may be
+used to separate the two compartment numbers
+<tt>KnTm</tt>.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../advan57.htm">advan5 advan7</a></p>
+
+<p style="margin-top: 1em">The variable <tt>SC</tt>
+symbolizes the scaling parameter for the central compartment
+with general ADVAN routines (5 through 9) if there is a
+compartment whose name is <tt>CENTRAL</tt>.</p>
+
+<p style="margin-top: 1em">Pseudo-statements defining the
+calling protocol (<tt>CALLFL=</tt>n) and the variable
+listing option (<tt>COMRES=</tt>n) may be coded within
+parentheses following the record name, or on the next line.
+Within the parentheses, the calling protocol may optionally
+be described by a descriptive calling protocol phrase. E.g.,
+the following are equivalent:</p>
+
+<pre style="margin-top: 1em">$PK (CALLFL=1)
+$PK (ONCE PER INDIVIDUAL RECORD)</pre>
+
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../callpr.htm">calling protocol phrase</a> ,
+<a href="../$pk.htm">$pk</a></p>
+
+<h2>84. $ERROR Record
+<a name="84."></a>
+<a name="84. $ERROR Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Pseudo-statements defining the
+calling protocol (<tt>CALLFL=</tt>n) and the variable
+listing option (<tt>COMRES=</tt>n) may be coded within
+parentheses following the record name, or on the next line.
+Within the parentheses, the calling protocol may optionally
+be described by a descriptive calling protocol phrase. E.g.,
+the following are equivalent:</p>
+
+<pre style="margin-top: 1em">$ERROR (CALLFL=1)
+$ERROR (ONCE PER INDIVIDUAL RECORD)</pre>
+
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../callpr.htm">calling protocol phrase,</a>
+<a href="../$error.htm">$error</a></p>
+
+<h2>85. $DES Record
+<a name="85."></a>
+<a name="85. $DES Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The allowable right-hand side
+quantities include the data items of a data record,
+symbolized by the labels and synonyms specified in the
+$INPUT record, and values of the
+<img src="grohtml-18573-48.png" alt="Image grohtml-18573-48.png">
+parameters, symbolized by THETA(1), THETA(2), etc.</p>
+
+<p style="margin-top: 1em">If quantities depending only on
+data items and
+<img src="grohtml-18573-49.png" alt="Image grohtml-18573-49.png">
+parameters are computed directly in $DES rather than $PK,
+improvement in run time is possible.</p>
+
+<p style="margin-top: 1em">Reserved variables
+<tt>DOSTIM</tt> and <tt>DOSREC</tt> may be used under
+certain circumstances.</p>
+
+<p style="margin-top: 1em">See above
+<a href="#41.">41 (Use of DOSTIM and DOSREC in DES)</a></p>
+
+<p style="margin-top: 1em">ICALL blocks testing for
+<tt>ICALL</tt> values 4 and 5 are permitted. However, none
+of the statements listed in
+<a href="#77.">77 (ICALL Blocks)</a>above be used.</p>
+
+<p style="margin-top: 1em">With ADVAN9, a $DES block may
+not appear when there are only equilibrium compartments.</p>
+
+<p style="margin-top: 1em">With ADVAN10 and steady-state
+doses with constant infusion doses, basic PK parameters
+<tt>KM</tt> and <tt>VM</tt> may be used in the $DES
+abbreviated code.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$des.htm">$des</a></p>
+
+<h2>86. $AESINITIAL Record
+<a name="86."></a>
+<a name="86. $AESINITIAL Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">When there are only equilibrium
+compartments and there is no <tt>TIME</tt> data item, ADVAN9
+is called by default with every event record. $AESINITIAL
+may specify a calling protocol for ADVAN9. Pseudo-statements
+defining the calling protocol (<tt>CALLFL=</tt>n) and the
+variable listing option (<tt>COMRES=</tt>n) may be coded
+within parentheses following the record name, or on the next
+line. Within the parentheses, the calling protocol may
+optionally be described by a descriptive calling protocol
+phrase. E.g., the following are equivalent:</p>
+
+<pre style="margin-top: 1em">$AESINIT (CALLFL=1)
+$AESINIT (ONCE PER INDIVIDUAL RECORD)</pre>
+
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$aesinit.htm">$aesinitial</a> ,
+<a href="../callpr.htm">calling protocol phrase</a></p>
+
+<h2>87. $AES Record
+<a name="87."></a>
+<a name="87. $AES Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The index i for algebraic
+expressions <tt>E(</tt>i<tt>)</tt> is optional.</p>
+
+<p style="margin-top: 1em">The allowable right-hand side
+quantities include the data items of a data record,
+symbolized by the labels and synonyms specified in the
+$INPUT record, and values of the
+<img src="grohtml-18573-50.png" alt="Image grohtml-18573-50.png">
+parameters, symbolized by THETA(1), THETA(2), etc.</p>
+
+<p style="margin-top: 1em">If quantities depending only on
+data items and
+<img src="grohtml-18573-51.png" alt="Image grohtml-18573-51.png">
+parameters are computed directly in $AES rather than $PK,
+improvement in run time is possible.</p>
+
+<p style="margin-top: 1em">Reserved variables
+<tt>DOSTIM</tt> and <tt>DOSREC</tt> may be used under
+certain circumstances.</p>
+
+<p style="margin-top: 1em">See above
+<a href="#41.">41 (Use of DOSTIM and DOSREC in DES)</a></p>
+
+<p style="margin-top: 1em">ICALL blocks testing for
+<tt>ICALL</tt> values 4 and 5 are permitted. However, none
+of the statements listed in
+<a href="#77.">77 (ICALL Blocks)</a> above may be used.</p>
+
+<p style="margin-top: 1em">See Guide VIII
+<a href="../$aes.htm">$aes</a></p>
+
+<p style="margin-top: 1em"><a href="supp.html">TOP</a></p>
+
+
+<p style="margin-top: 1em"><a href="index.html">TABLE OF CONTENTS</a></p>
+<hr>
+</body>
+</html>

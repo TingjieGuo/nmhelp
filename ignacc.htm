@@ -1,0 +1,184 @@
+<HTML><HEAD> <TITLE> ignacc.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                       IGNORE_ACCEPT EXAMPLE                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ The  options IGNORE=(list) and ACCEPT=(list) of the $DATA record allow
+ for simple selection criteria for records that are to be  excluded  or
+ included,  respectively,  in the NONMEM data set.  A list has the for-
+ mat:
+ cond,cond,cond,...
+ where each cond is a test of a data item: "label operator value".  The
+ commas  are  implied .OR. operators. The .AND. and .NOT. operators are
+ not permitted.
+
+ Suppose an .AND. is needed.  E.g.,
+   IGNORE=(GEN.EQ.1.AND.AGE.GT.60)
+ If the expressions are simple, this  may  be  done  by  negating  both
+ sides:
+  .NOT.IGNORE =.NOT.(GEN.EQ.1.AND.AGE.GT.60)
+   ACCEPT=.NOT.GEN.EQ.1.OR..NOT.AGE.GT.60
+ Thus,
+   ACCEPT=(GEN.NE.1,AGE.LE.60)
+
+ But  logical  operators  inside parenthesis are not permitted, so that
+ the following cannot be coded:
+ $DATA ACCEPT=((A==1.OR.A==2).AND.B&lt;100)
+ Even if negated, this is:
+ IGNORE=(.NOT.(A==1.OR.A==2)).OR..NOT.B&lt;100)
+ which is:
+ IGNORE=((A.NE.1.AND.A.NE.2).OR.B&gt;=100)
+
+ There is still an .AND. inside parentheses.
+
+ There is a workaround that takes advantage of the fact  that  A  takes
+ numeric values and there are no values between 1 and 2.
+ (A.NE.1.AND.A.NE.2)
+ can be implemented with an "or":
+ (A.LT.1.OR.A.GT.2).
+
+ The following are equivalent:
+ IGNORE=(B.GE.100)  IGNORE=(A.LT.1) IGNORE=(A.GT.2)
+ IGNORE=(B.GE.100,A.LT.1,A.GT.2)
+
+ This  workaround cannot handle continuous values of A or  more compli-
+ cated conditions.
+
+ With NONMEM through 7.3, two separate NONMEM problems can be used,  in
+ two separate runs, for a complicated condition.  In the first problem,
+ abbreviated code is used to append a new variable to the data  with  a
+ value indicating ignore/accept; in the second run the variable is used
+ in the $DATA statement to choose from the data set.
+
+ Suppose  ACC  is  the  variable  that  is  to  have  values  0/1   for
+ ignore/accept.  The desired code is:
+
+ ACC=0
+ IF ((A == 1.OR.A == 2).AND.B&lt;100) ACC=1
+
+ The  above   can  be  coded  using  the FORTRAN language.  But NM-TRAN
+ abbreviated code is a subset of  FORTRAN.   Logical  operators  .NOT.,
+ .AND.,  .OR.  may not be used within parentheses.  There are two work-
+ arounds.
+
+ One is to clear the parentheses:
+
+ IF (A==1.AND.B&lt;100.OR.A==2.AND.B&lt;100) ACC=1
+ (this is always possible, no matter  how  complicted  the  conditional
+ expression).
+
+ The  second  is  to  use  several statements. There are may ways to do
+ this.  In the following, the .AND. of multiple conditions is false  if
+ any of the conditions is false.
+ ACC=1
+ IF (A.NE.1.AND.A.NE.2) ACC=0
+ IF (B.GE.100) ACC=0
+
+ In prob1.ctl, the first problem appends ACC to the (new) data set.  In
+ prob2.ctl, the $DATA record uses ACC to select records.
+
+ All required data items for NONMEM  (and  PREDPP,  if  used)  must  be
+ present  in the original data file testab.dat.  The control stream for
+ the first run:
+
+ $PROB test of accept Run #1
+  ; Example of implementation of
+  ; $DATA ACCEPT=((A == 1.OR.A == 2).AND.B&lt;100)
+  $INPUT      NO A B ID DV MDV
+  $DATA       testab.dat IGNORE C
+  $PRED
+  ; Implements:
+  ; ACC=1 IF ((A == 1.OR.A == 2).AND.B &lt; 100)
+     ACC=1
+     IF (A.NE.1.AND.A.NE.2) ACC=0
+     IF (B.GE.100) ACC=0
+  ; The model for this run is unimportant. Keep it simple.
+     Y=THETA(1)+ETA(1)+EPS(1)
+  $THETA  1
+  $OMEGA 1
+  $SIGMA  .4
+  $TABLE NO A B ID DV MDV ACC
+   NOPRINT NOAPPEND NOHEADER FILE=run1.tab
+
+ The control stream for the second run:
+
+  $PROB test of accept Run #2
+  $INPUT NO A B ID DV MDV ACC
+  ; Must do a numeric test for ACC==1, because it appears in
+  ; table file run1.tab as 1.0000E+00
+  $DATA run1.tab ACCEPT=(ACC.EQN.1)
+  $PRED
+  ; the model in this problem is the model
+  ; used for simulation, analysis, etc.
+   Y=THETA(1)+ETA(1)+EPS(1)
+  $THETA 1
+  $OMEGA 1
+  $SIGMA .4
+  $TABLE NO A B ID DV MDV
+  NOPRINT NOAPPEND NOHEADER FILE=run2.tab
+
+ With NONMEM 7.4, it is possible to combine both problems into one NON-
+ MEM  run  using  the  $TABLE  record option "EXCLUDE_BY list".  If any
+ variable in list is non-0, the record is excluded from the table  file
+ probe.tab.   The  $DATA  ACCEPT/IGNORE  option is not needed.  Because
+ probe.tab does not exist when NM-TRAN processes the second problem  in
+ the  control stream, $DATA .. NOOPEN is needed and a format specifica-
+ tion is needed.
+
+  $PROB  test of NONMEM 7.4 exclude_by feature
+  $INPUT      NO A B ID DV MDV
+  $DATA       testab.dat IGNORE C
+  $PRED
+  ; sets ACC=0 if (a==1.or.a==2).and.b&lt;100)
+  ; uses the clear the parenthesis approach.
+  ACC=1
+  IF (A==1.AND.B&lt;100.OR.A==2.AND.B&lt;100) ACC=0
+  ; The following is the model for both problems.
+  ; It may be more complicated than this.
+     Y=THETA(1)+ETA(1)+EPS(1)
+  $THETA  1
+  $OMEGA 1
+  $SIGMA  .4
+  ; probe.tab has only those records that have ACC=0.
+  $TABLE NO A B ID  DV MDV EXCLUDE_BY ACC
+   NOPRINT NOAPPEND NOHEADER FILE=probe.tab
+
+  $PROB test of exclude_by #2
+  $INPUT NO A B ID DV MDV
+  $DATA probe.tab (10F12.0) NOOPEN
+  $THETA 1
+  $OMEGA 1
+  $SIGMA .4
+  ; This problem should have $ESTIMATION and other tasks
+ $TABLE NO A B ID DV NOAPPEND NOHEADER NOPRINT FILE=probe2.tab
+
+ Here is a fragment of the data testab.dat
+
+ C NO A B    ID DV MDV
+   1 1 100    1  0  0
+   2 2 100    1  0  0
+   3 3 100    1  0  0
+   4 1 101    1  0  0
+   5 2 101    1  0  0
+   6 3 101    1  0  0
+   7 1  99    1  0  0
+   8 2  99    1  0  0
+   9 3  99    1  0  0
+ (See <A HREF="$.htm#$data">$data</A>, $table).
+
+ REFERENCES: none.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

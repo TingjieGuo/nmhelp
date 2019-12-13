@@ -1,0 +1,69 @@
+<HTML><HEAD> <TITLE> finalpar.out</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                      FINAL PARAMETER ESTIMATE                      |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Final estimates of parameters THETA, OMEGA, SIGMA
+ CONTEXT: NONMEM output
+
+ DISCUSSION:
+ A  page  with the title FINAL PARAMETER ESTIMATE is printed as part of
+ every NONMEM output.
+
+ If the Estimation Step was NOT run, then the values  printed  are  the
+ initial parameter estimates specified for the problem.
+
+ If  the Estimation Step WAS run, then the values printed are the final
+ parameter estimates.
+
+ These estimates of parameters are used by NONMEM to compute the objec-
+ tive  function  value printed on the page with title "MINIMUM VALUE OF
+ OBJECTIVE FUNCTION" and to compute predicted  values  for  Tables  and
+ Scatterplots.
+
+  ********************  FINAL PARAMETER ESTIMATE   ***************
+  THETA - VECTOR OF FIXED EFFECTS PARAMETERS   *********
+
+          TH 1      TH 2      TH 3
+          1.94E+00  1.02E-01  3.20E+01
+
+  OMEGA - COV MATRIX FOR RANDOM EFFECTS - ETAS  ********
+
+             ETA1
+  ETA1     8.99E-01
+
+  OMEGA - CORR MATRIX FOR RANDOM EFFECTS - ETAS  *******
+
+             ETA1
+  ETA1     9.48E-01
+
+ This  example is from a run involving single-subject data, so there is
+ no SIGMA matrix.
+
+ With NONMEM 7.2 and higher, the correlation matrix is included.  It is
+ computed  from  the  covariance  matrix, whether or not the Estimation
+ step is not run.
+
+ (See <A HREF="i.htm#initial_parameter_estimate">initial parameter estimate</A>).
+
+ With NONMEM 7.3 and higher, the $THETAR record may be used  to  trans- |
+ form  final  estimates of THETA before they are reported in the NONMEM |
+ output.                                                                |
+ (See <A HREF="$.htm#$thetar">$thetar</A>).
+
+REFERENCES: Guide V Section <a href="V/10.html#5.">10.5<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

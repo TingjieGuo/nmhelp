@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 148</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft3{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft4{font-size:5px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:3px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+	.ft9{font-size:3px;line-height:5px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V148.png" alt="background image">
+<DIV style="position:absolute;top:41;left:286"><nobr><span class="ft0">Chapter 12 - Brief Descriptions of Other Features</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft7">OMEGA, and SIGMA and thus as a way for stable estimates to be obtained with insufﬁcient<br>data.</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:72"><nobr><span class="ft0">References: Introduction to NONMEM Version VI</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:72"><nobr><span class="ft1"><b>5. Observations of Two Different Types</b></span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:72"><nobr><span class="ft7">An NM-TRAN control stream is shown in Figure 12.3, for the analysis of a data set which con-<br>tains observations of two different types. A fragment of the data set, shown in Figure 12.4, con-<br>tains the data for one individual. This example illustrates how concentration and effect data can<br>be ﬁt simultaneously, and includes many of the advanced features described in this chapter, such<br>as pharmacodynamic modeling in the $ERROR statements, correlation between elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:495"><nobr><span class="ft2">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:501"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:72"><nobr><span class="ft0">and the L2 data item.</span></nobr></DIV>
+<DIV style="position:absolute;top:232;left:72"><nobr><span class="ft8">Suppose that the data set for the phenobarbital example of Chapter 2 is modiﬁed to include both<br>concentration and effect observations, and that a data item called TYPE is used to distinguish<br>between them. When TYPE is 1, DV contains an effect measurement. When TYPE is 2, DV<br>contains a concentration. The $PK statements are the same as those of Figure 2.12. The<br>$ERROR statements are the same as those of Figure 12.1, except that the elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:453"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:463"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:281;left:481"><nobr><span class="ft3">η</span></nobr></DIV>
+<DIV style="position:absolute;top:284;left:491"><nobr><span class="ft0">are</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:72"><nobr><span class="ft7">renumbered to follow those used in the $PK statements. The (random) variable Y1 is assigned<br>the same value as Y in the $ERROR statements of Figure 12.1 The (random) variable Y2 is<br>assigned the same value as Y in the $ERROR statements of Figure 2.12, except that</span></nobr></DIV>
+<DIV style="position:absolute;top:320;left:459"><nobr><span class="ft3">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:464"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:473"><nobr><span class="ft0">is used</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:72"><nobr><span class="ft0">rather than</span></nobr></DIV>
+<DIV style="position:absolute;top:333;left:122"><nobr><span class="ft3">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:127"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:132"><nobr><span class="ft0">.</span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:72"><nobr><span class="ft7">The input data ﬁle contains observations of both types which were made at the same time value.<br>The event records therefore include the L2 data item. Figure 12.4, like Figure 2.7, shows the data<br>for the ﬁrst individual, but includes TYPE and L2 data items and effect observations. Note that<br>the L2 data item has a different value for each multivariate observation within the individual<br>record. (The values 1 and 2 are chosen arbitrarily and may be re-used for the L2 data items in the<br>next individual’s data, if desired.)</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:72"><nobr><span class="ft7">The $THETA, $OMEGA, and $SIGMA records contain the values shown in Figures 2.12 and<br>12.1 and one other value, 2.8, for the covariance</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:290"><nobr><span class="ft2">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:297"><nobr><span class="ft4">12</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:308"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:317"><nobr><span class="ft5"><i>cov</i>(</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:337"><nobr><span class="ft3">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:342"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:346"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:445;left:351"><nobr><span class="ft3">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:356"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:361"><nobr><span class="ft0">). The estimate 2.8 is chosen so</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:72"><nobr><span class="ft0">that the correlation is, arbitrarily, .5 (2. 8</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:253"><nobr><span class="ft2">= Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:268"><nobr><span class="ft4">12</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:280"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:289"><nobr><span class="ft0">(</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:293"><nobr><span class="ft2">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:299"><nobr><span class="ft4">11</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:307"><nobr><span class="ft2">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:314"><nobr><span class="ft4">22</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:322"><nobr><span class="ft0">)</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:327"><nobr><span class="ft9">1<br>2</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:334"><nobr><span class="ft5"><i>corr</i></span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:357"><nobr><span class="ft2">=</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:366"><nobr><span class="ft0">(8</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:378"><nobr><span class="ft2">×</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:386"><nobr><span class="ft0">4)</span></nobr></DIV>
+<DIV style="position:absolute;top:459;left:396"><nobr><span class="ft9">1<br>2</span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:403"><nobr><span class="ft0">. 5).</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:276"><nobr><span class="ft0">-140-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,61 @@
+<HTML><HEAD> <TITLE> nonmod.gen</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                            NONMEM MODEL                            |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: The name of a type of statistical model.
+ CONTEXT: NONMEM input/output
+
+ DISCUSSION:
+
+ The acronym NONMEM denotes both the model and the program used to ana-
+ lyze data according to such a model.  (See <A HREF="n.htm#nonmem_program">nonmem_program</A>) This  entry
+ discusses the NONLINEAR MIXED EFFECTS MODEL (NONMEM).
+
+ Regression  models  structurally link (possibly multivariate) observa-
+ tions  (Dependent  variables,  DV)  to  independent  variables  (fixed
+ effects,  represented  by  other data items) through a functional form
+ (model) quantified by (fixed effect) parameters.   These  model  forms
+ may be nonlinear in the parameters.
+
+ Random  effects  may  also  enter the model. In NONMEM they are of two
+ types which usually enter the model  at  two  different  levels.   The
+ first type, ETA, describes differences between individuals; the second
+ type, EPSILON, describes errors between model predictions and observa-
+ tions.  (When  all  data  come  from the same individual, or when each
+ observation is to be treated as  statistically  independent  from  all
+ others, then ETA-type random effects describe all errors, and EPSILON-
+ type random effects do not appear).
+
+ Within an individual, ETA may be a vector. Likewise, within one obser-
+ vation,  EPSILON   may be a vector, especially if the observations are
+ multivariate, as several random effects of each type may be needed  to
+ characterize the data adequately.
+
+ The parameter vector THETA contains all fixed effect population param-
+ eters.
+
+ The OMEGA matrix, a random effects parameter, is the  variance-covari-
+ ance  matrix  of ETA (across individuals); the SIGMA matrix serves the
+ same function for EPSILON (its variance covariance is assumed  identi-
+ cal across all observations).
+
+ (See <A HREF="e.htm#eta">eta</A>, <A HREF="e.htm#eps">eps</A>, <A HREF="t.htm#theta">theta</A>, <A HREF="e.htm#effect">effect</A>).  (See parameter, model, omega, sigma).
+
+REFERENCES: Guide I Section <a href="I/C.html">C<a/>, <a href="I/D.html">D<a/>, <a href="I/E.html">E<a/>
+REFERENCES: Guide V Section <a href="V/3.html">3<a/>, <a href="V/4.html">4<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

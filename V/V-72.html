@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 72</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Courier;color:#000000;}
+	.ft3{font-size:6px;font-family:Times;color:#000000;}
+	.ft4{font-size:6px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V072.png" alt="background image">
+<DIV style="position:absolute;top:41;left:152"><nobr><span class="ft0">Chapter 6 - Data Sets, $DAT A and $INPUT Records, and the Data Preprocessor</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft1"><b>10.1.2. DATE Data Item</b></span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:72"><nobr><span class="ft5">Here is another way the above data could have been recorded, using a data item called DATE<br>whose value is 1 for the ﬁrst day, 2 for the second day, and so on. This allows TIME values to be<br>recorded more naturally using values in the range 0-24.</span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:79"><nobr><span class="ft2"><b>Contents of original file:</b></span></nobr></DIV>
+<DIV style="position:absolute;top:134;left:283"><nobr><span class="ft2"><b>Contents of new file:</b></span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:85"><nobr><span class="ft2"><b>ID DATE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:184"><nobr><span class="ft2"><b>TIME ID</b></span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:329"><nobr><span class="ft2"><b>DATE TIME</b></span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:92"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:145"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:184"><nobr><span class="ft2"><b>9:15 1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:349"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:160;left:382"><nobr><span class="ft2"><b>0.00</b></span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:92"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:145"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:184"><nobr><span class="ft2"><b>9:30 1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:349"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:173;left:382"><nobr><span class="ft2"><b>0.25</b></span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:92"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:145"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:184"><nobr><span class="ft2"><b>10 1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:349"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:382"><nobr><span class="ft2"><b>0.75</b></span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:92"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:145"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:184"><nobr><span class="ft2"><b>14:40 1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:349"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:382"><nobr><span class="ft2"><b>5.42</b></span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:92"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:145"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:184"><nobr><span class="ft2"><b>8.5 1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:349"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:212;left:376"><nobr><span class="ft2"><b>23.25</b></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:92"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:145"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:184"><nobr><span class="ft2"><b>8</b></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:296"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:349"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:382"><nobr><span class="ft2"><b>0.00</b></span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:92"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:145"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:184"><nobr><span class="ft2"><b>8.0 2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:349"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:238;left:382"><nobr><span class="ft2"><b>0.00</b></span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:92"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:145"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:184"><nobr><span class="ft2"><b>20:50 2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:349"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:251;left:376"><nobr><span class="ft2"><b>36.83</b></span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:92"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:145"><nobr><span class="ft2"><b>3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:184"><nobr><span class="ft2"><b>10 2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:349"><nobr><span class="ft2"><b>3</b></span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:376"><nobr><span class="ft2"><b>50.00</b></span></nobr></DIV>
+<DIV style="position:absolute;top:276;left:72"><nobr><span class="ft5">The DATE data item is of signiﬁcance only to the Data Preprocessor; NONMEM-PREDPP will<br>not make use of it. Even if there are no &quot;:&quot; characters among the TIME values, the existence of a<br>DATE data item will cause the Data Preprocessor to replace TIME values by relative times.</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:72"><nobr><span class="ft1"><b>10.1.3. Calendar Dates</b></span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:72"><nobr><span class="ft5">The Date data item (DATE) can also be used to record calendar dates in month-day-year format.<br>Any alphabetic character (e.g., / or -) can be used to separate the components. Here is a third way<br>the same example could be recorded:</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:79"><nobr><span class="ft2"><b>Contents of original file:</b></span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:310"><nobr><span class="ft2"><b>Contents of new file:</b></span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:85"><nobr><span class="ft2"><b>ID DATE=DROP TIME</b></span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:316"><nobr><span class="ft2"><b>ID TIME</b></span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:92"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:131"><nobr><span class="ft2"><b>10-1-86 9:15</b></span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:323"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:410;left:369"><nobr><span class="ft2"><b>0.00</b></span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:92"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:131"><nobr><span class="ft2"><b>10-1-86 9:30</b></span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:323"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:423;left:369"><nobr><span class="ft2"><b>0.25</b></span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:92"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:131"><nobr><span class="ft2"><b>10-1-86 10</b></span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:323"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:436;left:369"><nobr><span class="ft2"><b>0.75</b></span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:92"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:131"><nobr><span class="ft2"><b>10-1-86 14:40</b></span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:323"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:449;left:369"><nobr><span class="ft2"><b>5.42</b></span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:92"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:131"><nobr><span class="ft2"><b>10-2-86 8.5</b></span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:323"><nobr><span class="ft2"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:362"><nobr><span class="ft2"><b>23.25</b></span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:92"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:131"><nobr><span class="ft2"><b>10-12 8</b></span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:323"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:475;left:369"><nobr><span class="ft2"><b>0.00</b></span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:92"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:131"><nobr><span class="ft2"><b>10-12 8.0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:323"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:369"><nobr><span class="ft2"><b>0.00</b></span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:92"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:131"><nobr><span class="ft2"><b>10-13 20:50</b></span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:323"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:362"><nobr><span class="ft2"><b>36.83</b></span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:92"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:131"><nobr><span class="ft2"><b>10-14 10</b></span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:323"><nobr><span class="ft2"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:362"><nobr><span class="ft2"><b>50.00</b></span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:72"><nobr><span class="ft5">This example illustrates two features. First, when calendar dates are used, the DATE item should<br>be speciﬁed as &quot;DATE=DROP&quot;, so that the data item is omitted from the new data ﬁle (see Sec-<br>tion 5.3). Otherwise, the alphabetic characters which separate the components will cause read er-<br>rors when NONMEM reads the data. Second, the year value is optional; only month and date<br>were actually needed. (Within a single individual record, however, either all dates should specify<br>a year, or none should.)</span></nobr></DIV>
+<DIV style="position:absolute;top:614;left:72"><nobr><span class="ft5">Data labels DAT1, DAT2, and DAT3 are also recognized by the Data Preprocessor and can be<br>used instead of DATE. The label given to the Date data item describes its format:</span></nobr></DIV>
+<DIV style="position:absolute;top:640;left:75"><nobr><span class="ft5">DATE month day year<br>DAT1 day month year<br>DAT2 year month day<br>DAT3 year day month</span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:72"><nobr><span class="ft0">If only one of the three components is present, it is assumed to be the day†. If only two</span></nobr></DIV>
+<DIV style="position:absolute;top:716;left:72"><nobr><span class="ft3">† In this case <i>only</i>, the Date data item may be zero or negative. Day -1 means one day prior to day 0.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-64-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

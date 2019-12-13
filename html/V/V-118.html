@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 118</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:7px;font-family:Courier;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft4{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft5{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V118.png" alt="background image">
+<DIV style="position:absolute;top:41;left:376"><nobr><span class="ft0">Chapter 11 - Model Building</span></nobr></DIV>
+<DIV style="position:absolute;top:79;left:77"><nobr><span class="ft1"><b>$PROBLEM PHENOBARB</b></span></nobr></DIV>
+<DIV style="position:absolute;top:79;left:185"><nobr><span class="ft1"><b>SIMPLE MODEL (#1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:77"><nobr><span class="ft1"><b>$INPUT ID TIME AMT WT APGR DV</b></span></nobr></DIV>
+<DIV style="position:absolute;top:105;left:77"><nobr><span class="ft1"><b>$DATA PHENO</b></span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:77"><nobr><span class="ft1"><b>$SUBROUTINE ADVAN1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:131;left:77"><nobr><span class="ft1"><b>$PK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:144;left:104"><nobr><span class="ft1"><b>TVCL=THETA(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:157;left:104"><nobr><span class="ft1"><b>CL=TVCL*(1+ETA(1))</b></span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:104"><nobr><span class="ft1"><b>TVVD=THETA(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:104"><nobr><span class="ft1"><b>V=TVVD*(1+ETA(2))</b></span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:104"><nobr><span class="ft1"><b>K=CL/V</b></span></nobr></DIV>
+<DIV style="position:absolute;top:209;left:104"><nobr><span class="ft1"><b>S1=V</b></span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:77"><nobr><span class="ft1"><b>$ERROR</b></span></nobr></DIV>
+<DIV style="position:absolute;top:235;left:104"><nobr><span class="ft1"><b>Y=F*(1+ERR(1))</b></span></nobr></DIV>
+<DIV style="position:absolute;top:248;left:77"><nobr><span class="ft1"><b>$THETAS (0,.0105) (0,1.05)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:77"><nobr><span class="ft1"><b>$OMEGAS .25</b></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:158"><nobr><span class="ft1"><b>.25</b></span></nobr></DIV>
+<DIV style="position:absolute;top:274;left:77"><nobr><span class="ft1"><b>$SIGMAS .04</b></span></nobr></DIV>
+<DIV style="position:absolute;top:287;left:77"><nobr><span class="ft1"><b>$ESTIMATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:77"><nobr><span class="ft1"><b>$TABLE ID TIME AMT WT APGR</b></span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:77"><nobr><span class="ft1"><b>$SCATTERPLOT PRED VS DV UNIT</b></span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:77"><nobr><span class="ft1"><b>$SCATTERPLOT RES</b></span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:191"><nobr><span class="ft1"><b>VS (PRED,WT,APGR)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:77"><nobr><span class="ft1"><b>$SCATTERPLOT WRES VS (PRED,WT,APGR)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:72"><nobr><span class="ft2"><b>4.3. Use of Constraints</b></span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:72"><nobr><span class="ft0">It is important to realize that constraints on elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:390;left:317"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:326"><nobr><span class="ft0">or</span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:338"><nobr><span class="ft4">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:393;left:350"><nobr><span class="ft0">may be part of a model.</span></nobr></DIV>
+<DIV style="position:absolute;top:419;left:72"><nobr><span class="ft5">For example, constraining clearance to be positive is a modelling choice. One might implement<br>this constraint in NONMEM using a lower bound on the $THETA record, and this would assure<br>that the estimate of clearance will be positive. It may not be necessary to do this; even without<br>the lower bound, the data might clearly force the estimate to be positive.</span></nobr></DIV>
+<DIV style="position:absolute;top:488;left:72"><nobr><span class="ft5">Often, however, analysts will constrain the range of a parameter in the belief that doing so will<br>shorten computing time or stabilize the search for the minimum of the objective function. While<br>this beneﬁt may be gained, the data may force the parameter estimate to the constraint boundary<br>ev en though this boundary may not, in fact, represent a true modeling choice. In this case the<br>proper action is to relax the constraint and rerun the problem. To do otherwise, and leave the<br>parameter estimate to be the boundary value, implies that at the outset the user assumes that the<br>parameter must be within the boundary and elevates the constraint to the status of a modeling<br>choice. If an estimate lies on a boundary, NONMEM will print a warning message (along with<br>the standard message regarding the status of the termination of the Estimation Step). The reader<br>is cautioned to look for such a message, and in general, it is a good idea to check the values of the<br>ﬁnal estimates against the boundary values. Alternatively, the implementation of constraints that<br>are not intended to represent modeling choices might be used cautiously and only if they really<br>seem necessary to stabilize a search.</span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:72"><nobr><span class="ft2"><b>4.4. Diagnostic Tools</b></span></nobr></DIV>
+<DIV style="position:absolute;top:696;left:72"><nobr><span class="ft2"><b>4.4.1. Plot of DV vs PRED</b></span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:72"><nobr><span class="ft5">Most useful diagnostic tools are graphical. For an overall sense of the ﬁt, a useful diagnostic plot<br>is DV vs PRED. When there are substantial and systematic deviations from the line of identity,</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:276"><nobr><span class="ft0">-110-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

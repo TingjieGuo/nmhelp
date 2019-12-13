@@ -1,0 +1,134 @@
+<HTML><HEAD> <TITLE> simulat.for</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                          SIMULATION BLOCK                          |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Abbreviated code for simulation
+ CONTEXT: Abbreviated code
+
+ SAMPLE:
+ $PK
+  IF (ICALL.EQ.4) CL=THETA(1)+ETA(1)
+
+ DISCUSSION:
+ A  "simulation block" is a block of abbreviated code that is only exe-
+ cuted when ICALL=4 (during simulation).  Such blocks may be present in
+ $PK,  $ERROR,  and $PRED, and may be implemented by means of generated
+ FORTRAN subroutines.  E.g.,
+
+ IF (ICALL.EQ.4) THEN
+  ... simulation block ...
+ ENDIF
+
+ Special rules apply to such blocks.
+
+ 1)   No eta derivatives are computed in a simulation block.
+
+ 2)   Transgeneration is permitted.  NM-TRAN allows a data  item  label
+      to appear on the left of an assignment statement.  NM-TRAN gener-
+      ates assignment statements changing first the data  item  in  the
+      event  or  data  record,  and then the local variable having that
+      label.  E.g.,  suppose WT is listed in $INPUT:
+
+      IF (ICALL.EQ.4) WT=70+70*ETA(3)
+
+      The generated code is:
+              IF(ICALL.EQ.4.D0)THEN
+              EVTREC(NVNT,8 )=70.D0+70.D0*ETA(03)
+              WT=EVTREC(NVNT,08)
+              ENDIF
+
+      NONMEM and PREDPP reserved data items should not be modified dur- |
+      ing  simulation.   Transgeneration  is  permitted with simulation |
+      with subproblems.  With all versions of NONMEM, the data set  for |
+      each  subproblem after the first is the same data set used by the |
+      previous subproblem, and includes any  changes  (transgeneration) |
+      made by the previous subproblem.
+
+ 3)   Calls to certain NONMEM routines are permitted:
+
+      CALL SIMETA(ETA)
+      CALL SIMEPS(EPS)
+      CALL RANDOM(n,R)
+      where   n  is  an  integer  1-10.   If  CALL RANDOM is present, R
+      becomes a reserved variable used for the random number.
+
+      Note that NM-TRAN provides the  necessary  calls  to  SIMETA  and
+      SIMEPS  in generated routines.  Explicit calls are used in abbre-
+      viated code only to obtain different values of ETA and EPS.
+
+ 4)   A RETURN statement may be used.  If in $ERROR or $PRED,  and  the
+      RETURN  occurs  in  a  simulation block, then Y may be assigned a
+      value prior to the return.  If so, then F is set (F=Y); otherwise
+      F is not set.
+
+ 5)   Loops are permitted.  The syntax is as follows.
+
+      DO WHILE (condition)
+       .. statements ..
+      END DO
+
+ Here are two examples.
+
+      IF (ICALL.EQ.4.AND.NEWIND.NE.2) THEN
+        DO WHILE (ETA(1).GT..5.OR.ETA(1).LT.-.5)
+          CALL SIMETA(ETA)
+        ENDDO
+      ENDIF
+      IF (ICALL.EQ.4) WT=70+70*ETA(1)
+
+ (With  this  first  example,  the first random seed of the $SIMULATION
+ record must have the NEW option.  Note also that, because of the  pre-
+ vious automatic call to SIMETA, ETA(1) requires no initialization, but
+ that R in the next example does.)
+
+      IF (ICALL.EQ.4.AND.NEWIND.NE.2) THEN
+        R=1
+        DO WHILE (R.GT..5.OR.R.LT.-.5)
+          CALL RANDOM(2,R)
+        ENDDO
+      ENDIF
+      IF (ICALL.EQ.4) WT=70+70*R
+
+ The third example illustrates how a categorical variable  with  equal-
+ likely  probabilities  can  be  generated from a random number R, uni-
+ formly distributed between 0 and 1.  In this example, the  categorical
+ variable BIN takes values 1 through 5.
+
+ IF (ICALL.EQ.4) THEN
+   CALL RANDOM(2,R)
+   BIN=INT(R*5)+1
+ ENDIF
+
+ The  number  5  can  be  replaced with any other positive integer n to
+ obtain an n-valued categorical variable.  Here  INT  is  the  function
+ that  transforms  a nonnegative number x into the greatest integer not
+ exceeding x.  The effect of this simulation code  is  to  perform  the
+ transformation:
+
+      BIN=1 if R &lt; .2
+      BIN=2 if R &lt; .4 and R &gt;= .2
+      BIN=3 if R &lt; .6 and R &gt;= .4
+      BIN=4 if R &lt; .8 and R &gt;= .6
+      BIN=5 if R &lt;  1 and R &gt;= .8
+
+ (See <A HREF="a.htm#abbreviated">abbreviated</A>).
+
+REFERENCES: Guide IV Section <a href="IV/III.html#B.13.">III.B.13<a/>, <a href="IV/IV.html#I.">IV.I<a/>
+REFERENCES: Guide V Section <a href="V/12.html#4.8.">12.4.8<a/>
+REFERENCES: Guide VI Section <a href="VI/III.html#E.2.">III.E.2<a/>, <a href="VI/IV.html#B.2.">IV.B.2<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

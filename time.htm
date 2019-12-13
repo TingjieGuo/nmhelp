@@ -1,0 +1,67 @@
+<HTML><HEAD> <TITLE> time.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           TIME DATA ITEM                           |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Time (TIME) data item for PREDPP
+ CONTEXT: $INPUT record and NONMEM data set
+
+ USAGE:
+ $INPUT ... TIME ...
+
+ DISCUSSION:
+ TIME  labels  PREDPP's  time  (TIME) data item.  The time data item is
+ required with PREDPP.  (An exception occurs with  ADVAN9  and  ADVAN15
+ when  there  are only equilibrium compartments, in which case the time
+ data item is optional.)  However, even when PREDPP is not used, a time
+ data item has a special meaning to NM-TRAN; see below.
+
+ With  PREDPP,  the  time  data  item  gives the time of the event, the
+ "event time."  With NONMEM 7.4, time data items may be negative;  with |
+ earlier versions, time data items must be non-negative.  Event records
+ must be ordered within an individual record  so  that  time  does  not
+ decrease,  i.e.,  so  that  time on any record other than the first is
+ greater than or equal to time on the prior record.  Exceptions are the
+ event  times of reset and reset-and-dose events, where the time may be |
+ any number.
+
+ With or without PREDPP, if any time data item in the NM-TRAN data  set
+ contains a colon (:), then all time data items are assumed to be clock
+ times (hh:min), and NM-TRAN translates all  times  to  relative  times
+ (hh.fr)  starting at time 0.  Specifically, the time of the first data
+ record of an individual record (if the data are  population  data)  or
+ the  first data record of the data set (if the data are single-subject
+ data) is set to 0.  Subsequent times in the NONMEM data set are calcu-
+ lated relative to that time.  (See <A HREF="d.htm#date_data_item">date data item</A>).
+
+ Example:
+
+      NM-TRAN data set   NONMEM data set
+      TIME               TIME
+      ----               ----
+      8:00               0.
+      14:45              6.75
+      14.75              6.75
+
+ NM-TRAN permits negative clock times.
+
+ The  $DATA record may include the option TRANSLATE=(TIME/24), in which
+ case all relative times (obtained after  clock  time  conversion)  are
+ divided by 24.  (See <A HREF="$.htm#$data">$data</A>).
+REFERENCES: Guide VI Section <a href="VI/V.html#C.">V.C<a/>
+REFERENCES: Guide IV Section <a href="IV/II.html#C.2.">II.C.2<a/>, <a href="IV/III.html#B.2.">III.B.2<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

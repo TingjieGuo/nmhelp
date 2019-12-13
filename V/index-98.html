@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 98</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:7px;font-family:Courier;color:#000000;}
+	.ft2{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index098.png" alt="background image">
+<DIV style="position:absolute;top:41;left:312"><nobr><span class="ft0">Chapter 9 - Additional NM-TRAN Records</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft2">NMTRAN opens the named ﬁle and reads it to end-of-ﬁle. The contents of the named ﬁle may be<br>any portion of an NM-TRAN control stream, e.g., NM-TRAN control records and/or abbreviated<br>code. After reaching end-of-ﬁle, if the number of copies is greater than 1, NM-TRAN rewinds<br>the ﬁle and re-reads it the speciﬁed number of times. After reaching end-of-ﬁle on the ﬁnal (or<br>only) copy, NMTRAN resumes reading the original control stream after the include record.</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:72"><nobr><span class="ft2">There may be more than one INCLUDE record, but they may not be nested. That is, an included<br>ﬁle may not contain INCLUDE records.</span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:72"><nobr><span class="ft0">For example,</span></nobr></DIV>
+<DIV style="position:absolute;top:194;left:77"><nobr><span class="ft1"><b>$PROBLEM Model &quot;a&quot; with data set 27, proportional error</b></span></nobr></DIV>
+<DIV style="position:absolute;top:207;left:77"><nobr><span class="ft1"><b>INCLUDE data27.def</b></span></nobr></DIV>
+<DIV style="position:absolute;top:220;left:77"><nobr><span class="ft1"><b>INCLUDE modela.def</b></span></nobr></DIV>
+<DIV style="position:absolute;top:233;left:77"><nobr><span class="ft1"><b>$ERROR Y=F+F*ERR(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:77"><nobr><span class="ft1"><b>$THETA 1.3 4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:259;left:77"><nobr><span class="ft1"><b>$OMEGA .04</b></span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:77"><nobr><span class="ft1"><b>$SIGMA 1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:285;left:77"><nobr><span class="ft1"><b>$ESTIMATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:72"><nobr><span class="ft2">The ﬁle data27.def contains the $INPUT and $DAT A records.<br>The ﬁle modela.def contains the $SUBROUTINE record and $PK block.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-90-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,70 @@
+<HTML><HEAD> <TITLE> ratepar.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           RATE PARAMETER                           |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Rate (R) parameter for PREDPP
+ CONTEXT: Additional PK Parameters
+
+ USAGE:
+ $PK
+  R1= ....
+
+ DISCUSSION:
+
+ Rate parameters are used with PREDPP.  They are optional additional PK
+ parameters.  With NM-TRAN, they are symbolized in  the  $PK  block  by
+ reserved  variables Rn, where n is the compartment number to which the
+ parameter applies.
+
+ There is one rate parameter associated with every possible  dose  com-
+ partment  of the kinetic model (the output compartment is not a possi-
+ ble dose compartment) and the rate parameter used for a given dose  is
+ that  one associated with the compartment into which the dose is given
+ (the dose compartment).
+
+ A rate-modeled zero-order bolus dose is actually an infusion, but  one
+ whose rate is given by the rate parameter computed by the PK routine.
+
+ Rate parameters are optional in the sense that rate parameters associ-
+ ated with compartments never receiving rate-modeled  zero-order  bolus
+ doses or rate-modeled steady-state infusions may be ignored.  However,
+ if the RATE data item on some dose event record contains the value -1,
+ then a rate parameter for the dose compartment must be computed in the
+ PK routine.
+
+ Rate parameters act continuously. PREDPP obtains the value of  a  rate
+ parameter, holding over the state-interval ( t1 , t2 ), from a call to
+ PK with the record associated with t2, even if  the  dose  event  time
+ occurs before t2.  Therefore, if there are state times (e.g. t2) fall-
+ ing within the time  interval  over  which  a  zero-order  bolus  dose
+ appears  in  the system, there exists the possibility that the rate of
+ drug input can change during the interval. For this to occur, the rate
+ parameter  would  need  to be modeled in terms of time varying covari-
+ ates.  As a result, a zero-order bolus dose where the rate is  modeled
+ might be better described as a piecewise zero-order process.
+
+ When  additional  doses  are specified on a dose event record the rate
+ parameter applies to the dose and to all the additional doses.
+
+ (See <A HREF="c.htm#cmt">cmt</A>, <A HREF="r.htm#rate">rate</A>, <A HREF="p.htm#pk">pk</A>, <A HREF="$.htm#$pk">$pk</A>, default_compartment).
+ (See <A HREF="e.htm#exogenous_supplementation_example">exogenous supplementation example</A>).
+
+REFERENCES: Guide IV Section <a href="IV/V.html#C.5.">V.C.5<a/>
+REFERENCES: Guide V Section <a href="V/12.html#2.3.">12.2.3<a/>
+REFERENCES: Guide VI Section <a href="VI/III.html#F.4-5.">III.F.4-5<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

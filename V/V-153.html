@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 153</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:7px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:5px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Courier;color:#000000;}
+	.ft6{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V153.png" alt="background image">
+<DIV style="position:absolute;top:41;left:329"><nobr><span class="ft0">Chapter 13 - Errors in NONMEM Runs</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft6">This arises when there exists a parameter whose values do not actually affect the predictions and<br>whose gradient in the intermediate output is always 0.</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:72"><nobr><span class="ft6">In general, successful completion of the Covariance Step requires a better deﬁned minimum than<br>does the successful completion of the Estimation Step.</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:72"><nobr><span class="ft1"><b>4. Miscellaneous Problems</b></span></nobr></DIV>
+<DIV style="position:absolute;top:167;left:72"><nobr><span class="ft6">This section discusses a few simple errors which prevent NONMEM-PREDPP from running suc-<br>cessfully.</span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:72"><nobr><span class="ft1"><b>4.1. Proportional Error Model</b></span></nobr></DIV>
+<DIV style="position:absolute;top:223;left:72"><nobr><span class="ft6">A common error is to use the proportional error model while some predicted values for actual<br>observations are zero or close to zero. (For example, if the ﬁrst dose is an infusion and there is a<br>&quot;baseline&quot; observation at the start of the infusion, the predicted level will be zero.)</span></nobr></DIV>
+<DIV style="position:absolute;top:266;left:72"><nobr><span class="ft6">With individual data this will lead to an error message similar to the following (the individual<br>number may be different from 1):</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:72"><nobr><span class="ft2">PROGRAM TERMINATED BY OBJ, ERROR IN ELS</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:74"><nobr><span class="ft2">WITH INDIVIDUAL 1 (IN INDIVIDUAL RECORD ORDERING)</span></nobr></DIV>
+<DIV style="position:absolute;top:323;left:74"><nobr><span class="ft2">VAR-COV OF DAT A FROM INDIVIDUAL RECORD ESTIMATED TO BE SINGULAR</span></nobr></DIV>
+<DIV style="position:absolute;top:339;left:72"><nobr><span class="ft6">With population data this will lead to an error message similar to the following (the individual<br>and record numbers may be different than 1):</span></nobr></DIV>
+<DIV style="position:absolute;top:370;left:75"><nobr><span class="ft2">PROGRAM TERMINATED BY OBJ, ERROR IN CELS</span></nobr></DIV>
+<DIV style="position:absolute;top:383;left:74"><nobr><span class="ft2">WITH INDIVIDUAL 1 (IN INDIVIDUAL RECORD ORDERING)</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:74"><nobr><span class="ft2">INTRAINDIVIDUAL VARIANCE OF DAT A FROM OBS RECORD 1 ESTIMATED TO BE 0</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:72"><nobr><span class="ft1"><b>4.2. Errors in the Pharmacokinetic Model</b></span></nobr></DIV>
+<DIV style="position:absolute;top:441;left:72"><nobr><span class="ft6">When using a new model, a run should done in which the Estimation Step is not run, and a scat-<br>terplot of PRED vs DV with unit slope line is produced, to verify that the model and the initial<br>parameter estimates are reasonable. It is much harder to diagnose errors in the model or the ini-<br>tial estimates after the Estimation Step fails. Make sure that the initial value of the objective<br>function is not excessively large, and that the unit slope line shows on the plot: scaling errors can<br>easily go undetected! E.g., if the units are incorrect at some point in the model (L vs ml), the pre-<br>dictions may be wrong by a factor of 1000. Similarly, if no scale was speciﬁed for the compart-<br>ment being observed, the predictions for the observations are compartment amounts rather than<br>concentrations. In both cases, the shape of the PRED vs DV plot may appear linear, but the axes<br>may be labeled quite differently. When observations from two different compartments are present<br>in the data (e.g., <i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:159"><nobr><span class="ft4"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:168"><nobr><span class="ft0">and <i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:576;left:195"><nobr><span class="ft4"><i>u</i></span></nobr></DIV>
+<DIV style="position:absolute;top:571;left:200"><nobr><span class="ft0">), some of the observations may be scaled incorrectly. This is dis-</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:72"><nobr><span class="ft0">cussed in Chapter 6, Section 9, and Chapter 7, Section 4.3.3.</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:72"><nobr><span class="ft1"><b>5. Errors with PREDPP</b></span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:72"><nobr><span class="ft1"><b>5.1. Error Messages from a TRANS Routine</b></span></nobr></DIV>
+<DIV style="position:absolute;top:653;left:72"><nobr><span class="ft0">TRANS routines can produce error messages. Here is one from TRANS2:</span></nobr></DIV>
+<DIV style="position:absolute;top:668;left:72"><nobr><span class="ft2">ERROR IN TRANS2 ROUTINE: V IS ZERO</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:72"><nobr><span class="ft0">Appendix 2 shows that TRANS2 normally computes</span></nobr></DIV>
+<DIV style="position:absolute;top:680;left:311"><nobr><span class="ft5">K=CL/V</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:351"><nobr><span class="ft0">. The routine checks that V is not</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:72"><nobr><span class="ft6">zero, and upon ﬁnding that it is, it prints the informative message, and terminates the run (thus<br>avoiding a machine &quot;division by zero&quot; interrupt by the operating system). This error usually<br>occurs with the initial parameter estimates. E.g., suppose the relevant $PK statement is:</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:276"><nobr><span class="ft0">-145-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

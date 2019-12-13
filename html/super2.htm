@@ -1,0 +1,95 @@
+<HTML><HEAD> <TITLE> super2.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                       SUPERPROBLEM_2 EXAMPLE                       |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ Two problems, in order to effect a standard two-stage analysis:
+
+ Problem 1: First stage analysis
+ Problem 2: Obtain simple population average of PK parameter.
+
+ Problem 2 comprises a superproblem.  It is implemented once for CL and
+ once for V, and can be implemented more  times  when  there  are  more
+ parameters of interest.
+
+      $PROBLEM TWO-STAGE  STAGE 1
+      $DATA dataD
+      $INPUT ID DOSE TIME DV=CP
+      $PRED
+      IF (IPROB.EQ.1.AND.NEWIND.LE.1) D=DOSE
+      IF (IPROB.EQ.1) THEN
+         CL=THETA(1)*EXP(ETA(1))
+         V =THETA(2)*EXP(ETA(2))
+         K=CL/V
+         F=D*EXP(-K*TIME)/V
+         Y=F+F*EXP(ETA(3))*ERR(1)
+      ENDIF
+      IF (ICALL.EQ.4) THEN
+      ; if S1IT &gt;= 1 then problem 2 is being implemented.
+      ; see comment 1 below.
+         IF (S1IT.GE.1) THEN
+      "      IF (S1IT.EQ.1) DPV=DATREC(2)
+      "      IF (S1IT.EQ.2) DPV=DATREC(3)
+             Y=DPV
+             RETURN
+         ENDIF
+      ENDIF
+      IF (S1IT.EQ.1) Y=THETA(1)+ERR(1)
+      IF (S1IT.EQ.2) Y=THETA(2)+ERR(2)
+      $THETA 5 50
+      $OMEGA 100 100 100
+      $SIGMA 1 FIX 0 FIX
+      $ESTIMATION MAXEVAL=0 POSTHOC METH=COND INTERACTION
+      $TABLE ID CL V  FILE=stage2 NOHEADER NOPRINT FIRST NOFORWARD
+      ;
+      $SUPER  SCOPE=1 ITERATION=2
+      $PROBLEM TWO-STAGE  STAGE 2
+      $INPT ID CLI VI DV
+      $DATA stage2 (4F12.0) NRECS=12 REWIND NOOPEN
+      $THETA 5 50
+      $OMEGA 0 FIX 0 FIX 0 FIX
+      $SIGMA 1 1
+      $SIMULATION (1)
+      $ESTIMATION   ;population estimates are obtained
+
+      Comment:
+
+      (1)   The  simulation  step in problem 2 is used to select the DV
+      data item from one of the several possibilities (CL or V)  output
+      by problem 1.
+
+      (2)   Using generated code, data item names that do not appear in
+      the $INPUT record of problem 1, such as CLI  and  VI,  cannot  be
+      used  in  abbreviated or verbatim code.  DATREC is a vector-array
+      of data items that can be referenced in verbatim code.
+
+ Contents of dataD (for individual 1 only) follow.
+
+ 1.000 4.020 0.000 0.091
+ 1.000 0.000 0.250 0.084
+ 1.000 0.000 0.570 0.105
+ 1.000 0.000 1.120 0.057
+ 1.000 0.000 2.020 0.038
+ 1.000 0.000 3.820 0.060
+ 1.000 0.000 5.100 0.046
+ 1.000 0.000 9.050 0.017
+ 1.000 0.000 7.030 0.024
+ 1.000 0.000 12.120 0.018
+ 1.000 0.000 24.370 0.002
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

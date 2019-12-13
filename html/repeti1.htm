@@ -1,0 +1,186 @@
+<HTML><HEAD> <TITLE> repeti1.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        REPETITION_1 EXAMPLE                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This  example  illustrates  the  use of the repetition feature, and in
+ particular, the use of the variables RPTI and RPTO.  For a  discussion
+ of these reserved variables: (See <A HREF="r.htm#repetition_variables">Repetition Variables</A>).
+
+ We  suppose that a compartment amount A2 at time t1 is given by a con-
+ volution, i.e. an integral with respect to s, of the  product  D(t1-s)
+ and  r(s),  where D is a unit distribution function, and r is an input
+ function.  The integral is taken from 0 to t1.  The amount in question
+ can be computed by integrating the differential equation
+
+ dA2/ds=D(t1-s)r(s)
+
+ from  time  0 to time t1.  For A2 at a later time t2, one integrates a
+ different differential equation:
+
+ dA2/ds=D(t2-s)r(s)
+
+ from time 0 to time t2.  This equation differs from the  first  in  so
+ far as the constant t2, rather than t1, is used in D.
+
+ Ordinarily, PREDPP will use a system of differential equations
+
+ dA2/ds=f(A2,t)
+
+ to  obtain the value of a vector A2 of compartment amounts at times t1
+ and t2, by first integrating the system to time t1, and then by  inte-
+ grating  the  same  or different system from time t1 to time t2.  This
+ scheme cannot be used with the two equations described above,  because
+ the  second  equation  - with the constant t2 - applies throughout the
+ time interval 0 to t1, as well as throughout the interval t1 to t2.
+
+ PREDPP requires the event records to be ordered chronologically in the
+ data  set,  and  with  its  ordinary usage with differential equations
+ (described above), these records are processed sequentially,  starting
+ with  the  first event record (which, for the purposes of this discus-
+ sion, can be thought to have time 0).  The records are passed  sequen-
+ tially to the PK routine.
+
+ The differential equations used for the convolution requires something
+ special.  During a regular sequential pass of the event records to the
+ PK routine, when a record R with time t - at which compartment amounts
+ are desired - is initially processed and passed to the PK routine  for
+ the first time, the routine should set the output variable RPTO to -1.
+ This signals to NONMEM that the regular pass should be interrupted and
+ a  second  pass  of the records should be initiated, starting with the
+ first event record once again and ending with record R (thus the  pass
+ of  these records is "repeated").  Only at the end of the second pass,
+ after all event records up to and including record R have  once  again
+ been  passed, will the value for A2(t) be established.  The amounts at
+ times on preceeding records have already been  established,  and  they
+ remain  unchanged  as  the pass of these records is repeated.  After R
+ has been passed for the second time, the first pass will be continued,
+ the  next event record will be passed for the first time, and RPTO can
+ again be set to -1.  Whenever an event record is passed for the  first
+ time,  f(s)  should  be  set to D(t-s)r(s), where t is the time on the
+ record, so that during the second pass, the differential equation that
+ is  used  is  the desired one.  When an event record is passed, if the
+ input variable to the PK routine, RPTI, has the value 0, this  signals
+ that  the record is not being passed as a part of a repeated pass, and
+ so this can be used as a signal that the record is  being  passed  for
+ the first time.
+
+ Suppose  the  kinetic  system  is  a two-compartment system where drug
+ absorption from a depot compartment into a sampling compartment occurs
+ in  a  first-order manner, and drug elimination from the sampling com-
+ partment occurs according  to  a  Weibull  unit  disposition  function
+ D(s)=exp(-K(s**c)).   Suppose  too that the superposition principle is
+ assumed to hold.  So drug amount is given by a  convolution.   Suppose
+ the event records for an individual are simply structured, e.g.
+
+ # TIME AMT DV     EVID
+   .0    10   .      1               rec 1
+   .25   .  2.44     0               rec 2
+   .5    .  5.24     0               rec 3
+   .75   .  5.57     0               rec 4
+   1     .  5.85     0               rec 5
+
+ Then the control stream should look like:
+
+ $PROB
+ $INPT TIME AMT DV EVID
+ $DATA data
+ $SUB ADVAN6 TOL=5
+ $MODEL COMP=(DEPOT DEFDOSE) COMP=(CENTRAL DEFOBS)
+
+ $INFN                                                                  |
+ IF (ICALL.EQ.0) RPTO=1      ;enables use of repetition feature         |
+ $PK
+ KA=THETA(1)*EXP(ETA(1))
+ K =THETA(2)*EXP(ETA(2))
+ C =THETA(3)
+ V =THETA(4)*EXP(ETA(4))
+ S2=V
+ IF (RPTI.EQ.0) TI=TIME
+ IF (NEWIND.EQ.2) RPTO=-1
+
+ $DES
+ DADT(1)=-KA*A(1)
+ D=EXP(-K*(TI-T)**C)
+ DADT(2)=D*KA*A(1)
+
+ etc.
+
+ Note  that  when  TIME= 0.25, RPTO need not have been set to -1; after
+ the second event record has been passed for the first time, the kinet-
+ ics are advanced from time 0 to time 0.25 using TI=0.25.
+
+ (1)  The above is supplied as repeat1.ctl and repeat1.dat in the exam- |
+ ples directory
+
+ The code
+ IF (ICALL.EQ.0) RPTO=1      ;enables use of repetition feature
+ is needed to inform NONMEM that the repetition feature will be used.
+
+ The code                                                               |
+ IF (NEWIND.EQ.2) RPTO=-1                                               |
+ initiates a pass starting with the first event record,  which  is  the |
+ default with RPTO=-1.                                                  |
+
+ (2)  Another  example,  repeat1t.ctl, demonstates that a repeated pass |
+ may start with  any  designated  record,  not  necessarily  the  first |
+ record.  The statement                                                 |
+
+ IF (NEWIND.NE.2) RPTO=1                                                |
+ is  used  to indicate explicitly that the first record is a repetition |
+ base.                                                                  |
+
+ (3) Example repeat1s.ctl uses the RPT_ data item for the same purpose. |
+ This  is  repeat1s.ctl  and repeat1s.dat in the examples directory.  A |
+ non-zero value of RPT_ marks a record as a repetition base.  A  state- |
+ ment  setting  RPTO=-n  (where  n  is the value of the RPT_ data item) |
+ requests repetition starting with the marked  record.   When  RPT_  is |
+ used,  it  automatically enables use of the repetition feature and the |
+ $INFN block may be omitted.                                            |
+
+ The data is augmented with the RPT_ item, as in this fragment:         |
+ # TIME AMT DV     EVID RPT_                                            |
+ 1  .0    10   .      1    1          rec 1                             |
+ 1  .25   .  2.44     0    .          rec 2                             |
+
+ and the control stream contains                                        |
+  $INPT ID TIME AMT DV EVID RPT_                                        |
+
+ (4) A different example of the use of RPT_ is given in repeatf.ctl and |
+ repeatf.dat.   Reserved  variables  RPTO=n and RPTO=-n are intended to |
+ mark and repeat a sequence of more than 1 data records.  If  only  one |
+ record is to be repeated, RPT_ must be used.  The example computes the |
+ factorial of a value supplied as KRPT in the data record.  A  fragment |
+ of the data is                                                         |
+
+ ID TIME DV  MDV RPT_ KRPT                                              |
+ 1  1    1     0    .    .                                              |
+ 1  2    2     0    1    4                                              |
+
+ The code sets                                                          |
+
+    IF (RPT_.EQ.1) RPTO=-1                                              |
+    RPTON=KRPT                                                          |
+
+ NONMEM  calls  PRED  KRPT+1  times  for each record with RPT_=1.  This |
+ allows the factorial to be computed.  This is intended as an illustra- |
+ tion  of what can be done using RPT_ data item.  With NONMEM 7.3, fac- |
+ torials can be computed more quickly using the DOWHILE feature and the |
+ GAMLN function.
+
+ REFERENCES: none.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 145</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft2{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft3{font-size:9px;font-family:Courier;color:#000000;}
+	.ft4{font-size:9px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V145.png" alt="background image">
+<DIV style="position:absolute;top:41;left:286"><nobr><span class="ft0">Chapter 12 - Brief Descriptions of Other Features</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft0">speciﬁed random distributions (e.g., with variances given by the initial estimates of</span></nobr></DIV>
+<DIV style="position:absolute;top:74;left:447"><nobr><span class="ft1">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:458"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:74;left:478"><nobr><span class="ft1">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:484"><nobr><span class="ft0">). If</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:72"><nobr><span class="ft1">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:84"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:87;left:103"><nobr><span class="ft1">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:113"><nobr><span class="ft0">matrices are ﬁxed to zero, for example, the simulated values are the same as the predic-</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:72"><nobr><span class="ft0">tions described above.</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:72"><nobr><span class="ft5">If the data are then displayed by the Table Step, the DV column for records with MDV=0 contains<br>the simulated observations obtained from the Simulation Step. For records having MDV=1, the<br>DV column contains whatever was in the original data record. The PRED column of the table<br>contains predictions as described above. If the Estimation Step was not implemented, the values<br>of</span></nobr></DIV>
+<DIV style="position:absolute;top:170;left:84"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:93"><nobr><span class="ft0">used for these predictions are the initial values. If the Estimation Step was implemented, the</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:72"><nobr><span class="ft0">values of</span></nobr></DIV>
+<DIV style="position:absolute;top:183;left:115"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:125"><nobr><span class="ft0">used for the predictions in the PRED column are the ﬁnal parameter estimates. Note</span></nobr></DIV>
+<DIV style="position:absolute;top:198;left:72"><nobr><span class="ft5">that the observations that are ﬁt during the search are the simulated values obtained by the Simu-<br>lation Step.</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:72"><nobr><span class="ft5">Often data are simulated using the Simulation Step, then analyzed using one or more other steps<br>(e.g. Estimation and Covariance Steps), and this process is repeated a ﬁxed number of times,<br>using the same model. The Simulation Step accommodates this easily with the notion of a<br>NONMEM subproblem, whereby these steps are repeated within the same NONMEM problem.<br>However, on occasion it can be useful to have multiple problems (see Section 4.7), where one<br>problem implements the Simulation Step, and the subsequent problem implements other steps.<br>For example, this is one way to obtain different initial parameter estimates for the Estimation Step<br>than for the Simulation Step.</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:72"><nobr><span class="ft0">The</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:93"><nobr><span class="ft3">ONLYSIMULATION</span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:188"><nobr><span class="ft0">option causes NONMEM to suppress evaluation of the objective func-</span></nobr></DIV>
+<DIV style="position:absolute;top:349;left:72"><nobr><span class="ft5">tion. With this option, PRED-deﬁned variables displayed in tables and scatterplots (see Section<br>4.13) are simulated values, i.e., use simulated</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:281"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:288"><nobr><span class="ft0">s and initial</span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:344"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:351"><nobr><span class="ft0">s, and weighted residual values in</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:72"><nobr><span class="ft0">tables and scatterplots are always 0.</span></nobr></DIV>
+<DIV style="position:absolute;top:392;left:72"><nobr><span class="ft5">References: Users Guide IV (NM-TRAN) III.B.13<br>References: Users Guide VI (PREDPP) III.E.2, L.1 , IV.B.1-2, C, G.1</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:72"><nobr><span class="ft4"><b>4.9. Files for Subsequent Processing: the $TABLE Record</b></span></nobr></DIV>
+<DIV style="position:absolute;top:448;left:72"><nobr><span class="ft5">NONMEM can write the data for a table to an external formatted ﬁle, as requested by the FILE<br>option of the $TABLE record. Other computer programs can read these ﬁles. Such programs can<br>perform further analysis or provide improved graphical displays. These ﬁles normally contain<br>header lines similar to those in a printed table, but the header lines can be suppressed entirely or<br>in part by means of the</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:176"><nobr><span class="ft3">NOHEADER</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:231"><nobr><span class="ft0">or</span></nobr></DIV>
+<DIV style="position:absolute;top:501;left:243"><nobr><span class="ft3">ONEHEADER</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:305"><nobr><span class="ft0">options, respectively.</span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:72"><nobr><span class="ft0">Tables may be written to the same or to different table ﬁles.</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:72"><nobr><span class="ft0">References: Users Guide IV (NM-TRAN) III.B.16</span></nobr></DIV>
+<DIV style="position:absolute;top:560;left:72"><nobr><span class="ft4"><b>4.10. Data Checkout Mode</b></span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:72"><nobr><span class="ft5">NONMEM’s data checkout mode is intended for preliminary display of data without the use of a<br>model. In data checkout mode, the PRED routine is not called. Predictions, the objective func-<br>tion, residuals, and weighted residuals are not computed. Only the Table and Scatterplot Steps<br>can be implemented in the problem. With NM-TRAN, this mode is requested by coding the<br>option</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:104"><nobr><span class="ft3">CHECKOUT</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:160"><nobr><span class="ft0">on the $DAT A record. A $SUBROUTINES record and abbreviated code are</span></nobr></DIV>
+<DIV style="position:absolute;top:642;left:72"><nobr><span class="ft0">required, but they hav e no effect and need only be syntactically correct.</span></nobr></DIV>
+<DIV style="position:absolute;top:659;left:72"><nobr><span class="ft0">References: Users Guide IV (NM-TRAN) III.B.6</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:72"><nobr><span class="ft4"><b>4.11. Obtaining Individual Parameter Estimates - Conditional Estimates of</b></span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:428"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:434"><nobr><span class="ft4"><b>s</b></span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:72"><nobr><span class="ft0">With population data, NONMEM can obtain estimates of individual-speciﬁc true values of</span></nobr></DIV>
+<DIV style="position:absolute;top:699;left:473"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:701;left:483"><nobr><span class="ft0">from</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:72"><nobr><span class="ft0">any giv en set of values of</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:193"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:199"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:206"><nobr><span class="ft1">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:214"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:711;left:221"><nobr><span class="ft1">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:714;left:227"><nobr><span class="ft0">, and the individual’s data. These are called conditional esti-</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:276"><nobr><span class="ft0">-137-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

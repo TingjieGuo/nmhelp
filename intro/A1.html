@@ -1,0 +1,473 @@
+<!-- Creator     : groff version 1.21 -->
+<!-- CreationDate: Fri Mar 22 18:06:15 2013 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+<h1 align="center"></h1>
+<hr>
+<p style="margin-top: 1em"><b>Appendix I. Control Record
+Formats</b></p>
+<p style="margin-top: 1em"><a name="intro"></a> <br>
+Records marked with * may be continued. <br>
+The record name, e.g., &quot;INDX&quot;, is not repeated on
+continuation(s).</p>
+<p style="margin-top: 1em">FILE record
+(<tt><i>FILE</i></tt>) (A4,4X,A72) <br>
+Field No. Value Function <br>
+1 NULL no file stream <br>
+72 chars name of file stream</p>
+<p style="margin-top: 1em">SUPER record
+(<tt><i>SUPR</i></tt>) (A4,4X,I4,I8,I4) <br>
+Field No. Value Function <br>
+1 1-9999 Number of problems in the superproblem <br>
+2 2-9999 Number of iterations of the superproblem. <br>
+3 0 Input information will be printed for first problem only
+<br>
+1 Input information will be printed for all problems</p>
+<p style="margin-top: 1em">PROBLEM record
+(<tt><i>PROB</i></tt>) (A4,4X,A72) <br>
+Field No. Value Function <br>
+1 72 chars problem heading</p>
+<p style="margin-top: 1em">DATA record
+(<tt><i>DATA</i></tt>) (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 0 or blank data set is embedded in the control stream <br>
+1 data set is in a separate file <br>
+-1 re-use the data set from the previous problem. <br>
+2 0 or blank FORTRAN unit not to be rewound <br>
+1 FORTRAN unit to be rewound <br>
+3 0 data set to be read to FINISH record or end of file <br>
+1-9999 no. of data records (low-order digits) <br>
+4 1-20 no. of data items per data record <br>
+5 0 not data checkout <br>
+1 data checkout only <b><br>
+6 0-9999 no. of data records (high-order digits) <br>
+The no. of data records is Field 6 * 10000 + Field 3. <br>
+When Field 6 is 0 or blank, this is simply Field 3</b></p>
+<p style="margin-top: 1em">ITEM record
+(<tt><i>ITEM</i></tt>) (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 0-20 index of ID data item <br>
+2 1-20 index of DV data item <br>
+3 0-20 index of MDV data item <br>
+4 0-20 no. of data item indices in INDXS <br>
+5 0 no user-supplied labels. <br>
+1 user-supplied labels. <br>
+6 0 standard labels PRED,RES and WRES used. <br>
+1 nonstandard labels used. <br>
+7 0-20 index of L2 data item <br>
+8 0-20 index of first data item specified in CONTR record
+<br>
+9 0-20 index of second data item specified in CONTR record
+<br>
+10 0-20 index of third data item specified in CONTR record
+<br>
+11 0-50 no. of user-supplied labels for tables, scatters
+<br>
+12 0-20 index of MRG_ data item <br>
+13 0-20 index of RAW_ data item <br>
+14 0-20 no. of items on OMIT record <br>
+15 0-20 index of RPT_ data item</p>
+<p style="margin-top: 1em">INDEX record
+(<tt><i>INDX</i></tt>)* (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 1-20 1st element of INDXS <br>
+2 1-20 2nd element of INDXS <br>
+etc.</p>
+<p style="margin-top: 1em">LABEL record
+(<tt><i>LABL</i></tt>)* (A4,4X,9(A4,4X)) <br>
+Field No. Value Function <br>
+1 4 chars label of 1st data item <br>
+2 4 chars label of 2nd data item <br>
+etc. <br>
+m 4 chars label of last data item <br>
+m+1 4 chars label for PRED (if ITEM(6)=1) <br>
+m+2 4 chars label for RES (if ITEM(6)=1) <br>
+m+3 4 chars label for WRES (if ITEM(6)=1) <br>
+m+p+1 4 chars label for 1st variable in NMPRD4&dagger; <br>
+m+p+2 4 chars label for 2nd variable in NMPRD4&dagger; <br>
+etc. <br>
+m+p+q 4 chars label for last displayed variable in
+NMPRD4</p>
+<p style="margin-top: 1em">Note <br>
+m=no. of data items per data rec.=DATA(4) <br>
+p=3 if non-standard labels for PRED, RES, WRES (ITEM(6)=1)
+<br>
+p=0 otherwise <br>
+q=no. of user supplied labels for tables, scatters=ITEM(11)
+<br>
+&dagger; Blank if this variable is not displayed</p>
+<p style="margin-top: 1em">OMIT record
+(<tt><i>OMIT</i></tt>)* (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 4 chars no. of 1st data item omitted from template
+matching <br>
+2 4 chars no. of 2nd data item omitted from template
+matching <br>
+etc.</p>
+<p style="margin-top: 1em">FORMAT record
+(<tt><i>FORM</i></tt>) (A4,4X,A72/A80) <br>
+Field No. Value Function <br>
+1 80 chars format specification <br>
+(field begins on first continuation record)</p>
+<p style="margin-top: 1em">FIND record
+(<tt><i>FIND</i></tt>) (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 0 <br>
+2 0 <br>
+3 0 No Model specification file (MSFI) <br>
+1 A Model specification file (MSFI) is to be read. <br>
+4 0 estimate on file not to be rescaled. <br>
+1 estimate on file to be rescaled. <br>
+5 0 No ONLYREAD option <br>
+1 ONLYREAD option</p>
+<p style="margin-top: 1em">initial STRUCTURE record
+(<tt><i>STRC</i></tt>) (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 0-70 length of THETA <br>
+2 0-70 dimension of OMEGA <br>
+3 0-70 dimension of SIGMA <br>
+4 blank <br>
+5 blank <br>
+6 0 or blank OMEGA constrained with a block set partition
+<br>
+1 OMEGA constrained to be diagonal <br>
+7 0 or blank only if field 6 has value 1 <br>
+1-70 number of block sets for OMEGA</p>
+<p style="margin-top: 1em">If the dimension of SIGMA is 0,
+the following fields may be ignored. <br>
+8 0 or blank SIGMA constrained with a block set partition
+<br>
+1 SIGMA constrained to be diagonal <br>
+9 0 or blank SIGMA only if field 8 has value 1 <br>
+1-70 number of block sets for SIGMA</p>
+<p style="margin-top: 1em"><b>10 blank <br>
+11 blank <br>
+12 0 or blank default THETA boundary test <br>
+1 No default THETA boundary test <br>
+13 0 or blank default OMEGA boundary test <br>
+1 No default OMEGA boundary test <br>
+14 0 or blank default SIGMA boundary test <br>
+1 No default SIGMA boundary test</b></p>
+<p style="margin-top: 1em">STRUCTURE record for OMEGA or
+SIGMA (<tt><i>STRC</i></tt>)* (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 1-70 size of 1st. block set <br>
+2 1-70 dimension of blocks in 1st. block set <br>
+3 1-70 size of 2nd. block set <br>
+4 1-70 dimension of blocks in 2nd. block set <br>
+etc.</p>
+<p style="margin-top: 1em">THETA CONSTRAINT record
+(<tt><i>THCN</i></tt>) (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 0 or blank THETA unconstrained <br>
+1 THETA constrained <br>
+2 0 or blank use default size of initial. est. search <br>
+1-9999 no. of points to be examined during initial est.
+search. <br>
+3 0 or blank ABORT if PRED sets error return code to 1
+during search <br>
+1 NOABORT - Ignore PRED error return code during search <br>
+2 NOABORTFIRST - Same, even with first values.</p>
+<p style="margin-top: 1em">THETA record
+(<tt><i>THTA</i></tt>)* (A4,4X,9A8) <br>
+Field No. Value Function <br>
+1 initial est. of &theta; <small><small>1</small></small>
+<br>
+(blank if NONMEM is to obtain the inital est.) <br>
+2 initial est. of &theta; <small><small>2</small></small>
+<br>
+(blank if NONMEM is to obtain the inital est.) <br>
+etc.</p>
+<p style="margin-top: 1em">LOWER BOUND record
+(<tt><i>LOWR</i></tt>)* (A4,4X,9A8) <br>
+Field No. Value Function <br>
+1 lower bound for &theta; <small><small>1</small></small>
+<br>
+2 lower bound for &theta; <small><small>2</small></small>
+<br>
+etc.</p>
+<p style="margin-top: 1em">UPPER BOUND record
+(<tt><i>UPPR</i></tt>)* (A4,4X,9A8) <br>
+Field No. Value Function <br>
+1 upper bound for &theta; <small><small>1</small></small>
+<br>
+2 upper bound for &theta; <small><small>2</small></small>
+<br>
+etc.</p>
+<p style="margin-top: 1em">DIAGONAL record
+(<tt><i>DIAG</i></tt>)* (A4,3X,A1,9A8) <br>
+for OMEGA or SIGMA <br>
+Field No. Value Function <br>
+Pos. 1 blank Not fixed. <br>
+1 Fixed. <br>
+2 NONMEM is to obtain the inital estimate(s). <br>
+1 initial est. of (1,1) element of matrix <br>
+2 initial est. of (2,2) element of matrix <br>
+etc.</p>
+<p style="margin-top: 1em">BLOCK SET record
+(<tt><i>BLST</i></tt>)* (A4,3X,A1,9A8) <br>
+for OMEGA or SIGMA <br>
+Field No. Value Function <br>
+Pos. 1 blank Not fixed. <br>
+1 Fixed. <br>
+2 NONMEM is to obtain the inital estimate(s). <br>
+1 initial est. of (1,1) element of matrix <br>
+2 initial est. of (1,2) element of matrix <br>
+etc. <br>
+use symmetric enumeration</p>
+<p style="margin-top: 1em">SIMLUATION record
+(<tt><i>SIML</i></tt>) (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 0 or blank Simulation Step implemented <br>
+1 Simulation Step not implemented</p>
+<p style="margin-top: 1em">If the value is 1, the
+subsequent fields may be ignored. <br>
+2 1-10 no. of random sources (SORC records) <br>
+3 0 eta (eps) changes with each record <br>
+1 eta (eps) changes with new ind.rec. (L2 rec) (NEW) <br>
+4 0-9999 no. of subproblems <br>
+5 0 compute objective function and other steps <br>
+1 only the simulation step <br>
+6 0 or blank no partial derivatives from PRED needed <br>
+1 PRED should compute 1st. derivatives (REQUESTFIRST) <br>
+2 PRED should compute 2nd. derivatives (REQUESTSECOND) <br>
+7 0 or blank simulated observation is Y or F (PREDICTION)
+<br>
+1 simulated observation is DV (NOPREDICTION) <br>
+8 0 or blank Use inital ests. (TRUE=INITIAL) <br>
+1 with MSFI, use final ests. (TRUE=FINAL) <br>
+2 use values in NMPR16 (TRUE=PRIOR)</p>
+<p style="margin-top: 1em">SOURCE record
+(<tt><i>SORC</i></tt>) (A4,4X,2A12,I4)</p>
+<p align="center" style="margin-top: 1em"><img src="grohtml-1293627.png" alt="Image grohtml-1293627.png"></p>
+<p style="margin-top: 1em">ESTIMATION record
+(<tt><i>ESTM</i></tt>) (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 0 or blank Estimation Step implemented <br>
+1 Estimation Step not implemented</p>
+<p style="margin-top: 1em">If the value is 1, the
+subsequent fields may be ignored. <b><br>
+2 0-9999 maximum no. of function. evaluations (low-order
+digits) <br>
+-1 Reuse the value from the previous run (with MSFI)</b>
+<br>
+3 1-8 number of significant figs. required in final est.
+<br>
+4 0 or blank no summarization of iterations <br>
+n&gt;0 every nth iteration summarized <br>
+5 0 or blank no second search (REPEAT) <br>
+1 second search (REPEAT) implemented <br>
+6 0 or blank MSF not output <br>
+1 MSF output <br>
+7 0 or blank First order (FO) method <br>
+1 Conditional method (METHOD=COND) <br>
+8 0 or blank No POSTHOC etas are to be estimated. <br>
+1 POSTHOC etas are to be estimated. <br>
+9 0 or blank Etas are 0 for comp. of intraind. error
+(NOINTERACTION) <br>
+1 Nonzero etas for comp. of intraind. error INTERACTION <br>
+10 0 or blank Do not use Laplacian method. <br>
+1 Laplacian method is to be used. <br>
+11 0 or blank ABORT if PRED sets error return code to 1 <br>
+1 NOABORT - Attempt theta-recovery when PRED error code 1.
+<br>
+12 0 or blank Faster method of compuation (NOSLOW) <br>
+1 Slower method of computation (SLOW) <br>
+2 Slower method of computation (SLOW=2); for Stieltjes <br>
+13 0 or blank avg. cond. est. of etas unconstrained
+(NOCENTER) <br>
+1 avg. cond. est. of etas constrained close to 0. (CENTER)
+<br>
+14 0 or blank First-order model not used (NOFO) <br>
+1 First-order model used with METHOD=1 CENTERING (FO) <br>
+15 0 or blank Second eta-derivs. computed by PRED
+(NONUMERICAL) <br>
+1 Second eta-derivs. for Laplacian to be obtained
+numerically. <br>
+16 0 or blank Y or F (with user-supplied code) is a
+prediction. <br>
+1 Y or F is a LIKELIHOOD. <br>
+2 Y or F is a -2LOGLIKELIHOOD <br>
+17 0 or blank Not the Hybrid method <br>
+1-99 no. of etas fixed to zero by ZERO recs. (Hybrid method)
+<br>
+18 0 or blank Not the Stieltjes method. <br>
+1 Stieltjes method; no GRID option. <br>
+2 Stieltjes method; GRID was specified.</p>
+<p style="margin-top: 1em">ESTIMATION rec. continuation
+rec. (&nbsp;&nbsp;&nbsp;&nbsp;) (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 0 or blank Required if estimation step is omitted,
+otherwise: <br>
+0 or blank The REPEAT2 option is not coded; same as
+NOREPEAT2 <br>
+1 REPEAT2 (with Stieltjes) <br>
+2 0 or blank No ETABARCHECK. <br>
+1 ETABARCHECK option is coded. <br>
+3 0 or blank. Sum contrib. to obj. func. in data set order.
+<br>
+1 Sort contrib. to obj. func. prior to sum (SORT) <b><br>
+4 0-9999 maximum no. of function evaluations (high-order
+digits) <br>
+The no. of func. evals. is Field 4 * 10000 + low-order <br>
+When Field 4 is 0 or blank, this is simply low-order</b></p>
+<p style="margin-top: 1em">ZERO record
+(<tt><i>ZERO</i></tt>)* (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 0 conditional estimate for eta(1) <br>
+1 eta(1) is fixed to 0 (HYBRID method) <br>
+2 0 conditional estimate for eta(2) <br>
+1 eta(2) is fixed to 0 (HYBRID method) <br>
+etc.</p>
+<p style="margin-top: 1em">GRID record
+(<tt><i>GRID</i></tt>) (A4,4X,9A8) <br>
+Field No. Value Function <br>
+1 nr as specified in GRID=(nr,ns,r0,r1) <br>
+2 ns as specified in GRID=(nr,ns,r0,r1) <br>
+3 r0 as specified in GRID=(nr,ns,r0,r1) <br>
+4 r1 as specified in GRID=(nr,ns,r0,r1)</p>
+<p style="margin-top: 1em">NONPARAMETRIC record
+(<tt><i>NONP</i></tt>) (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 0 or blank Nonparametric step implemented conditionally
+<br>
+1 Nonparametric step implemented unconditionally <br>
+2 0 or blank use nonparametric estimate from input MSF <br>
+1 recompute nonparametric estimate <br>
+3 0 or blank obtain marginal cumulatives <br>
+1 compute conditional nonpar. etas (CNPE ETAS) <br>
+4 0 or blank no model specification file is output <br>
+1 a model specification file is output</p>
+<p style="margin-top: 1em">COVARIANCE record
+(<tt><i>COVR</i></tt>) (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 0 or blank Covariance Step conditionally implemented <br>
+(1) (Covariance Step unconditionally implemented - obsolete)
+<br>
+2 Covariance Step not implemented <br>
+2 0 or blank covariance matrix set to (R inverse) S (R
+inverse) <br>
+1 covariance matrix set to R inverse <br>
+2 covariance matrix set to S inverse <br>
+3 0 or blank neither R nor S printed. <br>
+1 R matrix printed <br>
+2 S matrix printed <br>
+3 both R and S printed <br>
+4 0 or blank eigenvalues not printed <br>
+1 eigenvalues printed. <br>
+5 0 or blank default computation. <br>
+1 Special computation with a recursive PRED subroutine. <br>
+6 0 or blank Print Covariance Step arrays in normal format.
+<br>
+1 Print Covariance Step arrays in compressed format. <br>
+7 1 <br>
+8 0 or blank <br>
+9 0 or blank Normal method of computation <br>
+1 Slower method of computation (SLOW)</p>
+<p style="margin-top: 1em">initial TABLE record
+(<tt><i>TABL</i></tt>) (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 0 or blank Table Step conditionally implemented <br>
+1 Table Step unconditionally implemented <br>
+2 Table Step not implemented</p>
+<p style="margin-top: 1em">If the value is 2, the next
+field may be ignored, and there should not appear <br>
+any individual TABLE records. <br>
+2 1-10 number of tables</p>
+<p style="margin-top: 1em">individual TABLE record
+(<tt><i>TABL</i></tt>) (A4,3X,I1,18I4) <br>
+Field No. Value Function <br>
+Pos. 1 blank no option record. <br>
+1 an option record follows. <br>
+(only if at least one item on the option rec. is non-blank)
+<br>
+1 0-50 number of selected data item types <br>
+2 1-999 index of 1st selected data item type <br>
+3 0-8 sort code for data items of 1st selected type <br>
+4 1-999 index of 2nd selected data item type <br>
+5 0-8 sort code for data items of 2nd selected type <br>
+etc.</p>
+<p style="margin-top: 1em">individual TABLE rec. contin.
+rec. (&nbsp;&nbsp;&nbsp;&nbsp;)* (A4,4X,18I4) <br>
+(as needed)</p>
+<p align="center" style="margin-top: 1em"><img src="grohtml-1293638.png" alt="Image grohtml-1293638.png"></p>
+<p style="margin-top: 1em">individual TABLE record option
+rec. (&nbsp;&nbsp;&nbsp;&nbsp;) (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 blank Every data record appears in the table. <br>
+1 Only the first data rec. from each ind. rec. (FIRSTONLY)
+<br>
+2 1 With TABLE file, no printed table (NOPRINT) <br>
+2 With TABLE file, printed table appears in the NONMEM
+output. <br>
+3 blank Normal header lines appear in the TABLE file. <br>
+1 Only one header in the TABLE file (ONEHEADER) <br>
+2 No headers are included in the TABLE file (NOHEADER) <br>
+4 blank The TABLE file is opened and is positioned at the
+start. <br>
+1 The TABLE file is positioned at the end (FORWARD) <br>
+5 blank DV, PRED, RES, WRES appear automatically <br>
+1 DV, PRED, RES, WRES do not appear unless listed
+(NOAPPEND)</p>
+<p style="margin-top: 1em">initial SCATTERPLOT record
+(<tt><i>SCAT</i></tt>) (A4,4X,18I4) <br>
+Field No. Value Function <br>
+1 0 or blank Scatterplot Step conditionally implemented <br>
+1 Scatterplot Step unconditionally implemented <br>
+2 Scatterplot Step not implemented</p>
+<p style="margin-top: 1em">If the value is 2, the next
+field may be ignored, and there should not appear <br>
+any individual SCATTERPLOT records. <br>
+2 1-20 number of families</p>
+<p style="margin-top: 1em">individual SCATTERPLOT record
+(<tt><i>SCAT</i></tt>) (A4,4X,6I4,2I8,4I4,16X) <br>
+Field No. Value Function <br>
+1 1-23 index of data items plotted on abcsissa axis <br>
+2 1-23 index of data items plotted on ordinate axis <br>
+3 0 or blank a single scatterplot <br>
+1 a one-way partitioned scatterplot <br>
+2 a two-way partitioned scatterplot</p>
+<p style="margin-top: 1em">If the value of field 3 is 0 or
+blank, the next two fields should be ignored. <br>
+4 1-23 index of 1st separator</p>
+<p style="margin-top: 1em">If the value of field 3 is 1,
+the next field should be ignored. <br>
+5 1-23 index of 2nd separator <br>
+6 0 or blank no unit slope line appears <br>
+1 unit slope line appears <br>
+7 0-99999999 no. of the first data rec. for the scatter
+(FROM) <br>
+8 0-99999999 no. of the last data rec. for the scatter (TO)
+<br>
+9 0 or blank a line through zero on the ordinate axis if
+appropriate. <br>
+1 a line through zero on the ordinate axis. (ORD0) <br>
+-1 no line through zero on the ordinate axis. <br>
+10 0 or blank a line through zero on the abscissa axis if
+appropriate. <br>
+1 a line through zero on the abscissa axis. (ABS0) <br>
+-1 no line through zero on the abscissa axis. <br>
+11 0 or blank Every data record appears in the scatter. <br>
+1 Only the first data rec. from each ind. rec. (FIRSTONLY)
+<br>
+12 0 or blank Every data record appears in the scatter <br>
+1 Only data records with MDV=0 (OBSONLY).</p>
+<p style="margin-top: 1em"><a href="A1.html">TOP</a> <br>
+ <a href="index.html">TABLE OF CONTENTS</a></p>
+<hr>
+</body>
+</html>

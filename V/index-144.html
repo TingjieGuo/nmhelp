@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 144</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:5px;font-family:Symbol;color:#000000;}
+	.ft3{font-size:5px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;font-family:Courier;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft7{font-size:6px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft9{font-size:6px;line-height:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index144.png" alt="background image">
+<DIV style="position:absolute;top:41;left:286"><nobr><span class="ft0">Chapter 12 - Brief Descriptions of Other Features</span></nobr></DIV>
+<DIV style="position:absolute;top:78;left:72"><nobr><span class="ft0">and/or <i>S</i></span></nobr></DIV>
+<DIV style="position:absolute;top:73;left:110"><nobr><span class="ft2">−</span></nobr></DIV>
+<DIV style="position:absolute;top:76;left:114"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:78;left:122"><nobr><span class="ft0">can be printed. This is requested by options</span></nobr></DIV>
+<DIV style="position:absolute;top:79;left:325"><nobr><span class="ft4">PRINT=R</span></nobr></DIV>
+<DIV style="position:absolute;top:78;left:375"><nobr><span class="ft0">and/or</span></nobr></DIV>
+<DIV style="position:absolute;top:79;left:407"><nobr><span class="ft4">PRINT=S</span></nobr></DIV>
+<DIV style="position:absolute;top:78;left:453"><nobr><span class="ft0">. Eigenval-</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:72"><nobr><span class="ft0">ues are be printed if requested by option</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:252"><nobr><span class="ft4">PRINT=E</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:298"><nobr><span class="ft0">. Multiple</span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:347"><nobr><span class="ft4">PRINT</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:382"><nobr><span class="ft0">options can be speciﬁed.</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:72"><nobr><span class="ft8">A special computation is <i>required </i>when the data are from a single individual and a recursive<br>PRED is used. A recursive PRED is one which stores the results of certain computations using<br>the values from one event record, and uses these results in later computations with the values<br>from a later event record. PREDPP advances the kinetic system from one time point to the next<br>and therefore is an example of a recursive PRED. When PREDPP is used and the data is from a<br>single individual, NM-TRAN automatically requests the special computation. When a recursive<br>user-written PRED is used and the data are from a single individual, the</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:397"><nobr><span class="ft4">SPECIAL</span></nobr></DIV>
+<DIV style="position:absolute;top:186;left:447"><nobr><span class="ft0">option of the</span></nobr></DIV>
+<DIV style="position:absolute;top:199;left:72"><nobr><span class="ft0">$COVARIANCE record <i>must </i>be used.</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:72"><nobr><span class="ft0">The</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:93"><nobr><span class="ft4">CONDITIONAL</span></nobr></DIV>
+<DIV style="position:absolute;top:216;left:169"><nobr><span class="ft0">option of the $COVARIANCE record requests that the Covariance Step be</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:72"><nobr><span class="ft0">implemented only if Estimation Step terminates successfully, and is the default. The</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:451"><nobr><span class="ft4">UNCONDI-</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:72"><nobr><span class="ft4">TIONAL</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:115"><nobr><span class="ft0">option can be used to request that it be implemented no matter how the Estimation Step</span></nobr></DIV>
+<DIV style="position:absolute;top:255;left:72"><nobr><span class="ft0">terminates.</span></nobr></DIV>
+<DIV style="position:absolute;top:272;left:72"><nobr><span class="ft8">References: Users Guide IV (NM-TRAN) III.B.15<br>References: Users Guide II (Supplemental) D.2.5</span></nobr></DIV>
+<DIV style="position:absolute;top:311;left:72"><nobr><span class="ft5"><b>4.7. Multiple Problems in a Single NONMEM Run</b></span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:72"><nobr><span class="ft8">NONMEM can implement more than one problem in a single run. That is, the input control<br>stream can contain more than one $PROBLEM record, each followed by its own set of problem<br>speciﬁcation statements. This feature can be useful in a variety of situations. A series of what<br>otherwise would be separate runs, each analyzing a single individual’s data within a population<br>data ﬁle, can be performed conveniently without building separate data ﬁles for each individual.<br>Also, more than one data set can be analyzed using the same model and the same problem speciﬁ-<br>cation. Multiple problems are also useful with NONMEM’s Simulation Step, described below.</span></nobr></DIV>
+<DIV style="position:absolute;top:422;left:72"><nobr><span class="ft8">Note that abbreviated code such as $PK and $ERROR statements cannot appear after the ﬁrst<br>problem. If the $DAT A record is omitted or the ﬁlename is speciﬁed as * on a $DAT A record in a<br>problem subsequent to the ﬁrst, the previous data set is re-used.</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:72"><nobr><span class="ft8">A sequence of problems may be deﬁned to be a superproblem by means of the NM-TRAN $SU-<br>PER record, and NONMEM may also be directed to repeat them a speciﬁc number of times.</span></nobr></DIV>
+<DIV style="position:absolute;top:495;left:72"><nobr><span class="ft0">References: Users Guide IV (NM-TRAN) III.B.1</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:72"><nobr><span class="ft5"><b>4.8. Simulation Using NONMEM: The $SIMULATION Record</b></span></nobr></DIV>
+<DIV style="position:absolute;top:538;left:72"><nobr><span class="ft8">The term simulation refers to the generation of data points according to some model. A simple<br>form of simulation is performed when the Estimation Step is omitted but the Table Step is imple-<br>mented. The PRED column of the table contains predictions based on the information in the data<br>records and the initial estimates of</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:229"><nobr><span class="ft6">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:577;left:235"><nobr><span class="ft0">, under the model speciﬁed in the PRED (PREDPP) subrou-</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:72"><nobr><span class="ft0">tine. Random variables</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:179"><nobr><span class="ft6">η</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:189"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:208"><nobr><span class="ft6">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:217"><nobr><span class="ft0">(if any) have no effect on the predictions and may be omitted. If</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:72"><nobr><span class="ft8">the only purpose of the run is to obtain simulated values, and these variables are present, it is best<br>(but not required) that their variances be ﬁxed to 0. NONMEM does not compute the objective<br>function in this circumstance, which has certain advantages.</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:72"><nobr><span class="ft8">NONMEM can also perform a Simulation Step, in which another type of simulation is performed.<br>In the Simulation Step, each value of the DV data item of each record with MDV=0 is replaced by<br>a simulated observation generated from the model, but including statistical variability†. The<br>PRED (PREDPP) routine uses</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:210"><nobr><span class="ft6">η</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:220"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:239"><nobr><span class="ft6">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:685;left:248"><nobr><span class="ft0">values that are supplied by NONMEM according to user-</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:72"><nobr><span class="ft9">† During the Simulation Step, values of F computed by PRED or PREDPP for records having MDV=1 are irrel-<br>evant and are ignored by NONMEM.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:276"><nobr><span class="ft0">-136-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

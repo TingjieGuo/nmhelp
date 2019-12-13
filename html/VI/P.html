@@ -1,0 +1,662 @@
+<!-- Creator     : groff version 1.21 -->
+<!-- CreationDate: Tue Apr 25 13:27:13 2017 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part VI - PREDPP">NONMEM Users Guide Part VI - PREDPP</a><br>
+<a href="#Preface. to 4th Edition">Preface. to 4th Edition</a><br>
+<a href="#PREDPP. IV (NONMEM V)">PREDPP. IV (NONMEM V)</a><br>
+<a href="#PREDPP. V (NONMEM VI)">PREDPP. V (NONMEM VI)</a><br>
+<a href="#PREDPP7. (NONMEM 7)">PREDPP7. (NONMEM 7)</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part VI - PREDPP
+<a name="NONMEM Users Guide Part VI - PREDPP"></a>
+</h2>
+
+
+<h2>Preface. to 4th Edition
+<a name="Preface. to 4th Edition"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The appearance of this 4th
+edition of the PREDPP Guide corresponds to the release of
+PREDPP 7.4.0 and NONMEM 7.4.0. This is the first new edition
+since PREDPP Version III and NONMEM IV in 1992.</p>
+
+<p style="margin-top: 1em">Significant changes since the
+previous version are marked with bars.</p>
+
+<p style="margin-top: 1em">Versions of PREDPP are now
+numbered to match those of NONMEM. In the following, new
+features are arranged by the versions in which they were
+introduced.</p>
+
+<h2>PREDPP. IV (NONMEM V)
+<a name="PREDPP. IV (NONMEM V)"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="40%">
+
+
+<p style="margin-top: 1em">ADVAN11, ADVAN12, TRANS6</p></td>
+<td width="60%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">New ADVAN routines. These
+implement the analytic solution for the Three Compartment
+Linear Model. New TRANS routine. See Chapter VII, Sections
+C.11, C.12.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%">
+
+
+<p style="margin-top: 1em">$MODEL</p></td>
+<td width="90%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">A user-written MODEL subroutine
+is no longer requrired. NM-TRAN can generate the desired
+subroutine. See Chapter VI, Section B.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p style="margin-top: 1em">Endogenous drug</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">A record with AMT=0, RATE=0,
+SS&gt;0, and II=0 allows steady-state amounts to be computed
+by PREDPP based on endogenous input given by the DES
+routine. See Chapter I, Section I.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="52%">
+
+
+<p style="margin-top: 1em">New value of SS data item:
+SS=3</p> </td>
+<td width="48%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">With Steady State routines SS6
+and SS9 and SS13, the existing state vector (compartment
+amounts and eta derivatives) may be used as the initial
+estimate in the computation of the steady-state amounts. See
+Chapter V, Section F.2.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="57%">
+
+
+<p style="margin-top: 1em">Models with no Basic PK
+parameters</p> </td>
+<td width="43%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">With ADVAN routines 6, 8, 9, and
+13, MODEL may now define models with no basic PK parameters.
+See Chapter IV, Section B.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="63%">
+
+
+<p style="margin-top: 1em">ADVAN9 as an Algebraic Equation
+Solver</p> </td>
+<td width="37%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">ADVAN9 may be used when the
+system consists of only algebraic equations (i.e., no
+differential equations). See Chapter VI Section B.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="52%">
+
+
+<p style="margin-top: 1em">Changes to DES and AES
+Routines</p> </td>
+<td width="48%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="52%">
+
+
+<p style="margin-top: 1em">Argument DT</p></td>
+<td width="48%">
+</td></tr>
+</table>
+
+<p style="margin-left:17%;">With subroutine DES, a new
+argument DT must be declared. The partial derivative of
+DADT(i) with respect to T must be stored in DT(i). See
+Chapter VI, Section C.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="77%">
+
+
+<p style="margin-top: 1em">New Structure for DA, DP, DT:
+Full vs. Compact</p></td>
+<td width="15%">
+</td></tr>
+</table>
+
+<p style="margin-left:17%;">See Appendix IV.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="62%">
+
+
+<p style="margin-top: 1em">AES and DES Initialization at
+ICALL=1</p> </td>
+<td width="30%">
+</td></tr>
+</table>
+
+<p style="margin-left:17%;">AES and DES may return
+information to PREDPP at the initialization call. See
+Chapter VI, Sections C.B and E.B.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="55%">
+
+
+<p style="margin-top: 1em">Display AES and DES Defined
+items</p> </td>
+<td width="37%">
+</td></tr>
+</table>
+
+<p style="margin-left:17%;">DES- and AES-defined items may
+be displayed in tables or scatterplots and are computed at
+the event time in the data record. See Chapter VI, Sections
+C.C and E.C.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="70%">
+
+
+<p style="margin-top: 1em">Theta and Data record items in
+DES and AES</p></td>
+<td width="22%">
+</td></tr>
+</table>
+
+<p style="margin-left:17%;">In DES and AES: Theta and
+EVTREC are usable directly. See Chapter VI, Sections C.A and
+E.A.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="52%">
+
+
+<p style="margin-top: 1em">PK, ERROR, TRANS:
+NACTIV,IDXETA</p> </td>
+<td width="48%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">A user written PK, TRANS, or
+ERROR routine may compute derivatives for all
+<img src="grohtml-29220-2.png" alt="Image grohtml-29220-2.png">
+&rsquo;s, or optionally, to reduce run time, only for active
+<img src="grohtml-29220-3.png" alt="Image grohtml-29220-3.png">
+&rsquo;s. See Chapter III, Section E.5.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p style="margin-top: 1em">ERROR: IDEF</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">At ICALL=1, a value may
+optionally be stored in IDEF to reduce run time. It tells if
+ERROR uses derivatives of state vector A (see below for
+similar feature of PK). See Chapter IV, Section D.A.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="33%">
+
+
+<p style="margin-top: 1em">PK: Calling protocol</p></td>
+<td width="67%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Substantial time savings are
+possible when the PK subroutine limits calls to once per
+individual record (CALLFL=1 or ONCE PER IR). This is
+especialy important with ADVAN5 and ADVAN7. See Chapter III,
+Section H.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="32%">
+
+
+<p style="margin-top: 1em">INFN: PASSRC, NEWND</p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">PASSRC contains the data record
+at ICALL values 0, 1 and 3. PASSRC changes in conjunction
+with calls to PASS, at which time transgeneration is
+permitted. NWIND contains the NEWIND value at ICALL 0, 1 and
+3. NWIND changes value in conjunction with calls to PASS.
+See Chapter VI, Section A.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%">
+
+
+<p style="margin-top: 1em">$BIND</p></td>
+<td width="92%">
+
+
+<p style="margin-top: 1em">This is an NM-TRAN feature
+useful for PREDPP. It specifies which values from which
+event records are used in PK subroutines at non-event times.
+See Chapter III, Section I.A.</p></td></tr>
+</table>
+
+<h2>PREDPP. V (NONMEM VI)
+<a name="PREDPP. V (NONMEM VI)"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%">
+
+
+<p style="margin-top: 1em">MTIME</p></td>
+<td width="92%">
+
+
+<p style="margin-top: 1em">Model Event Time feature. See
+Chapter III and Appendix III.</p></td></tr>
+<tr valign="top" align="left">
+<td width="8%">
+
+
+<p style="margin-top: 1em">A_0,</p></td>
+<td width="92%">
+</td></tr>
+</table>
+
+<p>A_0FLG</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="7%"></td>
+<td width="1%"></td>
+<td width="92%">
+
+
+<p>Compartment Initialization feature. See Chapter III,
+Section I.B.</p></td></tr>
+<tr valign="top" align="left">
+<td width="7%">
+
+
+<p style="margin-top: 1em">I_SS</p></td>
+<td width="1%"></td>
+<td width="92%">
+</td></tr>
+</table>
+
+<p>feature</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%"></td>
+<td width="3%"></td>
+<td width="92%">
+
+
+<p>Initial Steady State feature. See Chapter III, Section
+I.B and Chapter V, Section F.3.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">New</p></td>
+<td width="3%"></td>
+<td width="92%">
+</td></tr>
+</table>
+
+<p>value of CALL data item</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%"></td>
+<td width="3%"></td>
+<td width="92%">
+
+
+<p>CALL may be 10 to force a call to ADVAN9 See Chapter IV,
+Section V.J.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">New</p></td>
+<td width="3%"></td>
+<td width="92%">
+</td></tr>
+</table>
+
+<p>values of CMT data items.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%"></td>
+<td width="3%"></td>
+<td width="92%">
+
+
+<p>CMT data item values 100 and 1000 may be used to
+indicate the default compartment for output. See Chapter IV,
+Section V.H.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">PK:</p></td>
+<td width="3%"></td>
+<td width="92%">
+</td></tr>
+</table>
+
+<p>State vector</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%"></td>
+<td width="3%"></td>
+<td width="92%">
+
+
+<p>Like ERROR, PK may use elements of the state vector
+(compartment amounts A) on the right. TSTATE (time of state
+vector A) may be used on the right. See Chapter III, Section
+I.A.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">PK:</p></td>
+<td width="3%"></td>
+<td width="92%">
+</td></tr>
+</table>
+
+<p>IDEF</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%"></td>
+<td width="3%"></td>
+<td width="92%">
+
+
+<p>At ICALL=1, a value may optionally be stored in IDEF to
+reduce run time. It tells if PK uses derivatives of state
+vector A. See Chapter III, Section G.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">PK,</p></td>
+<td width="3%"></td>
+<td width="92%">
+</td></tr>
+</table>
+
+<p>ERROR: New values of ICALL argument</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="92%">
+
+
+<p>New values 5 and 6 of ICALL indicate that NONMEM is
+computing raw data averages or expectations. PK and ERROR
+routines may have to provide code for these calls. See
+Chapter III, Section C and Chapter IV, Section B.2.</p></td></tr>
+</table>
+
+<h2>PREDPP7. (NONMEM 7)
+<a name="PREDPP7. (NONMEM 7)"></a>
+</h2>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%">
+
+
+<p style="margin-top: 1em">ADVAN13</p></td>
+<td width="88%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">General Nonlinear Model With
+Stiff/Nonstiff Equations Using LSODA. <br>
+See Chapter VII, Section C.13.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%">
+
+
+<p style="margin-top: 1em">ADVAN14</p></td>
+<td width="88%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">General Nonlinear Model With
+Stiff/Nonstiff Equations Using CVODES. <br>
+See Chapter VII, Section C.14.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%">
+
+
+<p style="margin-top: 1em">ADVAN15</p></td>
+<td width="88%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">General Nonlinear Model with
+Equilibrium Compartments Using IDAS. <br>
+See Chapter VII, Section C.15.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">TOL</p></td>
+<td width="3%"></td>
+<td width="92%">
+
+
+<p style="margin-top: 1em">Changes to SUBROUTINE TOL. See
+Chapter VI, Section D.B.</p></td></tr>
+<tr valign="top" align="left">
+<td width="5%">
+
+
+<p style="margin-top: 1em">New</p></td>
+<td width="3%"></td>
+<td width="92%">
+</td></tr>
+</table>
+
+<p>data items XVID XVID1 XVID2 XVID3 XVID4 XVID5</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="92%">
+
+
+<p>&quot;Repeated Observation Records&quot; feature exists
+to assist in specialized methodologies such as stochastic
+differential equations. See Chapter V, Section B.</p></td></tr>
+</table>
+
+<p style="margin-top: 1em">Larger models</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="92%">
+
+
+<p>The default numbers of compartments and parameters are
+larger. Even larger values can be requested using options PC
+and PG of the $SIZES record. Other options such as MAXFCN
+affect PREDPP. For example, $SIZES MAXFCN=9000000 may be
+used with General Non-Linear models (ADVAN6, ADVAN8, ADVAN9,
+ADVAN13) to request more function evaluations than the
+default value. See Chapter VII, Section A.</p></td></tr>
+</table>
+
+<p style="margin-top: 1em">Other changes to the PREDPP
+Guide itself are as follows.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="47%">
+
+
+<p style="margin-top: 1em">Appendix III. MTIME Details</p></td>
+<td width="53%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">This replaces
+&quot;Appendix III. One-Dimensional Format for IDEF of
+PK&quot;, which is obsolete.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="58%">
+
+
+<p style="margin-top: 1em">Appendix IV. Compact Arrays in
+DES</p> </td>
+<td width="42%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">This provides
+details about DES and the use of the Chain Rule.</p>
+
+<p style="margin-top: 1em">All figures have been updated to
+the NONMEM 7.4 versions. In the figures showing NONMEM
+control streams (16, 20, 22, 25, 29, 31), certain records
+have been omitted for simplicity. E.g., LBW1 and BEST and
+others that are only used only with Bayesian methods. These
+are optional records, and their omission does not affect a
+NONMEM run in which the Bayesian method is not used. Note
+that the FCON control stream in Appendix II is complete.</p>
+
+<p style="margin-top: 1em">Figure 17a is new.</p>
+
+<p style="margin-top: 1em"><a href="P.html">TOP</a> <br>
+<a href="index.html">TABLE OF CONTENTS</a> <br>
+ <a href="I.html">NEXT CHAPTER ...</a></p>
+<hr>
+</body>
+</html>

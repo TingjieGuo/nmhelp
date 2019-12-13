@@ -1,0 +1,143 @@
+<HTML><HEAD> <TITLE> infn2.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                    INFN_INTERPOLATION EXAMPLE 2                    |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This  example  is  new  to  NONMEM  7.   It  is an improved version of
+ infn1.exa.  In this example, instead of using a stand-alone INFN  sub-
+ routine,  $INFN  abbreviated code is used to fill in missing values of
+ WT in the THEOPP data set.
+ (See <A HREF="c.htm#control5">control5</A>).
+
+ If WT is recorded on every record, then the $PK block can be  simpler.
+ The  $PK  block can be called with every record (no need for CALLFL=1)
+ and no special code is needed to save the value of WT  for  subsequent
+ records.
+
+ No  "missing  independent variable" data item is needed, so the THEOPP
+ data file can be used as-is.  The $ABBR abbreviated code is located in
+ file  infnabbr  for convenient re-use.  This is also an example of the
+ $ABBR REPLACE feature, which  allows  easy  replacement  of  character
+ strings in the included code, and  is also an example of declared sub-
+ scripted variables.
+
+ Example fine1 shows how the finedata utility program can  be  used  to
+ fill in the values without the use of the INFN routine.
+
+ USAGE:
+
+ $PROB  THEOPHYLLINE   POPULATION DATA
+ $INPUT      ID DOSE=AMT TIME CP=DV WT
+ $DATA       THEOPP
+ $SUBROUTINES  ADVAN2
+ $ABBR REPLACE INTVBL=WT
+ $ABBR REPLACE NULLVAL=0.0
+  INCLUDE 'infnabbr'
+
+ The file infnabbr contains the following:
+
+ ; INFNABBR: ABBREVIATED CODE FOR HELP infn2.exa
+ ; THIS INFN BLOCK INTERPOLATES AND EXTRAPOLATES VALUES OF A SINGLE
+ ; DATA ITEM CALLED INTVBL.
+ ; BY DEFAULT, THE AXIS VARIABLE IS CALLED TIME.
+ ; THE CHARACTER STRING NULLVAL DENOTES A NULL VALUE.
+ ;
+ ; IF THERE IS ONLY ONE NON-NULL VALUE, THIS VALUE IS COPIED TO
+ ; ALL NULL VALUES. OTHERWISE:
+ ; LINEAR INTERPOLATION IS PERFORMED FOR NULL VALUES THAT
+ ; LIE BETWEEN TWO NON-NULL VALUES.
+ ; LINEAR EXTRAPOLATION IS PERFORMED FOR VALUES BEFORE THE
+ ; FIRST NON-NULL VALUE
+ ; LINEAR EXTRAPOLATION IS PERFORMED FOR VALUES AFTER THE
+ ; LAST NON-NULL VALUE
+ ; INFNABBR CAN BE USED WITH BOTH SINGLE
+ ; SUBJECT AND POPULATION DATA SET.
+ ; WRITTEN BY AJB 9/2012
+ ;
+ ; TYPICAL USAGE:
+ ; $ABBR REPLACE INTVBL=WT
+ ; $ABBR REPLACE NULLVAL=0.0
+ ; $ABBR REPLACE TIME=T  (ONLY IF T IS THE AXIS VARIABLE RATHER THAN TIME)
+ ;  INCLUDE 'INFNINTERP'
+ ;
+ ;
+ $ABBR DECLARE U(MAXIDS,NO), V(MAXIDS,NO)
+ $ABBR DECLARE INTEGER IS
+ $ABBR DECLARE INTEGER I, INTEGER J, INTEGER L
+ $ABBR DECLARE IVAL(NO)
+ $INFN
+   ; $INFN FOR COMPUTING INTERPOLATED VALUES OF AN
+   ; INDEPENDENT VARIABLE NAMED INTVBL
+   ; E.g., INTVBL MIGHT BE WEIGHT
+   ; ASSUME THAT INTVBL = NULLVAL  WHEN MISSING.
+   ; IS=SUBJECT #
+   ; IVAL(IS)= # OF NON-NULL VALUES OF THE INDEP VAR. FOR SUBJECT IS
+   ; VI(IS,I) = ITH. NON-NULL VALUE OF THE INDEPENDENT VARIABLE
+   ; UI(IS,I) = TIME OF THE ITH. NON-NULL VALUE OF THE INDEPENDENT VARIABLE
+
+    IS=0
+    IF (ICALL.EQ.1) THEN
+ ; FIRST PASS.  SAVE VALUES OF TIME & INDEP VAR. WHEN INDEP VAR. IS NON-NULL
+         DO WHILE (DATA)
+         IF (NEWIND &lt; 2) THEN  ; INITIALIZE NEW INDIVIDUAL
+           IS=IS+1
+           IVAL(IS)=0
+         ENDIF
+         IF (INTVBL /= NULLVAL) THEN     ; SAVE NON-NULL VALUE
+            IVAL(IS)=IVAL(IS)+1
+            I=IVAL(IS)
+            U(IS,I)=TIME
+            V(IS,I)=INTVBL
+         ENDIF
+       ENDDO
+ ; SECOND PASS
+         IS=0
+         DO WHILE (DATA)
+         IF (NEWIND &lt; 2) THEN  ; INITIALIZE NEW INDIVIDUAL
+           IS=IS+1
+           I=0
+         ENDIF
+ ; IF INDEP VAR IS MISSING AND WAS ONLY NON-NULL ONCE, COPY IT
+         IF (INTVBL == NULLVAL .AND. IVAL(IS) == 1) THEN
+             INTVBL=V(IS,1)
+         ELSE
+          IF (INTVBL /= NULLVAL) THEN  ; COUNT ANOTHER NON-NULL VALUE
+             I=I+1
+          ELSE  ; CURRENT RECORD HAS NULL VALUE
+             IF (I==0) THEN ; EXTRAPOLATE FROM FIRST 2 VALUES
+                J=1
+                L=2
+             ELSEIF (I&gt;0 .AND. I&lt;IVAL(IS)) THEN ; INTERPOL. BEFORE AND AFTER
+                J=I
+                L=I+1
+             ELSEIF (I==IVAL(IS)) THEN  ; EXTRAPOL. FROM LAST 2 VALUES
+               J=I-1
+               L=I
+             ENDIF
+             SLOPE=(V(IS,J)-V(IS,L))/(U(IS,J)-U(IS,L))
+             INTVBL=V(IS,J)+SLOPE*(TIME-U(IS,J))
+          ENDIF
+         ENDIF
+         ENDDO
+    ENDIF
+
+ (See <A HREF="c.htm#control5">control5</A>).
+ (See <A HREF="i.htm#infnp">infn1 example</A>).
+ (See <A HREF="f.htm#find">fine1 example</A>).
+
+REFERENCES: Guide VI Section <a href="VI/VI.html#A.">VI.A<a/>, <a href="VI/fig.html#Figure_37">Figure 37<a/>
+REFERENCES: Guide  Section <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

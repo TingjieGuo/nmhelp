@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 111</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:7px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft4{font-size:9px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft6{font-size:5px;font-family:Times;color:#000000;}
+	.ft7{font-size:5px;font-family:Symbol;color:#000000;}
+	.ft8{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft9{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V111.png" alt="background image">
+<DIV style="position:absolute;top:41;left:376"><nobr><span class="ft0">Chapter 11 - Model Building</span></nobr></DIV>
+<DIV style="position:absolute;top:79;left:72"><nobr><span class="ft1">Figure 11.1. Stages in model building.</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:72"><nobr><span class="ft2"><b>3. Check-out — Index Plots</b></span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:72"><nobr><span class="ft8">The goal of this stage is to assure that the data are correct. There is no point to trying to model<br>the data when gross errors are present. Most gross errors are encoding errors that cause certain<br>values to be different from the intended value by a considerable amount (for example, a mis-<br>placed decimal point changes a value by a factor of 10), so that graphical display of the data is<br>usually adequate to detect these. No numerical or statistical approaches are needed. Indeed, they<br>are not usually useful, even for more subtle errors, as such errors cannot easily be detected by any<br>means (how is a 10% error to be distinguished from inter- or intra-individual variability?).</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:72"><nobr><span class="ft8">To detect gross errors, then, one makes scatterplots of different data item types vs individuals’<br>identiﬁcation numbers (i.e. the ID data item, or, if the values of this data item are arbitrary,<br>another data item that identiﬁes patients using sequential integer values; call this the sequence<br>data item: SEQ). Such plots (of one data item versus ID or SEQ) are called here index plots, and<br>are quite useful for revealing the structure of the data, as will be noted below, as well as for ﬁnd-<br>ing gross errors.</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:72"><nobr><span class="ft8">If NONMEM is used to make index plots, it will also be useful to implement the Tables Step, so<br>that if a problem is noted in a scatterplot, one can refer to the table to try to ﬁnd the datum that<br>might account for the problem. To run NONMEM some model must be speciﬁed, even if all that<br>is desired is an index plot. In such case, it makes little difference what model is used. It is easiest<br>and useful to (i) start with a simple ADVAN that is likely to provide at least a roughly satisfactory<br>ﬁt, (ii) set each PK parameter to a (different) element of</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:326"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:332"><nobr><span class="ft0">, (iii) use only one</span></nobr></DIV>
+<DIV style="position:absolute;top:371;left:417"><nobr><span class="ft3">η</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:427"><nobr><span class="ft0">variable, modify-</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:72"><nobr><span class="ft0">ing the scale parameter only, and one</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:240"><nobr><span class="ft3">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:248"><nobr><span class="ft0">variable, and (iv) use roughly reasonable ﬁxed initial esti-</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:72"><nobr><span class="ft0">mates.</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:72"><nobr><span class="ft0">For the phenobarbital example, one might use ADVAN1 with <i>K</i></span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:388"><nobr><span class="ft5">=</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:397"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:403"><nobr><span class="ft6">1</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:407"><nobr><span class="ft0">, <i>V</i></span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:427"><nobr><span class="ft5">=</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:436"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:442"><nobr><span class="ft6">2</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:449"><nobr><span class="ft5">+</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:458"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:464"><nobr><span class="ft6">2</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:468"><nobr><span class="ft3">η</span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:475"><nobr><span class="ft6">1</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:479"><nobr><span class="ft0">, and</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:73"><nobr><span class="ft4"><i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:81"><nobr><span class="ft5">=</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:92"><nobr><span class="ft4"><i>f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:100"><nobr><span class="ft5">+</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:111"><nobr><span class="ft4"><i>f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:116"><nobr><span class="ft3">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:435;left:121"><nobr><span class="ft6">1</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:126"><nobr><span class="ft0">. Initial estimates might be: <i>K </i>= .0057 hr</span></nobr></DIV>
+<DIV style="position:absolute;top:425;left:320"><nobr><span class="ft7">−</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:325"><nobr><span class="ft6">1</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:333"><nobr><span class="ft0">(half-life = 5 days, a typical value for</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:72"><nobr><span class="ft8">adults); <i>V </i>= 1.44 L. (the ﬁrst patient has a concentration of 17.3 mg/L some few hours after an ini-<br>tial loading dose of 25 mg; 1.44 times 17.3 = 25);</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:296"><nobr><span class="ft3">ω</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:308"><nobr><span class="ft0">= .25 (50% variability);</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:415"><nobr><span class="ft3">σ</span></nobr></DIV>
+<DIV style="position:absolute;top:454;left:423"><nobr><span class="ft6">2</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:430"><nobr><span class="ft0">= .04 (20% vari-</span></nobr></DIV>
+<DIV style="position:absolute;top:470;left:72"><nobr><span class="ft0">ability).</span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:72"><nobr><span class="ft8">Figures 11.2 and 11.3 show index plots that might be seen in a check-out run (gross errors have<br>been added). In ﬁgure 11.2, DV is plotted vs ID (here ID and SEQ are the same), and a gross<br>error occurring at about patient #13 is seen (an observation of about 24 mcg/ml was erroneously<br>recorded as 240 mcg/ml). In ﬁgure 11.3, AMT is plotted vs ID, and patient #3 appears to have a<br>grossly erroneous value (again, a decimal point error; a dose of 18 was misrecorded as 180).</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:276"><nobr><span class="ft0">-103-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 92</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:5px;font-family:Times;color:#000000;}
+	.ft5{font-size:7px;font-family:Courier;color:#000000;}
+	.ft6{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft7{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index092.png" alt="background image">
+<DIV style="position:absolute;top:41;left:312"><nobr><span class="ft0">Chapter 9 - Additional NM-TRAN Records</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft1"><b>2.3. Fixing Elements of</b></span></nobr></DIV>
+<DIV style="position:absolute;top:75;left:184"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:72"><nobr><span class="ft0">When estimation is performed, it is sometimes desirable to hold one or more elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:91;left:477"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:487"><nobr><span class="ft0">to a</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:72"><nobr><span class="ft7">constant value. One example is when a full model is reduced to a simpler model, as discussed in<br>Chapter 5, Section 2.1; usually this is done by holding some</span></nobr></DIV>
+<DIV style="position:absolute;top:117;left:345"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:355"><nobr><span class="ft0">element to 0. In fact, the value 0</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:72"><nobr><span class="ft0">may not be used as an initial estimate for an element of</span></nobr></DIV>
+<DIV style="position:absolute;top:130;left:317"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:327"><nobr><span class="ft0">unless this element is ﬁxed to this value.</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:72"><nobr><span class="ft0">A</span></nobr></DIV>
+<DIV style="position:absolute;top:143;left:82"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:92"><nobr><span class="ft0">element is held constant by inserting the word FIXED <i>after </i>the initial estimate. For example,</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:72"><nobr><span class="ft0">the following statement allows</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:209"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:215"><nobr><span class="ft4">1</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:222"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:240"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:247"><nobr><span class="ft4">3</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:254"><nobr><span class="ft0">to vary, but holds</span></nobr></DIV>
+<DIV style="position:absolute;top:156;left:332"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:164;left:338"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:345"><nobr><span class="ft0">to the value .102:</span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:77"><nobr><span class="ft5"><b>$THETA 1.7 .102 FIXED</b></span></nobr></DIV>
+<DIV style="position:absolute;top:174;left:202"><nobr><span class="ft5"><b>29.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:72"><nobr><span class="ft0">Parentheses may be used to make the statement easier to read:</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:77"><nobr><span class="ft5"><b>$THETA 1.7 (.102 FIXED) 29.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:72"><nobr><span class="ft0">If the lower, initial, and upper values for an element of</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:317"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:327"><nobr><span class="ft0">are identical, the element of</span></nobr></DIV>
+<DIV style="position:absolute;top:208;left:455"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:465"><nobr><span class="ft0">is under-</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:72"><nobr><span class="ft0">stood to be ﬁxed, even if the word FIXED does not appear.</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:72"><nobr><span class="ft1"><b>2.4. How to Obtain Initial Estimates for</b></span></nobr></DIV>
+<DIV style="position:absolute;top:247;left:262"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:72"><nobr><span class="ft0">When estimating parameters, good initial estimates for</span></nobr></DIV>
+<DIV style="position:absolute;top:264;left:323"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:333"><nobr><span class="ft0">are sometimes important. Poor initial</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:72"><nobr><span class="ft7">estimates may occasionally cause the NONMEM run to take excessive amounts of computer time,<br>to produce parameter estimates that are not physiologically reasonable, or to fail to produce any<br>parameter estimates at all. For some drugs and models, initial estimates for</span></nobr></DIV>
+<DIV style="position:absolute;top:303;left:422"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:432"><nobr><span class="ft0">can be obtained</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:72"><nobr><span class="ft7">from published literature describing prior studies with the drug. For some studies, very accurate<br>values may have been obtained by prior runs with NONMEM or other regression programs.<br>Highly accurate values should be perturbed (modiﬁed) by about 10% before being used as initial<br>estimates in a NONMEM run. (Initial estimates that are too close to what may be the actual ﬁnal<br>estimates will cause problems in a NONMEM run; see Chapter 13.) Sometimes, however, there<br>is little guidance in choosing initial estimates for some elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:368"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:384;left:375"><nobr><span class="ft0">.</span></nobr></DIV>
+<DIV style="position:absolute;top:400;left:72"><nobr><span class="ft8">One approach with population data, where there is a reasonable amount of data for each individ-<br>ual, is as follows. It is often easier to guess at appropriate parameter values for individual data<br>than for population data. So, ﬁrst estimate each individual’s parameter values using only the data<br>from the individual. The mean values of the individuals’ parameter estimates can then be used as<br>the initial parameter estimates in the population analysis. Results from individual runs can also<br>be used to obtain initial estimates for elements of</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:291"><nobr><span class="ft6">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:302"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:462;left:321"><nobr><span class="ft6">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:465;left:327"><nobr><span class="ft0">; see below.</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:72"><nobr><span class="ft7">Another approach is simply to let NONMEM ﬁnd an initial estimate. NONMEM has an auto-<br>matic strategy for so doing; see Chapter 12, Section 4.4.</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:72"><nobr><span class="ft1"><b>3. Providing Initial Estimates for</b></span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:231"><nobr><span class="ft6">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:242"><nobr><span class="ft1"><b>and</b></span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:263"><nobr><span class="ft6">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:269"><nobr><span class="ft1"><b>: the $OMEGA and $SIGMA Records</b></span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:72"><nobr><span class="ft0">Recall that</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:122"><nobr><span class="ft6">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:133"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:534;left:152"><nobr><span class="ft6">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:161"><nobr><span class="ft0">are variance/covariance matrices for the following random variables:</span></nobr></DIV>
+<DIV style="position:absolute;top:554;left:72"><nobr><span class="ft0">Individual Model</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:100"><nobr><span class="ft6">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:111"><nobr><span class="ft0">(OMEGA) for</span></nobr></DIV>
+<DIV style="position:absolute;top:564;left:176"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:186"><nobr><span class="ft0">(Random Intraindividual Variability)</span></nobr></DIV>
+<DIV style="position:absolute;top:584;left:72"><nobr><span class="ft0">Population Model</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:100"><nobr><span class="ft6">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:111"><nobr><span class="ft0">(OMEGA) for</span></nobr></DIV>
+<DIV style="position:absolute;top:594;left:176"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:186"><nobr><span class="ft0">(Random Interindividual Variability)</span></nobr></DIV>
+<DIV style="position:absolute;top:606;left:100"><nobr><span class="ft6">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:109"><nobr><span class="ft0">(SIGMA) for</span></nobr></DIV>
+<DIV style="position:absolute;top:607;left:170"><nobr><span class="ft2">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:179"><nobr><span class="ft0">(Random Intraindividual Variability)</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:72"><nobr><span class="ft0">In all the examples in this document,</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:246"><nobr><span class="ft6">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:258"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:623;left:278"><nobr><span class="ft6">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:626;left:288"><nobr><span class="ft0">are <i>diagonal </i>matrices, in which covariance ele-</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:72"><nobr><span class="ft0">ments such as</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:136"><nobr><span class="ft2">ω</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:144"><nobr><span class="ft4">12</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:156"><nobr><span class="ft0">(which is <i>cov</i>(</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:219"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:225"><nobr><span class="ft4">1,</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:231"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:644;left:238"><nobr><span class="ft4">2</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:242"><nobr><span class="ft0">)) are assumed to be zero. NONMEM also allows full vari-</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:72"><nobr><span class="ft0">ance/covariance matrices; this is beyond the scope of this text, but see Chapter 12, Section 4.1.</span></nobr></DIV>
+<DIV style="position:absolute;top:669;left:72"><nobr><span class="ft7">Initial estimates for the variances must be provided to NONMEM via the $OMEGA and<br>$SIGMA records. Initial estimates of <i>all model parameters </i>(</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:344"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:351"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:357"><nobr><span class="ft6">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:365"><nobr><span class="ft0">, and</span></nobr></DIV>
+<DIV style="position:absolute;top:678;left:390"><nobr><span class="ft6">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:682;left:397"><nobr><span class="ft0">) must be provided even</span></nobr></DIV>
+<DIV style="position:absolute;top:695;left:72"><nobr><span class="ft7">if estimation is not requested. $OMEGA and $SIGMA records each contain a list of values, sepa-<br>rated by spaces or commas, which are the estimates for the corresponding variances. As in the<br>$THETA record, the position of a value in the list corresponds to the position (subscript) of the</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-84-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

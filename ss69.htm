@@ -1,0 +1,56 @@
+<HTML><HEAD> <TITLE> ss69.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                              SS6 SS9                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Choice of Steady-State Routine for General Nonlinear Kinetics
+ in PREDPP
+ CONTEXT: Option of NM-TRAN $SUBROUTINES record
+
+ USAGE:
+ $SUBROUTINES [SS=]SS6
+
+ SAMPLE:
+ $SUBROUTINE SS6
+
+ DISCUSSION:
+ The SS6 subroutine computes steady-state kinetics in  a  very  general
+ way  and  may  be used with any choice of ADVAN (other than ADVAN9 and
+ ADVAN15, with which only SS9 can be used).  With NONMEM  7.4,  SS6  is
+ the  only  steady-state  routine that can be used with ADVAN6, ADVAN8,
+ ADVAN10, ADVAN13, ADVAN14.  (With earlier versions of NONMEM  7,  SS13
+ was used with ADVAN13.)
+
+ When  SS6 or SS9 is used, a DES subroutine (or $DES block) is required
+ to evaluate differential equations.
+
+ TOL is required; (See <A HREF="$.htm#$subroutines">$subroutines</A>).
+
+ With NONMEM 7.4, values of TOL and ATOL may be specified  for  evalua-
+ tions of Steady State amounts.
+ See  options  SSATOL  and SSATOLC of the $SUBROUTINE and $TOL records,
+ and the TOL routine.
+
+ Required PREDPP Library subroutines:
+
+ With SS6: ZSPOW1, FCN1, FCN2
+
+ With SS9: ZSPOW1, FCN2, FCN4
+
+REFERENCES: Guide VI Section <a href="VI/VI.html#C.">VI.C<a/>, <a href="VI/VII.html#B.">VII.B<a/>, <a href="VI/VII.html#C.6.">VII.C.6<a/>, <a href="VI/VI.html#C.9.">VI.C.9<a/>
+REFERENCES: Guide IV Section <a href="IV/V.html#C.3.">V.C.3<a/>, <a href="IV/V.html#C.10.">V.C.10<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

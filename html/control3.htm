@@ -1,0 +1,61 @@
+<HTML><HEAD> <TITLE> control3.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                          CONTROL3 EXAMPLE                          |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This is file CONTROL3 from the NONMEM distribution medium.
+
+ $PROBLEM  THEOPHYLLINE   SINGLE SUBJECT DATA
+ $INPUT  DOSE=AMT TIME CP=DV
+ $DATA  DATA3
+ $SUBROUTINES  ADVAN2
+
+ $PK
+ CALLFL=1
+ KA=THETA(1)
+ K=THETA(2)
+ SC=THETA(3)
+
+ $ERROR
+ Y=F+ERR(1)
+
+ $THETA  (0,1.7)  (0,.102)  (0,29)
+
+ $ESTIMATION  MAXEVAL=240  PRINT=2
+ $COVR
+ $TABLE TIME
+ $SCAT    CP VS TIME
+ $SCAT    PRED VS TIME
+ $SCAT    RES VS TIME
+ $SCAT    PRED VS CP  UNIT
+
+ The data is file DATA3 from the NONMEM distribution media.
+
+     320    .0     .
+      .     .27   1.71
+      .     .52   7.91
+      .    1.     8.31
+      .    1.92   8.33
+      .    3.5    6.85
+      .    5.02   6.08
+      .    7.03   5.4
+      .    9.     4.55
+      .   12.     3.01
+      .   24.3     .90
+
+REFERENCES: Guide III Section <a href="III/index.html">VI.1<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

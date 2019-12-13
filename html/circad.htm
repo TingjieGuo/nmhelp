@@ -1,0 +1,286 @@
+<HTML><HEAD> <TITLE> circad.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |   EXAMPLES USING MTIME TO MODEL PERIODIC DISCONTINUITIES IN $DES   |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ Some systems defined with differential equations can be  discontinuous
+ with respect to time. Discontinuities are  typically introduced in the
+ system by suddenly  changing the value of one or more  model variables
+ at specific points of time. Such changes can be periodic due to e.g. a
+ circadian rhythm. It is important to define discontinuous variables in
+ $PK using model event time (MTIME) variables rather than updating them |
+ in  $DES using IF-ELSE-ENDIF tests of T or using the discontinuous INT
+ function. In fact, when integrating from time ta  to   time  tb,  rou-
+ tines such as DVERK (ADVAN6) may go  slightly beyond time tb (i.e., it
+ may happen that $DES is called at T&gt;tb).  The values of DADT should be
+ continuous.  If any element of DADT changes at T=b, this should happen
+ at  the next integration interval, integrating from time b to time c.
+
+ Two examples are provided for the implementation of periodic disconti-
+ nuities  using  MTIME  variables.  The  first (step_circexa.ctl) shows
+ how to model the daily reset of a step function  and  illustrates  how
+ NONMEM  update the MTIME and closely related MNOW variables at and  in
+ between event records. The second (idr_circexa.ctl) applies this  step
+ function  in  an  indirect response  model that describes  a truncated
+ sinusoidal baseline  reponse. It also shows  how   values  of  T  that
+ range  from  0 to infinity can be transformed into repeated values  of
+ 0-24h. All files may be found in the examples directory.  These  exam-
+ ples  were  suggested  by  Sebastien  Bihorel, Luann Phillips and Jill
+ Fiedler-Kelly.
+
+ The data set used in both examples is circadian.csv. This data set has
+ 4 subjects with sparse data (one observation  every 24 hours from time
+ 0 to time 168) and 4 subjects with finely-spaced data (every 0.5 hours
+ from time 0 to time 48). It is with the  second group of subjects that
+ scatters of the step function, variable T24, and indirect response vs.
+ time can best be seen.
+ There  are  no dose event records (i.e. AMT=0 for all records) because
+ the step function and indirect response  are  generated  endogenously.
+ If  this  model is incorporated in a larger model, dose records can be
+ used for other compartments.
+
+ step_circexa.ctl
+
+      This example illustrates how to turn on a step function, FLAG, at
+      a  certain  time  of  the day, SHIFT, turn it off after a certain
+      duration, DUR, and repeat this every 24 hours.
+
+                 ^
+              1 -|  ---------      ---------      ---------
+                 |  |       |      |       |      |       |
+                 |  |       |      |       |      |       |
+              0 -|---       --------       --------       -------- FLAG
+                 |
+                 ---------------------------------------------------&gt; TIME
+                    |   |              |              |
+             SHIFT-24   0              24             48
+                        &lt;-  SHIFT -&gt;&lt;- DUR -&gt;
+
+      The MTIME(1) and MTIME(2) variables respectively define the times
+      at which FLAG is set to 1 and 0, such  as  MTIME(2)-MTIME(1)=DUR.
+      After  MTIME(2) is reached, both variables are incremented by 24,
+      and  the FLAG update process  perpetuates itself  every 24 hours.
+      Compartment 1 is a dummy compartment intended to monitor the pro-
+      per update of the FLAG variable: the amount A1 starts at 0 and is
+      incremented by DUR every day.
+
+      Because the FLAG variable is not necessarily updated at the  time
+      of event records, both $TABLE and WRITE statements within the ab-
+      breviated code are used in step_circexa.ctl to report  the values
+      of the variables  of  interest. WRITE statements are used because
+      lines in a table file are  produced only  for  event records, but
+      not for nonevent times such as Model times (MTIMES) at  which the
+      variables computed in $PK are of special interest here.
+
+      Besides  MTIME(1)  and  MTIME(2), the  following variables are of
+      interest in step_circexa.ctl:
+      * MPAST(1) and MPAST(2): variables automatically updated based on
+      MTIME(1) and MTIME(2), and  used to set FLAG in $DES.  MPAST(i)=0
+      until the call to PK  subsequent to  the one for which MNOW=i. At
+      that call and until MTIME(i) is redefined, MPAST(i)=1.
+      * INTMTIME ("interval MTIME")  is  the  value of MTIME(1) for the
+      entire integration interval during which FLAG=1, ie from MTIME(1)
+      up to and including the  endpoint at MTIME(2). It is not specifi-
+      cally used in  step_circexa.ctl, but will be in the next example.
+      INTMTIME is computed and displayed here so that it  can  be  dis-
+      cussed with the other variables.
+      * TSTATE  is  a  reserved  variable  giving the time at which the
+      current state vector (compartment amounts) was computed. It gives
+      the time to which  the  system  was most recently advanced.
+
+      The FLAG variable can be computed in either $PK or $DES, but  the
+      latter is preferred.
+
+      Background details:
+
+      Suppose that the values of TIME on the event records are t1 t2 t3
+      etc. and that PK  is called with every event record and  NONEVENT
+      (ADDITIONAL AND LAGGED) DOSE TIMES AND AT MODEL TIMES.
+
+      Suppose there are k MTIME variables with values
+      t1 &lt;= MTIME(1) &lt;= MTIME(2) &lt;= ... &lt;= MTIME(k) &lt;= t2
+
+      The interval [t1,t2] is integrated by smaller intervals
+      [t1, MTIME(1)], [MTIME(1), MTIME(2)] ... [MTIME(k), t2].
+
+      Calls to DES during any integration  interval [ta, tb] will  have
+      ta  &lt;=  T,  but it  may  happen  that T &gt; tb. For calls to PK and
+      ERROR, the sequence of calls for the record with TIME=t2 is:
+      * for each i from 1 to k: call PK with the record at MTIME(i)
+      (MNOW=i, TSTATE=MTIME(i-1))     (if i=1, TSTATE=t1)
+      * call PK with the record at t2
+      (MNOW=0; TSTATE=MTIME(k))
+      * call ERROR with the record at t2
+      (MNOW is set to 9 to identify the WRITE in $ERROR; TSTATE=t2)
+
+      The same  calls to PK occur even if  MTIME(k) happens  to corres-
+      pond to  t2. In such a case, the  call with  MNOW=k precedes  the
+      call  with MNOW=0, and the values in the table  file are from the
+      second call.
+
+      The lines of the file step_circexa.txt that corresponding to  the
+      second event record (TIME=24) for ID 1 (set with SHIFT=0.9088 and
+      DUR=20.8385), are:
+
+              MNOW    TIME    MT1     MT2    MP1    MP2    TSTATE INTMTIME
+        (1)   1.0000 24.0000  0.9088 21.7473 0.0000 0.0000  0.0000  0.9088
+        (2)   2.0000 24.0000 24.9088 45.7473 1.0000 0.0000  0.9088  0.9088
+        (3)   0.0000 24.0000 24.9088 45.7473 0.0000 0.0000 21.7473 24.9088
+        (4)   9.0000 24.0000 24.9088 45.7473 0.0000 0.0000 24.0000 24.9088
+
+      where MTi and MPi stand for MTIME(i) and MPAST(i).
+
+      At line 1, FLAG=0. This corresponds to the advance from time 0 to
+      MTIME(1): no update of MTIME variables is performed.
+      At line 2, FLAG=1. This corresponds to the  advance from MTIME(1)
+      to MTIME(2), at  which point  the MTIME(1) and MTIME(2) variables
+      are updated, but INTMTIME retains its value.
+      At line 3, FLAG=0. This corresponds to the  advance from MTIME(2)
+      to time 24, i.e. the call to PK with MNOW=0, in which  INMTIME is
+      updated to the new value of MTIME(1) defined at the previous call
+      to PK.
+      At line 4, FLAG=0. This corresponds to the call to ERROR.
+
+      The  corresponding line of the table file  step_circexa_debug.tab
+      is:
+
+      TIME       MT1       MT2       STS    INTMTIME
+      24.0000   24.9088   45.7473   21.7473   24.9088
+
+      Note that TSTATE values are:
+      0 (time of 1st. event record)
+      0.9088 after advance to MTIME(1)=0.9088
+      21.7473 after advance to MTIME(2)=21.7473
+      24.0000 after advance to t2=24.
+
+      There will be as many lines with MNOW=0.0 in step_circexa.txt, as
+      there are lines in  step_circexa_debug.tab. These  lines will  be
+      consistent except for the values of MNOW.
+
+      INMTIME retains the value of MTIME(1)=0.9088 that pertains to the
+      entire integration interval, up to and including the end point at
+      MTIME(2).   It is set in $PK before the  MTIME values are changed
+      when MNOW=2.  The values in the table are those set in  $PK  when
+      MNOW=0 (the final call to PK with this data record) by which time
+      INTMTIME and the MTIME(i) have their new values for the next  set
+      of advances.
+
+      In  this  particular  example,  with simulated etas, it sometimes
+      happens that MTIME(1)&lt;t1.  From a biological point of  view,  the
+      step  function  (and the response) likely started well before the
+      data collection.  The beginning of the data collection may  occur
+      with FLAG=1 (in the next example, this is during  the oscillation
+      of the response) or with FLAG=0 (during  the  flat  part  of  the
+      response).   When  MTIME(1)  &lt; t1, MTIME(1) is ignored during the
+      set of calls to PK described above.
+
+ idr_circexa.ctl
+      This example extends the concepts introduced in  step_circexa.ctl
+      and illustrates how to apply the daily reset of the step function
+      to model a process whose  baseline is characterized by a sinusoid
+      function during part of the day  and a flat line  for the rest of
+      the day. It also show how to create a 24h clock time variable T24
+      in $DES by transforming the T variable ranging from 0 to infinity
+      into repeating intervals of continuous time between 0 and 24.
+
+                 ^
+       Rmin+Amp -|    ---            ---            ---
+                 |   |   |          |   |          |   |
+                 |  |     |        |     |        |     |
+                 | |       |      |       |      |       |
+       Rmin     -|--       --------       --------       ---- Response R
+                 |
+                 -------------------------------------------------&gt; TIME
+                   |   |              |              |
+            SHIFT-24   0              24             48
+                       &lt;- SHIFT -&gt;&lt;- DUR -&gt;
+
+      The baseline response depicted above can be described by:
+
+      R(t) = | Rmin + Amp*sin(z(t))  for t in [SHIFT+n*24,SHIFT+DUR+n*24] (Eq.1)
+             | Rmin                  for any other value of t
+
+      where
+        Rmin is the minimum response
+        Amp  is the amplitude of the sinusoid function of time
+        z(t) is a circadian  function  of  time  which  scales the time
+             intervals [SHIFT+n*24, SHIFT+DUR+n*24] to [0, PI], that is
+             an interval of x such that sin(x)&gt;=0:
+             z(t) = PI * (t-(SHIFT+n*24))/DUR
+         n   is (-1,0,1,2,...) if (SHIFT+DUR)&gt;24
+             is ( 0,1,2,...) if (SHIFT+DUR)&lt;=24
+
+      The case when SHIFT+DUR&gt;24 is when the flag function is already 1
+      at time 0, that is it started before the first event.  Therefore,
+      an offset of 24 is needed.
+
+      z(t) is the function that drives the circadian rhythm of R and is
+      implemented using the INTMTIME variable described in the previous
+      example and that represents SHIFT+n*24. MTIME(1) and MTIME(2) are
+      defined as in  step_circexa.ctl  to  periodically update INTMTIME
+      and the FLAG variable used later in the $DES block.
+
+      The  baseline function, R(t), can be fitted using Eq.1 in absence
+      of drug effect.  However, some biological processes which  follow
+      such  circadian rhythms can be influenced by drugs (eg, metabolic
+      effects of corticoids). If the effect of the drug is not  direct,
+      one  can  express  the biological response and the drug effect in
+      terms of an indirect response model (IDR). Assuming that the drug
+      stimulates  the  formation  of  the  biological response, one can
+      parameterize the system using the  following  differential  equa-
+      tion:
+
+      dR/dt = KIN(t)*(1+S(Cp)) - KOUT*R                                   (Eq.2)
+
+      where
+        KOUT   is the elimination rate of the biological response and
+               is stationary
+        KIN(t) is the formation rate of the biological response and is
+               time-varying dependent on the step function FLAG:
+               FLAG = MPAST(1)-MPAST(2)
+        S(Cp)  is a stimulation function of the drug concentration.
+
+      In absence of drug, there is no stimulation (i.e., S(Cp) = 0) and
+      the  baseline response R(t) described in Eq.1 can be reparameter-
+      ized as follows:
+
+      dR/dt = KIN(t) - KOUT*R                                            (Eq.3)
+
+      The model is defined such as, when FLAG=0, KIN(t) is constant and
+      equal to KOUT*Rmin, and such as, when FLAG=1, KIN(t) has a  sinu-
+      soidal shape,  increasing  from its minimum value to its maximum,
+      and  decreasing back to its  minimum within the duration DUR. One
+      can obtain the explicit expression of KIN(t) within the time when
+      FLAG=1, by determining the  first derivative of R(t), as  defined
+      in the first part of Eq.1 and solving for KIN(t) using Eq.3. This
+      expression of KIN(t) is used in $DES.
+
+      The $DES block also includes an independent line of code meant to
+      define a continuous 24h clock time. This code is supported by the
+      definition and circadian  reset  of the MTIME(3) variable in $PK.
+      More specifically, this code is dependent on INTMTIME3, the value
+      of MTIME(3) for the 24-hour intervals.
+
+      Note: Original idea for this example stems from  Andreas Krause's
+      post  on  the  NMUsers  email  list dated from 5/26/2011, subject
+      "Coding INTEGER Function in NONMEM".  The original code was modi-
+      fied to use model event time variables.
+
+ (See <A HREF="m.htm#mtime">mtime</A>).
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

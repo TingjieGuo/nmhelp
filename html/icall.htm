@@ -1,0 +1,58 @@
+<HTML><HEAD> <TITLE> icall.for</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               ICALL                                |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Argument of user-supplied subroutines
+ CONTEXT: User-supplied routines
+
+ DISCUSSION:
+ ICALL  is  an  argument  passed by NONMEM to user-supplied subroutines
+ CCONTR, CONTR, CRIT, PRED, PRIOR and MIX.
+
+ PREDPP selectively passes the same argument to PK,  ERROR,  and  INFN.
+ ICALL  can  be  used  in $PK, $ERROR, and $PRED abbreviated code.  The
+ discussion below describes the values of ICALL as seen by PRED.
+
+ ICALL=0: the routine has been called for initialization at the  begin-
+ ning of the NONMEM run; one such call per run.
+
+ ICALL=1:  the routine has been called for initialization at the begin-
+ ning of a NONMEM problem; one such call per problem.
+
+ ICALL=2: the routine has been called for a prediction. Multiple  calls
+ occur.
+
+ ICALL=3:  the routine has been called for finalization at the end of a
+ NONMEM problem; one such call per problem.
+
+ ICALL=4: the routine has been called during the Simulation Step;  mul-
+ tiple calls occur, as with ICALL=2.
+
+ ICALL=5:  the routine has been called when expectations are being com-
+ puted; multiple calls occur.
+
+ ICALL=6: the routine has been called when raw data averages are  being
+ computed; multiple calls occur.
+
+ Note:  Some  subroutines are called with only a subset of the possible
+ values of ICALL.
+
+REFERENCES: Guide  I Section <a href=" I/C,4.html#2.">C,4.2<a/>
+REFERENCES: Guide IV Section <a href="IV/IV.html#D.">IV.D<a/>, <a href="IV/IV.html#E.1.">IV.E.1<a/>
+REFERENCES: Guide VI Section <a href="VI/III.html#C.">III.C<a/>, <a href="VI/IV.html#B.1.">IV.B.1<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

@@ -1,0 +1,67 @@
+<HTML><HEAD> <TITLE> advan2.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               ADVAN2                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Choice of Pharmacokinetic Model for PREDPP
+ CONTEXT: Option of NM-TRAN $SUBROUTINES record
+
+ USAGE:
+ $SUBROUTINES [ADVAN=]ADVAN2
+
+ SAMPLE:
+ $SUBROUTINE ADVAN2
+
+ DISCUSSION:
+ ADVAN2  is  a routine in PREDPP's library which implements the kinetic
+ equations for the  One  Compartment  Linear  Model  with  First  Order
+ Absorption.
+
+ Compt.   Function   Initial   On/Off    Dose      Default    Default
+ No.                 Status    Allowed   Allowed   for Dose   for Obs.
+ 1        Depot      Off       Yes       Yes       Yes        No
+ 2        Central    On        No        Yes       No         Yes
+ 3        Output     Off       Yes       No        No         No
+
+ TRANS routines that may be used: TRANS1, TRANS2
+
+ Basic PK parameters with TRANS1:
+
+      K  (rate constant of elimination)
+      KA (rate constant of absorption)
+
+ Basic PK parameters with TRANS2: (See <A HREF="t.htm#trans2">TRANS2</A>).
+
+ Additional PK parameters:
+
+      S1 - Scale for depot compartment
+      S2 - Scale for central compartment (also called SC)
+      S3 - Scale for output compartment (also called S0)
+      F1 - Bioavailability for depot compartment
+      F2 - Bioavailability for central compartment
+      R1 - Rate for depot compartment
+      R2 - Rate for central compartment
+      D1 - Duration for depot compartment
+      D2 - Duration for central compartment
+      ALAG1 - Absorption lag for depot compartment
+      ALAG2 - Absorption lag for central compartment
+      F0 - Output fraction (also called F3, FO)
+      XSCALE - Time scale
+      MTIME(i) - Model event times
+
+REFERENCES: Guide VI Section <a href="VI/VII.html#C.2.">VII.C.2<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

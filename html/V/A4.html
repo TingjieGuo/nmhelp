@@ -1,0 +1,510 @@
+<!-- Creator     : groff version 1.21 -->
+<!-- CreationDate: Tue Dec 19 18:57:24 2017 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part V - Introductory Guide">NONMEM Users Guide Part V - Introductory Guide</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part V - Introductory Guide
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part V - Introductory Guide"></a>
+</h2>
+
+
+<p align="center" style="margin-top: 1em"><b>Appendix 4 -
+NONMEM Control Records (FCON)</b></p>
+
+<p style="margin-top: 1em">The following is a list
+of NONMEM control records and options. These are generated
+by NM-TRAN in a file called FCON. They are listed in the
+order that they appear in FCON.</p>
+
+<p style="margin-top: 1em">Records marked with * may
+be continued. <br>
+The record name, e.g., &quot;INDX&quot;, is not repeated on
+continuation(s). <br>
+Any time a field may contain 0, it may contain blanks
+instead, which are read as 0. <br>
+Constants SD, PD, LVR are from SIZES. Constants INF, INTBIG,
+INTSMALL <br>
+indicate the largest floating point number, the largest
+integer value, <br>
+and smallest integer value, respectively, that can be
+represented in the <br>
+computer&rsquo;s architecture. <br>
+(In some cases, e.g., BOOTSTRAP option of SIMULATION, it
+means an integer of up to 11 digits).</p>
+
+<pre style="margin-top: 1em"><b>FILE record                        (FILE)    (A4,4X,A72)</b></pre>
+
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-252334.png" alt="Image grohtml-252334.png"></b></p>
+
+<p style="margin-top: 1em"><b>SUPER record (SUPR)
+(A4,4X,I4,I8,I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-252335.png" alt="Image grohtml-252335.png"></b></p>
+
+<p style="margin-top: 1em"><b>PROBLEM record (PROB)
+(A4,4X,A72)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-252336.png" alt="Image grohtml-252336.png"></b></p>
+
+<p style="margin-top: 1em"><b>DATA record (DATA)
+(A4,4X,18I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-252337.png" alt="Image grohtml-252337.png"></b></p>
+
+<p style="margin-top: 1em"><b>ITEM record (ITEM)
+(A4,4X,18I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-252338.png" alt="Image grohtml-252338.png"></b></p>
+
+<p style="margin-top: 1em"><b>INDEX record (INDX)*
+(A4,4X,18I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-252339.png" alt="Image grohtml-252339.png"></b></p>
+
+<p style="margin-top: 1em"><b>XVID record (XVID)
+(A4,4X,18I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523310.png" alt="Image grohtml-2523310.png"></b></p>
+
+<p style="margin-top: 1em"><b>MSDT record (MSDT)
+(A4,4X,20(1PE22.14E3,1X)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523311.png" alt="Image grohtml-2523311.png"></b></p>
+
+<p style="margin-top: 1em"><b>LABEL record (LABL)*
+(A4,X2,A74)</b></p>
+
+<p style="margin-top: 1em">The LABL record contains
+a comma-delimited list of labels, beginning at position 6,
+with an unlimited number of continuation records. Each label
+is right-adjusted in a field of SD characters. By default
+(i.e., with SD=20 in SIZES), there are 3 labels per line.
+The order is as follows:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523312.png" alt="Image grohtml-2523312.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523313.png" alt="Image grohtml-2523313.png"></p>
+
+
+<pre style="margin-top: 1em"><b>Additional LABEL record            (LBW1)*   (A4,X2,A74)</b></pre>
+
+
+<p style="margin-top: 1em">The LBW1 record contains
+a comma-delimited list of labels for the additional
+diagnostic items, starting at position 6 in each line. The
+format is similar to that of the LABL record, but leading
+spaces are omitted. The default labels are as
+follows:</p>
+<pre style="margin-top: 1em">     IWRS,IPRD,IRS
+     NPRED,NRES,NWRES
+     NIWRES,NIPRED,NIRES
+     CPRED,CRES,CWRES
+     CIWRES,CIPRED,CIRES
+     PREDI,RESI,WRESI
+     IWRESI,IPREDI,IRESI
+     CPREDI,CRESI,CWRESI
+     CIWRESI,CIPREDI,CIRESI
+     EPRED,ERES,EWRES
+     EIWRES,EIPRED,EIRES
+     NPDE,ECWRES,NPD
+     OBJI
+
+<b>LABEL record for THETA             (LTHT)*   (A4,X4,A72)
+LABEL record for ETA               (LETA)*   (A4,X4,A72)
+LABEL record for EPS               (LEPS)*   (A4,X4,A72)
+LABEL record for RESIDUAL LABEL    (LRES)    (A4,X1,A5)</b></pre>
+
+
+<p style="margin-top: 1em">Symbolic names for
+elements of THETA, ETA, and EPS (respectively), for NONMEM
+to use in the report file (<i>label substitution</i>). If
+label substitution is not requested, the LTHT, LETA, and
+LEPS records are optional and (if present) should have
+blanks starting in position 9.</p>
+
+<p style="margin-left:8%; margin-top: 1em">Example:
+Suppose the NM-TRAN control file contains <br>
+
+<img src="grohtml-25233-18.png" alt="Image grohtml-25233-18.png"></p>
+
+
+<pre style="margin-left:8%;"> ABBR REPLACE THETA(KA,K,CL)=THETA(1 TO 3)
+ <img src="grohtml-25233-19.png" alt="Image grohtml-25233-19.png">ABBR REPLACE ETA(CL)=ETA(3),ETA(V)=ETA(5)</pre>
+
+
+<p style="margin-left:8%;">Then the generated LABEL
+records are:</p>
+<pre style="margin-left:8%;">LTHT    1=THETA(KA),2=THETA(K),3=THETA(CL)
+LETA    3=ETA(CL),5=ETA(V)
+LEPS
+
+</pre>
+
+<pre style="margin-left:8%; margin-top: 1em"><b>OMIT record                        (OMIT)*  (A4,4X,18I4)</b></pre>
+
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523314.png" alt="Image grohtml-2523314.png"></b></p>
+
+<p style="margin-top: 1em"><b>FORMAT record (FORM)
+(A4,4X,A72/A80)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523315.png" alt="Image grohtml-2523315.png"></b></p>
+
+<p style="margin-top: 1em"><b>FIND record (FIND)
+(A4,4X,18I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523316.png" alt="Image grohtml-2523316.png"></b></p>
+
+<p style="margin-top: 1em"><b>MSF Version Record
+(MSFV) (A4,X4,A72)</b></p>
+
+<p style="margin-top: 1em">Right after the FIND
+record for MSFI, if it exists, the MSFV (NM74) contains the
+MSF version, starting at position 9. This will be blank if
+not specified explicitly. Example:</p>
+<pre style="margin-top: 1em">MSFV   7.2.0
+
+
+<b>INITIAL VALUES record for ETA      (ETA)* (A4,I4,(comma-delimited list))
+INITIAL VALUES record for PHI      (PHI)* (A4,I4,(comma-delimited list))</b></pre>
+
+
+<p style="margin-top: 1em">With FILE
+specified:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523317.png" alt="Image grohtml-2523317.png"></p>
+
+<p>With no FILE specified:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523318.png" alt="Image grohtml-2523318.png"></p>
+
+
+<pre style="margin-top: 1em"><b>Initial STRUCTURE record           (STRC)    (A4,4X,18I4)</b></pre>
+
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523319.png" alt="Image grohtml-2523319.png"></b></p>
+
+<p>If the dimension of SIGMA is 0, the following
+fields may be ignored.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523320.png" alt="Image grohtml-2523320.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523321.png" alt="Image grohtml-2523321.png"></p>
+
+
+<pre style="margin-top: 1em"><b>STRUCTURE record for OMEGA         (STRC)*    (A4,4X,18I4)
+STRUCTURE record for SIGMA         (STRC)*    (A4,4X,18I4)</b></pre>
+
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523322.png" alt="Image grohtml-2523322.png"></b></p>
+
+<p style="margin-top: 1em"><b>THETA CONSTRAINT
+record (THCN) (A4,4X,18I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523323.png" alt="Image grohtml-2523323.png"></b></p>
+
+<p style="margin-top: 1em"><b>THETA record (THTA)*
+(A4,4X,(comma-delimited list))</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523324.png" alt="Image grohtml-2523324.png"></b></p>
+
+<p style="margin-top: 1em"><b>LOWER BOUND record
+(LOWR)* (A4,4X,(comma-delimited list))</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523325.png" alt="Image grohtml-2523325.png"></b></p>
+
+<p style="margin-top: 1em"><b>UPPER BOUND record
+(UPPR)* (A4,4X,(comma-delimited list))</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523326.png" alt="Image grohtml-2523326.png"></b></p>
+
+<p style="margin-top: 1em"><b>DIAGONAL record
+(DIAG)* (A4,1X,A1,1X,A1,(comma-delimited list))</b> <br>
+for OMEGA or SIGMA</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523327.png" alt="Image grohtml-2523327.png"></p>
+
+
+<pre style="margin-top: 1em"><b>BLOCK SET record                   (BLST)*    (A4,1X,A1,1X,A1,(comma-delimited list))
+</b>for OMEGA or SIGMA</pre>
+
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523328.png" alt="Image grohtml-2523328.png"></p>
+
+
+<pre style="margin-top: 1em"><b>SIMLUATION record                  (SIML)    (A4,4X,I2,I3,I2,I13,5I2,I13,I6,I6,1X,A16)</b></pre>
+
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523329.png" alt="Image grohtml-2523329.png"></b></p>
+
+<p>If the value is 1, the subsequent fields may be
+ignored.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523330.png" alt="Image grohtml-2523330.png"></p>
+
+
+<pre style="margin-top: 1em"><b>ADDITIONAL RECORDS FOR SIML (A4,4X,I12,A)</b></pre>
+
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523331.png" alt="Image grohtml-2523331.png"></b></p>
+
+<p style="margin-top: 1em"><b>SOURCE record (SORC)
+(A4,4X,2A12,I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523332.png" alt="Image grohtml-2523332.png"></b></p>
+
+<p style="margin-top: 1em"><b>DEFAULT record (DFLT)
+(A4,4X,I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523333.png" alt="Image grohtml-2523333.png"></b></p>
+
+<p style="margin-top: 1em"><b>CHAIN record
+(CHN)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523334.png" alt="Image grohtml-2523334.png"></b></p>
+
+<p style="margin-top: 1em"><b>ADDITIONAL RECORDS FOR
+CHAIN (A4,4X,A)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523335.png" alt="Image grohtml-2523335.png"></b></p>
+
+<p style="margin-top: 1em"><b>LEVEL record (OLEV)*
+(A4,X4,A20,A52)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523336.png" alt="Image grohtml-2523336.png"></b></p>
+
+<p style="margin-top: 1em"><b>LEVEL rec. contination
+rec. (OLEV)* (A4,X4,X20,A52)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523337.png" alt="Image grohtml-2523337.png"></b></p>
+
+<p style="margin-top: 1em"><b>ANNEAL record (ANNL)
+(A4,X4,A6,A6)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523338.png" alt="Image grohtml-2523338.png"></b></p>
+
+<p style="margin-top: 1em"><b>ESTIMATION record
+(ESTM) (A4,4X,18I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523339.png" alt="Image grohtml-2523339.png"></b></p>
+
+<p>If the value is 1, the subsequent fields may be
+ignored.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523340.png" alt="Image grohtml-2523340.png"></p>
+
+
+<pre style="margin-top: 1em"><b>ESTIMATION rec. continuation rec.  (&nbsp;&nbsp;&nbsp;&nbsp;)(A4,4X,18I4)</b></pre>
+
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523341.png" alt="Image grohtml-2523341.png"></b></p>
+
+<p style="margin-top: 1em"><b>BAYES ESTIMATION
+record (BEST)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523342.png" alt="Image grohtml-2523342.png"></b></p>
+
+<p style="margin-top: 1em"><b>ADDITIONAL RECORDS FOR
+ESTIMATION (A4,4X,A)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523343.png" alt="Image grohtml-2523343.png"></b></p>
+
+<p style="margin-top: 1em"><b>ZERO record (ZERO)*
+(A4,4X,18I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523344.png" alt="Image grohtml-2523344.png"></b></p>
+
+<p style="margin-top: 1em"><b>GRID record (GRID)
+(A4,4X,9A8)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523345.png" alt="Image grohtml-2523345.png"></b></p>
+
+<p style="margin-top: 1em"><b>NONPARAMETRIC record
+(NONP) (A4,4X,6I4,I12,I6,I6)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523346.png" alt="Image grohtml-2523346.png"></b></p>
+
+<p style="margin-top: 1em"><b>ADDITIONAL RECORD FOR
+NONPARAMETRIC (A4,4X,I12,A)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523347.png" alt="Image grohtml-2523347.png"></b></p>
+
+<p style="margin-top: 1em"><b>COVARIANCE record
+(COVR) (A4,4X,18I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523348.png" alt="Image grohtml-2523348.png"></b></p>
+
+<p style="margin-top: 1em"><b>Additional COVARIANCE
+record (COVT)
+(A4,4X,6I4,I12,I6,I6,I6,I6,I6,I6,I2,I2,A10)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523349.png" alt="Image grohtml-2523349.png"></b></p>
+
+<p style="margin-top: 1em"><b>Second line of COVT
+Record (COVT)
+(8X,I8,I4,I4,E12.5,E12.5,E12.5,A16)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523350.png" alt="Image grohtml-2523350.png"></b></p>
+
+<p style="margin-top: 1em"><b>ADDITIONAL RECORDS FOR
+COVARIANCE (8X,I12,A)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523351.png" alt="Image grohtml-2523351.png"></b></p>
+
+<p style="margin-top: 1em"><b>Initial TABLE record
+(TABL) (A4,4X,18I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523352.png" alt="Image grohtml-2523352.png"></b></p>
+
+<p>If the value is 2, the next field may be ignored,
+and there should not appear <br>
+any individual TABLE records.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523353.png" alt="Image grohtml-2523353.png"></p>
+
+
+<pre style="margin-top: 1em"><b>ADDITIONAL RECORDS FOR TABLE (A4,4X,I12,A)</b></pre>
+
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523354.png" alt="Image grohtml-2523354.png"></b></p>
+
+<p style="margin-top: 1em"><b>Individual TABLE
+record (TABL) (A4,1X,3A1,I4,9(I6,I2)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523355.png" alt="Image grohtml-2523355.png"></b></p>
+
+<p style="margin-top: 1em"><b>Individual TABLE rec.
+contin. rec.
+(&nbsp;&nbsp;&nbsp;&nbsp;)*(A4,1X,3A1,I4,9(I6,I2)</b> <br>
+(as needed)</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523356.png" alt="Image grohtml-2523356.png"></p>
+
+
+<pre style="margin-top: 1em"><b>Individual TABLE record option rec.(&nbsp;&nbsp;&nbsp;&nbsp;)(A4,4X,5I4,I12,I12,A12,I2,I2,I2,I2,1X,A</b></pre>
+
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523357.png" alt="Image grohtml-2523357.png"></b></p>
+
+<p style="margin-top: 1em"><b>Additional TABLE
+records (A4,4X,A)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523358.png" alt="Image grohtml-2523358.png"></b></p>
+
+<p style="margin-top: 1em"><b>Initial SCATTERPLOT
+record (SCAT) (A4,4X,18I4)</b></p>
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523359.png" alt="Image grohtml-2523359.png"></b></p>
+
+<p style="margin-top: 1em">If the value is 2, the
+next field may be ignored, and there should not appear <br>
+any individual SCATTERPLOT records.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523360.png" alt="Image grohtml-2523360.png"></p>
+
+
+<pre style="margin-top: 1em"><b>Individual SCATTERPLOT record      (SCAT)    (A4,4X,9I8/8X,9I8)</b></pre>
+
+
+
+<p align="center" style="margin-top: 1em"><b><img src="grohtml-2523361.png" alt="Image grohtml-2523361.png"></b></p>
+
+<p style="margin-top: 1em">If the value of field 3
+is 0 or blank, the next two fields should be
+ignored.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523362.png" alt="Image grohtml-2523362.png"></p>
+
+<p style="margin-top: 1em">If the value of field 3
+is 1, the next field should be ignored.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-2523363.png" alt="Image grohtml-2523363.png"></p>
+
+
+<p style="margin-top: 1em"><a href="A4.html">TOP</a></p>
+
+
+<p style="margin-top: 1em"><a href="index.html">TABLE OF CONTENTS</a></p>
+<hr>
+</body>
+</html>

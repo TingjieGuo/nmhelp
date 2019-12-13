@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 154</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:7px;font-family:Courier;color:#000000;}
+	.ft2{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft3{font-size:5px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;font-family:Times;color:#000000;}
+	.ft5{font-size:7px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Times;color:#000000;}
+	.ft7{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft8{font-size:6px;font-family:Times;color:#000000;}
+	.ft9{font-size:6px;font-family:Symbol;color:#000000;}
+	.ft10{font-size:4px;font-family:Times;color:#000000;}
+	.ft11{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft12{font-size:6px;line-height:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index154.png" alt="background image">
+<DIV style="position:absolute;top:41;left:329"><nobr><span class="ft0">Chapter 13 - Errors in NONMEM Runs</span></nobr></DIV>
+<DIV style="position:absolute;top:79;left:77"><nobr><span class="ft1"><b>V=THETA(1)+WT*THETA(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:72"><nobr><span class="ft0">For some values of</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:159"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:165"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:169"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:88;left:174"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:95;left:180"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:185"><nobr><span class="ft0">, and WT, a value of zero is being computed for V. The initial estimates</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:72"><nobr><span class="ft0">of</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:84"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:90"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:99"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:118"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:124"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:132"><nobr><span class="ft0">should be checked. The intercept</span></nobr></DIV>
+<DIV style="position:absolute;top:101;left:287"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:108;left:293"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:103;left:301"><nobr><span class="ft0">might have been ﬁxed to zero, in which case</span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:72"><nobr><span class="ft11">then, the values of WT should also be checked. If WT is recorded only on the ﬁrst event record<br>of each individual’s data, careful coding is required to insure that a value of zero is not used when<br>the $PK record is evaluated with subsequent event records.</span></nobr></DIV>
+<DIV style="position:absolute;top:168;left:72"><nobr><span class="ft4"><b>5.2. Error Messages from ADVAN Routines</b></span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:72"><nobr><span class="ft0">A similar error message can be generated in PREDPP, e.g.</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:72"><nobr><span class="ft5">PK PARAMETER FOR OBSERVA TION COMPARTMENT’S SCALE IS ZERO</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:72"><nobr><span class="ft11">Some scale parameter is modeled in such a way as to produce a zero. Again, the code for that<br>scale parameter, and the initial estimates for the</span></nobr></DIV>
+<DIV style="position:absolute;top:222;left:286"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:224;left:293"><nobr><span class="ft0">’s used therein, should be checked. Perhaps the</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:72"><nobr><span class="ft11">scale parameter is being set equal to a volume parameter, and as described above, the volume<br>parameter is being set to zero. When TRANS1 is used, the volume parameter is neither recog-<br>nized nor checked.</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:72"><nobr><span class="ft4"><b>5.3. Numeric difﬁculties in PREDPP</b></span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:72"><nobr><span class="ft11">Numeric difﬁculties can occur with linear pharmacokinetic models (e.g., ADVAN1-4) in the<br>process of computing certain exponentials. They can occur from an error in the units of either a<br>rate constant and/or the TIME data items. They can also occur from inordinately large values for<br>a rate constant which arise during the minimization search. This might be avoided by placing<br>appropriate constraints on</span></nobr></DIV>
+<DIV style="position:absolute;top:355;left:188"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:358;left:195"><nobr><span class="ft0">’s.</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:72"><nobr><span class="ft11">They can also occur when the system is advanced over an excessively long period of time. This<br>can happen within an individual record, when the individual had a course of drug treatment, fol-<br>lowed by a wash-out period, followed by another course of drug treatment. The ﬁrst dose record<br>of treatment courses other than the ﬁrst should have EVID data item equal to 4 (reset-dose) rather<br>than 1 (dose), to avoid computing excessively small compartment amounts (see Chapter 6, Sec-<br>tion 7.3), and to reduce computational cost.</span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:72"><nobr><span class="ft11">Difﬁculties can occur in the process of computing predictions with ADVAN2 and ADVAN4 when<br>values of KA and K arise during the minimization search that are very close to one another. The<br>models encoded into the ADVAN routines assume that KA and K have fairly distinct values, and<br>the formulas for the predictions have the term KA-K in the denominator. If, for example, the typ-<br>ical values of K and KA are associated with</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:269"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:275"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:283"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:506;left:301"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:307"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:509;left:311"><nobr><span class="ft0">, respectively, then one might try reparame-</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:72"><nobr><span class="ft0">terizing. The typical values of K and KA-K can be associated with</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:372"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:378"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:386"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:404"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:411"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:415"><nobr><span class="ft0">, so that <i>˜</i></span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:454"><nobr><span class="ft6"><i>K</i></span></nobr></DIV>
+<DIV style="position:absolute;top:518;left:466"><nobr><span class="ft7">=</span></nobr></DIV>
+<DIV style="position:absolute;top:519;left:474"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:480"><nobr><span class="ft3">1</span></nobr></DIV>
+<DIV style="position:absolute;top:522;left:488"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:77"><nobr><span class="ft6"><i>˜</i></span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:72"><nobr><span class="ft6"><i>KA</i></span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:90"><nobr><span class="ft7">=</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:102"><nobr><span class="ft6"><i>˜</i></span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:99"><nobr><span class="ft6"><i>K</i></span></nobr></DIV>
+<DIV style="position:absolute;top:531;left:110"><nobr><span class="ft7">+</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:118"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:124"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:129"><nobr><span class="ft0">. A lower bound of zero should be placed on</span></nobr></DIV>
+<DIV style="position:absolute;top:532;left:329"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:335"><nobr><span class="ft3">2</span></nobr></DIV>
+<DIV style="position:absolute;top:535;left:339"><nobr><span class="ft0">†.</span></nobr></DIV>
+<DIV style="position:absolute;top:552;left:72"><nobr><span class="ft11">A similar situation occurs with TRANS3, where VSS-V occurs in the denominator of the expres-<br>sion for K21. As above, reparameterization and a constraint on an element of</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:416"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:425"><nobr><span class="ft0">may help.</span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:72"><nobr><span class="ft12">† This technique also prevents a &quot;ﬂip-ﬂop&quot; from occurring. (In the original parameterization, the ﬁnal estimates<br>of</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:80"><nobr><span class="ft9">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:85"><nobr><span class="ft10">1</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:91"><nobr><span class="ft8">and</span></nobr></DIV>
+<DIV style="position:absolute;top:712;left:104"><nobr><span class="ft9">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:717;left:109"><nobr><span class="ft10">2</span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:115"><nobr><span class="ft8">can be the ﬁnal estimates of the typical values of KA and K, respectively).</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:276"><nobr><span class="ft0">-146-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

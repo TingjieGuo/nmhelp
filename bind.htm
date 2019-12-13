@@ -1,0 +1,101 @@
+<HTML><HEAD> <TITLE> bind.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                            BIND EXAMPLE                            |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ EXAMPLES OF THE USE OF $BIND
+
+ Case 1.
+
+ Suppose a fragment of the dose records looks like this:
+
+        TIME AMT PREP    X
+          0  100    4    .
+         10  100    1   90
+         20    0    0   80
+
+ Suppose $INPUT and $PK include this code:
+
+ $INPUT ID TIME AMT DV PREP X
+ $PK
+     F1=1
+     IF (PREP.EQ.4) F1=THETA(3)
+     ALAG1=THETA(5)
+     CL=THETA(1)*X*EXP(ETA(1))
+
+ It  is  intended  that  theta(3)  be the ratio of bioavailabilities of
+ preparation 4 to preparation 1.  However, calls to PK are made only at
+ event  times 0, 10 and 20. Suppose the value of theta(5) (lag time) is
+ 5.  After 5 time units, the first dose enters the system.   The  value
+ of PREP (dose preparation type) is taken from the event record at time
+ 10, which is 1.  F1 is computed incorrectly.  If the  estimation  step
+ is run, the gradient with theta(3) will be 0, indicating the problem.
+
+ Case 2.
+
+ If  lag  time  is  not  modeled (no ALAG1), but the doses are multiple
+ (ADDL&gt;0, II&gt;0), a more subtle error can occur.  Suppose a fragment  of
+ the data records looks like this:
+
+        TIME AMT PREP    X  II  ADDL
+          0  100    4    .   5     1
+         10  100    1   90   5     1
+         20    0    0   80   .     .
+
+ Suppose $INPUT and $PK include this code:
+
+ $INPUT ID TIME AMT DV PREP X II ADDL
+ $PK
+     F1=1
+     IF (PREP.EQ.4) F1=THETA(3)
+     CL=THETA(1)*X*EXP(ETA(1))
+
+ F1  is  computed  correctly for the initiating dose records at times 0
+ and 10, and for the additional dose at time 15,  but  incorrectly  for
+ the  additional  dose  at  time 5.  Theta(3) applies only to the first
+ dose having PRED=4.  (The gradient for theta(3) is not 0.)   The  same
+ problem  could  have occurred with the dose having PREP=1, except that
+ by an accident of coding, PREP=0 (on the  record  having  TIME=20)  is
+ treated the same as PREP=1, so that the additional dose at time 15 has
+ F1=1 as it should.
+
+ On the other hand, the values of X are presumably recorded so that  90
+ is  valid  for  the  time 0 through 10 and 80 is valid for the time 10
+ through 20.  Therefore, the model for CL is correct in both examples.
+
+ In either of these two examples, the model can  be  corrected  by  the
+ insertion of $BIND and CALLFL=-2:
+
+ $INPUT ID TIME AMT DV PREP X II ADDL ; II & ADDL only in case 2
+ $BIND   -    -   -  - DOSE NEXT
+ $PK
+     CALLFL=-2
+
+ Because  of  CALLFL=-2 in the abbreviated code, additional calls to PK
+ are made at the nonevent dose times (5 in case 1; 5 and 15 in case 2).
+ Because  of  the  $BIND record, PREP has the value at these calls from
+ the initiating dose record (4 at time 5, 1 at time 15).   F1  is  com-
+ puted  appropriately for the dose preparation. X still has values from
+ the next event record, so the computation of CL is unchanged, e.g., it
+ is the same from time=0 to time=5 as it is from  time=5 to time=10.
+
+ (See <A HREF="$.htm#$bind">$BIND</A>).
+
+REFERENCES: Guide IV Section <a href="IV/V.html#C.2.">V.C.2<a/>, <a href="IV/V.html#C.5.">V.C.5<a/>
+
+REFERENCES: Guide VI Section <a href="VI/III.html#B.2.">III.B.2<a/>, <a href="VI/V.html#K.">V.K<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

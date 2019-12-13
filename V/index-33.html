@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 33</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft2{font-size:5px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:10px;font-family:Helvetica;color:#000000;}
+	.ft5{font-size:7px;font-family:Times;color:#000000;}
+	.ft6{font-size:7px;font-family:Times;color:#000000;}
+	.ft7{font-size:6px;font-family:Symbol;color:#000000;}
+	.ft8{font-size:5px;font-family:Times;color:#000000;}
+	.ft9{font-size:9px;font-family:Times;color:#000000;}
+	.ft10{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index033.png" alt="background image">
+<DIV style="position:absolute;top:41;left:332"><nobr><span class="ft0">Chapter 3 - Models for Individual Data</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft0">(</span></nobr></DIV>
+<DIV style="position:absolute;top:75;left:75"><nobr><span class="ft1">η</span></nobr></DIV>
+<DIV style="position:absolute;top:82;left:83"><nobr><span class="ft2"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:86"><nobr><span class="ft0">), it is called a Mixed Effects Model (hence the name, NONMEM: <i>NON</i>linear <i>M</i>ixed <i>E</i>ffects</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:72"><nobr><span class="ft10"><i>M</i>odel). Mixed effects models, in general, may have more than one random effect, and more than<br>one type of random effect (Chapter 4); (3.4) is only a particularly simple example.</span></nobr></DIV>
+<DIV style="position:absolute;top:214;left:162"><nobr><span class="ft4">C</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:282"><nobr><span class="ft4">t</span></nobr></DIV>
+<DIV style="position:absolute;top:200;left:307"><nobr><span class="ft4">error</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:72"><nobr><span class="ft5">Figure 3.1. <i>C </i>vs <i>t </i>for a monoexponential model. The solid line is <i>f </i>(<i>x</i>,</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:332"><nobr><span class="ft7">φ</span></nobr></DIV>
+<DIV style="position:absolute;top:367;left:337"><nobr><span class="ft5">); the circles are the observed data points. An</span></nobr></DIV>
+<DIV style="position:absolute;top:380;left:72"><nobr><span class="ft5">error is indicated.</span></nobr></DIV>
+<DIV style="position:absolute;top:408;left:72"><nobr><span class="ft10">Even though errors are unpredictable random quantities, some information about them is usually<br>assumed, and some can be estimated. First, it is assumed that the mean error is zero. This simply<br>means that were the true values for the parameters in</span></nobr></DIV>
+<DIV style="position:absolute;top:431;left:310"><nobr><span class="ft1">φ</span></nobr></DIV>
+<DIV style="position:absolute;top:434;left:319"><nobr><span class="ft0">known, the model would have no system-</span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:72"><nobr><span class="ft0">atic overall bias (e.g., be systematically below or above the data points, on average).</span></nobr></DIV>
+<DIV style="position:absolute;top:464;left:72"><nobr><span class="ft10">A second aspect of the error, one that can be estimated by NONMEM, is its typical size. Since<br>errors may be positive or neg ative, their typical size is not given by their mean (which is zero),<br>but by their standard deviation, the square root of their variance. One can always simply convert<br>the variance into the standard deviation, and conversely. NONMEM output gives estimates of the<br>error variance. With individual data this variance is denoted in this text by</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:411"><nobr><span class="ft1">ω</span></nobr></DIV>
+<DIV style="position:absolute;top:514;left:419"><nobr><span class="ft8">2</span></nobr></DIV>
+<DIV style="position:absolute;top:516;left:424"><nobr><span class="ft0">, and by OMEGA</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:72"><nobr><span class="ft0">in NONMEM input and output. The standard deviation (SD) of the error is denoted</span></nobr></DIV>
+<DIV style="position:absolute;top:527;left:462"><nobr><span class="ft1">ω</span></nobr></DIV>
+<DIV style="position:absolute;top:529;left:474"><nobr><span class="ft0">herein.</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:72"><nobr><span class="ft0">The reason that OMEGA, rather than, for example, OMEGA SQ stands for</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:424"><nobr><span class="ft1">ω</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:432"><nobr><span class="ft8">2</span></nobr></DIV>
+<DIV style="position:absolute;top:543;left:441"><nobr><span class="ft0">in NONMEM</span></nobr></DIV>
+<DIV style="position:absolute;top:556;left:72"><nobr><span class="ft10">input and output will be discussed in Section 3.8. (We will see, in Chapter 4, that when the error<br>is symbolized by</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:150"><nobr><span class="ft1">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:156"><nobr><span class="ft0">, not</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:178"><nobr><span class="ft1">η</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:185"><nobr><span class="ft0">, its variance will be denoted</span></nobr></DIV>
+<DIV style="position:absolute;top:566;left:316"><nobr><span class="ft1">σ</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:323"><nobr><span class="ft8">2</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:331"><nobr><span class="ft0">in this text, and SIGMA, not OMEGA,</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:72"><nobr><span class="ft0">in NONMEM input and output.) Here, the parameter</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:317"><nobr><span class="ft1">ω</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:325"><nobr><span class="ft8">2</span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:333"><nobr><span class="ft0">quantiﬁes the inﬂuence of the random</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:72"><nobr><span class="ft0">effect,</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:102"><nobr><span class="ft1">η</span></nobr></DIV>
+<DIV style="position:absolute;top:596;left:111"><nobr><span class="ft0">on the observations, <i>y</i>. It is therefore called a random effects parameter.</span></nobr></DIV>
+<DIV style="position:absolute;top:622;left:72"><nobr><span class="ft9"><b>3.1. The Additive Error Model</b></span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:72"><nobr><span class="ft0">The symbol</span></nobr></DIV>
+<DIV style="position:absolute;top:636;left:130"><nobr><span class="ft1">η</span></nobr></DIV>
+<DIV style="position:absolute;top:638;left:141"><nobr><span class="ft0">is always used to denote a random quantity whose probability distribution has</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:72"><nobr><span class="ft0">mean zero and variance</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:181"><nobr><span class="ft1">ω</span></nobr></DIV>
+<DIV style="position:absolute;top:649;left:189"><nobr><span class="ft8">2</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:193"><nobr><span class="ft0">. Model (3.4) says that the errors themselves can be so regarded, and</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:72"><nobr><span class="ft10">since an observation equals its prediction (under the structural model) plus an error, model (3.4) is<br>called the Additive error model. This model is illustrated in ﬁgure 3.2.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-25-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

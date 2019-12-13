@@ -1,0 +1,63 @@
+<HTML><HEAD> <TITLE> absorpt.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                      ABSORPTION LAG PARAMETER                      |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Absorption lag (ALAG) parameter for PREDPP
+ CONTEXT: Additional PK Parameters
+
+ USAGE:
+ $PK
+  ALAG1= ....
+
+ DISCUSSION:
+
+ Absorption  lag  parameters  are  used with PREDPP.  They are optional
+ additional PK parameters.  With NM-TRAN, they are  symbolized  in  the
+ $PK block by reserved variables ALAGn, where n is the compartment num-
+ ber to which the parameter applies.
+
+ There is one absorption lag time  (parameter)  associated  with  every
+ possible dose compartment of the kinetic model (the output compartment
+ is not a possible dose compartment) and the absorption lag  time  used
+ for  a  given  dose  is  that one associated with the compartment into
+ which the dose is given (the dose compartment).
+
+ The event time t on a dose record refers to the recorded time the dose
+ was administered. In the case of a regular infusion, t is the time the
+ infusion was initiated.  An absorption lag time  is  an  increment  of
+ time  L  such  that  the time that the dose is regarded (by PREDPP) as
+ entering (or starting to enter) the system is t+L.
+
+ Absorption lag times are optional in the  sense  that  absorption  lag
+ times associated with compartments never used as dose compartments may
+ be ignored. The values of absorption lag times that are  not  computed
+ in PK are always understood to be 0.
+
+ An absorption lag time for a dose is computed by the PK routine using,
+ if needed, information in the dose record.  When additional doses  are
+ specified  on  a dose event record, the absorption lag time applies to
+ the dose and to all the additional doses.  With a steady-state  multi-
+ ple  dose  the  absorption lag time applies not only to this dose, but
+ also to all the preceding implied doses. With a steady-state dose, the
+ lag time should be less than the interdose interval.
+
+ (See <A HREF="c.htm#cmt">cmt</A>, <A HREF="p.htm#pk">pk</A>, <A HREF="$.htm#$pk">$pk</A>, default_compartment).
+
+REFERENCES: Guide IV Section <a href="IV/V.html#C.5.">V.C.5<a/>
+REFERENCES: Guide VI Section <a href="VI/III.html#F.6.">III.F.6<a/>, <a href="VI/V.html#F.1.">V.F.1<a/>, <a href="VI/V.html#H.">V.H<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

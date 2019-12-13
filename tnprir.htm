@@ -1,0 +1,220 @@
+<HTML><HEAD> <TITLE> tnprir.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           TNPRI EXAMPLES                           |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ These  examples illustrate the use of the NONMEM utility routine TNPRI
+ by the NM-TRAN $PRIOR record, and also by an equivalent  user-supplied
+ routine PRIOR.  For a discussion of PRIOR: (See <A HREF="p.htm#prior">prior</A>).  For a discus-
+ sion of the TNPRI: (See <A HREF="t.htm#tnpri">tnpri</A>).
+
+ Example 1
+
+ Use of PRIOR and TNPRI and a control stream for population data:
+
+ This example obtains parameter estimates from population data, using a
+ two-compartment  PK  model, and it incorporates a frequentist prior of
+ transformed normal form for all of THETA, OMEGA and SIGMA.  The  prior
+ information is found in model specification file msf1.
+
+ $PROB   READ THE MODEL SPECIFICATION FILE
+ $DATA data
+ $INPUT ID DOSE TIME DV WT
+ $PRIOR TNPRI (PROBLEM 2)
+ $MSFI msf1 ONLYREAD
+ $PRED
+ ;
+ ;     THETA(1)=MEAN ABSORPTION RATE CONSTANT - MEAN ELIM. RATE CONSTANT (l/HR)
+ ;     THETA(2)=MEAN ELIM. RATE CONSTANT (1/HR)
+ ;     THETA(3)=SLOPE OF CLEARANCE VS WEIGHT RELATIONSHIP (LITERS/HR/KG)
+ ;     DOSE=WEIGHT-ADJUSTED DOSE (MG/KG)
+ ;
+       IF (NEWIND.NE.2) THEN
+          AMT=DOSE*WT
+          W=WT
+       ENDIF
+       T0=THETA(1)*EXP(ETA(1))
+       T2=THETA(2)*EXP(ETA(2))
+       T1=T2+T0
+       T3=THETA(3)*W*EXP(ETA(3))
+       A=EXP(-T2*TIME)
+       B=EXP(-T1*TIME)
+       C=T1-T2
+       D=A-B
+       E=T3*C
+       Y=AMT*T1*T2/E*D+EPS(1)
+
+ $PROB POPULATION DATA WITH PRIOR ON THETA, OMEGA AND SIGMA
+ $INPUT ID DOSE TIME DV WT
+ $DATA data  REWIND
+
+ $THETA  (0,4,5) (0,.09,.5) (.004,.01,.9)
+ $OMEGA BLOCK (3) .7 .04 .05 .02 .06 .08
+ $SIGMA  .4
+
+ $EST
+
+ Instead of a $PRIOR record, the following may be used:
+
+ $SUBROUTINE PRIOR=prior
+
+ The prior routine is as follows:
+
+       SUBROUTINE PRIOR (ICALL,CNT)
+       USE SIZES,     ONLY: DPSIZE,ISIZE
+       USE NMPRD_INT, ONLY: IPROB
+       REAL(KIND=DPSIZE) :: CNT
+       REAL(KIND=DPSIZE) :: PLEV
+       INTEGER(KIND=ISIZE) :: ICALL
+       IF (IPROB==2) THEN
+       PLEV=0.
+       ITYP=0
+       NSAM=0
+       ISS=0
+       IFND=0
+       MODE=0
+       IVAR=0
+       CALL TNPRI(IFND,MODE,ITYP,PLEV,NSAM,ISS,IVAR,CNT)
+       ENDIF
+       RETURN
+       END
+
+ Example 2
+
+ Use of PRIOR and TNPRI and a control stream for population data:
+
+ This example obtains parameter estimates from population data, using a
+ two-compartment PK model, and it incorporates a frequentist  prior  of
+ transformed  normal  form for all of THETA and OMEGA, but for only the
+ first element of a diagonal SIGMA, which is a  prior-specific  parame-
+ ter.   Prior information for these parameters is found in model speci-
+ fication file msf1.
+
+ $PROB   READ THE MODEL SPECIFICATION FILE
+ $DATA data
+ $INPUT ID DOSE TIME DV WT
+ $PRIOR TNPRI (PROBLEM 2)
+ $MSFI msf1 ONLYREAD
+ $PRED
+ ;
+ ;     THETA(1)=MEAN ABSORPTION RATE CONSTANT - MEAN ELIM. RATE CONSTANT (l/HR)
+ ;     THETA(2)=MEAN ELIM. RATE CONSTANT (1/HR)
+ ;     THETA(3)=SLOPE OF CLEARANCE VS WEIGHT RELATIONSHIP (LITERS/HR/KG)
+ ;     DOSE=WEIGHT-ADJUSTED DOSE (MG/KG)
+ ;
+       IF (NEWIND.NE.2) THEN
+          AMT=DOSE*WT
+          W=WT
+       ENDIF
+       T0=THETA(1)*EXP(ETA(1))
+       T2=THETA(2)*EXP(ETA(2))
+       T1=T2+T0
+       T3=THETA(3)*W*EXP(ETA(3))
+       A=EXP(-T2*TIME)
+       B=EXP(-T1*TIME)
+       C=T1-T2
+       D=A-B
+       E=T3*C
+       Y=AMT*T1*T2/E*D+EPS(2)
+
+ $PROB POPULATION DATA WITH PRIOR ON THETA AND OMEGA
+ $INPUT ID DOSE TIME DV WT
+ $DATA data REWIND
+ $THETA  (0,4,5) (0,.09,.5) (.004,.01,.9)
+ $OMEGA BLOCK (3) .7 .04 .05 .02 .06 .08
+ $SIGMA  .4 FIX .5
+
+ $EST
+
+ Instead of a $PRIOR record, use the same $SUBROUTINE  record  and  the
+ same subroutine prior as in Example 1.
+
+ Example 3
+
+ Use of PRIOR and TNPRI and a control stream for population data:
+
+ This example simulates the THETA and OMEGA parameters of the same two-
+ compartment population PK model, as well as the population  data  from
+ this  model.   As with Example 2, the first element of SIGMA is prior-
+ specific, and so its value need not be simulated.   The  value  .5  is
+ used  for the value of the second element of SIGMA.  The default vari-
+ ance-covariance matrix from the prior problem is used for the hyperpa-
+ rameter variance-covariance matrix (IVAR=1).
+
+ $PROB   READ THE MODEL SPECIFICATION FILE
+ $DATA data
+ $INPUT ID DOSE TIME DV WT
+ $PRIOR TNPRI (PROBLEM 2) PLEV=.9999 IVAR=1
+ $MSFI msf1 ONLYREAD
+ $PRED
+ ;
+ ;     THETA(1)=MEAN ABSORPTION RATE CONSTANT - MEAN ELIM. RATE CONSTANT (l/HR)
+ ;     THETA(2)=MEAN ELIM. RATE CONSTANT (1/HR)
+ ;     THETA(3)=SLOPE OF CLEARANCE VS WEIGHT RELATIONSHIP (LITERS/HR/KG)
+ ;     DOSE=WEIGHT-ADJUSTED DOSE (MG/KG)
+ ;
+       IF (NEWIND.NE.2) THEN
+          AMT=DOSE*WT
+          W=WT
+       ENDIF
+       T0=THETA(1)*EXP(ETA(1))
+       T2=THETA(2)*EXP(ETA(2))
+       T1=T2+T0
+       T3=THETA(3)*W*EXP(ETA(3))
+       A=EXP(-T2*TIME)
+       B=EXP(-T1*TIME)
+       C=T1-T2
+       D=A-B
+       E=T3*C
+       Y=AMT*T1*T2/E*D+EPS(2)
+
+ $PROB POPULATION DATA WITH PRIOR ON THETA AND OMEGA
+ $INPUT ID DOSE TIME DV WT
+ $DATA data REWIND
+ $THETA  (0,4,5) (0,.09,.5) (.004,.01,.9)
+ $OMEGA BLOCK (3) .7 .04 .05 .02 .06 .08
+ $SIGMA  .4 FIX .5
+
+ $SIM (547676) ONLY TRUE=PRIOR
+
+ Instead of a $PRIOR record, the following may be used:
+
+ $SUBROUTINE PRIOR=prior
+
+ The prior routine is as follows:
+
+       SUBROUTINE PRIOR (ICALL,CNT)
+       USE SIZES,     ONLY: DPSIZE,ISIZE
+       USE NMPRD_INT, ONLY: IPROB
+       REAL(KIND=DPSIZE) :: CNT
+       REAL(KIND=DPSIZE) :: PLEV
+       INTEGER(KIND=ISIZE) :: ICALL
+       IF (IPROB==2) THEN
+       PLEV=.9999
+       IVAR=1
+       ITYP=0
+       NSAM=0
+       ISS=0
+       IFND=0
+       MODE=0
+       CALL TNPRI(IFND,MODE,ITYP,PLEV,NSAM,ISS,IVAR,CNT)
+       ENDIF
+       RETURN
+       END
+
+ REFERENCES: none.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>
