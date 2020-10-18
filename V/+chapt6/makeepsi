@@ -1,6 +1,0 @@
-#On ubuntu (on dell):
-  cat newer.68 fig6.3.ps > temp ; ps2epsi temp fig6.3.ubuntu.epsi
-  cat newer.68 fig6.4.ps > temp ; ps2epsi temp fig6.4.ubuntu.epsi
-  cat newer.68 fig6.5.ps > temp ; ps2epsi temp fig6.5.ubuntu.epsi
-  cat newer.68 fig6.6.ps > temp ; ps2epsi temp fig6.6.ubuntu.epsi
-rm temp
