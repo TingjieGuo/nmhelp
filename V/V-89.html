@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 89</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:7px;font-family:Courier;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft5{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft6{font-size:5px;font-family:Times;color:#000000;}
+	.ft7{font-size:6px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V089.png" alt="background image">
+<DIV style="position:absolute;top:41;left:373"><nobr><span class="ft0">Chapter 8 - $ERROR Record</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft1"><b>3.1. The Additive Error Model</b></span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:72"><nobr><span class="ft0">This is the error model (3.4):</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:77"><nobr><span class="ft2"><b>Y=F+ERR(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:72"><nobr><span class="ft0">Both examples in Chapter 2 use this error model.</span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:72"><nobr><span class="ft1"><b>3.2. The Constant Coefﬁcient of Variation and Exponential Models</b></span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:72"><nobr><span class="ft0">This is the CCV error model (3.5):</span></nobr></DIV>
+<DIV style="position:absolute;top:178;left:77"><nobr><span class="ft2"><b>Y=F*(1+ERR(1))</b></span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:72"><nobr><span class="ft0">This error model can also be coded as:</span></nobr></DIV>
+<DIV style="position:absolute;top:204;left:77"><nobr><span class="ft2"><b>Y=F+F*ERR(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:72"><nobr><span class="ft0">Here, the variable F has been &quot;multiplied through&quot;. The choice is a matter of style.</span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:72"><nobr><span class="ft0">This is the exponential error model (3.5a):</span></nobr></DIV>
+<DIV style="position:absolute;top:246;left:77"><nobr><span class="ft2"><b>Y=F*EXP(ERR(1))</b></span></nobr></DIV>
+<DIV style="position:absolute;top:261;left:72"><nobr><span class="ft8">When the $ERROR statements consist solely of one of these statements (in any of the forms), the<br>output from PREDPP will include the message:</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:72"><nobr><span class="ft2"><b>ERROR IN LOG Y IS MODELED</b></span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:72"><nobr><span class="ft8">This is done because during data analysis NONMEM cannot distinguish between the CCV error<br>model <i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:112"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:124"><nobr><span class="ft3"><i>˜f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:131"><nobr><span class="ft4">+</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:142"><nobr><span class="ft3"><i>˜f</i></span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:147"><nobr><span class="ft5">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:156"><nobr><span class="ft0">and the exponential error model <i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:311"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:323"><nobr><span class="ft3"><i>˜f </i>exp(</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:349"><nobr><span class="ft5">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:355"><nobr><span class="ft0">), for which log(<i>y</i>)</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:441"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:450"><nobr><span class="ft0">log( <i>˜f</i>)</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:482"><nobr><span class="ft4">+</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:490"><nobr><span class="ft5">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:496"><nobr><span class="ft0">†.</span></nobr></DIV>
+<DIV style="position:absolute;top:326;left:72"><nobr><span class="ft8">By using the latter model and modelling the error in log(<i>y</i>) rather than in <i>y</i>, NM-TRAN enables<br>PREDPP to achieve an improvement in run time.</span></nobr></DIV>
+<DIV style="position:absolute;top:365;left:72"><nobr><span class="ft1"><b>3.3. Combined Additive and CCV Error Model</b></span></nobr></DIV>
+<DIV style="position:absolute;top:382;left:72"><nobr><span class="ft0">This is the error model (3.6):</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:77"><nobr><span class="ft2"><b>Y=F+F*ERR(1)+ERR(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:421;left:72"><nobr><span class="ft1"><b>3.4. The Po wer Model</b></span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:72"><nobr><span class="ft0">This is the error model (3.7):</span></nobr></DIV>
+<DIV style="position:absolute;top:452;left:77"><nobr><span class="ft2"><b>Y=F+F**P*ERR(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:463;left:72"><nobr><span class="ft8">The variable P must be assigned a value before its use above. P is typically identiﬁed with an ele-<br>ment of</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:108"><nobr><span class="ft5">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:117"><nobr><span class="ft0">so that it can be estimated in the ﬁtting process. Let us assume that</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:416"><nobr><span class="ft5">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:422"><nobr><span class="ft6">4</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:429"><nobr><span class="ft0">is chosen for this</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:72"><nobr><span class="ft0">purpose. Then an alternative coding is:</span></nobr></DIV>
+<DIV style="position:absolute;top:504;left:77"><nobr><span class="ft2"><b>Y=F+F**THETA(4)*ERR(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:528;left:72"><nobr><span class="ft1"><b>3.5. Two Different Types of Measurements</b></span></nobr></DIV>
+<DIV style="position:absolute;top:545;left:72"><nobr><span class="ft8">We hav e already seen how an indicator variable, e.g., ASY, can be used in $PK statements for a<br>variety of purposes. The same technique is used in $ERROR statements. Consider model (3.8)<br>where the variable ASY has the value 1 or 0, corresponding to assay 1 or assay 2. ASY is a data<br>record item. Then the error model (3.8) is coded:</span></nobr></DIV>
+<DIV style="position:absolute;top:599;left:77"><nobr><span class="ft2"><b>Y=F+ASY*ERR(1)+(1-ASY)*ERR(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:613;left:72"><nobr><span class="ft0">This model can also be coded in several ways, the choice of which is a matter of style.</span></nobr></DIV>
+<DIV style="position:absolute;top:630;left:72"><nobr><span class="ft0">1)</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:102"><nobr><span class="ft2"><b>IF (ASY.EQ.1) THEN</b></span></nobr></DIV>
+<DIV style="position:absolute;top:645;left:102"><nobr><span class="ft2"><b>Y=F+ERR(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:658;left:102"><nobr><span class="ft2"><b>ELSE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:671;left:102"><nobr><span class="ft2"><b>Y=F+ERR(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:684;left:102"><nobr><span class="ft2"><b>ENDIF</b></span></nobr></DIV>
+<DIV style="position:absolute;top:715;left:72"><nobr><span class="ft7">† During Simulation, NONMEM does distinguish between the CCV and exponential error models.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-81-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

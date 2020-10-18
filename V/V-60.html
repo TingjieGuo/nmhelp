@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 60</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Courier;color:#000000;}
+	.ft3{font-size:7px;font-family:Courier;color:#000000;}
+	.ft4{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V060.png" alt="background image">
+<DIV style="position:absolute;top:41;left:152"><nobr><span class="ft0">Chapter 6 - Data Sets, $DAT A and $INPUT Records, and the Data Preprocessor</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft0">LRECL=n</span></nobr></DIV>
+<DIV style="position:absolute;top:90;left:97"><nobr><span class="ft4">This tells the length of the physical data records. It is required if the operating system asso-<br>ciates a ﬁxed physical record length with every disk ﬁle <i>and </i>considers it a fatal I/O error if a<br>READ command requests more characters than the records contain. If this is true of your<br>operating system, the operating system will issue an error message when you ﬁrst run NM-<br>TRAN without the LRECL option in the $DAT A record.</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:72"><nobr><span class="ft0">WIDE</span></nobr></DIV>
+<DIV style="position:absolute;top:172;left:97"><nobr><span class="ft4">This requests that the NONMEM data set produced by NM-TRAN always contain single-<br>line records, and that these records always include at least one space between data items.<br>Such a data set can be further processed by other programs. (The default is NOWIDE, in<br>which case NM-TRAN limits the records to 80 characters by creating multi-line records<br>and/or eliminating spaces between data items if necessary.) It may not be used if a FOR-<br>TRAN format speciﬁcation is present. It also provides an extra character for relative times<br>computed by the Data Preprocessor.</span></nobr></DIV>
+<DIV style="position:absolute;top:267;left:72"><nobr><span class="ft0">NULL=c</span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:97"><nobr><span class="ft4">This requests that the NONMEM data set produced by NM-TRAN contain the character c<br>in place of null data items. For example, NULL=0 requests that all null data items be<br>replaced by 0. The syntax NULL=’c’ and NULL=&quot;c&quot; is also permitted. The default is<br>NULL=’ ’. It may not be used if a FORTRAN format speciﬁcation is present.</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:72"><nobr><span class="ft0">IGNORE=c</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:97"><nobr><span class="ft4">This instructs NM-TRAN to ignore data records having character c in the ﬁrst character<br>position (&quot;column 1&quot;) of the record. This allows the use of &quot;comment&quot; records in the NM-<br>TRAN data set. The syntax IGNORE=’c’ and IGNORE=&quot;c&quot; is also permitted. It may be<br>used even if a FORTRAN format speciﬁcation is present.<br>The character @ has a special meaning. It signiﬁes that any data record containing an<br>alphabetic character (or special characters @ or #) as its ﬁrst non-blank character (not just in<br>column 1) should be ignored. Alphabetic characters are the letters A-Z and a-z. Thus, a ta-<br>ble ﬁle produced by NONMEM in an earlier run can be used as an NM-TRAN data set.<br>Any header lines included in this table can be dropped by specifying IGNORE=@.</span></nobr></DIV>
+<DIV style="position:absolute;top:482;left:97"><nobr><span class="ft4">When the IGNORE option is omitted, any records containing the character # in column 1<br>are ignored.</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:72"><nobr><span class="ft0">IGNORE=(list), ACCEPT=(list)</span></nobr></DIV>
+<DIV style="position:absolute;top:524;left:97"><nobr><span class="ft4">This form of the IGNORE option allows records to be dropped based on the values of data<br>items. For example,</span></nobr></DIV>
+<DIV style="position:absolute;top:551;left:143"><nobr><span class="ft2"><b>IGNORE=(GEN.EQ.1,AGE.GT.60).</b></span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:97"><nobr><span class="ft4">Records having GEN equal to 1 or AGE greater than 60 are dropped. All others are<br>accepted. The ACCEPT option allows records to be accepted based on the values of data<br>items. See Guide VIII for more information.</span></nobr></DIV>
+<DIV style="position:absolute;top:619;left:72"><nobr><span class="ft0">LAST20=nn</span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:97"><nobr><span class="ft4">&quot;nn&quot; is a 2 digit number that speciﬁes the highest 2-digit year that is assumed to be in the<br>21st. century, i.e., that represents 20nn rather than 19nn. See Section 10.1.5 below.</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:72"><nobr><span class="ft0">TRANSLATE</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:97"><nobr><span class="ft4">The translate option must be followed by parentheses enclosing a list of one or more trans-<br>late speciﬁcations. For example,</span></nobr></DIV>
+<DIV style="position:absolute;top:706;left:108"><nobr><span class="ft3"><b>$DATA filename TRANSLATE(TIME/24,II/24)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-52-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

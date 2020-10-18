@@ -1,0 +1,367 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Sat Sep 19 21:22:36 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part V - Introductory Guide - Chapter 8">NONMEM Users Guide Part V - Introductory Guide - Chapter 8</a><br>
+<a href="#1. What This Chapter is About">1. What This Chapter is About</a><br>
+<a href="#2. $ERROR Abbreviated Code">2. $ERROR Abbreviated Code</a><br>
+<a href="#2.1. Syntax">2.1. Syntax</a><br>
+<a href="#2.2. When are $ERROR Statements Evaluated?">2.2. When are $ERROR Statements Evaluated?</a><br>
+<a href="#3. Error Models">3. Error Models</a><br>
+<a href="#3.1. The Additive Error Model">3.1. The Additive Error Model</a><br>
+<a href="#3.2. The Constant Coefficient of Variation andExponential Models">3.2. The Constant Coefficient of Variation andExponential Models</a><br>
+<a href="#3.3. Combined Additive and CCV Error Model">3.3. Combined Additive and CCV Error Model</a><br>
+<a href="#3.4. The Power Model">3.4. The Power Model</a><br>
+<a href="#3.5. Two Different Types of Measurements">3.5. Two Different Types of Measurements</a><br>
+<a href="#3.6. Two Different Types of Observations">3.6. Two Different Types of Observations</a><br>
+<a href="#3.7. More than One Indicator Variable">3.7. More than One Indicator Variable</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part V - Introductory Guide - Chapter 8
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part V - Introductory Guide - Chapter 8"></a>
+</h2>
+
+
+<p align="center" style="margin-top: 1em"><b>Chapter 8 -
+$ERROR Record</b></p>
+
+<h2>1. What This Chapter is About
+<a name="1."></a>
+<a name="1. What This Chapter is About"></a>
+</h2>
+
+
+<p style="margin-top: 1em">This chapter tells how to
+write a simple $ERROR record for PREDPP. This chapter is
+meant to be read in parallel with Chapters 3 and
+4.</p>
+
+<h2>2. $ERROR Abbreviated Code
+<a name="2."></a>
+<a name="2. $ERROR Abbreviated Code"></a>
+</h2>
+
+
+<p style="margin-top: 1em">$ERROR abbreviated code
+consists of a block of <b>$ERROR statements,</b> one per
+line. The $ERROR abbreviated code must be preceded by a
+record containing the characters &quot;$ERROR&quot;. This
+record and the abbreviated code constitute the <b>$ERROR
+record.</b></p>
+
+<p style="margin-top: 1em">$ERROR statements
+describe the error model for PREDPP. These statements are
+very similar for individual data and for population data. In
+fact, by making use of variables called ERR variables, the
+$ERROR statements are identical for both kinds of
+data.</p>
+
+<h3>2.1. Syntax
+<a name="2.1."></a>
+<a name="2.1. Syntax"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The syntax of a $ERROR
+record is very similar to that of a $PK record. Certain
+differences will be mentioned here.</p>
+
+<p style="margin-top: 1em">There must be an
+assignment statement giving a value to a special (reserved)
+variable Y. Y is a random variable representing the random
+variable y (the modeled observation). Y is usually defined
+in terms of a special (reserved) variable F, which
+represents the prediction for Y. When the data are from a
+population, F is a random variable. With individual data,
+ETA variables may be used in the definition of Y. With
+population data, EPS variables may be used in the definition
+of Y. There are also special random variables called ERR
+variables. The variable ERR(I) is the same as ETA(I) or
+EPS(I), depending on whether the data are individual or
+population, respectively. For the purpose of giving a
+general discussion, applying equally to both individual and
+population data, ERR will be used in all the examples in
+this chapter. (It is also useful to use ERR in $ERROR
+statements as a practical matter. Sometimes the same data is
+analyzed from both the population and the individual point
+of view. By using ERR variables, changes to the NM-TRAN
+input file are minimized.) An ERR variable (as with ETA and
+EPS variables) must always include a subscript (e.g.,
+ERR(1)), even when there is only one such variable in the
+model.</p>
+
+<p style="margin-top: 1em">Variables computed within
+$PK statements may be used in $ERROR statements, but not
+vice versa.</p>
+
+<h3>2.2. When are $ERROR Statements Evaluated?
+<a name="2.2."></a>
+<a name="2.2. When are $ERROR Statements Evaluated?"></a>
+</h3>
+
+
+<p style="margin-top: 1em">$ERROR statements are
+normally evaluated with every event record. This may be more
+frequent than is necessary. PREDPP can be instructed that
+the set of event records with which the $ERROR statements
+are evaluated is to be limited to only observation events,
+once per individual record, or once per problem. Such
+limitation does not apply to the Simulation Step (Chapter
+12, Section 4.8). With the additive (3.4) and constant
+coefficient of variation (3.5) error models, and with the
+exponential error model, NM-TRAN instructs PREDPP to
+evaluate the $ERROR statements only once per problem. Again,
+the CALL data item can be used to force evaluation of the
+$ERROR statements with any event records.</p>
+
+<h2>3. Error Models
+<a name="3."></a>
+<a name="3. Error Models"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The following sections
+show how the error models of Chapter 3 are expressed using
+$ERROR statements.</p>
+
+<h3>3.1. The Additive Error Model
+<a name="3.1."></a>
+<a name="3.1. The Additive Error Model"></a>
+</h3>
+
+
+<p style="margin-top: 1em">This is the error model
+(3.4): <tt><b><br>
+Y=F+ERR(1)</b></tt> <br>
+Both examples in Chapter 2 use this error model.</p>
+
+<h3>3.2. The Constant Coefficient of Variation andExponential Models
+<a name="3.2."></a>
+<a name="3.2. The Constant Coefficient of Variation andExponential Models"></a>
+</h3>
+
+
+<p style="margin-top: 1em">This is the CCV error
+model (3.5): <tt><b><br>
+Y=F*(1+ERR(1))</b></tt> <br>
+This error model can also be coded as: <tt><b><br>
+Y=F+F*ERR(1)</b></tt> <br>
+Here, the variable F has been &quot;multiplied
+through&quot;. The choice is a matter of style.</p>
+
+<p style="margin-top: 1em">This is the exponential
+error model (3.5a): <tt><b><br>
+Y=F*EXP(ERR(1))</b></tt></small></p>
+
+<p style="margin-top: 1em">When the $ERROR
+statements consist solely of one of these statements (in any
+of the forms), the output from PREDPP will include the
+message: <tt><b><br>
+ERROR IN LOG Y IS MODELED</b></tt> <br>
+This is done because during data analysis NONMEM cannot
+distinguish between the CCV error model
+<img src="grohtml-150626-3.png" alt="Image grohtml-150626-3.png">
+and the exponential error model
+<img src="grohtml-150626-4.png" alt="Image grohtml-150626-4.png">
+, for which
+<img src="grohtml-150626-5.png" alt="Image grohtml-150626-5.png">
+&dagger;. By using the latter model and modelling the error
+in
+<img src="grohtml-150626-6.png" alt="Image grohtml-150626-6.png">
+rather than in
+<img src="grohtml-150626-7.png" alt="Image grohtml-150626-7.png">
+, NM-TRAN enables PREDPP to achieve an improvement in run
+time. <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; During
+Simulation, NONMEM does distinguish between the CCV and
+exponential error models. <br>
+---------- <br>
+</cite></p>
+
+<h3>3.3. Combined Additive and CCV Error Model
+<a name="3.3."></a>
+<a name="3.3. Combined Additive and CCV Error Model"></a>
+</h3>
+
+
+<p style="margin-top: 1em">This is the error model
+(3.6): <tt><b><br>
+Y=F+F*ERR(1)+ERR(2)</b></tt></small></p>
+
+<h3>3.4. The Power Model
+<a name="3.4."></a>
+<a name="3.4. The Power Model"></a>
+</h3>
+
+
+<p style="margin-top: 1em">This is the error model
+(3.7): <tt><b><br>
+Y=F+F**P*ERR(1)</b></tt> <br>
+The variable P must be assigned a value before its use
+above. P is typically identified with an element of
+<img src="grohtml-150626-8.png" alt="Image grohtml-150626-8.png">
+so that it can be estimated in the fitting process. Let us
+assume that
+<img src="grohtml-150626-9.png" alt="Image grohtml-150626-9.png">
+is chosen for this purpose. Then an alternative coding is:
+<tt><b><br>
+Y=F+F**THETA(4)*ERR(1)</b></tt></small></p>
+
+<h3>3.5. Two Different Types of Measurements
+<a name="3.5."></a>
+<a name="3.5. Two Different Types of Measurements"></a>
+</h3>
+
+
+<p style="margin-top: 1em">We have already seen how
+an indicator variable, e.g., ASY, can be used in $PK
+statements for a variety of purposes. The same technique is
+used in $ERROR statements. Consider model (3.8) where the
+variable ASY has the value 1 or 0, corresponding to assay 1
+or assay 2. ASY is a data record item. Then the error model
+(3.8) is coded: <tt><b><br>
+Y=F+ASY*ERR(1)+(1-ASY)*ERR(2)</b></tt></small></p>
+
+<p style="margin-top: 1em">This model can also be
+coded in several ways, the choice of which is a matter of
+style.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">1)</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>IF
+(ASY.EQ.1) THEN <br>
+Y=F+ERR(1) <br>
+ELSE <br>
+Y=F+ERR(2) <br>
+ENDIF</b></tt></small></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">2)</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>IF
+(ASY.EQ.1) Y=F+ERR(1) <br>
+IF (ASY.NE.1) Y=F+ERR(2)</b></tt></small></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">3)</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>Y=F+ERR(2)
+<br>
+IF (ASY.EQ.1) Y=F+ERR(1)</b></tt></small></p>
+
+<h3>3.6. Two Different Types of Observations
+<a name="3.6."></a>
+<a name="3.6. Two Different Types of Observations"></a>
+</h3>
+
+
+<p style="margin-top: 1em">In Chapter 3, Section
+3.6, an example is given in which there are two kinds of
+observations, plasma (
+<img src="grohtml-150626-10.png" alt="Image grohtml-150626-10.png">
+) and urine (
+<img src="grohtml-150626-11.png" alt="Image grohtml-150626-11.png">
+). With PREDPP, measurements from different compartments of
+the model are recorded in the DV data item of different
+observation event records. The CMT data item identifies the
+compartment from which the prediction associated with the
+event record is to be obtained. When the $ERROR statements
+are evaluated for a given event record, the variable F
+contains the prediction from the compartment specified for
+that event record. All that need be done is to select the
+correct error model, depending on the compartment. Suppose,
+for example, that ADVAN2 is used, so that the central
+compartment is compartment 2 and the output (urine)
+compartment is compartment 3. Then the error model (3.10)
+can be coded: <tt><b><br>
+TYP=0 <br>
+IF (CMT.EQ.2) TYP=1 <br>
+Y=F+TYP*ERR(1)+(1-TYP)*ERR(2)</b></tt></small></p>
+
+<p style="margin-top: 1em">This model can also be
+coded in several ways, one of which is shown here:
+<tt><b><br>
+IF (CMT.EQ.2) THEN <br>
+Y=F+ERR(1) <br>
+ELSE <br>
+Y=F+ERR(2) <br>
+ENDIF</b></tt></small></p>
+
+<h3>3.7. More than One Indicator Variable
+<a name="3.7."></a>
+<a name="3.7. More than One Indicator Variable"></a>
+</h3>
+
+
+<p style="margin-top: 1em">In Chapter 3, Section
+3.7, an example is given in which there are three kinds of
+observations. Suppose that there are two data items, ASY1
+and ASY2. ASY1 is 1 if assay 1 is used and 0 otherwise. ASY2
+is 1 if assay 2 is used and 0 otherwise. This is the error
+model (3.11): <tt><b><br>
+
+Y=F+ASY1*ERR(1)+ASY2*ERR(2)+(1-ASY1)*(1-ASY2)*ERR(3)</b></tt></small></p>
+
+<p style="margin-top: 1em">This model can also be
+coded in several ways, one of which is shown here:
+<tt><b><br>
+Y=F+ERR(3) <br>
+IF (ASY1.EQ.1) Y=F+ERR(1) <br>
+IF (ASY2.EQ.1) Y=F+ERR(2)</b></tt></small></p>
+
+
+<p style="margin-top: 1em"><a href="8.html">TOP</a></p>
+
+
+<p style="margin-top: 1em"><a href="index.html">TABLE OF CONTENTS</a></p>
+
+
+<p style="margin-top: 1em"><a href="9.html">NEXT</a></p>
+<hr>
+</body>
+</html>

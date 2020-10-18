@@ -1,0 +1,74 @@
+<HTML><HEAD> <TITLE> supp.utl</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                                SUPP                                |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: SUPP subroutine
+ CONTEXT: NONMEM utility routine
+
+ USAGE:
+      USE SIZES, ONLY:: ISIZE
+      INTEGER(KIND=ISIZE):: IE,IC
+       ...
+      CALL SUPP (IE,IC)
+
+ DISCUSSION:
+ The  NONMEM  utility  routine SUPP is used to suppress portions of the
+ NONMEM output report.  SUPP may be called only when ICALL is 0, 1,  or
+ 3.
+
+ Input argument:
+
+  IE  An  integer variable or integer constant.  If the value is 1, the
+      output from the Estimation Step is not  included  in  the  output
+      report.
+
+  IC  An  integer variable or integer constant.  If the value is 1, the
+      output from the Covariance Step is not  included  in  the  output
+      report.
+
+ SUPP  is  typically used during simulation with numerous sub-problems.
+ A user-supplied INFN routine, or similar code in a user-supplied  PRED
+ routine,  presumably calculates and prints summary statistics based on
+ the final parameter estimates, etc.  Printed  values  from  each  sub-
+ problem  are  of  little  interest and may be suppressed to reduce the
+ size of the report file.
+
+ When IE=1, pages with these headings are suppressed:
+
+ MINIMUM VALUE OF OBJECTIVE FUNCTION
+ FINAL PARAMETER ESTIMATE
+
+ When IC=1, pages with these headings are suppressed:
+
+ STANDARD ERROR OF ESTIMATE
+ COVARIANCE MATRIX OF ESTIMATE
+ CORRELATION MATRIX OF ESTIMATE
+ INVERSE COVARIANCE MATRIX OF ESTIMATE
+
+ The option PRINT=0 of the $ESTIMATION record is used to  suppress  the
+ Intermediate   printout  from  the  Estimation  Step  ("MONITORING  OF
+ SEARCH:...")
+
+ EXAMPLES OF USAGE:
+
+ CALL SUPP(1,1)
+
+ This suppress both Estimation and Covariance Step output.
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

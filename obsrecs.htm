@@ -1,0 +1,46 @@
+<HTML><HEAD> <TITLE> obsrecs.out</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        OBSERVATION RECORDS                         |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Those data records containing observation information
+ CONTEXT: NONMEM input/output
+
+ DISCUSSION:
+ A  data  record  may contain an observation, in which case the missing
+ dependent variable (MDV) data item (which  may  be  specified  by  the
+ user,  or  created  for  him by NM-TRAN when PREDPP is used) should be
+ zero, and the dependent variable (DV) data item should be the observa-
+ tion.   If a data record does not contain an observation, the MDV data
+ item should be 1 or 101, and the DV data item may be any value.   NON- |
+ MEM  counts  observation  records.  It also must know in what position
+ (column) of a data record the DV data item appears.   It  reports  its
+ information  about  these  things  as  a check to the user, as in this
+ example:
+
+  DEP VARIABLE IS DATA ITEM NO.:   4
+      .
+      .
+  TOT. NO. OF OBS RECS:     394
+
+ (See <A HREF="d.htm#dv">dv</A>, <A HREF="m.htm#mdv">mdv</A>).
+
+REFERENCES: Guide III Section <a href="III/index.html">V.3.2<a/>
+REFERENCES: Guide IV Section <a href="IV/II.html#C.4.1.">II.C.4.1<a/>
+REFERENCES: Guide V Section <a href="V/6.html">6<a/>
+REFERENCES: Guide VI Section <a href="VI/II.html">II<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

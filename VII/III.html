@@ -1,0 +1,832 @@
+<!-- Creator     : groff version 1.21 -->
+<!-- CreationDate: Sun Jul 31 20:16:35 2011 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part VII - Conditional Estimation Methods - Chapter III">NONMEM Users Guide Part VII - Conditional Estimation Methods - Chapter III</a><br>
+<a href="#III. Usage Guidelines">III. Usage Guidelines</a><br>
+<a href="#III.A. Background">III.A. Background</a><br>
+<a href="#III.B. Model Form">III.B. Model Form</a><br>
+<a href="#III.C. Role of the FO Method">III.C. Role of the FO Method</a><br>
+<a href="#III..mc. D. Role of Centering Methods">III..mc. D. Role of Centering Methods</a><br>
+<a href="#III..mc. E. Role of the Hybrid Method">III..mc. E. Role of the Hybrid Method</a><br>
+<a href="#III.F. Problems">III.F. Problems</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part VII - Conditional Estimation Methods - Chapter III
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part VII - Conditional Estimation Methods - Chapter III"></a>
+</h2>
+
+
+<h2>III. Usage Guidelines
+<a name="III."></a>
+<a name="III. Usage Guidelines"></a>
+</h2>
+
+
+<h2>III.A. Background
+<a name="III.A."></a>
+<a name="III.A. Background"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Many data sets (real and
+simulated) have been examined using the first-order (FO)
+estimation method and, more recently, the conditional
+estimation methods. With many population pharmacokinetic
+data sets, the FO method works fairly well. It requires far
+less CPU time than does a conditional estimation method.
+However, from the time of its earliest usage there has been
+a small number of examples where the method has not worked
+adequately. Evidence suggesting that the method may not be
+adequate with a particular data set can be readily obtained
+with the goodness-of-fit scatterplot: with mean-variance
+intraindividual models, a plot of observations versus
+(population) predictions. Consider two such scatterplots in
+Figures 1 and 2. The one in Figure 1, resulting from use of
+the FO method, shows a clear bias in the fit. The data
+result from single oral bolus doses being given to a number
+of subjects; the data are modeled with a two compartment
+linear model with first-order absorption from a drug depot.
+The scatterplot in Figure 2 results from use of the FOCE
+method without interaction. Much of the bias is eliminated
+with the use of this method. In this situation, the benefit
+from the extra expenditure of computer time that is needed
+with the method is substantial.</p>
+
+<p style="margin-top: 1em">The Laplacian method can use
+considerably more computer time than the FOCE method,
+depending on the complexity of the computations for
+obtaining needed second derivatives. In this example, the
+extra expenditure of computer time needed with the Laplacian
+method is not much, but the benefit is also not much. The
+scatterplot resulting from using the Laplacian method is
+very similar to that of Figure 2.</p>
+
+<p style="margin-top: 1em">The Laplacian method should
+perform no worse than the FOCE method (the former avoids the
+first-order approximation). The FOCE method should perform
+no worse than the FO method (the adaquacy of the first-order
+approximation is better when the
+<img src="grohtml-31508-5.png" alt="Image grohtml-31508-5.png">
+are evaluated at the conditional estimates, rather than at
+0). Similarly, the hybrid method should also perform no
+worse than the FO method, but perhaps not as well as the
+FOCE method. (See e.g. Figure 3, which is the
+goodness-of-fit plot for the same data described above,
+using the hybrid method (with two out of four
+<img src="grohtml-31508-6.png" alt="Image grohtml-31508-6.png">
+&rsquo;s &quot;zeroed&quot;.)) This defines a type of
+hierarchy to the methods.</p>
+
+<p style="margin-top: 1em">The need to proceed up the
+hierarchy from the FO method increases as the degree to
+which the intraindividual models are nonlinear in the
+<img src="grohtml-31508-7.png" alt="Image grohtml-31508-7.png">
+increases. The need to use the Laplacian method increases
+because as the degree of nonlinearity increases, the
+adequacy of the first-order approximation decreases. The
+need to use the FOCE method increases because as the degree
+of nonlinearity increases, the adequacy of the first-order
+approximation depends more on the values at which the
+<img src="grohtml-31508-8.png" alt="Image grohtml-31508-8.png">
+are evaluated.</p>
+
+<p style="margin-top: 1em">Population (structurally) linear
+pharmacokinetic models are often rather linear (as just
+defined), although the degree of nonlinearity increases with
+the degree of multiple dosing. With these models the
+Laplacian method is rarely, if ever, needed. With simple
+bolus dosing, the FOCE method is often not needed, although
+the example cited above serves as a reminder not to
+interpret this last assertion too optimistically. On the
+other hand, population nonlinear pharmacokinetic models
+(e.g. models with Michaelis-Menten elimination) can be quite
+nonlinear. Population pharmacodynamic models also can be
+quite nonlinear, and especially with models for categorical-
+and discrete-ordinal-type observations, the Laplacian method
+is invariably the best choice.</p>
+
+<p style="margin-top: 1em">The ability of a conditional
+estimation method to produce results different from those
+obtained with the FO method decreases as the degree of
+random interindividual variablity, i.e. &quot;the size&quot;
+of
+<img src="grohtml-31508-9.png" alt="Image grohtml-31508-9.png">
+decreases. This is because the conditional methods use
+conditional estimates of the
+<img src="grohtml-31508-10.png" alt="Image grohtml-31508-10.png">
+, which are all shrunken to 0, and the shrinkage is greater
+the smaller the size of
+<img src="grohtml-31508-11.png" alt="Image grohtml-31508-11.png">
+. The value 0 is the value used for the
+<img src="grohtml-31508-12.png" alt="Image grohtml-31508-12.png">
+with the FO method. Similarly, the ability of FOCE to
+produce results different from those obtained with the
+hybrid method decreases as the degree of random
+interindividual variablity, i.e. &quot;the size&quot; of
+<img src="grohtml-31508-13.png" alt="Image grohtml-31508-13.png">
+decreases. In fact, suppose one tries to use the FOCE method
+and finds that some estimates of interindividual variances
+are rather large compared to others. Then using the hybrid
+method where those elements of
+<img src="grohtml-31508-14.png" alt="Image grohtml-31508-14.png">
+with small variance are &quot;zeroed&quot;, may well result
+in a fit about as good as that using FOCE (in contrast to
+that shown in Figure 3), and if the number of elements of
+<img src="grohtml-31508-15.png" alt="Image grohtml-31508-15.png">
+that are zeroed is large relative to the total number of
+elements, CPU time may be significantly reduced.</p>
+
+<p style="margin-top: 1em">The ability of a conditional
+estimation method to produce results different from those
+obtained with the FO method decreases as the amount of data
+per individual decreases. This is because the conditional
+methods use conditional estimates of the
+<img src="grohtml-31508-16.png" alt="Image grohtml-31508-16.png">
+, which are all shrunken to 0, and the shrinkage is greater
+the less the amount of data per individual. Actually, the
+amount of data from the ith individual should be measured
+relative to the number of parameters in the model for the
+individual, i.e. the number of elements of
+<img src="grohtml-31508-17.png" alt="Image grohtml-31508-17.png">
+upon which the model really depends. As the number of
+parameters increases, the amount of data decreases, and can
+&quot;approach 0&quot;. Also, strictly speaking, the amount
+of data might be understood as being relative to the
+&quot;data design&quot; (the poorer the design, the less
+useful the data) and the magnitude of intraindividual error
+(the more error, the less useful the data).</p>
+
+<p style="margin-top: 1em">With intraindividual
+mean-variance models where it may appear theoretically
+plausible that there is an
+<img src="grohtml-31508-18.png" alt="Image grohtml-31508-18.png">
+-interaction, it might seem more appropriate to use the FOCE
+method with interaction than to use the FOCE method without
+interaction. However, when the amount of (true)
+intraindividual variance is large (though the
+intraindividual models may be structurally well-specified),
+or the amount of data per individual is small, it will be
+difficult for the data to support an
+<img src="grohtml-31508-19.png" alt="Image grohtml-31508-19.png">
+interaction, in which case the FOCE method with interaction
+may produce no improvement over the FOCE method without
+interaction. Otherwise, and especially when intraindividual
+variance is small for some observations, but not for others
+due to structural model misspecification, and when there is
+considerable interindividual variability, the FOCE method
+with no interaction can lead to a noticeably biased fit (as
+can the FO method).</p>
+
+<p style="margin-top: 1em">There seems to be no consistent
+relationship between the value of the objective function
+using one method and the value of the objective function
+using another method. Therefore, objective function values
+should not be compared across methods. However, objective
+function values (in conjunction with graphical output) can
+provide a very useful way to compare alternative models, as
+long as the values are obtained using the same method.</p>
+
+<h2>III.B. Model Form
+<a name="III.B."></a>
+<a name="III.B. Model Form"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Unless interindividual
+variability is small, use of a random interindividual effect
+in the model should be such that quantities that depend on
+the effect are always computed with physically meaningful
+values. For example, rather than model a clearance parameter
+by</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="142%"></td>
+<td width="-134%"></td>
+<td width="92%">
+</td></tr>
+</table>
+
+
+<p align="left"><img src="grohtml-315085.png" alt="Image grohtml-315085.png"></p>
+
+<p style="margin-top: 1em">it is better to use</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="142%"></td>
+<td width="-42%">
+</td></tr>
+</table>
+
+
+<p align="left"><img src="grohtml-315086.png" alt="Image grohtml-315086.png"></p>
+
+<p style="margin-top: 1em">since clearance should always be
+positive. With the FO method, use of either model produces
+essentially the same results. (The formulas for clearance
+and for the derivatives of clearance with respect to
+<img src="grohtml-31508-22.png" alt="Image grohtml-31508-22.png">
+are computed only with the value
+<img src="grohtml-31508-23.png" alt="Image grohtml-31508-23.png">
+.) However, with a conditional estimation method, different
+values of
+<img src="grohtml-31508-24.png" alt="Image grohtml-31508-24.png">
+are tried. A negative value for
+<img src="grohtml-31508-25.png" alt="Image grohtml-31508-25.png">
+can result with the first model, especially when
+<img src="grohtml-31508-26.png" alt="Image grohtml-31508-26.png">
+is large and large negative values of
+<img src="grohtml-31508-27.png" alt="Image grohtml-31508-27.png">
+are tried.</p>
+
+<p style="margin-top: 1em">To take another example: Suppose
+that with the one compartment linear model with first-order
+absorption from a drug depot, it is assumed that
+pharmacokinetically, for all individuals, the rate constant
+of absorption exceeds the rate constant of elimination, i.e.
+<img src="grohtml-31508-28.png" alt="Image grohtml-31508-28.png">
+. Instead of</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="142%"></td>
+<td width="-42%">
+</td></tr>
+</table>
+
+
+<p align="left"><img src="grohtml-315087.png" alt="Image grohtml-315087.png"></p>
+
+
+<p align="left"><img src="grohtml-315088.png" alt="Image grohtml-315088.png"></p>
+
+<p style="margin-top: 1em">one should use</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="142%"></td>
+<td width="-42%">
+</td></tr>
+</table>
+
+
+<p align="left"><img src="grohtml-315089.png" alt="Image grohtml-315089.png"></p>
+
+
+<p align="left"><img src="grohtml-3150810.png" alt="Image grohtml-3150810.png"></p>
+
+<p style="margin-top: 1em">and constrain both
+<img src="grohtml-31508-33.png" alt="Image grohtml-31508-33.png">
+and
+<img src="grohtml-31508-34.png" alt="Image grohtml-31508-34.png">
+to be positive. <br>
+Again, with the FO method, use of either model produces
+essentially the same <br>
+results. <br>
+The problem with the first model is that when using a
+conditional estimation <br>
+method, as
+<img src="grohtml-31508-35.png" alt="Image grohtml-31508-35.png">
+and
+<img src="grohtml-31508-36.png" alt="Image grohtml-31508-36.png">
+vary, <br>
+the value of
+<img src="grohtml-31508-37.png" alt="Image grohtml-31508-37.png">
+can exceed
+<img src="grohtml-31508-38.png" alt="Image grohtml-31508-38.png">
+, <br>
+due to &quot;flip-flop&quot;. <br>
+As this can happen, or not, from one individual to the next,
+if it <br>
+happens at all, the conditional estimation method will
+&quot;become confused&quot; <br>
+and fail. The conditional estimation method by itself has no
+way of knowing <br>
+that it has been assumed that
+<img src="grohtml-31508-39.png" alt="Image grohtml-31508-39.png">
+will not exceed
+<img src="grohtml-31508-40.png" alt="Image grohtml-31508-40.png">
+, and it <br>
+cannot distinguish flip-flop from this possibility. (If
+pharmacokinetically, <br>
+occurs, again the conditional estimation method will become
+confused, not <br>
+being able to distinguish flip-flop from these
+possibilities, but in this case, <br>
+a modification of the model will not help.)</p>
+
+<p style="margin-top: 1em">Consider again the simple model
+for a clearance parameter,</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="142%"></td>
+<td width="-42%">
+</td></tr>
+</table>
+
+
+<p align="left"><img src="grohtml-3150811.png" alt="Image grohtml-3150811.png"></p>
+
+<p style="margin-top: 1em">With the FO method, all
+derivatives with respect to
+<img src="grohtml-31508-42.png" alt="Image grohtml-31508-42.png">
+are evaluated at 0. Consequently, in effect, a transformed
+model for
+<img src="grohtml-31508-43.png" alt="Image grohtml-31508-43.png">
+is used: a first-order approximation in
+<img src="grohtml-31508-44.png" alt="Image grohtml-31508-44.png">
+, of the right side of the equation,</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="142%"></td>
+<td width="-42%">
+</td></tr>
+</table>
+
+
+<p align="left"><img src="grohtml-3150812.png" alt="Image grohtml-3150812.png"></p>
+
+<p style="margin-top: 1em">This is a constant cv type
+model. With the FO method, no matter whether the given model
+or the transformed model is &quot;used&quot;, the results of
+the analysis will be the same. The same is true even if
+covariates are involved. However, when a population
+conditional estimation method is used, the results of the
+analysis will differ between the two models, as derivatives
+with respect to
+<img src="grohtml-31508-46.png" alt="Image grohtml-31508-46.png">
+are evaluated at conditional estimates.</p>
+
+<h2>III.C. Role of the FO Method
+<a name="III.C."></a>
+<a name="III.C. Role of the FO Method"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The following general guidelines
+are offered so that conditional estimation methods are used
+only when necessary, and thus unnecessary expenditure of
+computer time and other difficulties that sometimes arise
+with conditional estimation methods (see section D) are
+avoided. They are based on impressions, rather than
+systematic study. Clearly, there will arise situations where
+alternative approaches might be tried.</p>
+
+<p style="margin-top: 1em">If the model is of a very
+nonlinear kind (see section A), then from the outset, a
+conditional method might be used instead of the FO method.
+Indeed, with models for categorical- and discrete-ordinal
+type observations, the Laplacian method should always be
+used, and the remainder of this discussion concerns the use
+of conditional estimation methods with models for continuous
+outcomes (more precisely, the intraindividual models are of
+mean-variance type).</p>
+
+<p style="margin-top: 1em">When analyzing a new data set
+and/or using a very new model with the data set, it is a
+good practice to use the FO method with at least the first
+one or two NONMEM runs, in order to simply check the data
+set and control stream. The Estimation Steps with these runs
+should terminate successfully, although if a conditional
+estimation method is really needed, the results themselves
+may not be entirely satisfactory. At this very early stage
+of data analysis, the user needs to be able to detect
+elementary errors that may have been introduced into the
+data set or control stream, and to be able to detect
+significant modeling difficulties. This cannot be done
+easily if other unrelated problems that can arise with
+conditional estimation methods interfere.</p>
+
+<p style="margin-top: 1em">One might do well to begin to
+develop a complete model, incorporating the covariates,
+etc., using the FO method. Decisions regarding the effects
+of covariates on randomly dispersed parameters are aided by
+examining scatterplots of conditional estimates versus
+particular covariates. When the FO method is used, the
+posthoc estimates are the conditional estimates that are
+used for this purpose. After it appears that the model can
+be developed no further, there nonetheless exists
+appreciable bias in the final fit, think about how this bias
+might be well-explained by model misspecification that has
+not been possible to address (e.g. there is a known
+covariate effect, and the covariate has not been measured).
+The use of an estimation method cannot really compensate for
+bias due to model misspecification, and one should not
+imagine that a conditional estimation method is any
+different.</p>
+
+<p style="margin-top: 1em">After model development is
+complete using the FO method, if there seems to be no bias
+in the fit, you might simply want to do one run with FOCE to
+check this impression. If after this, the fit does not
+significantly improve, you can stop. After model development
+is complete using the FO method, if there seems to be no
+bias in the fit, consider doing one run with FOCE to obtain
+the best possible estimates of variance-covariance
+components. The variance-covariance components are often
+estimated better using FOCE (but realize that sometimes,
+they may be estimated very similarly by FO - see discussion
+in section A), and when these estimates are important to
+you, it can therefore be worthwhile investing the time
+needed with the additional FOCE run. It is not necessary to
+use FOCE to sharpen the estimates of variance-covariance
+components until after an adequate model is developed using
+the FO method.</p>
+
+<p style="margin-top: 1em">After model development is
+complete using the FO method, if appreciable unexplainable
+bias remains, do try using FOCE. Indeed, do not hesitate to
+try FOCE before model development is complete when a number
+of initial concientious attempts to improve your model using
+FO have resulted in <i>considerable</i> bias, and when
+conditions are such that <i>a priori</i>, the FO and FOCE
+results are not expected to be very similar (see background
+section). When the intraindividual models you are using
+permit the possibility of an
+<img src="grohtml-31508-47.png" alt="Image grohtml-31508-47.png">
+-interaction that the data may be rich enough to support,
+try FOCE with interaction. If the use of FOCE significantly
+reduces the bias, continue to develop the model using FOCE.
+Or, before embarking on continued model development, first
+experiment with the hybrid method to see whether this
+produces as much bias reduction as does FOCE, along with
+significant improvement in run time over FOCE. Continued
+model development may entail repeating much of the work
+already done with the FO method. In particular, try adding
+covariates rejected when using the FO method, and reconsider
+alternative ways that the covariates already accepted can
+enter the model. As a result of the cost involved in
+possibly needing to repeat work already undertaken with the
+FO method, the question of how soon one begins to try FOCE
+is not clearly answerable. Surely, increased computational
+times must be considered, and usually one wants to delay
+using a conditional estimation method until use of such a
+method seems to be clearly indicated.</p>
+
+<p style="margin-top: 1em">The model might be very
+nonlinear, in which case try the Laplacian method. If after
+using the FOCE and Laplacian conditional estimation methods,
+an appropriate goodness-of-fit plot is unsatisfactory, then
+there is very likely a modeling difficulty, and one must
+seriously acknowledge this.</p>
+
+<h2>III..mc. D. Role of Centering Methods
+<a name="III..mc."></a>
+<a name="III..mc. D. Role of Centering Methods"></a>
+</h2>
+
+
+<p style="margin-top: 1em">If after concientious modeling
+using the appropriate (noncentering) conditional estimation
+method(s), a model results with which substantial bias still
+appears in the fit, there is probably a model-related
+explanation for this, though it may allude one. In these
+circumstances, one may want to proceed to obtain the best
+possible fit with the model in hand. The fit that has been
+obtained using the noncentering conditional estimation
+method is not necessarily the best fit that may be obtained
+with the misspecified model.</p>
+
+<p style="margin-top: 1em">The bias may be reflected by an
+uncentered fit. When a population conditional estimation
+method is used, the average conditional estimate for each
+element of
+<img src="grohtml-31508-48.png" alt="Image grohtml-31508-48.png">
+is given in NONMEM output (the conditional estimates being
+averaged are those produced by the method), along with a
+P-value that can be used to help assess whether this average
+is sufficiently close to 0 (the null hypothesis). The
+occurence of at least one small P-value (less than 0.05,
+though when the P-value is small, it can be much less than
+0.05) indicates an uncentered fit.</p>
+
+<p style="margin-top: 1em">A centering method might be
+tried. Using centering FOCE or centering Laplacian, one
+should notice that the P-values are somewhat larger
+(although perhaps some are still less than 0.05), and often
+one will also notice considerable improvement in the fit to
+the data themselves. When it is necessary to use a centering
+method, the population parameter estimates (at least those
+identified with the misspecified part of the model) are
+themselves of little interest; population predictions under
+the fitted model are what is of interest. Also, because the
+model is misspecified, one should anticipate possible
+problems with model validation and model applications
+involving extrapolation.</p>
+
+<p style="margin-top: 1em">Although it may be that (at
+least in certain specifiable situations) fits with centering
+methods are in general no worse than those obtained with
+appropriate noncentering methods, this idea is not yet well
+enough tested. Moreover, routine use of centering methods
+will mask modeling problems. Centering methods should be
+used only when, after concientious modeling, bias in fit
+seems unavoidable. CENTERING METHODS SHOULD NOT BE ROUTINELY
+USED. When the model is well-specified, it seems unlikely
+that when using an appropriate noncentering method, bias in
+fit will result, and there should be no expectation that any
+further improvement can be gained with a centering
+method.</p>
+
+<p style="margin-top: 1em">Even when the fit is centered,
+it may be possible (though rare) that the fit to the data
+themselves still shows bias (see remarks in chapter II). One
+might then also use centering FOCE with the first-order
+model, subject to the same cautions given above. (Recall
+that in this case, the conditional estimates of the
+<img src="grohtml-31508-49.png" alt="Image grohtml-31508-49.png">
+resulting from the centering method are based on linear
+intraindividual models. When centering is actually needed,
+these conditional estimates should probably be adequate for
+whatever purposes conditional estimates might be used. It is
+possible nonetheless to obtain posthoc estimates based on
+the given intraindividual models.)</p>
+
+<p style="margin-top: 1em">Even when a model is
+well-specified, it may be so complicated (e.g. it uses
+difficult differential equations) that to use it with a
+conditional estimation method requires a great amount of
+computer time. In this case, if indeed a conditional
+estimation method is needed, one might use centering FOCE
+with the first-order model, even though centering per se may
+not be needed. In this situation, use of centering, along
+with the first-order model, is just a device allowing a
+conditional estimation method to be implemented with less of
+a computational burden. A compromise is achieved; the fit
+should appear to be an improvement over that obtained with
+the FO fit, but it may not be quite as good as one obtained
+with the noncentering FOCE or Laplacian methods. Because the
+first-order model is automatically obtained from the given
+model, the final form of the given model (obtained after
+completing model development) is readily available, and with
+this model, one might try to implement one run using either
+the noncentering FOCE or Laplacian methods and compare
+results.</p>
+
+<h2>III..mc. E. Role of the Hybrid Method
+<a name="III..mc."></a>
+<a name="III..mc. E. Role of the Hybrid Method"></a>
+</h2>
+
+
+<p style="margin-top: 1em">As already noted in section A,
+use of the hybrid method may require appreciably less
+computer time than the FOCE method and yet result in as good
+a fit. There is another important use of this method.</p>
+
+<p style="margin-top: 1em">A <b>change-point parameter</b>
+of the ith intraindividual model is a parameter of the model
+such that for any value of
+<img src="grohtml-31508-50.png" alt="Image grohtml-31508-50.png">
+, the derivative of
+<img src="grohtml-31508-51.png" alt="Image grohtml-31508-51.png">
+with respect to this parameter, evaluated at some value of
+the parameter (a <b>change-point value</b> , is undefined.
+An example of this is an absorption lagtime parameter A of a
+pharmacokinetic model for blood concentrations
+<img src="grohtml-31508-52.png" alt="Image grohtml-31508-52.png">
+. If a dose is given at time 0, then the derivative of the
+pharmacokinetic expression for
+<img src="grohtml-31508-53.png" alt="Image grohtml-31508-53.png">
+at time
+<img src="grohtml-31508-54.png" alt="Image grohtml-31508-54.png">
+with respect to A, evaluated at
+<img src="grohtml-31508-55.png" alt="Image grohtml-31508-55.png">
+is undefined. So if moreover, an observation
+<img src="grohtml-31508-56.png" alt="Image grohtml-31508-56.png">
+occurs at time
+<img src="grohtml-31508-57.png" alt="Image grohtml-31508-57.png">
+(so that the expression for
+<img src="grohtml-31508-58.png" alt="Image grohtml-31508-58.png">
+must be evaluated at this time), then the derivative of
+<img src="grohtml-31508-59.png" alt="Image grohtml-31508-59.png">
+evaluated at
+<img src="grohtml-31508-60.png" alt="Image grohtml-31508-60.png">
+is undefined (for any value of
+<img src="grohtml-31508-61.png" alt="Image grohtml-31508-61.png">
+or for any of the other observations of
+<img src="grohtml-31508-62.png" alt="Image grohtml-31508-62.png">
+). Therefore under these circumstances, if the change-point
+parameter is randomly dispersed, and
+<img src="grohtml-31508-63.png" alt="Image grohtml-31508-63.png">
+may assume a value at which
+<img src="grohtml-31508-64.png" alt="Image grohtml-31508-64.png">
+, then
+<img src="grohtml-31508-65.png" alt="Image grohtml-31508-65.png">
+is undefined at this value, and, strictly speaking, all
+estimation methods described in chapter II are undefined.
+But practically speaking, a method will fail only when,
+during the search to minimize
+<img src="grohtml-31508-66.png" alt="Image grohtml-31508-66.png">
+, a value of
+<img src="grohtml-31508-67.png" alt="Image grohtml-31508-67.png">
+at which
+<img src="grohtml-31508-68.png" alt="Image grohtml-31508-68.png">
+cannot be avoided. A symptom that this is happening, when
+there is a randomly dispersed change-point parameter, is a
+search terminization with a large gradient, i.e. some
+gradient elements are
+<img src="grohtml-31508-69.png" alt="Image grohtml-31508-69.png">
+or larger. Often, a lagtime is estimated to be very near the
+time of the first observation within an individual record,
+and so the problem described here can be a very real
+problem. One remedy is to delete observations at times that
+are too close to estimated lag times. However, aside from
+entailing the deletion of legitimate data, there can also be
+implementation problems with this strategy.</p>
+
+<p style="margin-top: 1em">If the hybrid method is used,
+and the element(s) of
+<img src="grohtml-31508-70.png" alt="Image grohtml-31508-70.png">
+associated with the change-point parameter - denote this by
+<img src="grohtml-31508-71.png" alt="Image grohtml-31508-71.png">
+- is zeroed, this reduces the number (across individuals) of
+values
+<img src="grohtml-31508-72.png" alt="Image grohtml-31508-72.png">
+at which
+<img src="grohtml-31508-73.png" alt="Image grohtml-31508-73.png">
+could possibly be undefined in the computation, as only the
+value of the change-point parameter for the typical subject
+is needed in the computation. Indeed, unless the
+change-point parameter itself depends on a covariate, only
+at the value
+<img src="grohtml-31508-74.png" alt="Image grohtml-31508-74.png">
+can
+<img src="grohtml-31508-75.png" alt="Image grohtml-31508-75.png">
+possibly be undefined in the computation. Thus, the chance
+of the problem occurring is reduced (but not
+eliminated).&dagger; <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; Keep in mind that
+with the hybrid method, even though the elements of
+<img src="grohtml-31508-76.png" alt="Image grohtml-31508-76.png">
+are zeroed, an estimate of the magnitude of random
+interindividual variability in the parameter is still
+obtained. <br>
+---------- <br>
+</cite></p>
+
+<h2>III.F. Problems
+<a name="III.F."></a>
+<a name="III.F. Problems"></a>
+</h2>
+
+
+<p style="margin-top: 1em">A conditional estimation method
+can demonstrate somewhat more sensitivity to rounding error
+problems during the Estmation Step than will the FO method.
+When the search for parameter estimates terminates with
+rounding error problems, oftentimes intermediate output from
+the Estimation Step will indicate the accuracy with which
+each of the final parameter estimates has been obtained. For
+example, 3 significant digits may be requested for each
+estimate, but for some estimates, less than 3 digits is
+actually obtained. If only a little less than 3 digits is
+obtained (e.g. 2.7-2.9), and if the gradient vector of the
+objective function with the final parameter estimates is
+small (e.g. no element is greater than 5 in absolute value),
+then this degree of accuracy is probably acceptable. If much
+less accuracy is obtained, but only with those estimates
+where this might be expected and where this is tolerable
+(e.g. estimates of
+<img src="grohtml-31508-77.png" alt="Image grohtml-31508-77.png">
+elements), then again, one might regard the Estimation Step
+as having terminated successfully. (The order of the
+parameter estimates printed in the iteration summaries is:
+the
+<img src="grohtml-31508-78.png" alt="Image grohtml-31508-78.png">
+&rsquo;s in their subscripted order, followed by the
+(unconstrained)
+<img src="grohtml-31508-79.png" alt="Image grohtml-31508-79.png">
+elements, followed by the (unconstrained)
+<img src="grohtml-31508-80.png" alt="Image grohtml-31508-80.png">
+elements. Note though, that these estimates are those of the
+scaled transformed parameters (STP), rather than the
+original parameters; see NONMEM Users Guide - Part I,
+section C.3.5.1.)</p>
+
+<p style="margin-top: 1em">With a conditional estimation
+method (in contrast with the FO method), NONMEM can more
+readily terminate during the Estimation Step with a PRED
+error message indicating e.g. that a nonallowable value for
+a parameter has been computed in PRED code, perhaps a
+negative value for a rate constant.&dagger;&dagger; This is
+because a parameter may be randomly dispersed, and with a
+conditional estimation method, values of
+<img src="grohtml-31508-81.png" alt="Image grohtml-31508-81.png">
+different from 0 are tried, as well as are different values
+of
+<img src="grohtml-31508-82.png" alt="Image grohtml-31508-82.png">
+, and some of these values might result in a nonallowable
+value of the parameter. If such a termination occurs, then,
+if not already doing so, consider modeling the parameter in
+a way that prevents it from assuming a nonallowable value,
+e.g if the parameter cannot be negative, consider using a
+model such as
+<img src="grohtml-31508-83.png" alt="Image grohtml-31508-83.png">
+(see section B). Sometimes this cannot completely solve the
+problem, e.g. if the parameter cannot also be 0, the model
+just given will not insure this (
+<img src="grohtml-31508-84.png" alt="Image grohtml-31508-84.png">
+can be very large and negative). So, a termination may still
+occur. The next step is to try to include the
+<tt>NOABORT</tt> option on the $ESTIMATION record (see
+NONMEM Users Guide - Part IV, section IV.G.2). However,
+doing so will have no effect if the termination occurs
+during the 0th iteration.&dagger;&dagger;&dagger; The
+<tt>NOABORT</tt> option activates one type of PRED
+error-recovery (THETA-recovery), and the other type
+(ETA-recovery) is always activated, without using the
+option. So the option may not need to be used initially, and
+if PREDPP is being used, to have used the option before a
+termination has actually occured has the detrimental effect
+that this can mask the occurrence of an error detected by
+PREDPP, of which the user needs to be informed. With PREDPP,
+<i>never use the</i> <tt>NOABORT</tt> <i>option until</i>
+you have had an opportunity (i) to see what happens when you
+do not use it, i.e. to see the contents of PRED error
+messages that might arise when you do not use the option,
+(ii) to respond, if possible, to these messages in a
+sensible way (other than using the option), and (iii) to see
+what happens after you have done this. <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger;&dagger; An PRED
+error message arises when PRED error-recovery (see NONMEM
+Users Guide - Part IV, section IV.G) is used in a
+user&rsquo;s PRED code, or if PREDPP is used, in a
+user&rsquo;s PK or ERROR code. PREDPP itself uses PRED
+error-recovery. <br>
+&dagger;&dagger;&dagger; A termination during the 0th
+iteration can arise due to a problem with either the data
+set, user code, or control stream. Different initial
+estimates might be tried (perhaps smaller interindividual
+variances). <br>
+---------- <br>
+</cite></p>
+
+<p style="margin-top: 1em">Perhaps the operating system,
+rather than NONMEM, terminates the program with a message
+indicating the occurrence of a floating point exception in a
+user-code. Again, this may be because a value
+<img src="grohtml-31508-85.png" alt="Image grohtml-31508-85.png">
+is tried which results in the exception when a value of a
+randomly dispersed parameter is computed. Underflows are
+ignorable, and terminations due to underflows should be
+disabled (see NONMEM Users Guide - Part III). With an
+operand error, or overflow, or zero-divide, the user needs
+to identify where the exception occurs in the code. For this
+purpose, the use of a debugger, or debugging print
+statements in the code, may be helpful. Then perhaps the
+exception may be avoided by using PRED error-recovery in the
+user-code, i.e. by using the EXIT statement with return code
+1 (see NONMEM Users Guide - Part IV, section IV.G.2). Try
+this, and rerun. If with the earlier run, the termination
+occured after the 0th iteration, and if PREDPP is not being
+used, rerun the problem using the <tt>NOABORT</tt> option on
+the $ESTIMATION record. If the termination occured after the
+0th iteration, and if PREDPP is being used, rerun, but <i>do
+not use the</i> <tt>NOABORT</tt> <i>option</i>. If the
+termination still occurs, then rerun a second time, this
+time using the <tt>NOABORT</tt> option. If the termination
+occurs during the 0th iteration, the <tt>NOABORT</tt> option
+has no effect. Such a termination can arise due to a problem
+with either the data set, user code, or control stream.
+Different initial estimates might be tried (perhaps smaller
+interindividual variances).</p>
+
+<p style="margin-top: 1em"><a href="III.html">TOP</a> <br>
+<a href="index.html">TABLE OF CONTENTS</a> <br>
+ <a href="IV.html">NEXT CHAPTER ...</a></p>
+<hr>
+</body>
+</html>

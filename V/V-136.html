@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 136</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:10px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft4{font-size:9px;font-family:Times;color:#000000;}
+	.ft5{font-size:5px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft7{font-size:5px;font-family:Times;color:#000000;}
+	.ft8{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft9{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V136.png" alt="background image">
+<DIV style="position:absolute;top:77;left:161"><nobr><span class="ft0"><b>Chapter 12 - Brief Descriptions of Other Features</b></span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:72"><nobr><span class="ft1"><b>1. What This Chapter is About</b></span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:72"><nobr><span class="ft8">This chapter brieﬂy describes a variety of features of PREDPP and NONMEM that are somewhat<br>advanced for this text but are of interest to most users of NONMEM. References are given to<br>other documents where additional information can be found. Section 2 is concerned with<br>PREDPP, Section 3 is concerned with user-written PREDs, and Section 4 describes general NON-<br>MEM features. Section 5 contains an example that includes several of the advanced features.<br>Note that wherever $PK, $ERROR, $DES, $AES, $MODEL, $MIX and $PRED statements are<br>referred to below, user-written subroutines PK, ERROR, DES, AES, MODEL, MIX and PRED<br>can be used instead.</span></nobr></DIV>
+<DIV style="position:absolute;top:250;left:72"><nobr><span class="ft1"><b>2. Advanced Features of PREDPP</b></span></nobr></DIV>
+<DIV style="position:absolute;top:280;left:72"><nobr><span class="ft1"><b>2.1. Pharmacodynamic Modeling Using the $ERROR Record</b></span></nobr></DIV>
+<DIV style="position:absolute;top:296;left:72"><nobr><span class="ft8">$ERROR statements may modify the value of F, the scaled drug concentration. They may also<br>introduce new</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:137"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:147"><nobr><span class="ft2">and</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:165"><nobr><span class="ft3">η</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:175"><nobr><span class="ft2">variables. This allows pharmacodynamic modeling to be performed using</span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:72"><nobr><span class="ft8">PREDPP. Such models occur when a study involves measurement of a drug effect, such as blood<br>pressure. A proposed model might relate the predicted effect to a pharmacokinetic quantity such<br>as plasma level. PREDPP can be used to model <i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:353;left:303"><nobr><span class="ft5"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:311"><nobr><span class="ft2">as is usual, and the predicted effect can be</span></nobr></DIV>
+<DIV style="position:absolute;top:361;left:72"><nobr><span class="ft2">computed in the $ERROR statements.</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:72"><nobr><span class="ft8">For example, suppose that a modiﬁed version of the phenobarbital data of Chapter 2 includes<br>observations of some drug effect (in this case, perhaps a measure of the degree of sedation) but<br>none of the concentration observations. The dose event records are the same as those of the ear-<br>lier example. Suppose that the drug concentrations from each individual have been used to esti-<br>mate that individual’s K and V parameters, and that these estimates are now included on every<br>ev ent record for the individual. Finally, suppose that the proposed structural model for the effect,<br>E, is an &quot;E-max&quot; model:</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:245"><nobr><span class="ft4"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:256"><nobr><span class="ft6">=</span></nobr></DIV>
+<DIV style="position:absolute;top:481;left:266"><nobr><span class="ft4"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:273"><nobr><span class="ft7">max</span></nobr></DIV>
+<DIV style="position:absolute;top:473;left:303"><nobr><span class="ft4"><i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:312"><nobr><span class="ft5"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:290"><nobr><span class="ft4"><i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:298"><nobr><span class="ft7">50</span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:308"><nobr><span class="ft6">+</span></nobr></DIV>
+<DIV style="position:absolute;top:489;left:316"><nobr><span class="ft4"><i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:493;left:325"><nobr><span class="ft5"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:72"><nobr><span class="ft2">where here <i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:133"><nobr><span class="ft5"><i>p</i></span></nobr></DIV>
+<DIV style="position:absolute;top:508;left:142"><nobr><span class="ft2">is understood to mean the prediction of an individual’s drug concentration in the</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:72"><nobr><span class="ft2">plasma, and <i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:135"><nobr><span class="ft7">max</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:152"><nobr><span class="ft2">and <i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:178"><nobr><span class="ft7">50</span></nobr></DIV>
+<DIV style="position:absolute;top:521;left:189"><nobr><span class="ft2">are PD (pharmacodynamic parameters) modeled as</span></nobr></DIV>
+<DIV style="position:absolute;top:540;left:256"><nobr><span class="ft4"><i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:263"><nobr><span class="ft7">max</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:280"><nobr><span class="ft6">=</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:289"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:295"><nobr><span class="ft7">1</span></nobr></DIV>
+<DIV style="position:absolute;top:536;left:302"><nobr><span class="ft6">+</span></nobr></DIV>
+<DIV style="position:absolute;top:537;left:310"><nobr><span class="ft3">η</span></nobr></DIV>
+<DIV style="position:absolute;top:544;left:316"><nobr><span class="ft7">1</span></nobr></DIV>
+<DIV style="position:absolute;top:565;left:258"><nobr><span class="ft4"><i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:266"><nobr><span class="ft7">50</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:277"><nobr><span class="ft6">=</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:286"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:292"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:299"><nobr><span class="ft6">+</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:307"><nobr><span class="ft3">η</span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:313"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:72"><nobr><span class="ft8">To ﬁt this data we can use the control statements of ﬁgure 12.1. To obtain initial parameter esti-<br>mates, let us assume that the following is observable in the data. The average value of all effect<br>measurements is about 50. Across individuals, the average value of the largest effect measure-<br>ment within each individual’s data is about 100, and the average value of the individual’s<br>observed concentration at about half this largest measurement is about 20. (This is seen when<br>concentration measurements and effect measurements are examined together.) Let us also assume<br>20% random interindividual variability in <i>E</i></span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:269"><nobr><span class="ft7">max</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:286"><nobr><span class="ft2">and <i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:313"><nobr><span class="ft7">50</span></nobr></DIV>
+<DIV style="position:absolute;top:665;left:325"><nobr><span class="ft2">and 4% intraindividual variability in the</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:72"><nobr><span class="ft2">observation. From this we obtain initial estimates of 100 and 20 for</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:374"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:380"><nobr><span class="ft7">1</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:387"><nobr><span class="ft2">and</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:406"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:412"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:416"><nobr><span class="ft2">, (100</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:442"><nobr><span class="ft6">×</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:448"><nobr><span class="ft2">. 2)</span></nobr></DIV>
+<DIV style="position:absolute;top:676;left:462"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:469"><nobr><span class="ft2">for</span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:485"><nobr><span class="ft6">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:683;left:493"><nobr><span class="ft7">11</span></nobr></DIV>
+<DIV style="position:absolute;top:679;left:501"><nobr><span class="ft2">,</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:72"><nobr><span class="ft2">(20</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:87"><nobr><span class="ft6">×</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:93"><nobr><span class="ft2">. 2)</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:106"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:114"><nobr><span class="ft2">for</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:129"><nobr><span class="ft6">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:697;left:138"><nobr><span class="ft7">22</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:146"><nobr><span class="ft2">, and (50</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:185"><nobr><span class="ft6">×</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:191"><nobr><span class="ft2">. 04)</span></nobr></DIV>
+<DIV style="position:absolute;top:690;left:210"><nobr><span class="ft7">2</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:217"><nobr><span class="ft2">for</span></nobr></DIV>
+<DIV style="position:absolute;top:689;left:233"><nobr><span class="ft6">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:692;left:239"><nobr><span class="ft2">.</span></nobr></DIV>
+<DIV style="position:absolute;top:709;left:72"><nobr><span class="ft8">This example is examined again in in Section 3.2, which shows the use of $PRED statements, and<br>in Section 5, which shows how observed concentrations and effects can be ﬁt simultaneously.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:276"><nobr><span class="ft2">-128-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

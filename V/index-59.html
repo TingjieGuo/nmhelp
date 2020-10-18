@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 59</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index059.png" alt="background image">
+<DIV style="position:absolute;top:41;left:152"><nobr><span class="ft0">Chapter 6 - Data Sets, $DAT A and $INPUT Records, and the Data Preprocessor</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft1"><b>3. Data Sets for PREDPP</b></span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:72"><nobr><span class="ft2">When PREDPP is used with NONMEM, the data must meet additional requirements. First,<br>PREDPP is concerned with time-ordered events such as dose events, which introduce drug into<br>the system at particular times, and observation events, which report observations taken at particu-<br>lar times. PREDPP insists that these events be recorded on separate records. That is, dosing<br>information cannot be recorded on the same record as an observed value. Second, PREDPP<br>requires that the time of each event be recorded on each data record, and that the physical<br>sequence of the data records be the same as their sequence in time. (E.g., if a dose event immedi-<br>ately precedes an observation event in time, then the dose event record must immediately precede<br>the observation event record.) Again, neither PREDPP nor the Data Preprocessor will physically<br>sort or resequence the data records.</span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:72"><nobr><span class="ft1"><b>4. The $DAT A Record</b></span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:72"><nobr><span class="ft2">The $DAT A record describes the characteristics of the external data ﬁle to be processed by NON-<br>MEM. NONMEM is not a data base management system and does not store a data set between<br>runs; once a ﬁle has been prepared for NONMEM, it must be re-read each time it is to be ana-<br>lyzed. The ﬁrst character string appearing after $DAT A is the name of the ﬁle containing the<br>data. Since it is to be used in a FORTRAN OPEN statement, this name may not include embed-<br>ded special characters such as slashes (/ or \), commas, semi-colons, parentheses, equal signs or<br>spaces unless it is surrounded by single quotes ’ or double quotes &quot;. The ﬁlename may contain<br>80 characters. (If a ﬁle is to be opened by NONMEM rather than by NM-TRAN, the ﬁlename<br>may not contain embedded spaces, and may contain at most 71 characters.) A FORTRAN for-<br>mat speciﬁcation suitable to read the data may follow the ﬁle name; this is optional and can be<br>supplied by the Data Preprocessor. The choice is discussed more fully in Section 10.4 of this<br>chapter.</span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:72"><nobr><span class="ft0">Certain options may be speciﬁed if desired. Among these are:</span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:72"><nobr><span class="ft0">RECORDS=n</span></nobr></DIV>
+<DIV style="position:absolute;top:443;left:97"><nobr><span class="ft2">This tells the number of records to be read from the data ﬁle. If omitted, the records are<br>read to the end-of-ﬁle or to a NONMEM FINISH record (Users Guide II). The RECORDS<br>option may be used to limit NONMEM processing to the initial portion of the ﬁle and is<br>useful during the early stages of debugging.</span></nobr></DIV>
+<DIV style="position:absolute;top:498;left:72"><nobr><span class="ft0">RECORDS=label</span></nobr></DIV>
+<DIV style="position:absolute;top:511;left:97"><nobr><span class="ft2">&quot;Label&quot; is a data item label. The data records for the problem will start at the place where<br>the ﬁle is positioned before data records are read and include all contiguous data records<br>having the same value for the data item. In particular, the ID label may be used (or alterna-<br>tively,</span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:136"><nobr><span class="ft0">the option may be coded RECORDS=IR, RECORDS=INDREC, or</span></nobr></DIV>
+<DIV style="position:absolute;top:563;left:97"><nobr><span class="ft0">RECORDS=INDIVIDUALRECORD) to obtain the data for a single individual.</span></nobr></DIV>
+<DIV style="position:absolute;top:580;left:72"><nobr><span class="ft0">IR,INDREC,INDIVIDUALRECORD.</span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:72"><nobr><span class="ft0">NOREWIND|REWIND</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:97"><nobr><span class="ft2">With the ﬁrst problem speciﬁcation in a control stream, the ﬁle is positioned at its initial<br>point so that the ﬁrst record in the ﬁle is used. The options REWIND and NOREWIND<br>apply only with a $DAT A record in a subsequent problem speciﬁcation.<br>REWIND: Reposition the ﬁle at the start.<br>NOREWIND: Leave the ﬁle at its current position so that the next record in the ﬁle is read.<br>Used when the $DAT A record with the previous problem speciﬁcation included the<br>RECORDS option so that NM-TRAN did not read to a physical end-of-ﬁle. This is the<br>default.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-51-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

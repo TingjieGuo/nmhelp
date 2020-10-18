@@ -1,0 +1,44 @@
+<HTML><HEAD> <TITLE> rocm1.for</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                             MIX: DATA                              |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: NONMEM read-only global variables
+ CONTEXT: MIX routine
+
+ USAGE:
+      USE ROCM_REAL, ONLY: DATA=&gt;RDATA
+
+ GLOBAL DECLARATION:
+      USE SIZES, ONLY: NO,DPSIZE
+      REAL(KIND=DPSIZE) :: RDATA(NO,3)
+
+ DISCUSSION:
+
+  DATA(k,i)
+      The  value  of  the  ith type of data item specified in NM-TRAN's
+      $CONTR record, appearing on the kth  observation  record  of  the
+      individual  record.   It  changes  values  with  each  individual
+      record.  DATA is a reserved variable in $MIX abbreviated code.
+
+ DATA is also used in CONTR
+ (See <A HREF="c.htm#ccontr:_y">CCONTR:_Y</A>,DATA,N1,N2,DIM)
+
+ Location prior to NONMEM 7: rocm1
+
+REFERENCES: Guide IV Section <a href="IV/III.html#B.4.">III.B.4<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

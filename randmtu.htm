@@ -1,0 +1,135 @@
+<HTML><HEAD> <TITLE> randmtu.utl</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           RANDMT,RANDMTU                           |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: RANDMT and RANDMTU functions
+ CONTEXT: NONMEM utility routine
+
+ BACKGROUND:
+
+ The  RANDOM  subroutine  may be used with all versions of NONMEM.  The
+ statement CALL RANDOM(K,R) obtains  a  random  number  R  from  random
+ source  K.   It may be used in the Simulation Step (ICALL=4). The seed
+ is described on the $SIMULATION record for the  Kth  source.   It  may
+ also be called  when data averages are being computed (ICALL=5).  RAN-
+ DOM can compute only from the NORMAL or UNIFORM distributions.
+
+ DISCUSSION:
+
+ Functions RANDMT and RANDMTU may be used with NONMEM  7.5  and  later.
+ They  can  be  used  to obtain random numbers during the Estimation or
+ other steps, with seeds other than the ones used by  NONMEM,  or  with
+ other distributions.
+
+ Function  RANDMT  is  simliar to the RANDOM subroutine, and allows the
+ Student T distribution to be used in addition to  normal  and  uniform
+ distributions.
+
+ Function  RANDMTU  is independent of the RANDOM subroutine.  It may be
+ used with all NONMEM steps. The user  has  complete  control  and  may
+ specify starting seed values in the abbreviated code.
+
+ USAGE:
+
+ These two USE statements are required.
+      USE NM_INTERFACE,ONLY: RANDMT
+      USE NM_INTERFACE,ONLY: RANDMTU
+
+ They can be obtained with the statement
+      include nonmem_reserved_general.
+
+ USAGE of RANDMT:
+
+      RVAL1=RANDMT(N)
+
+      Where
+           N: integer
+           0: get uniform random variable
+           N=1 or N&gt;101: get normal random variable
+           N&gt;1 and N&lt;=100: get Student-t random variable with N-1 degrees of freedom
+
+ For more details about RANDMT,
+ See INTRODUCTION TO NONMEM 7: RANDMT Function
+
+ USAGE of RANDMTU:
+
+      RVAL2=RANDMTU(N,SOURCE,STARTSEED,RANM)
+
+      Where
+           N: integer (same as with RANDMT)
+           0: get uniform random variable
+           N=1 or N&gt;101: get normal random variable
+           N&gt;1 and N&lt;=100: get Student-t random variable with N-1 degrees of freedom
+
+           SOURCE: Integer between 0 and 20, allowing the user to main-
+           tain up to 20 distinct seed sources. IF  SOURCE=0,  it  uses
+           the default source.
+
+           STARTSEED:  Integer,  which  if not 0, causes initialization
+           with the designated starting seed. STARTSEED should  be  set
+           to  0  after this initialization. If SOURCE=0, this argument
+           is ignored.  If STARTSEED is &lt;0, then the starting seed will
+           be  10000*(seconds after midnight)+ABS(STARTSEED).  (This is
+           similar to the CLOCKSEED option of the  $SIMULATION  record,
+           which  allows a control stream to produce different stochas-
+           tic results for automated replications without the  need  to
+           modify  the  seed  value  in the control stream file in each
+           replication.)    The   actual   startseed   is   stored   in
+           RANDMTU_STARTSEED(SOURCE),  module  NM_BAYES_INT, accessible
+           by using nonmem_reserved_general (see example below).
+
+           RANM: Integer, indicating the type of random number  genera-
+           tor algorithm to use, as follows:
+           0: ran0 of reference [5], minimal standard generator
+           1: ran1 of reference [5], Bays and Durham.
+           2: ran2 of reference [5].
+           3: ran3 of reference [5], Knuth.
+           4: NONMEM's traditional random number generator, used as default in $SIMULATION
+
+      For more details bout RANDMTU,
+      See INTRODUCTION TO NONMEM 7: RANDMTU Function
+
+ EXAMPLE:
+
+ In  the  following, 2 random sources are used, with different starting
+ seeds
+
+ $ERROR ; may also be used in other records
+  ...
+ include nonmem_reserved_general
+  ...
+ ; Make sure NMTRAN is aware of RVAL1 and RVAL2, so it is accessible
+ ; for $TABLE output
+ RAVL1=0.0
+ RVAL2=0.0
+ RVAL3=0.0
+ IF(NEWIND==0) THEN
+ ; Initialize only at beginning of the data set.
+ ; 3=t-distribution with DF=2
+   RVAL1=RANDMTU(3,1,-1234,-1)
+   write(*,*) RANDMTU_STARTSEED(1)
+ RVAL2=RANDMTU(3,2,5678,-1)
+ ENDIF
+ RVAL1=RANDMTU(3,1,0,-1)
+ RVAL2=RANDMTU(3,2,0,-1)
+ RVAL3=RANDMT(3)
+ Note that calling RANDMT(N) (or equivalantly RANDMTU(N,0,...)) did not
+ require  an  initialization call (and would be ignored if you did), as
+ this is under the control of $EST, $SIML, or $TABLE.
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

@@ -1,0 +1,53 @@
+<HTML><HEAD> <TITLE> repl.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                       REPL_ DATA ITEM (NM75)                       |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Replication (REPL_) data item
+ CONTEXT: $INPUT record and NONMEM data set
+
+ USAGE:
+ $INPUT ... REPL_ ...
+
+ DISCUSSION:
+ REPL_  labels NONMEM's replication (REPL_) data item.  The replication
+ data item is optional.  When the REPL_ data item is listed in  $INPUT,
+ the  NONMEM  data set is considered to be a template data set.  NONMEM
+ itself replicates subjects from the template data set at the start  of
+ the problem to create an expanded NONMEM data set.
+
+ (Note  that  the NONMEM data set is typically the file FDATA generated
+ by NM-TRAN, unless there is nothing for NM-TRAN to change and the for-
+ mat  is  supplied on the $DATA record, in which case the file named on
+ the $DATA record is the NONMEM data set.  See NONMEM Users Guide, Part
+ IV.)
+
+ The  value of REPL_ is the replication number for that subject. If the
+ value is fractional, it will be  truncated  to  the  nearest  integer.
+ Only  the  REPL_  value of the first record of each individual will be
+ used to determine its replication number.  If  for  some  subject  the
+ value of  REPL_ is 0, the subject is deleted from the NONMEM data set.
+
+ REPL_ may be used with the $DATA ... REPL option, which replicates the
+ entire data set REPL=n times.  If both are used the  REPL_  data  item
+ applies first, and the REPL option applies second.
+ See REPL option of $DATA record.
+ The REPL option and REPL_ data item are meant to be used with $SIMULA-
+ TION or $DESIGN.
+ For important information, see Guide Introduction_7 Section $DATA REPL
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

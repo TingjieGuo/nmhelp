@@ -1,0 +1,60 @@
+<HTML><HEAD> <TITLE> priorget.sup</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                              PRIORGET                              |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING:  Transfer  Results of an Analysis to NMTRAN Prior Information
+ (NM75)
+ CONTEXT: NONMEM run
+
+ This utility extracts results from a raw output file (.ext) and a pre-
+ vious  analysis  into informative prior values for a subsequent analy-
+ sis.
+
+ USAGE: priorget root.ext root.cov myprior.ctl TBLN s/,/t
+
+ where root.ext and root.cov are input the files from a previous analy-
+ sis.   TBLN is the table number, as these input files may have several
+ tables to choose from. Delimiter can be , t for tab, or s  for  space.
+ Optional  if  delimiter  is space.  The order of the parameters in the
+ input files must be in the default TSOL (lower triangular) order.
+
+ EXAMPLE:
+
+  priorget example3.ext example3.cov prior3.ctl 5 s
+
+ extracts information from table 5 of the  population  mixture  problem
+ example3,  and places it in NMTRAN $PRIOR control stream format in the
+ output file prior3.ctl
+
+ See INTRODUCTION TO NONMEM 7, priorget: Transfer Results of an  Analy-
+ sis to NMTRAN Prior Information
+
+ You  can  then patch (or "include") this code into your control stream
+ for the subsequent analysis. Any fixed thetas will have $THETAPV vari-
+ ances  with  value  0, so you will need to modify this as needed.  The
+ degrees of freedom for Omegas and Sigmas ($OMEGAPD, $SIGMAPD) are cal-
+ culated  according to the formula described in section "A Note on Set-
+ ting up Prior Information."
+
+ Be aware that the degrees of freedom may fall below the  block  dimen-
+ sion,  or be above the total number of subjects, and the user may wish
+ to modify the results accordingly before using them  in  an  analysis.
+ Results from priorget should always be treated as informational first,
+ and then inspected and modified according to your intended purpose.
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

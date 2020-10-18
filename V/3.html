@@ -1,0 +1,1011 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Sat Sep 19 21:19:59 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part V - Introductory Guide - Chapter 3">NONMEM Users Guide Part V - Introductory Guide - Chapter 3</a><br>
+<a href="#1. What This Chapter is About">1. What This Chapter is About</a><br>
+<a href="#2. Pharmacokinetic Structural Models for IndividualData">2. Pharmacokinetic Structural Models for IndividualData</a><br>
+<a href="#2.1. Alternative Parameterizations">2.1. Alternative Parameterizations</a><br>
+<a href="#2.2. The Scale Parameter,">2.2. The Scale Parameter,</a><br>
+<a href="#2.2.1. Depends on a Known Constant">2.2.1. Depends on a Known Constant</a><br>
+<a href="#2.2.2. Depends on a Parameter">2.2.2. Depends on a Parameter</a><br>
+<a href="#2.2.3. Depends on an Element of">2.2.3. Depends on an Element of</a><br>
+<a href="#3. Statistical Model for an Individual&rsquo;s Observations">3. Statistical Model for an Individual&rsquo;s Observations</a><br>
+<a href="#3.1. The Additive Error Model">3.1. The Additive Error Model</a><br>
+<a href="#3.2. The Constant Coefficient of Variation andExponential Models">3.2. The Constant Coefficient of Variation andExponential Models</a><br>
+<a href="#3.3. Combined Additive and CCV Error Model">3.3. Combined Additive and CCV Error Model</a><br>
+<a href="#3.4. The Power Function Model">3.4. The Power Function Model</a><br>
+<a href="#3.5. Two Different Types of Measurements">3.5. Two Different Types of Measurements</a><br>
+<a href="#3.5.1. Use of an Indicator Variable">3.5.1. Use of an Indicator Variable</a><br>
+<a href="#3.6. Two Different Types of Observations">3.6. Two Different Types of Observations</a><br>
+<a href="#3.7. More Than One Indicator Variable">3.7. More Than One Indicator Variable</a><br>
+<a href="#3.8. The General Mixed Effects Model for an Individual">3.8. The General Mixed Effects Model for an Individual</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part V - Introductory Guide - Chapter 3
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part V - Introductory Guide - Chapter 3"></a>
+</h2>
+
+
+<p align="center" style="margin-top: 1em"><b>Chapter 3 -
+Models for Individual Data</b></p>
+
+<h2>1. What This Chapter is About
+<a name="1."></a>
+<a name="1. What This Chapter is About"></a>
+</h2>
+
+
+<p style="margin-top: 1em">In this chapter, the
+notation and definitions we will use to discuss models for
+individual data will be presented. The relationship of these
+models to data will be discussed, and a distinction between
+pharmacokinetic structural models (that describe the
+underlying shape and form of the data) and statistical error
+models (that describe the &quot;errors&quot; or differences
+between observations and structural model predictions) will
+be made. Several error models will be discussed, as will a
+useful modelling device, the indicator variable.</p>
+
+<h2>2. Pharmacokinetic Structural Models for IndividualData
+<a name="2."></a>
+<a name="2. Pharmacokinetic Structural Models for IndividualData"></a>
+</h2>
+
+
+<p style="margin-top: 1em">By <b>individual data</b>
+we usually mean data from a single individual (animal or
+human). One could also be concerned with data comprised of a
+pharmacokinetic response at just one time point from each of
+a number of individuals. Call this type of data <b>single-
+response population data.</b> This name comes from the fact
+that data such as these can, of course, be regarded as a
+particular instance of the more general data type,
+<b>population data;</b> i.e., data comprised of one <i>or
+more</i> pharmacokinetic responses at different time points
+from a number of individuals sampled from a population.
+Although one can discuss the treatment of single-response
+population data as population data, they are often treated
+just as are individual data.</p>
+
+<p style="margin-top: 1em">A simple pharmacokinetic
+model for data from a single individual is the
+monoexponential (&quot;one-compartment&quot;)
+model:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1463952.png" alt="Image grohtml-1463952.png"></p>
+
+<p style="margin-top: 1em">This model describes the
+typical time course of amount of drug in the body (
+<img src="grohtml-146395-3.png" alt="Image grohtml-146395-3.png">
+), as a function of initial dose (
+<img src="grohtml-146395-4.png" alt="Image grohtml-146395-4.png">
+), time (
+<img src="grohtml-146395-5.png" alt="Image grohtml-146395-5.png">
+), and a <i>parameter</i>,
+<img src="grohtml-146395-6.png" alt="Image grohtml-146395-6.png">
+. As we may be interested in
+<img src="grohtml-146395-7.png" alt="Image grohtml-146395-7.png">
+at several possible times, we explicitly note this by the
+subscript
+<img src="grohtml-146395-8.png" alt="Image grohtml-146395-8.png">
+which indexes a list of times,
+<img src="grohtml-146395-9.png" alt="Image grohtml-146395-9.png">
+.</p>
+
+<p style="margin-top: 1em">A way to write a generic
+form for a structural model, omitting details of its
+structure, is</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1463953.png" alt="Image grohtml-1463953.png"></p>
+
+<p style="margin-top: 1em">where
+<img src="grohtml-146395-11.png" alt="Image grohtml-146395-11.png">
+stands for some &quot;response&quot; (dependent variable) of
+interest (
+<img src="grohtml-146395-12.png" alt="Image grohtml-146395-12.png">
+in (3.1)), the symbol
+<img src="grohtml-146395-13.png" alt="Image grohtml-146395-13.png">
+stands for the unspecified form of the model (a
+monoexponential such as in (3.1)), which is a function of
+known quantities,
+<img src="grohtml-146395-14.png" alt="Image grohtml-146395-14.png">
+(
+<img src="grohtml-146395-15.png" alt="Image grohtml-146395-15.png">
+and
+<img src="grohtml-146395-16.png" alt="Image grohtml-146395-16.png">
+in (3.1)), and <i>parameters</i>,
+<img src="grohtml-146395-17.png" alt="Image grohtml-146395-17.png">
+(
+<img src="grohtml-146395-18.png" alt="Image grohtml-146395-18.png">
+in (3.1)). The quantities in x are <i>known</i>, because
+they are either measured or controlled, and therefore, are
+called <b>fixed effects,</b> in contrast to effects which
+are not known and are regarded as random (see below). The
+parameters in the parameter vector
+<img src="grohtml-146395-19.png" alt="Image grohtml-146395-19.png">
+are called <b>fixed effect parameters</b> because they
+quantify the influence of the fixed effects on the dependent
+variable. Each one of an individual&rsquo;s pharmacokinetic
+parameters is a particular type of fixed effect parameter.
+With NONMEM, parameters comprising
+<img src="grohtml-146395-20.png" alt="Image grohtml-146395-20.png">
+are (usually) fixed effect parameters, but these may or may
+not be an individual&rsquo;s pharmacokinetic parameters
+(contrast figures 2.1 and 2.6). Here we shall use the symbol
+<img src="grohtml-146395-21.png" alt="Image grohtml-146395-21.png">
+for the parameter vector comprised specifically of an
+individual&rsquo;s pharmacokinetic parameters (although
+there will be some exception to this).</p>
+
+<p style="margin-top: 1em">Aside from the fact that
+the values given by a structural model are usually not the
+values observed due to measurement error or model
+misspecification, an amount of drug (
+<img src="grohtml-146395-22.png" alt="Image grohtml-146395-22.png">
+of (3.1)) is usually not itself observable. Instead, we may
+observe a concentration (
+<img src="grohtml-146395-23.png" alt="Image grohtml-146395-23.png">
+) of drug. We need an &quot;observation scaling&quot; model
+to describe the relationship between
+<img src="grohtml-146395-24.png" alt="Image grohtml-146395-24.png">
+and
+<img src="grohtml-146395-25.png" alt="Image grohtml-146395-25.png">
+. This might be</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1463954.png" alt="Image grohtml-1463954.png"></p>
+
+<p style="margin-top: 1em">where V is another
+parameter, Volume of Distribution. (We denote the
+concentration in model (3.3) by the symbol
+<img src="grohtml-146395-27.png" alt="Image grohtml-146395-27.png">
+, to distinguish it, the model-predicted value, from the
+actually observed value,
+<img src="grohtml-146395-28.png" alt="Image grohtml-146395-28.png">
+. This will soon be discussed further.) PREDPP assumes that
+there is always an observation scaling model like (3.3) that
+relates an amount of drug (in some compartment of the body)
+to the observation, and therefore always expects a
+parameter,
+<img src="grohtml-146395-29.png" alt="Image grohtml-146395-29.png">
+that scales (i.e. divides) the predicted amount in the
+<img src="grohtml-146395-30.png" alt="Image grohtml-146395-30.png">
+compartment. In the example above,
+<img src="grohtml-146395-31.png" alt="Image grohtml-146395-31.png">
+is simply
+<img src="grohtml-146395-32.png" alt="Image grohtml-146395-32.png">
+. In other examples, to be discussed later,
+<img src="grohtml-146395-33.png" alt="Image grohtml-146395-33.png">
+can be more complicated. If a value for
+<img src="grohtml-146395-34.png" alt="Image grohtml-146395-34.png">
+is not specified, it is taken to be 1. For the rest of this
+discussion, it is convenient to assume that
+<img src="grohtml-146395-35.png" alt="Image grohtml-146395-35.png">
+itself includes a scaling parameter (if such is needed, and
+even though such a parameter is not usually regarded as one
+of an individual&rsquo;s pharmacokinetic parameters) and
+that
+<img src="grohtml-146395-36.png" alt="Image grohtml-146395-36.png">
+actually includes observational scaling. Note, considering
+the example of (3.3), that
+<img src="grohtml-146395-37.png" alt="Image grohtml-146395-37.png">
+, and
+<img src="grohtml-146395-38.png" alt="Image grohtml-146395-38.png">
+. Thus
+<img src="grohtml-146395-39.png" alt="Image grohtml-146395-39.png">
+and
+<img src="grohtml-146395-40.png" alt="Image grohtml-146395-40.png">
+of (3.1) are in general lists of things (vectors), not
+single things (scalars).</p>
+
+<p style="margin-top: 1em">PREDPP implements a
+number of pharmacokinetic models, such as the
+one-compartment model (3.1), (3.3). These will be discussed
+more fully in Chapter 7. There is no need for further
+general discussion of kinetic models, as we assume the
+readers of this document are familiar with pharmacokinetics.
+However, two modelling features deserve further comment,
+alternative parameterizations and the special parameter,
+<img src="grohtml-146395-41.png" alt="Image grohtml-146395-41.png">
+.</p>
+
+<h3>2.1. Alternative Parameterizations
+<a name="2.1."></a>
+<a name="2.1. Alternative Parameterizations"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Recall the phenobarbital
+example of Chapter 2. For the first run, the input
+contained, among other things, some lines of code defining
+the variables
+<img src="grohtml-146395-42.png" alt="Image grohtml-146395-42.png">
+and
+<img src="grohtml-146395-43.png" alt="Image grohtml-146395-43.png">
+, and then the line</p>
+
+<p style="margin-top: 1em"><tt><b>K =
+CL/V</b></tt></small></p>
+
+<p style="margin-top: 1em">This line was needed
+because PREDPP expects the one-compartment model to be
+parameterized using the parameter
+<img src="grohtml-146395-44.png" alt="Image grohtml-146395-44.png">
+, the rate constant of elimination, not clearance and volume
+of distribution. However, we chose to estimate typical
+population values for
+<img src="grohtml-146395-45.png" alt="Image grohtml-146395-45.png">
+and
+<img src="grohtml-146395-46.png" alt="Image grohtml-146395-46.png">
+, so we had to relate these parameters to THETA and then
+relate
+<img src="grohtml-146395-47.png" alt="Image grohtml-146395-47.png">
+to
+<img src="grohtml-146395-48.png" alt="Image grohtml-146395-48.png">
+and
+<img src="grohtml-146395-49.png" alt="Image grohtml-146395-49.png">
+. This is an example of reparametrization of a model so that
+the pharmacokinetic parameters used are those of primary
+interest to the modeler. In fact, we may use any
+parameterization we wish, so long as we are willing to
+include the reparameterization line(s) that translate our
+parameters into those expected by PREDPP. (Chapter 7
+discusses the parameters PREDPP expects for the various
+models it implements.) However, there is a program called
+TRANS which automatically does this translation. Different
+versions of TRANS exist in the PREDPP Library and correspond
+to translations of different parameterizations into that
+expected by PREDPP.</p>
+
+<h3>2.2. The Scale Parameter,
+<a name="2.2."></a>
+<a name="2.2. The Scale Parameter,"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Usually, observations are
+concentrations. So, as in model (3.3),
+<img src="grohtml-146395-51.png" alt="Image grohtml-146395-51.png">
+will usually be set identical to
+<img src="grohtml-146395-52.png" alt="Image grohtml-146395-52.png">
+. However,
+<img src="grohtml-146395-53.png" alt="Image grohtml-146395-53.png">
+is not always simply
+<img src="grohtml-146395-54.png" alt="Image grohtml-146395-54.png">
+. Some examples should clarify this point. (In the
+discussion below, we avoid the notation
+<img src="grohtml-146395-55.png" alt="Image grohtml-146395-55.png">
+, and use
+<img src="grohtml-146395-56.png" alt="Image grohtml-146395-56.png">
+, to refer to the scale term for the amount in the
+compartment in which concentrations are being
+measured.)</p>
+
+<h4>2.2.1. Depends on a Known Constant
+<a name="2.2.1."></a>
+<a name="2.2.1. Depends on a Known Constant"></a>
+</h4>
+
+
+<p style="margin-top: 1em">This almost trivial case
+occurs when one wishes to match the units of predicted
+responses to those of the data. For example, suppose
+<img src="grohtml-146395-58.png" alt="Image grohtml-146395-58.png">
+is in milligrams, but concentrations are in ng/ml. If no
+scaling is done, the units of
+<img src="grohtml-146395-59.png" alt="Image grohtml-146395-59.png">
+will be kiloliters (i.e.,
+<img src="grohtml-146395-60.png" alt="Image grohtml-146395-60.png">
+=1 corresponds to
+<img src="grohtml-146395-61.png" alt="Image grohtml-146395-61.png">
+=1000 liters). To avoid this, one might choose the
+model</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1463955.png" alt="Image grohtml-1463955.png"></p>
+
+<p style="margin-top: 1em">thereby converting the
+units of
+<img src="grohtml-146395-63.png" alt="Image grohtml-146395-63.png">
+into micrograms, and since mcg/L
+<img src="grohtml-146395-64.png" alt="Image grohtml-146395-64.png">
+ng/ml, the units of
+<img src="grohtml-146395-65.png" alt="Image grohtml-146395-65.png">
+become liters. Of course, one could recode one&rsquo;s data,
+dividing all concentrations by 1000 (or multiplying the dose
+by 1000) and avoid this, but that may not be
+convenient.</p>
+
+<h4>2.2.2. Depends on a Parameter
+<a name="2.2.2."></a>
+<a name="2.2.2. Depends on a Parameter"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Later in this chapter we
+will discuss a model used when the data arise from two
+different assays (call them assay 1 and assay 2). In such a
+case, there may be a systematic (multiplicative) bias of one
+assay relative to the other. If we wish to allow for this
+possibility, we might need a model such as</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1463956.png" alt="Image grohtml-1463956.png"></p>
+
+<p style="margin-top: 1em">where
+<img src="grohtml-146395-68.png" alt="Image grohtml-146395-68.png">
+is a new parameter that measures the proportional bias of
+the assays (i.e., bias causes the apparent volume of
+distribution to be different for data from the two assays).
+The parameter
+<img src="grohtml-146395-69.png" alt="Image grohtml-146395-69.png">
+is not really a pharmacokinetic parameter, but for the
+purpose of this discussion it can be included in
+<img src="grohtml-146395-70.png" alt="Image grohtml-146395-70.png">
+.</p>
+
+<h4>2.2.3. Depends on an Element of
+<a name="2.2.3."></a>
+<a name="2.2.3. Depends on an Element of"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Later in this chapter we
+will describe a model useful when two kinds of responses are
+measured, plasma and urine concentrations. In the case of
+urine concentrations, the predicted total drug in the urine
+during a time period (available from an &quot;output&quot;
+compartment present in all models implemented by PREDPP; see
+Chapter 7) would have to be scaled by the actual urine
+volume during that time period. This volume would be an
+element of
+<img src="grohtml-146395-73.png" alt="Image grohtml-146395-73.png">
+, and
+<img src="grohtml-146395-74.png" alt="Image grohtml-146395-74.png">
+would be set equal to it.</p>
+
+<h2>3. Statistical Model for an Individual&rsquo;s Observations
+<a name="3."></a>
+<a name="3. Statistical Model for an Individual&rsquo;s Observations"></a>
+</h2>
+
+
+<p style="margin-top: 1em">One does not, in fact,
+ever observe the predicted plasma concentration (or any
+other predicted response). What one observes is a measured
+value which differs from the predicted value by some
+(usually small) amount called a <b>residual error</b> (also
+called intra-individual error). We regard this error as a
+random quantity (see below). We will want NONMEM to fit our
+model to our data, and in so doing, provide us with
+estimates of the model parameters. The way NONMEM&rsquo;s
+fit follows the data is determined largely by what we tell
+it about the nature of the errors (see Chapter 5). We must
+therefore provide NONMEM with another model, an error
+model.</p>
+
+<p style="margin-top: 1em">There are many reasons
+that the actual observation may not correspond to the
+predicted value (e.g.
+<img src="grohtml-146395-75.png" alt="Image grohtml-146395-75.png">
+as given by the right side of (3.3)) The structural model
+may only be approximate, or the quantities in
+<img src="grohtml-146395-76.png" alt="Image grohtml-146395-76.png">
+may have been measured with error, or, as is always true,
+pharmacokinetic responses may be measured with some error
+(assay error). It is too difficult to model all these
+sources of error separately, so we usually make the
+simplifying assumption that each difference between an
+observation and its <i>prediction</i> (i.e. each error) is a
+randomly occurring number. When the data are from a single
+individual, and the error model is the Additive error model
+(see Section 3.1, below), the error is denoted by
+<img src="grohtml-146395-77.png" alt="Image grohtml-146395-77.png">
+herein, by ETA in NONMEM output, and by ETA or ERR in
+NM-TRAN input. (When data are from a population, and the
+same error model is used, this error will be denoted
+<img src="grohtml-146395-78.png" alt="Image grohtml-146395-78.png">
+; see Chapter 4.) Therefore a model for the jth observation,
+<img src="grohtml-146395-79.png" alt="Image grohtml-146395-79.png">
+, could be written</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1463957.png" alt="Image grohtml-1463957.png"></p>
+
+<p style="margin-top: 1em">Implicit in using the
+symbol
+<img src="grohtml-146395-81.png" alt="Image grohtml-146395-81.png">
+in this way is the assumption that all residual errors come
+from probability distributions with mean zero and the same
+(usually unknown) variance. (The error variance is the mean
+<i>squared</i> error.) More complicated error models
+involving
+<img src="grohtml-146395-82.png" alt="Image grohtml-146395-82.png">
+can be written (see below). A schematic of model (3.4) is
+shown for the structural model of (3.1), (3.3) in figure
+3.1. Because this model describes the influence of both
+fixed effects (
+<img src="grohtml-146395-83.png" alt="Image grohtml-146395-83.png">
+) <i>and</i> random effects (
+<img src="grohtml-146395-84.png" alt="Image grohtml-146395-84.png">
+), it is called a <b>Mixed Effects Model</b> (hence the
+name, NONMEM: <i>NON</i>linear <i>M</i>ixed <i>E</i>ffects
+<i>M</i>odel). Mixed effects models, in general, may have
+more than one random effect, and more than one type of
+random effect (Chapter 4); (3.4) is only a particularly
+simple example.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="+chapt3/fig3.1.ubuntu.epsi.png" alt="Image +chapt3/fig3.1.ubuntu.epsi.png"></p>
+
+<p style="margin-top: 1em">Figure 3.1.
+<img src="grohtml-146395-86.png" alt="Image grohtml-146395-86.png">
+vs
+<img src="grohtml-146395-87.png" alt="Image grohtml-146395-87.png">
+for a monoexponential model. The solid line is
+<img src="grohtml-146395-88.png" alt="Image grohtml-146395-88.png">
+; the circles are the observed data points. An error is
+indicated.</small></p>
+
+<p style="margin-top: 1em">Even though errors are
+unpredictable random quantities, some information about them
+is usually assumed, and some can be estimated. First, it is
+assumed that the mean error is zero. This simply means that
+were the true values for the parameters in
+<img src="grohtml-146395-89.png" alt="Image grohtml-146395-89.png">
+known, the model would have no systematic overall bias
+(e.g., be systematically below or above the data points, on
+average).</p>
+
+<p style="margin-top: 1em">A second aspect of the
+error, one that can be estimated by NONMEM, is its typical
+size. Since errors may be positive or negative, their
+typical size is not given by their mean (which is zero), but
+by their standard deviation, the square root of their
+variance. One can always simply convert the variance into
+the standard deviation, and conversely. NONMEM output gives
+estimates of the error variance. With individual data this
+variance is denoted in this text by
+<img src="grohtml-146395-90.png" alt="Image grohtml-146395-90.png">
+, and by OMEGA in NONMEM input and output. The standard
+deviation (SD) of the error is denoted
+<img src="grohtml-146395-91.png" alt="Image grohtml-146395-91.png">
+herein. The reason that OMEGA, rather than, for example,
+OMEGA SQ stands for
+<img src="grohtml-146395-92.png" alt="Image grohtml-146395-92.png">
+in NONMEM input and output will be discussed in Section 3.8.
+(We will see, in Chapter 4, that when the error is
+symbolized by
+<img src="grohtml-146395-93.png" alt="Image grohtml-146395-93.png">
+, not
+<img src="grohtml-146395-94.png" alt="Image grohtml-146395-94.png">
+, its variance will be denoted
+<img src="grohtml-146395-95.png" alt="Image grohtml-146395-95.png">
+in this text, and SIGMA, not OMEGA, in NONMEM input and
+output.) Here, the parameter
+<img src="grohtml-146395-96.png" alt="Image grohtml-146395-96.png">
+quantifies the influence of the random effect,
+<img src="grohtml-146395-97.png" alt="Image grohtml-146395-97.png">
+on the observations,
+<img src="grohtml-146395-98.png" alt="Image grohtml-146395-98.png">
+. It is therefore called a <b>random effects
+parameter.</b></p>
+
+<h3>3.1. The Additive Error Model
+<a name="3.1."></a>
+<a name="3.1. The Additive Error Model"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The symbol
+<img src="grohtml-146395-99.png" alt="Image grohtml-146395-99.png">
+is always used to denote a random quantity whose probability
+distribution has mean zero and variance
+<img src="grohtml-146395-100.png" alt="Image grohtml-146395-100.png">
+. Model (3.4) says that the errors themselves can be so
+regarded, and since an observation equals its prediction
+(under the structural model) plus an error, model (3.4) is
+called the <b>Additive</b> error model. This model is
+illustrated in figure 3.2.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="+chapt3/fig3.2.ubuntu.epsi.png" alt="Image +chapt3/fig3.2.ubuntu.epsi.png"></p>
+
+<p style="margin-top: 1em">Figure 3.2.
+<img src="grohtml-146395-102.png" alt="Image grohtml-146395-102.png">
+vs
+<img src="grohtml-146395-103.png" alt="Image grohtml-146395-103.png">
+for a monoexponential model. The middle line is
+<img src="grohtml-146395-104.png" alt="Image grohtml-146395-104.png">
+; the outer lines give the approximate &quot;envelope&quot;
+for additive errors. Don&rsquo;t be fooled by the apparent
+widening of the gap between the upper and lower curves as
+time increases: the vertical distance from the middle line
+to either outer line is everywhere the
+same.</small></p>
+
+<h3>3.2. The Constant Coefficient of Variation andExponential Models
+<a name="3.2."></a>
+<a name="3.2. The Constant Coefficient of Variation andExponential Models"></a>
+</h3>
+
+
+<p style="margin-top: 1em">NONMEM allows an error
+model which can be more complicated than that of (3.4). One
+such more complicated, but useful model is the <b>Constant
+Coefficient of Variation (CCV),</b> or <b>Proportional</b>
+error model,</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1463958.png" alt="Image grohtml-1463958.png"></p>
+
+<p style="margin-top: 1em">A fractional error is an
+error expressed as a fraction of the corresponding
+prediction. The CCV model says that a fractional error can
+be written as an
+<img src="grohtml-146395-106.png" alt="Image grohtml-146395-106.png">
+, i.e. as a random quantity with mean zero and variance
+<img src="grohtml-146395-107.png" alt="Image grohtml-146395-107.png">
+. Under this model, the variance of an error itself is
+proportional to the squared prediction, with
+<img src="grohtml-146395-108.png" alt="Image grohtml-146395-108.png">
+being the proportionality factor, and so is not constant
+over observations. Since, under this model, the standard
+deviation of the error, and also of
+<img src="grohtml-146395-109.png" alt="Image grohtml-146395-109.png">
+, is
+<img src="grohtml-146395-110.png" alt="Image grohtml-146395-110.png">
+, and since the mean of
+<img src="grohtml-146395-111.png" alt="Image grohtml-146395-111.png">
+is
+<img src="grohtml-146395-112.png" alt="Image grohtml-146395-112.png">
+(when
+<img src="grohtml-146395-113.png" alt="Image grohtml-146395-113.png">
+assumes its true value), the coefficient of variation of
+<img src="grohtml-146395-114.png" alt="Image grohtml-146395-114.png">
+is just the constant
+<img src="grohtml-146395-115.png" alt="Image grohtml-146395-115.png">
+(the coefficient of variation of a random quantity is
+defined as its standard deviation divided by its mean). This
+is the reason the CCV error model is so named. Also for this
+reason,
+<img src="grohtml-146395-116.png" alt="Image grohtml-146395-116.png">
+is dimensionless, in contrast to having units equal to those
+of the squared observation as with the Additive model. This
+error model is illustrated in figure 3.3.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="+chapt3/fig3.3.ubuntu.epsi.png" alt="Image +chapt3/fig3.3.ubuntu.epsi.png"></p>
+
+<p style="margin-top: 1em">Figure 3.3.
+<img src="grohtml-146395-118.png" alt="Image grohtml-146395-118.png">
+vs
+<img src="grohtml-146395-119.png" alt="Image grohtml-146395-119.png">
+for a monoexponential model. The middle line is
+<img src="grohtml-146395-120.png" alt="Image grohtml-146395-120.png">
+; the outer lines give the approximate &quot;envelope&quot;
+for constant coefficient of variation
+errors.</small></p>
+
+<p style="margin-top: 1em">The <b>exponential</b>
+error model is</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1463959.png" alt="Image grohtml-1463959.png"></p>
+
+<p style="margin-top: 1em">This model is sometimes
+referred to as the log-normal model, because it it is
+additive if logs are taken (and because eta sj is assumed to
+be normally distributed):</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639510.png" alt="Image grohtml-14639510.png"></p>
+
+<p style="margin-top: 1em">See Chapter 8, Section
+3.2 for a discussion of this model.</p>
+
+<h3>3.3. Combined Additive and CCV Error Model
+<a name="3.3."></a>
+<a name="3.3. Combined Additive and CCV Error Model"></a>
+</h3>
+
+
+<p style="margin-top: 1em">When most observations
+obey the CCV model but some observations may be near the
+lower limit of detection of an assay, a model which may be
+useful is one which is a combination of both the Additive
+and CCV error models:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639511.png" alt="Image grohtml-14639511.png"></p>
+
+<p style="margin-top: 1em">Here there are two types
+of
+<img src="grohtml-146395-124.png" alt="Image grohtml-146395-124.png">
+&rsquo;s,
+<img src="grohtml-146395-125.png" alt="Image grohtml-146395-125.png">
+and
+<img src="grohtml-146395-126.png" alt="Image grohtml-146395-126.png">
+. The first has variance
+<img src="grohtml-146395-127.png" alt="Image grohtml-146395-127.png">
+; the second has a possibly different variance,
+<img src="grohtml-146395-128.png" alt="Image grohtml-146395-128.png">
+. NONMEM permits several types of
+<img src="grohtml-146395-129.png" alt="Image grohtml-146395-129.png">
+&rsquo;s. Under this model, the variance of the error
+portion of the model is
+<img src="grohtml-146395-130.png" alt="Image grohtml-146395-130.png">
+. When the prediction is near zero, the variance is
+approximately constant, namely
+<img src="grohtml-146395-131.png" alt="Image grohtml-146395-131.png">
+. This is the smallest variance possible and corresponds,
+perhaps, to the limit of assay precision. When the
+prediction is considerably greater than zero, the variance
+is approximately proportional to the squared
+prediction.</p>
+
+<h3>3.4. The Power Function Model
+<a name="3.4."></a>
+<a name="3.4. The Power Function Model"></a>
+</h3>
+
+
+<p style="margin-top: 1em">A model that has both the
+additive and the CCV error models as special cases, and
+smoothly interpolates between them in other cases is the
+Power Function model:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639512.png" alt="Image grohtml-14639512.png"></p>
+
+<p style="margin-top: 1em">Here
+<img src="grohtml-146395-133.png" alt="Image grohtml-146395-133.png">
+is raised to the
+<img src="grohtml-146395-134.png" alt="Image grohtml-146395-134.png">
+power in the error model, rather than the
+<img src="grohtml-146395-135.png" alt="Image grohtml-146395-135.png">
+power (Additive error model; note
+<img src="grohtml-146395-136.png" alt="Image grohtml-146395-136.png">
+for any number,
+<img src="grohtml-146395-137.png" alt="Image grohtml-146395-137.png">
+) or the first power (CCV model). The parameter
+<img src="grohtml-146395-138.png" alt="Image grohtml-146395-138.png">
+is a fixed effects parameter, even though its role in the
+overall model is to modify the variance model, not the
+structural model. With NONMEM all fixed effect parameters
+must be elements of the general parameter vector
+<img src="grohtml-146395-139.png" alt="Image grohtml-146395-139.png">
+. If we want the Power Function Model to interpolate between
+the additive and CCV models,
+<img src="grohtml-146395-140.png" alt="Image grohtml-146395-140.png">
+must be constrained to lie between 0 and 1. NONMEM allows
+this (see Chapter 9). While one might be tempted to combine
+the Power Function model with the Additive model, much as
+the CCV and Additive model were combined above, such a
+combination model can lead to identifiability difficulties,
+and for this reason such a combination should be
+avoided.</p>
+
+<h3>3.5. Two Different Types of Measurements
+<a name="3.5."></a>
+<a name="3.5. Two Different Types of Measurements"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Another more complicated
+error model can arise when more than one type of measurement
+is made. Suppose, for sake of illustration, that the
+observations are drug concentrations, but that they are
+measured with two different assays. If one assay may be more
+precise than the other, then this is equivalent to saying
+that one assay has a smaller
+<img src="grohtml-146395-141.png" alt="Image grohtml-146395-141.png">
+than the other. We would like to be able to take this into
+account in the analysis (i.e., not pay as much attention to
+the less precise observations), and perhaps (if we have
+enough data) estimate the relative precision of the assays
+as well. To do this in the notation we have introduced, an
+independent variable indicating which observations are
+obtained with which assay is needed: we call such an
+independent variable an indicator variable.</p>
+
+<h4>3.5.1. Use of an Indicator Variable
+<a name="3.5.1."></a>
+<a name="3.5.1. Use of an Indicator Variable"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Let one of the data items
+(an element of
+<img src="grohtml-146395-142.png" alt="Image grohtml-146395-142.png">
+) be labeled
+<img src="grohtml-146395-143.png" alt="Image grohtml-146395-143.png">
+, and let
+<img src="grohtml-146395-144.png" alt="Image grohtml-146395-144.png">
+take the value 1 if the assay used for
+<img src="grohtml-146395-145.png" alt="Image grohtml-146395-145.png">
+was of the first type, and the value 0, if it was of the 2nd
+type. The variable,
+<img src="grohtml-146395-146.png" alt="Image grohtml-146395-146.png">
+is an indicator variable, and it allows us to write an
+additive type error model, say, as</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639513.png" alt="Image grohtml-14639513.png"></p>
+
+<p style="margin-top: 1em">Here there are two types
+of
+<img src="grohtml-146395-148.png" alt="Image grohtml-146395-148.png">
+&rsquo;s,
+<img src="grohtml-146395-149.png" alt="Image grohtml-146395-149.png">
+and
+<img src="grohtml-146395-150.png" alt="Image grohtml-146395-150.png">
+. The first applies to the first type of assay, and has
+variance
+<img src="grohtml-146395-151.png" alt="Image grohtml-146395-151.png">
+; the second applies to the second type of assay, and has a
+possibly different variance,
+<img src="grohtml-146395-152.png" alt="Image grohtml-146395-152.png">
+. NONMEM permits several types of
+<img src="grohtml-146395-153.png" alt="Image grohtml-146395-153.png">
+&rsquo;s. Different types of
+<img src="grohtml-146395-154.png" alt="Image grohtml-146395-154.png">
+&rsquo;s can be correlated, and NONMEM can allow this.
+However, this is something we would only need to consider in
+the example at hand if the same blood sample were measured
+by both assays. We will not emphasize this possibility in
+this introductory guide. (This possibility also applies to
+random variables describing unexplained interindividual
+differences with population data; see Chapter 4)</p>
+
+<p style="margin-top: 1em">When the assay is done by
+the first method,
+<img src="grohtml-146395-155.png" alt="Image grohtml-146395-155.png">
+will be unity, and (3.8) becomes</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639514.png" alt="Image grohtml-14639514.png"></p>
+
+<p style="margin-top: 1em">so that the variance of
+the error is
+<img src="grohtml-146395-157.png" alt="Image grohtml-146395-157.png">
+. When the assay is done by the second method,
+<img src="grohtml-146395-158.png" alt="Image grohtml-146395-158.png">
+will be zero, and (3.7) becomes</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639515.png" alt="Image grohtml-14639515.png"></p>
+
+<p style="margin-top: 1em">so that the variance of
+the error is now
+<img src="grohtml-146395-160.png" alt="Image grohtml-146395-160.png">
+. Both
+<img src="grohtml-146395-161.png" alt="Image grohtml-146395-161.png">
+and
+<img src="grohtml-146395-162.png" alt="Image grohtml-146395-162.png">
+are random effect parameters.</p>
+
+<p style="margin-top: 1em">An equivalent form of the
+model that can be implemented easily is</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639516.png" alt="Image grohtml-14639516.png"></p>
+
+<h3>3.6. Two Different Types of Observations
+<a name="3.6."></a>
+<a name="3.6. Two Different Types of Observations"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The same need for
+separate scales for different measurements can arise when
+more than one type of observation is made. Suppose both
+plasma concentrations (
+<img src="grohtml-146395-164.png" alt="Image grohtml-146395-164.png">
+) and urine concentrations (
+<img src="grohtml-146395-165.png" alt="Image grohtml-146395-165.png">
+) are measured. The structural model for
+<img src="grohtml-146395-166.png" alt="Image grohtml-146395-166.png">
+might be (3.1), (3.3). If we assume that urine is collected
+between each observation of
+<img src="grohtml-146395-167.png" alt="Image grohtml-146395-167.png">
+, then the structural model for
+<img src="grohtml-146395-168.png" alt="Image grohtml-146395-168.png">
+, the drug concentration in the urine collected between time
+<img src="grohtml-146395-169.png" alt="Image grohtml-146395-169.png">
+and time
+<img src="grohtml-146395-170.png" alt="Image grohtml-146395-170.png">
+might be</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639517.png" alt="Image grohtml-14639517.png"></p>
+
+<p style="margin-top: 1em">where
+<img src="grohtml-146395-172.png" alt="Image grohtml-146395-172.png">
+is the fraction of drug excreted unchanged (a parameter),
+and
+<img src="grohtml-146395-173.png" alt="Image grohtml-146395-173.png">
+is the urine volume collected between time
+<img src="grohtml-146395-174.png" alt="Image grohtml-146395-174.png">
+and
+<img src="grohtml-146395-175.png" alt="Image grohtml-146395-175.png">
+(a data item)&dagger;. <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; With all
+PREDPP pharmacokinetic models there is an output compartment
+for which the total amount of drug leaving the system is
+computed automatically. The concentration in the urine is
+then obtained by setting the scaling parameter for the
+output compartment to
+<img src="grohtml-146395-176.png" alt="Image grohtml-146395-176.png">
+. <br>
+---------- <br>
+</cite></p>
+
+<p style="margin-top: 1em">Assuming again, for sake
+of the example, that we want to use an additive type error
+model for the observations, the problem is that urine
+concentrations can be orders of magnitude larger than plasma
+concentrations, so that, while an additive error model might
+be appropriate for either type of observation alone, the two
+types of observations must have different typical error
+magnitudes; i.e., different variances (
+<img src="grohtml-146395-177.png" alt="Image grohtml-146395-177.png">
+&rsquo;s).</p>
+
+<p style="margin-top: 1em">An indicator variable can
+again be used. Let the indicator variable
+<img src="grohtml-146395-178.png" alt="Image grohtml-146395-178.png">
+be unity if the
+<img src="grohtml-146395-179.png" alt="Image grohtml-146395-179.png">
+observation is a
+<img src="grohtml-146395-180.png" alt="Image grohtml-146395-180.png">
+, and 0 if it is a
+<img src="grohtml-146395-181.png" alt="Image grohtml-146395-181.png">
+. We now need to use it for both the structural and error
+models, so that:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639518.png" alt="Image grohtml-14639518.png"></p>
+
+<p style="margin-top: 1em">A little thought shows
+that the indicator variable selects the correct prediction (
+<img src="grohtml-146395-183.png" alt="Image grohtml-146395-183.png">
+or
+<img src="grohtml-146395-184.png" alt="Image grohtml-146395-184.png">
+) and the correct error term for each observation (
+<img src="grohtml-146395-185.png" alt="Image grohtml-146395-185.png">
+).</p>
+
+<p style="margin-top: 1em">An equivalent form of the
+model that can be implemented easily is</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639519.png" alt="Image grohtml-14639519.png"></p>
+
+<h3>3.7. More Than One Indicator Variable
+<a name="3.7."></a>
+<a name="3.7. More Than One Indicator Variable"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Of course, there could be
+three types of assays, or more, and similarly, more than two
+types of observations. One usually needs one less indicator
+variable than types of things to be distinguished. So, if
+there were three assays, one would define
+<img src="grohtml-146395-187.png" alt="Image grohtml-146395-187.png">
+and
+<img src="grohtml-146395-188.png" alt="Image grohtml-146395-188.png">
+.
+<img src="grohtml-146395-189.png" alt="Image grohtml-146395-189.png">
+would be 1 if the assay were of the first type, and zero
+otherwise;
+<img src="grohtml-146395-190.png" alt="Image grohtml-146395-190.png">
+would be 1 if the assay were of the second type, and zero
+otherwise. The error model for the data would require three
+types of
+<img src="grohtml-146395-191.png" alt="Image grohtml-146395-191.png">
+&rsquo;s,
+<img src="grohtml-146395-192.png" alt="Image grohtml-146395-192.png">
+,
+<img src="grohtml-146395-193.png" alt="Image grohtml-146395-193.png">
+, and
+<img src="grohtml-146395-194.png" alt="Image grohtml-146395-194.png">
+.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639520.png" alt="Image grohtml-14639520.png"></p>
+
+<p style="margin-top: 1em">Equation (3.11) results
+in the following:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639521.png" alt="Image grohtml-14639521.png"></p>
+
+<p style="margin-top: 1em">An equivalent form of the model
+that can be implemented easily is</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639522.png" alt="Image grohtml-14639522.png"></p>
+
+<h3>3.8. The General Mixed Effects Model for an Individual
+<a name="3.8."></a>
+<a name="3.8. The General Mixed Effects Model for an Individual"></a>
+</h3>
+
+
+<p style="margin-top: 1em">We have just seen examples of
+more complicated error models than the simple Additive
+model. We here give a mathematical form for the most general
+mixed effects model that is considered within the scope of
+this document:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14639523.png" alt="Image grohtml-14639523.png"></p>
+
+<p style="margin-top: 1em">where
+<img src="grohtml-146395-219.png" alt="Image grohtml-146395-219.png">
+is a vector valued function of
+<img src="grohtml-146395-220.png" alt="Image grohtml-146395-220.png">
+and parameters
+<img src="grohtml-146395-221.png" alt="Image grohtml-146395-221.png">
+(where the latter is interpreted broadly to contain
+parameters such as
+<img src="grohtml-146395-222.png" alt="Image grohtml-146395-222.png">
+of (3.7)), and
+<img src="grohtml-146395-223.png" alt="Image grohtml-146395-223.png">
+is a vector of different different
+<img src="grohtml-146395-224.png" alt="Image grohtml-146395-224.png">
+types. The notation
+<img src="grohtml-146395-225.png" alt="Image grohtml-146395-225.png">
+denotes vector transpose. When there is more than one
+<img src="grohtml-146395-226.png" alt="Image grohtml-146395-226.png">
+type, there will be several
+<img src="grohtml-146395-227.png" alt="Image grohtml-146395-227.png">
+&rsquo;s, one for each type. The collection of these is
+denoted
+<img src="grohtml-146395-228.png" alt="Image grohtml-146395-228.png">
+and is labeled OMEGA in NONMEM input and output. This
+collection is regarded as a diagonal matrix (diagonal for
+now; but see Chapter 4), rather than as a vector. We will
+use the symbol
+<img src="grohtml-146395-229.png" alt="Image grohtml-146395-229.png">
+and
+<img src="grohtml-146395-230.png" alt="Image grohtml-146395-230.png">
+interchangeably in this text to denote the (diagonal)
+element of this matrix found in position
+<img src="grohtml-146395-231.png" alt="Image grohtml-146395-231.png">
+.</p>
+
+<p style="margin-top: 1em"><a href="3.html">TOP</a></p>
+
+
+<p style="margin-top: 1em"><a href="index.html">TABLE OF CONTENTS</a></p>
+ 
+<p style="margin-top: 1em"><a href="4.html">NEXT</a></p>
+<hr>
+</body>
+</html>

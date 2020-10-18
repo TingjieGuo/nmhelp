@@ -1,0 +1,64 @@
+<HTML><HEAD> <TITLE> pkpdseq2.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                     PK_PD_SEQUENTIAL_2 EXAMPLE                     |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This  is  an  example for analysis of direct PD using previously esti-
+ mated population PK parameters.  (See <A HREF="p.htm#pk_pd_sequential_1_example">PK_PD_sequential_1 example</A>).
+
+ $PROBLEM   EMAX MODEL APPLIED TO EFFECT SITE CONCENTRATION
+ ; THE DATA FILE CONTAINS *ONLY* EFFECT OBSERVATIONS,
+ ; POP PK PARAMS ESTIMATED IN PREVIOUS RUN & FIXED HERE.
+ ; CMT = 2  NEEDED TO TELL PREDPP TO SET F = CE
+ ;
+ $DATA   data
+ $INPUT  ID TIME DV AMT=DOSE CMT
+ $SUBROUTINES ADVAN3
+ $PK
+    K  = THETA(1)*EXP(ETA(1))
+    K12= .001*K                      ; TRIVIAL LOSS TO EFFECT COMPT.
+    K21= THETA(2)*EXP(ETA(2))
+    V1=  THETA(3)*EXP(ETA(3))
+    EMAX=THETA(4)*EXP(ETA(4))
+    C50= THETA(5)*EXP(ETA(5))
+    S2=  V1*K12/K21                 ;  SO THAT CESS = CPSS
+ $ERROR
+    Y=   EMAX*F/(C50+F)*EXP(ERR(1))
+ $THETA
+   .124 FIXED                       ; K   - FIXED TO PREV EST
+   .1                               ; KEO - ESTIMATED
+   28.6 FIXED                       ; V1  - FIXED TO PREV EST
+  100                               ; EMAX- ESTIMATED
+   50                               ; C50 - ESTIMATED
+ $OMEGA
+   .113 FIXED                       ; OMEGA(K) - FIXED TO PREV EST
+   .04
+   .627 FIXED                       ; OMEGA(V1)- FIXED TO PREV EST
+   .04
+   .04
+  $SIGMA .16
+ ; ADD $ESTIMATION, ETC, AS DESIRED.
+
+ If, moreover,  an absorption lag (ALAG1) parameter is modeled  in  $PK
+ with  parameters estimated from the PD data only, then this introduces
+ a lag in the dose - Ce relationship.  Since this lag was  not  present
+ in  the  dose - Cp relationship, it may be interpreted as a lag in the
+ Cp - Ce relationship.
+
+REFERENCES: Guide IV Section <a href="IV/V.html#C.6.">V.C.6<a/>
+REFERENCES: Guide VI Section <a href="VI/IV.html#B.2.">IV.B.2<a/>, <a href="VI/VII.html#C.3.">VII.C.3<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

@@ -1,0 +1,87 @@
+<HTML><HEAD> <TITLE> repeti2.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        REPETITION_2 EXAMPLE                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This  example  illustrates  the  use of the repetition feature, and in
+ particular, the use of the PRED output control flag PRDFL.  For a dis-
+ cussion  of  the reserved variables RPTO, RPTI and PRDFL: (See Repeti-
+ tion Variables).
+
+ This example computes a variable RS to be output in a  table,  defined
+ as  the  difference between the observation in the data record and the
+ average observation in the  individual  record.   User-defined  tabled
+ quantities  are  computed during a copying pass through the data set -
+ signaled by COMACT=1 (See <A HREF="c.htm#comact">comact</A>).  In this example, during the  copy-
+ ing  pass,  the  data  records  in each individual record are actually
+ passed twice; the average is computed during a first pass through  the
+ individual record - signaled by RPTI=0, and the difference is computed
+ during a second (repeated) pass - signaled by RPTO=1.
+
+       $PRED
+       Y=...
+       IF (COMACT.EQ.0) PRDFL=1
+       IF (ICALL.EQ.0) THEN
+          RPTO=1      ;initiates use of repetition feature
+          PRDFL=1     ;initiates use of the PRED output control flag
+          N=0
+          AV=0
+       ENDIF
+       IF (COMACT.EQ.1) THEN
+          IF (RPTI.EQ.0.AND.NEWIND.LE.1) THEN
+             N=0
+             AV=0
+          ENDIF
+          IF (RPTI.EQ.0.AND.MDV.EQ.0) THEN
+             N=N+1
+             AV=AV+DV
+          ENDIF
+          IF (RPTI.EQ.1) THEN
+             RS=0
+             PRDFL=1
+          ENDIF
+          IF (RPTI.EQ.1.AND.MDV.EQ.0) RS=DV-AV
+          IF (NDREC.EQ.LIREC) THEN
+             RPTO=-1         ;RPTO=-1 is a signal initiating
+                             ;a second pass. As RPTON isn't also set,
+                             ;there are no further passes.
+             AV=AV/N
+          ENDIF
+       ENDIF
+
+ $TABLE RS NOAPPEND
+
+ The variable NDREC contains the  index  of  the  current  data  record
+ within  the current individual record, and LIREC contains the index of
+ the  last  data  record  within   the   current   individual   record.
+ (See <A HREF="r.htm#record_counters:_nirec_ndrec">Record Counters: NIREC</A>,NDREC)
+ (See <A HREF="s.htm#size_of_individual_record">Size of Individual Record</A>).
+ If  a  data  record does not contain an observation (i.e. MDV=1), this
+ code sets RS to 0.
+
+ If a variable is to be used only during a  copying  pass,  but  recur-
+ sively  across  data  records  (such  as  N and AV), then it should be
+ defined in an initialization  block  (e.g.  at  ICALL.EQ.0).   Setting
+ PRDFL=1  during  a  noncopying  pass, assures that during such passes,
+ PRED output will be accepted in the usual way:  data  record  by  data
+ record.  Setting PRDFL=1 during a copying pass, but only with the sec-
+ ond pass through the data records, assures  that  PRED  output  (which
+ includes the RS variable) will be accepted data record by data record,
+ but only during the repeated pass.
+
+ REFERENCES: none.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

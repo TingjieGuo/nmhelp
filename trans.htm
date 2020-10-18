@@ -1,0 +1,44 @@
+<HTML><HEAD> <TITLE> trans.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           TRANS (OPTION)                           |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Choice of Translator Routine for PREDPP
+ CONTEXT: Option of NM-TRAN $SUBROUTINES record
+
+ USAGE:
+ $SUBROUTINES [TRANS=]TRANSn
+
+ SAMPLE:
+ $SUBROUTINE ADVAN1 TRANS1
+
+ DISCUSSION:
+ PREDPP  contains  a  library  of routines, called translator routines,
+ which perform re-parameterization of the basic PK parameters  computed
+ by  the  PK  routine.   Exactly one TRANS routine must be selected for
+ each NONMEM/PREDPP run.  They are:
+      TRANS1   Dummy, or null, translator; may be used with all ADVAN routines.  It is the default.
+      TRANS2   Used with ADVAN1 and ADVAN2.
+      TRANS3   Used with ADVAN3 and ADVAN4.
+      TRANS4   Used with ADVAN3, ADVAN4, ADVAN11, ADVAN12
+      TRANS5   Used with ADVAN3 and ADVAN4.
+      TRANS6   Used with ADVAN3, ADVAN4, ADVAN11, ADVAN12
+
+ Each has its own entry.
+
+REFERENCES: Guide VI Section <a href="VI/III.html#A.">III.A<a/>, <a href="VI/III.html#M.">III.M<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

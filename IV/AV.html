@@ -1,0 +1,147 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Fri Sep 18 22:03:07 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part IV - NM-TRAN">NONMEM Users Guide Part IV - NM-TRAN</a><br>
+<a href="#Appendix.V. NM-TRAN Control Records with PREDPP">Appendix.V. NM-TRAN Control Records with PREDPP</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part IV - NM-TRAN
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part IV - NM-TRAN"></a>
+</h2>
+
+
+<h2>Appendix.V. NM-TRAN Control Records with PREDPP
+<a name="Appendix.V."></a>
+<a name="Appendix.V. NM-TRAN Control Records with PREDPP"></a>
+</h2>
+
+
+<p style="margin-top: 1em"><tt>$PROBLEM</tt> text</p>
+
+<p style="margin-top: 1em"><tt>$INPUT</tt> @item sub 1 ~
+item sub 2 ~ item sub 3 ~...@</p>
+
+<p style="margin-top: 1em"><tt>$BIND</tt> @value sub 1@
+@value sub 2@ ... @value sub n@</p>
+
+<p style="margin-top: 1em"><tt>$INDEX</tt> [@label sub
+1@|@value sub 1@] [@label sub 2@|@value sub 2@] [@label sub
+3@|@value sub 3@] ...</p>
+
+<p style="margin-top: 1em"><tt>$CONTR DATA=(</tt>[@label
+sub 1@|<tt>0</tt>] [@label sub 2@|<tt>0</tt>] [@label sub
+3@|<tt>0</tt>]<tt>)</tt></p>
+
+<p style="margin-top: 1em"><tt>$DATA</tt> [filename|*]
+[(format)] [<tt>IGNORE=</tt>@c sub 1@] [<tt>NULL=</tt>@c sub
+2@] [<tt><b>NOWIDE</b></tt>|<tt>WIDE</tt>]
+[<tt>CHECKOUT</tt>] <br>
+[<tt>RECORDS=</tt>@n sub 1@] [<tt>LRECL=</tt>@n sub 2@]
+[<tt><b>NOREWIND</b></tt>|<tt>REWIND</tt>]</p>
+
+<p style="margin-top: 1em"><tt>$SUBROUTINES</tt> [@subname
+sub 1 = name sub 1@] [@subname sub 2 = name sub 2@] ... <br>
+[<tt>SUBROUTINES=</tt>kind] [<tt>TOL=</tt>@n sub 1@]</p>
+
+<p style="margin-top: 1em"><tt>$MODEL</tt>
+[<tt>NCOMPARTMENTS=</tt>@n sub 1@] [<tt>NEQUILIBRIUM=</tt>@n
+sub 2@] [<tt>NPARAMETERS=</tt>@n sub 3@] <br>
+[<tt>COMPARTMENT=([name] [@attribute sub 1@] [@attribute sub
+2@] ...)] ... <br>
+[LINK @compname sub a@ [</tt><tt><b>TO</b></tt><tt>|AND]
+@compname sub b@ BY k [l]] ...</tt></p>
+
+<p style="margin-top: 1em"><tt>$ABBREVIATED [COMRES=@n sub
+1@] [COMSAV=@n sub 2@] [DERIV2=NO]
+[DERIV2=NOCOMMON]</tt></p>
+
+<p style="margin-top: 1em"><tt>$PK <br>
+abbreviated code</tt></p>
+
+<p style="margin-top: 1em"><tt>$ERROR <br>
+abbreviated code</tt></p>
+
+<p style="margin-top: 1em"><tt>$DES <br>
+abbreviated code</tt></p>
+
+<p style="margin-top: 1em"><tt>$AESINITIAL <br>
+abbreviated code</tt></p>
+
+<p style="margin-top: 1em"><tt>$AES <br>
+abbreviated code</tt></p>
+
+<p style="margin-top: 1em"><tt>$TOL <br>
+abbreviated code</tt></p>
+
+<p style="margin-top: 1em"><tt>$THETA @value sub 1@ [@value
+sub 2@] [@value sub 3@] ... [NUMBERPOINTS=n]
+[</tt><tt><b>ABORT</b></tt><tt>|NOABORT]</tt></p>
+
+<p style="margin-top: 1em"><tt>$OMEGA
+[</tt><tt><b>DIAGONAL(</b></tt><tt>n</tt><tt><b>)</b></tt><tt>|BLOCK(n)|BLOCK(n)
+SAME|BLOCK SAME] [[@value sub 1@] [@value sub 2@] [@value
+sub 3@] ... [FIXED]]</tt></p>
+
+<p style="margin-top: 1em"><tt>$SIGMA
+[</tt><tt><b>DIAGONAL(</b></tt><tt>n</tt><tt><b>)</b></tt><tt>|BLOCK(n)|BLOCK(n)
+SAME|BLOCK SAME] [[@value sub 1@] [@value sub 2@] [@value
+sub 3@] ... [FIXED]]</tt></p>
+
+<p style="margin-top: 1em"><tt>$MSFI filename
+[</tt><tt><b>NORESCALE</b></tt><tt>|RESCALE]
+[NPOPETAS=n]</tt></p>
+
+<p style="margin-top: 1em"><tt>$SIMULATION (seed1 [seed2]
+[</tt><tt><b>NORMAL</b></tt><tt>|UNIFORM] [NEW]) ...
+[SUBPROBLEMS=n] [ONLYSIMULATION] [OMITTED]</tt></p>
+
+<p style="margin-top: 1em"><tt>$ESTIMATION [METHOD=kind]
+[</tt><tt><b>NOINTERACTION</b></tt><tt>|INTERACTION]
+[</tt><tt><b>NOLAPLACIAN</b></tt><tt>|LAPLACIAN]
+[</tt><tt><b>NOPOSTHOC</b></tt><tt>|POSTHOC] [SIGDIGITS=@n
+sub 1@] [MAXEVALS=@n sub 2@] [PRINT=@n sub 3@]
+[</tt><tt><b>ABORT</b></tt><tt>|NOABORT] [MSFO=filename]
+[</tt><tt><b>NOREPEAT</b></tt><tt>|REPEAT]
+[OMITTED]</tt></p>
+
+<p style="margin-top: 1em"><tt>$COVARIANCE [SPECIAL]
+[MATRIX=c] [PRINT=[E][R][S]
+[</tt><tt><b>CONDITIONAL</b></tt><tt>|UNCONDITIONAL]
+[OMITTED]</tt></p>
+
+<p style="margin-top: 1em"><tt>$TABLE [list1] [BY list2]
+[</tt><tt><b>PRINT</b></tt><tt>|NOPRINT] [FILE=filename]
+[NOHEADER|ONEHEADER]
+[</tt><tt><b>UNCONDITIONAL</b></tt><tt>|CONDITIONAL]
+[OMITTED]</tt></p>
+
+<p style="margin-top: 1em"><tt>$SCATTERPLOT list1 VS list2
+[BY list3] [UNIT] [ORD0] [FROM @n sub 1@] [TO @n sub 2@]
+[</tt><tt><b>UNCONDITIONAL</b></tt><tt>|CONDITIONAL]
+[OMITTED]</tt></p>
+
+<p style="margin-top: 1em"><a href="AV.html">TOP</a> <br>
+<a href="index.html">TABLE OF CONTENTS</a> <br>
+ <a href="AVI.html">NEXT APPENDIX ...</a></p>
+<hr>
+</body>
+</html>

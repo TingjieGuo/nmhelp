@@ -1,0 +1,43 @@
+<HTML><HEAD> <TITLE> $ovarf.ctl</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               $OVARF                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Specifies the weighting to the standard deviations of OMEGA
+ CONTEXT: NM-TRAN Control Record
+
+ USAGE:
+ $OVARF 0 (default)
+ $OVARF [value ... ]
+ $OVARF [(value)[xn]] ...
+ SAMPLE:
+
+ $OVARF 2.0 5.0
+
+ Where  2.0 is specified for the first omega block, 5.0 for the second.
+ If the corresponding $OLKJDF value is negative then this  is  argument
+ STDSSP in user-defined OMEGA_STD_PRIORU.f90.
+
+ DISCUSSION:
+
+ The  $OVARF  is  a separate record that allows the user to specify the
+ weighting (inverse variance) to the standard deviations LKJ decorrela-
+ tion degrees of freedom for each OMEGA block.  Used with NUTS method.
+
+ $EST OVARF over-rides $OVARF.
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

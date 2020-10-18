@@ -1,0 +1,122 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Fri Sep 18 22:03:00 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part IV - NM-TRAN">NONMEM Users Guide Part IV - NM-TRAN</a><br>
+<a href="#Appendix.I. NM-TRAN Control Records">Appendix.I. NM-TRAN Control Records</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part IV - NM-TRAN
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part IV - NM-TRAN"></a>
+</h2>
+
+
+<h2>Appendix.I. NM-TRAN Control Records
+<a name="Appendix.I."></a>
+<a name="Appendix.I. NM-TRAN Control Records"></a>
+</h2>
+
+<pre style="margin-top: 1em">$SIZES
+
+$SUPERPROBLEM
+
+$PROBLEM  text
+
+$INPUT @item sub 1 ~ item sub 2 ~ item  sub 3 ~...@
+
+$INDEX  [@label sub 1@|@value sub 1@]  [@label sub 2@|@value  sub 2@]  [@label sub 3@|@value sub 3@] ...
+
+$CONTR   DATA=([@label sub 1@|0] [@label sub 2@|0] [@label sub 3@|0])
+
+$DATA  [filename|*] [(format)] [IGNORE=@c sub 1@] [NULL=@c sub 2@] [<b>NOWIDE</b>|WIDE] [CHECKOUT]
+       [RECORDS=@n sub 1@] [LRECL=@n sub 2@] [<b>NOREWIND</b>|REWIND]
+
+$SUBROUTINES  [@subname sub 1 = name sub 1@] [@subname sub 2 = name sub 2@] ...
+              [SUBROUTINES=kind]
+
+$ABBREVIATED  [COMRES=@n sub 1@] [COMSAV=@n sub 2@] [DERIV2=NO] [DERIV2=NOCOMMON]
+
+$PRED         the abbreviated code</pre>
+
+<p style="margin-top: 1em"><tt>$THETA</tt> @value sub 1@
+[@value sub 2@] [@value sub 3@] ...
+[<tt>NUMBERPOINTS=</tt>n]
+[<tt><b>ABORT</b></tt>|<tt>NOABORT</tt>]</p>
+
+<p style="margin-top: 1em"><tt>$OMEGA</tt>
+[<tt><b>DIAGONAL(</b></tt>n<tt><b>)</b></tt>|<tt>BLOCK(</tt>n<tt>)</tt>|<tt>BLOCK(</tt>n<tt>)
+SAME</tt>|<tt>BLOCK SAME</tt>] [[@value sub 1@] [@value sub
+2@] [@value sub 3@] ... [<tt>FIXED</tt>]]</p>
+
+<p style="margin-top: 1em"><tt>$SIGMA</tt>
+[<tt><b>DIAGONAL(</b></tt>n<tt><b>)</b></tt>|<tt>BLOCK(</tt>n<tt>)</tt>|<tt>BLOCK(</tt>n<tt>)
+SAME</tt>|<tt>BLOCK SAME</tt>] [[@value sub 1@] [@value sub
+2@] [@value sub 3@] ... [<tt>FIXED</tt>]]</p>
+
+<p style="margin-top: 1em"><tt>$MSFI</tt> filename
+[<tt><b>NORESCALE</b></tt>|<tt>RESCALE</tt>]
+[<tt>NPOPETAS=</tt>n]</p>
+
+<p style="margin-top: 1em"><tt>$SIMULATION</tt> (seed1
+[seed2] [<tt><b>NORMAL</b></tt>|<tt>UNIFORM</tt>]
+[<tt>NEW</tt>]) ... [<tt>SUBPROBLEMS=</tt>n]
+[<tt>ONLYSIMULATION</tt>] [<tt>OMITTED</tt>]</p>
+
+<p style="margin-top: 1em"><tt>$ESTIMATION</tt>
+[<tt>METHOD=</tt>kind]
+[<tt><b>NOINTERACTION</b></tt>|<tt>INTERACTION</tt>]
+[<tt><b>NOLAPLACIAN</b></tt>|<tt>LAPLACIAN</tt>]
+[<tt><b>NOPOSTHOC</b></tt>|<tt>POSTHOC</tt>]
+[<tt>SIGDIGITS=</tt>@n sub 1@] [<tt>MAXEVALS=</tt>@n sub 2@]
+[<tt>PRINT=</tt>@n sub 3@]
+[<tt><b>ABORT</b></tt>|<tt>NOABORT</tt>]
+[<tt>MSFO=</tt>filename]
+[<tt><b>NOREPEAT</b></tt>|<tt>REPEAT</tt>]
+[<tt>OMITTED</tt>]</p>
+
+<p style="margin-top: 1em"><tt>$COVARIANCE</tt>
+[<tt>SPECIAL</tt>] [<tt>MATRIX=</tt>c]
+[<tt>PRINT=</tt>[<tt>E</tt>][<tt>R</tt>][<tt>S</tt>]
+[<tt><b>CONDITIONAL</b></tt>|<tt>UNCONDITIONAL</tt>]
+[<tt>OMITTED</tt>]</p>
+
+<p style="margin-top: 1em"><tt>$TABLE</tt> [list1]
+[<tt>BY</tt> list2] [<tt><b>PRINT</b></tt>|<tt>NOPRINT</tt>]
+[<tt>FILE=</tt>filename]
+[<tt>NOHEADER</tt>|<tt>ONEHEADER</tt>]
+[<tt><b>UNCONDITIONAL</b></tt>|<tt>CONDITIONAL</tt>]
+[<tt>OMITTED</tt>]</p>
+
+<p style="margin-top: 1em"><tt>$SCATTERPLOT</tt> list1
+<tt>VS</tt> list2 [<tt>BY</tt> list3] [<tt>UNIT</tt>]
+[<tt>ORD0</tt>] [<tt>FROM</tt> @n sub 1@] [<tt>TO</tt> @n
+sub 2@] [<tt><b>UNCONDITIONAL</b></tt>|<tt>CONDITIONAL</tt>]
+[<tt>OMITTED</tt>]</p>
+
+<p style="margin-top: 1em"><tt>$INCLUDE</tt> filename
+[<tt>@n@]</tt></p>
+
+<p style="margin-top: 1em"><a href="AI.html">TOP</a> <br>
+<a href="index.html">TABLE OF CONTENTS</a> <br>
+ <a href="AII.html">NEXT APPENDIX ...</a></p>
+<hr>
+</body>
+</html>

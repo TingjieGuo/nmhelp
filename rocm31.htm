@@ -1,0 +1,46 @@
+<HTML><HEAD> <TITLE> rocm31.for</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                         MIX CONTR: TEMPLT                          |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: NONMEM read-only global variables
+ CONTEXT: User-supplied PRED routine
+
+ USAGE:
+      USE ROCM_REAL, ONLY: TEMPLT=&gt;VRAW
+
+ GLOBAL DECLARATION:
+      USE SIZES, ONLY: VSIZE,DPSIZE
+      REAL(KIND=DPSIZE) :: VRAW(VSIZE)
+
+ DISCUSSION:
+
+  TEMPLT
+      This variable serves two different purposes.
+      At ICALL=6, the template data record is stored in TEMPLT.
+      When  MIX  is  called,  the  first  data record of the individual
+      record is stored in TEMPLT.
+
+ TEMPLT(n) may be used as a right-hand quantity in blocks  of  abbrevi-
+ ated  code  that  test for ICALL=6 and in $MIX blocks.  The "n" may be
+ either a position in the data record or the label of  the  data  item,
+ e.g. TEMPLT(1) or TEMPLT(ID).
+
+ Location prior to NONMEM 7: rocm31
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

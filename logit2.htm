@@ -1,0 +1,65 @@
+<HTML><HEAD> <TITLE> logit2.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                    LOGISTIC REGRESSION EXAMPLE                     |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ Here is a typical NM-TRAN control stream for dichotomous response pop-
+ ulation data.  Such data is referred to as "odd-type" data.  Note that |
+ the eta is a population eta but there are no epsilons.
+
+ $PROB  DICHOTOMOUS RESPONSE
+ $DATA data
+ $INPUT ID DOSE DV
+ $PRED
+ LOGIT=THETA(1)+THETA(2)*DOSE**THETA(3)+ETA(1)
+ A=EXP(LOGIT)
+ P=A/(1+A)
+ IF (DV.EQ.1) THEN
+    Y=P
+ ELSE
+    Y=1-P
+ ENDIF
+ $THETA .1 (25,100) (1,3,5)
+ $OMEGA 1
+ $ESTIMATION  MET=COND LAPLACE LIKE MAX=500
+ $SCAT ETA(1) VS DOSE
+
+ Here is a typical NM-TRAN control stream when, one wants to first sim-
+ ulate the data.
+
+ $PROB  DICHOTOMOUS RESPONSE
+ $DATA data
+ $INPUT ID DOSE DV
+ $PRED
+ LOGIT=THETA(1)+THETA(2)*DOSE**THETA(3)+ETA(1)
+ A=EXP(LOGIT)
+ P=A/(1+A)
+ IF (ICALL.EQ.4) THEN
+    CALL RANDOM (2,R)
+    IF (R.LE.P) DV=1
+    IF (R.GT.P) DV=0
+ ENDIF
+ IF (DV.EQ.1) Y=P
+ IF (DV.EQ.0) Y=1-P
+ $THETA .1 (25,100) (1,3,5)
+ $OMEGA 1
+ $SIMULATION (7755399) (45211 UNIFORM)
+ $ESTIMATION  MET=COND LAPLACE LIKE MAX=500
+ $SCAT ETA(1) VS DOSE
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

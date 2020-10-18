@@ -1,0 +1,102 @@
+<HTML><HEAD> <TITLE> advan12.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                              ADVAN12                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Choice of Pharmacokinetic Model for PREDPP
+ CONTEXT: Option of NM-TRAN $SUBROUTINES record
+
+ USAGE:
+ $SUBROUTINES [ADVAN=]ADVAN12
+
+ SAMPLE:
+ $SUBROUTINE ADVAN12
+
+ DISCUSSION:
+ ADVAN12  is a routine in PREDPP's library which implements the kinetic
+ equations for the Three Compartment  Linear  Model  with  First  Order
+ Absorption.
+
+ Compt.   Function       Initial   On/Off    Dose      Default    Default
+ No.                     Status    Allowed   Allowed   for Dose   for Obs.
+ 1        Depot          Off       Yes       Yes       Yes        No
+ 2        Central        On        No        Yes       No         Yes
+ 3        Peripheral 1   On        No        Yes       No         No
+ 4        Peripheral 2   On        No        Yes       No         No
+ 5        Output         Off       Yes       No        No         No
+
+ TRANS routines that may be used: TRANS1, TRANS4, TRANS6
+
+ Basic PK parameters with TRANS1:
+
+      K (rate constant of elimination)
+      K23 (rate constant from central to peripheral 1)
+      K32 (rate constant from peripheral 1 to central)
+      K24 (rate constant from central to peripheral 2)
+      K42 (rate constant from peripheral 2 to central)
+      KA (rate constant of absorption)
+
+ Basic PK parameters with TRANS4: (See <A HREF="t.htm#trans4">TRANS4</A>).
+
+ Basic PK parameters with TRANS6: (See <A HREF="t.htm#trans6">TRANS6</A>).
+
+ Additional PK parameters:
+
+      S1 - Scale for depot compartment
+      S2 - Scale for central compartment (also called SC)
+      S3 - Scale for peripheral compartment 1
+      S4 - Scale for peripheral compartment 2
+      S5 - Scale for output compartment (also called S0)
+      F1 - Bioavailability for depot compartment
+      F2 - Bioavailability for central compartment
+      F3 - Bioavailability for peripheral compartment 1
+      F4 - Bioavailability for peripheral compartment 2
+      R1 - Rate for depot compartment
+      R2 - Rate for central compartment
+      R3 - Rate for peripheral compartment 1
+      R4 - Rate for peripheral compartment 2
+      D1 - Duration for depot compartment
+      D2 - Duration for central compartment
+      D3 - Duration for peripheral compartment 1
+      D4 - Duration for peripheral compartment 2
+      ALAG1 - Absorption lag for depot compartment
+      ALAG2 - Absorption lag for central compartment
+      ALAG3 - Absorption lag for peripheral compartment 1
+      ALAG4 - Absorption lag for peripheral compartment 2
+      F0 - Output fraction (also called F5, FO)
+      XSCALE - Time scale
+      MTIME(i) - Model event times
+
+ Steady-state subroutines:  SS12, SS6
+
+ Other required user or library routines:
+
+ Library:  EXP3  EXP4
+
+ Notes:
+
+ 1    Analytical  second derivatives used with the Laplacian method are
+      not obtained with ADVAN12.  Numerical second derivatives must  be
+      used.
+
+ 2    Can  be  greatly  speeded up if calls to PK can be limited.  (Use
+      CALLFL=1 in $PK to call once per IR, and use the CALL  data  item
+      to  force  additional  calls  if  and  when necessary; e.g., when
+      covariates used in the PK model change.)
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 12</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:8px;font-family:Times;color:#000000;}
+	.ft1{font-size:8px;font-family:Times;color:#000000;}
+	.ft2{font-size:4px;font-family:Helvetica;color:#000000;}
+	.ft3{font-size:6px;font-family:Times;color:#000000;}
+	.ft4{font-size:8px;line-height:12px;font-family:Times;color:#000000;}
+	.ft5{font-size:8px;line-height:11px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V012.png" alt="background image">
+<DIV style="position:absolute;top:41;left:240"><nobr><span class="ft0">Chapter 1 - Introduction to NONMEM, PREDPP, and NM-TRAN</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft1"><b>3.2. PREDPP and the PREDPP Library</b></span></nobr></DIV>
+<DIV style="position:absolute;top:93;left:72"><nobr><span class="ft4">PREDPP is not a single subroutine. It is a collection of FORTRAN subroutines. Some of these are always<br>needed but must be supplied by the user himself (see PK and ERROR below). Others are always needed<br>and are supplied; these are called the kernel routines. Others (subroutines ADVAN and TRANS, for exam-<br>ple) are also always needed, and are supplied, but are chosen from different versions corresponding to dif-<br>ferent pharmacokinetic models. The collection of supplied routines constitutes the PREDPP Library.</span></nobr></DIV>
+<DIV style="position:absolute;top:165;left:72"><nobr><span class="ft1"><b>3.3. Subroutines PK and ERROR</b></span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:72"><nobr><span class="ft4">Tw o very important subroutines of PREDPP are called PK and ERROR. PK computes the values of the<br>population or individual pharmacokinetic parameters (e.g., CL and V) of a given model and accounts for<br>the &quot;differences&quot; between individual and population values. ERROR accounts for the &quot;differences&quot;<br>between predicted and observed values. These two subroutines are where the basic task of modelling is<br>carried out; this task is the user’s responsibility. Chapters 7 and 8 are devoted to a description of these sub-<br>routines.</span></nobr></DIV>
+<DIV style="position:absolute;top:256;left:72"><nobr><span class="ft0">Figure 1.2 shows the major components of PREDPP.</span></nobr></DIV>
+<DIV style="position:absolute;top:289;left:240"><nobr><span class="ft2">PREDPP kernal subroutines</span></nobr></DIV>
+<DIV style="position:absolute;top:309;left:245"><nobr><span class="ft2">ADVAN  and TRANS</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:245"><nobr><span class="ft2">PK</span></nobr></DIV>
+<DIV style="position:absolute;top:348;left:245"><nobr><span class="ft2">ERROR</span></nobr></DIV>
+<DIV style="position:absolute;top:379;left:72"><nobr><span class="ft3">Figure 1.2. Components of PREDPP. ADVAN and TRANS are chosen from the PREDPP library. PK and ERROR are user-supplied.</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:72"><nobr><span class="ft1"><b>3.4. Building an Executable Module for NONMEM</b></span></nobr></DIV>
+<DIV style="position:absolute;top:429;left:72"><nobr><span class="ft4">Whether PREDPP is used or a special purpose PRED subroutine is written, the PRED subroutine must be<br>combined (&quot;linked&quot;) with NONMEM; this process (which is sometimes is called &quot;link editing&quot; or &quot;load-<br>ing&quot;) must take place before the actual NONMEM run. The NONMEM-PRED combination is generally<br>called a &quot;load module&quot; or &quot;executable module&quot;. Compiling and linking are processes which are operating<br>system dependent; each installation must supply its own commands and procedures for these tasks. They<br>may be done before the NM-TRAN step or between it and the NONMEM step. This choice is discussed in<br>Section 3.7 below. For certain platforms, a front-end interface provided by the NONMEM Project Group<br>(nmfe72.bat for MS/DOS; nmfe72 C-shell script for Unix-type) can be used to perform these steps, and can<br>create all both types of load modules described below: generated subroutines and user-written subroutines.</span></nobr></DIV>
+<DIV style="position:absolute;top:553;left:72"><nobr><span class="ft1"><b>3.5. NM-TRAN</b></span></nobr></DIV>
+<DIV style="position:absolute;top:569;left:72"><nobr><span class="ft4">NM-TRAN provides the following services: control language translation, model speciﬁcation via FOR-<br>TRAN-like statements (called abbreviated code), partial differentiation, and preprocessing of the data.<br>They are discussed separately.</span></nobr></DIV>
+<DIV style="position:absolute;top:617;left:72"><nobr><span class="ft1"><b>3.6. Control Language Translation</b></span></nobr></DIV>
+<DIV style="position:absolute;top:632;left:72"><nobr><span class="ft4">NM-TRAN includes a language for communicating control information to NONMEM. NM-TRAN records<br>are free-form (i.e., spacing between options within a record and the order of the records and their options is<br>ﬂexible) and use English words (or their abbreviations) for options. For example, the record name $ESTI-<br>MATION may be abbreviated to $EST; the option name SIGDIGITS may be abbreviated to SIG. Either<br>spaces or commas may be used to separate options. Defaults are understood for most options, allowing the<br>records to be relatively compact. Considerable error checking is performed by NM-TRAN. This reduces<br>the number and severity of the errors that can occur during the NONMEM run. NM-TRAN also produces<br>messages that warn the user of possible errors in the data and/or control stream.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:282"><nobr><span class="ft0">-4-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

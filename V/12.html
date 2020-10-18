@@ -1,0 +1,6081 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Sat Sep 19 21:24:22 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part V - Introductory Guide - Chapter 12">NONMEM Users Guide Part V - Introductory Guide - Chapter 12</a><br>
+<a href="#1. What This Chapter is About">1. What This Chapter is About</a><br>
+<a href="#2. Advanced Features of PREDPP">2. Advanced Features of PREDPP</a><br>
+<a href="#2.1. Pharmacodynamic Modeling Using the $ERROR Record">2.1. Pharmacodynamic Modeling Using the $ERROR Record</a><br>
+<a href="#2.2. Other Pharmacokinetic Models: ADVAN5-9,ADVAN13-18">2.2. Other Pharmacokinetic Models: ADVAN5-9,ADVAN13-18</a><br>
+<a href="#2.3. Zero-Order Bolus Doses">2.3. Zero-Order Bolus Doses</a><br>
+<a href="#2.4. The Additional Dose Data Item: ADDL">2.4. The Additional Dose Data Item: ADDL</a><br>
+<a href="#2.5. Lagged doses: the ALAG Parameter">2.5. Lagged doses: the ALAG Parameter</a><br>
+<a href="#2.6. Model Event Times: MTIME">2.6. Model Event Times: MTIME</a><br>
+<a href="#2.7. Controlling Calls to PK and ERROR">2.7. Controlling Calls to PK and ERROR</a><br>
+<a href="#2.8. Output-Type Compartments">2.8. Output-Type Compartments</a><br>
+<a href="#2.9. Transgeneration of Input Data: the INFNSubroutine">2.9. Transgeneration of Input Data: the INFNSubroutine</a><br>
+<a href="#3. User-written PRED Subroutines">3. User-written PRED Subroutines</a><br>
+<a href="#3.1. Required Data Items">3.1. Required Data Items</a><br>
+<a href="#3.2. An Example of $PRED Statements: PharmacodynamicModeling">3.2. An Example of $PRED Statements: PharmacodynamicModeling</a><br>
+<a href="#4. Advanced Features of NONMEM">4. Advanced Features of NONMEM</a><br>
+<a href="#4.1. Full Covariance Matrices: $OMEGA BLOCK and $SIGMABLOCK">4.1. Full Covariance Matrices: $OMEGA BLOCK and $SIGMABLOCK</a><br>
+<a href="#4.1.1. More About $OMEGA and $SIGMA">4.1.1. More About $OMEGA and $SIGMA</a><br>
+<a href="#4.2. Grouping Related Observations: The L1 and L2 DataItems">4.2. Grouping Related Observations: The L1 and L2 DataItems</a><br>
+<a href="#4.3. Continuing a NONMEM Run: MSFO and MSFI">4.3. Continuing a NONMEM Run: MSFO and MSFI</a><br>
+<a href="#4.4. NONMEM Can Obtain Initial Estimates for , ,">4.4. NONMEM Can Obtain Initial Estimates for , ,</a><br>
+<a href="#4.5. Improving Parameter Estimates: REPEAT and RESCALE">4.5. Improving Parameter Estimates: REPEAT and RESCALE</a><br>
+<a href="#4.6. The Covariance Step: , , SpecialComputation">4.6. The Covariance Step: , , SpecialComputation</a><br>
+<a href="#4.6.1. More About $COVARIANCE">4.6.1. More About $COVARIANCE</a><br>
+<a href="#4.7. Multiple Problems in a Single NONMEM Run">4.7. Multiple Problems in a Single NONMEM Run</a><br>
+<a href="#4.8. Simulation Using NONMEM: The $SIMULATION Record">4.8. Simulation Using NONMEM: The $SIMULATION Record</a><br>
+<a href="#4.8.1. More About $SIMULATION">4.8.1. More About $SIMULATION</a><br>
+<a href="#4.9. Files for Subsequent Processing: the $TABLERecord">4.9. Files for Subsequent Processing: the $TABLERecord</a><br>
+<a href="#4.9.1. More about $TABLE and $SCATTER">4.9.1. More about $TABLE and $SCATTER</a><br>
+<a href="#4.10. Data Checkout Mode">4.10. Data Checkout Mode</a><br>
+<a href="#4.11. Obtaining Individual Parameter Estimates -Conditional Estimates of s">4.11. Obtaining Individual Parameter Estimates -Conditional Estimates of s</a><br>
+<a href="#4.12. Population Conditional Estimation Methods">4.12. Population Conditional Estimation Methods</a><br>
+<a href="#4.13. Displaying PRED-Defined Variables andConditional Estimates of s">4.13. Displaying PRED-Defined Variables andConditional Estimates of s</a><br>
+<a href="#4.14. Mixture Models">4.14. Mixture Models</a><br>
+<a href="#4.15. PRED Error Return Codes and Error Messages inFile PRDERR">4.15. PRED Error Return Codes and Error Messages inFile PRDERR</a><br>
+<a href="#4.16. User-Written Subroutines">4.16. User-Written Subroutines</a><br>
+<a href="#4.17. PRIOR">4.17. PRIOR</a><br>
+<a href="#5. Observations of Two Different Types">5. Observations of Two Different Types</a><br>
+<a href="#6. Supplemental List of Features through NONMEM 7.5">6. Supplemental List of Features through NONMEM 7.5</a><br>
+<a href="#6.1. NONMEM Features">6.1. NONMEM Features</a><br>
+<a href="#6.2. Miscellaneous Features">6.2. Miscellaneous Features</a><br>
+<a href="#6.3. Changes to NONMEM Outputs">6.3. Changes to NONMEM Outputs</a><br>
+<a href="#6.4. PREDPP">6.4. PREDPP</a><br>
+<a href="#6.5. NM-TRAN">6.5. NM-TRAN</a><br>
+<a href="#6.5.1. General Features">6.5.1. General Features</a><br>
+<a href="#6.5.2. Data Preprocessor">6.5.2. Data Preprocessor</a><br>
+<a href="#6.5.3. Abbreviated Code">6.5.3. Abbreviated Code</a><br>
+<a href="#6.5.4. Reserved Variables in Abbreviated Code">6.5.4. Reserved Variables in Abbreviated Code</a><br>
+<a href="#6.6. Utility Routines">6.6. Utility Routines</a><br>
+<a href="#6.7. All Options for $ESTIMATION">6.7. All Options for $ESTIMATION</a><br>
+<a href="#6.8. All Options for $COVARIANCE">6.8. All Options for $COVARIANCE</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part V - Introductory Guide - Chapter 12
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part V - Introductory Guide - Chapter 12"></a>
+</h2>
+
+
+<p align="center" style="margin-top: 1em"><b>Chapter 12 -
+Brief Descriptions of Other Features</b></p>
+
+<h2>1. What This Chapter is About
+<a name="1."></a>
+<a name="1. What This Chapter is About"></a>
+</h2>
+
+
+<p style="margin-top: 1em">This chapter briefly
+describes a variety of features of PREDPP and NONMEM that
+are somewhat advanced for this text but are of interest to
+most users of NONMEM. References are given to other
+documents where additional information can be found. Section
+2 is concerned with PREDPP, Section 3 is concerned with
+user-written PREDs, and Section 4 describes general NONMEM
+features. Section 5 contains an example that includes
+several of the advanced features. Descriptions of NM-TRAN
+control records in Section 4 have been augmented with
+sections headed &quot;More about ...&quot;. These contain
+additional details, plus new options for NONMEM 7.3. Section
+6 is new for NONMEM 7.3. It contains a supplemental list of
+features through NONMEM 7.4, including features from
+previous releases that are not otherwise discussed in this
+guide.</p>
+
+<p style="margin-top: 1em">Note that wherever $PK,
+$ERROR, $DES, $AES, $MODEL, $MIX, $INFN, $TOL and $PRED
+statements are referred to below, user-written subroutines
+PK, ERROR, DES, AES, MODEL, MIX, INFN, TOL and PRED can be
+used instead.</p>
+
+<h2>2. Advanced Features of PREDPP
+<a name="2."></a>
+<a name="2. Advanced Features of PREDPP"></a>
+</h2>
+
+
+<h3>2.1. Pharmacodynamic Modeling Using the $ERROR Record
+<a name="2.1."></a>
+<a name="2.1. Pharmacodynamic Modeling Using the $ERROR Record"></a>
+</h3>
+
+
+<p style="margin-top: 1em">$ERROR statements may
+modify the value of F, the scaled drug concentration. They
+may also introduce new
+<img src="grohtml-152213-3.png" alt="Image grohtml-152213-3.png">
+and
+<img src="grohtml-152213-4.png" alt="Image grohtml-152213-4.png">
+variables. This allows pharmacodynamic modeling to be
+performed using PREDPP. Such models occur when a study
+involves measurement of a drug effect, such as blood
+pressure. A proposed model might relate the predicted effect
+to a pharmacokinetic quantity such as plasma level. PREDPP
+can be used to model
+<img src="grohtml-152213-5.png" alt="Image grohtml-152213-5.png">
+as is usual, and the predicted effect can be computed in the
+$ERROR statements.</p>
+
+<p style="margin-top: 1em">For example, suppose that
+a modified version of the phenobarbital data of Chapter 2
+includes observations of some drug effect (in this case,
+perhaps a measure of the degree of sedation) but none of the
+concentration observations. The dose event records are the
+same as those of the earlier example. Suppose that the drug
+concentrations from each individual have been used to
+estimate that individual&rsquo;s K and V parameters, and
+that these estimates are now included on every event record
+for the individual. Finally, suppose that the proposed
+structural model for the effect, E, is an &quot;E-max&quot;
+model:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1522133.png" alt="Image grohtml-1522133.png"></p>
+
+<p style="margin-top: 1em">where here
+<img src="grohtml-152213-7.png" alt="Image grohtml-152213-7.png">
+is understood to mean the prediction of an
+individual&rsquo;s drug concentration in the plasma, and
+<img src="grohtml-152213-8.png" alt="Image grohtml-152213-8.png">
+and
+<img src="grohtml-152213-9.png" alt="Image grohtml-152213-9.png">
+are PD (pharmacodynamic parameters) modeled as</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1522134.png" alt="Image grohtml-1522134.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1522135.png" alt="Image grohtml-1522135.png"></p>
+
+<p style="margin-top: 1em">To fit this data we can
+use the control statements of figure 12.1. To obtain initial
+parameter estimates, let us assume that the following is
+observable in the data. The average value of all effect
+measurements is about 50. Across individuals, the average
+value of the largest effect measurement within each
+individual&rsquo;s data is about 100, and the average value
+of the individual&rsquo;s observed concentration at about
+half this largest measurement is about 20. (This is seen
+when concentration measurements and effect measurements are
+examined together.) Let us also assume 20% random
+interindividual variability in
+<img src="grohtml-152213-12.png" alt="Image grohtml-152213-12.png">
+and
+<img src="grohtml-152213-13.png" alt="Image grohtml-152213-13.png">
+and 4% intraindividual variability in the observation. From
+this we obtain initial estimates of 100 and 20 for
+<img src="grohtml-152213-14.png" alt="Image grohtml-152213-14.png">
+and
+<img src="grohtml-152213-15.png" alt="Image grohtml-152213-15.png">
+,
+<img src="grohtml-152213-16.png" alt="Image grohtml-152213-16.png">
+for
+<img src="grohtml-152213-17.png" alt="Image grohtml-152213-17.png">
+,
+<img src="grohtml-152213-18.png" alt="Image grohtml-152213-18.png">
+for
+<img src="grohtml-152213-19.png" alt="Image grohtml-152213-19.png">
+, and
+<img src="grohtml-152213-20.png" alt="Image grohtml-152213-20.png">
+for
+<img src="grohtml-152213-21.png" alt="Image grohtml-152213-21.png">
+.</p>
+
+<p style="margin-top: 1em">This example is examined
+again in in Section 3.2, which shows the use of $PRED
+statements, and in Section 5, which shows how observed
+concentrations and effects can be fit
+simultaneously.</p>
+
+<p style="margin-top: 1em">References: Users Guide
+VI (PREDPP) IV.B.2</p>
+<pre style="margin-left:3%; margin-top: 1em"><b>$PROBLEM PHARMACODYNAMIC MODEL USING $ERROR STATEMENTS
+$INPUT   ID TIME AMT INDK INDV DV
+$DATA    EFFDATA
+$SUBROUTINE ADVAN1
+$PK
+   K=INDK
+   V=INDV
+   S1=V
+$ERROR
+ EMAX=THETA(1)+ETA(1)
+ C50=THETA(2)+ETA(2)
+ E=EMAX*F/(C50+F)
+ Y=E+ERR(1)
+
+
+$THETA   100  20
+$OMEGA   400  16
+$SIGMA   4
+$ESTIMATION</b></pre>
+
+
+<p style="margin-top: 1em">Figure 12.1. The
+input to NONMEM-PREDPP for analysis of effect
+observations.</small></p>
+
+<h3>2.2. Other Pharmacokinetic Models: ADVAN5-9,ADVAN13-18
+<a name="2.2."></a>
+<a name="2.2. Other Pharmacokinetic Models: ADVAN5-9,ADVAN13-18"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Appendix 1 lists ADVAN
+routines for the most commonly-used pharmacokinetic models.
+Other ADVAN routines are: <br>
+ADVAN5 (General Linear) <br>
+ADVAN6 (General Nonlinear) <br>
+ADVAN7 (General Linear with Real Eigenvalues) <br>
+ADVAN8 (General Nonlinear Kinetics with Stiff Equations)
+<br>
+ADVAN9 (General Nonlinear Kinetics with Equilibrium
+Compartments) <br>
+ADVAN13 (General Nonlinear Kinetics With Stiff/Nonstiff
+Equations using LSODA)(nm71) <br>
+ADVAN14 (General Nonlinear Kinetics With Stiff/Nonstiff
+Equations using CVODES)(nm74) <br>
+ADVAN15 (General Nonlinear Kinetics with Equilibrium
+Compartments using IDAS)(nm74) <br>
+ADVAN16 (General Nonlinear Kinetics with Stiff/Nonstiff and
+Delay Equations using RADAR5 (nm75) <br>
+ADVAN17 (General Nonlinear Kinetics with Equilibrium
+Compartments using RADAR5)(nm75) <br>
+ADVAN18 (General Nonlinear Kinetics with Nonstiff and Delay
+Equations using DDE_SOLVER (nm75)</p>
+
+<p style="margin-top: 1em">With the general methods
+the user defines a model of up to 999 compartments using
+special options of the $MODEL record. For a linear model
+(ADVAN5 and ADVAN7), it is sufficient to specify (directed)
+compartmental connections and to compute their rate constant
+parameters with $PK statements. ADVAN 5 and 7 make use of
+numerical approximations to the matrix exponential. For a
+nonlinear model (ADVAN6, ADVAN8, ADVAN9, ADVAN13, ADVAN14,
+ADVAN15, ADVAN16, ADVAN17, ADVAN18), differential equations
+must be supplied to govern the kinetics, via $DES
+statements. It is possible to specify initial conditions for
+the differential equations using the I_SS (Initial Steady
+State) feature; Reserved variable ISSMOD may be
+used.</p>
+
+<p style="margin-top: 1em">For ADVAN9, ADVAN15 and
+ADVAN17, algebraic equations may also be supplied via $AES
+statements.</p>
+
+<p style="margin-top: 1em">The use of the term
+&rsquo;nonlinear&rsquo; with ADVAN 6, 8, 9, 13, 14, 15, 16,
+17, 18, only indicates that a system of any type of
+first-order differential equations is allowed; such
+equations could be linear or non-linear.</p>
+
+<p style="margin-top: 1em">In all cases, the basic
+features of PREDPP described in Chapter 7 are still
+available, such as the ability to introduce doses of any
+kind to any compartment of the model. It should be noted
+that the general ADVAN routines are relatively slow. For
+example, when a general method is used for a model identical
+to that of an analytic method (ADVAN1 through ADVAN4 or
+ADVAN10 through ADVAN12) the run time increases, usually by
+an order of magnitude.</p>
+
+<p style="margin-top: 1em">Some ADVAN and SS
+routines must be told the number of accurate digits that are
+required in the computation of drug amounts, i.e., the
+relative tolerance. They may also be told the absolute
+tolerance. With some ADVAN and SS, the tolerances may be
+specified for each compartment. They may be specified by
+$SUBROUTINES record options TOL, ATOL, SSTOL, SSATOL; by the
+corresponding options of the $TOL record; or by user-written
+subroutine TOL (which may also specify tolerances by NONMEM
+Step). Option TOL (relative tolerance) may also be specified
+on the $COVARIANCE record. Option ATOL (absolute tolerance)
+may also be specified on $ESTIMATION and $COVARIANCE
+records.</p>
+
+<p style="margin-top: 1em">See Guide NONMEM 7,
+&quot;Controlling the Accuracy of the Gradient Evaluation
+and Individual Objective Function
+Evaluation&quot;</p>
+
+<p style="margin-top: 1em">With ADVAN9, ADVAN13,
+ADVAN14, and ADVAN15, reserved variable MXSTEP may be used
+to set the number of integration steps.</p>
+
+<p style="margin-top: 1em">With $AES, $AESINIT
+statements are also required. If there is no TIME data item,
+$AESINIT may specify a calling protocol for the AES
+subroutine. (See 2.7 below for a discussion of calling
+protocols.)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%">
+
+
+
+<p style="margin-top: 1em"><tt>CALLFL=-1</tt>:</p> </td>
+<td width="83%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Call ADVAN9 and ADVAN15
+and AES with every event record (default)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="15%">
+
+
+
+<p style="margin-top: 1em"><tt>CALLFL=1</tt>:</p> </td>
+<td width="85%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Call ADVAN9 and ADVAN15
+and AES once per individual record.</p>
+
+<p style="margin-top: 1em">Equivalent calling
+protocol phrases are:</p>
+
+<pre style="margin-top: 1em">(EVERY EVENT)
+(ONCE PER IR)</pre>
+
+
+<p style="margin-top: 1em">References: Users Guide
+VI (PREDPP) VI, VII <br>
+References: Users Guide IV (NM-TRAN) V.C.3, 4,
+7-10</p>
+
+<h3>2.3. Zero-Order Bolus Doses
+<a name="2.3."></a>
+<a name="2.3. Zero-Order Bolus Doses"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Instantaneous bolus
+doses, which have AMT&gt;0 and RATE=0, are described in
+Chapter 6. Such doses appear instantaneously in the dose
+compartment. Zero-order bolus doses are doses that enter the
+dose compartment via a zero-order process (in the same
+manner as do infusions) except that the rate or duration of
+the process is computed with $PK statements. When the RATE
+data item has the value -1, then the $PK statements must
+include an assignment statement for an additional PK
+parameter, Rn (the &quot;modeled rate for compartment
+n&quot;), whose value gives the rate of entry of the drug
+during the interval of time between the last event record
+and the current one. There is a different such parameter for
+every compartment receiving a zero-order bolus dose. When
+the RATE data item has the value -2, then the $PK statements
+must include an assignment statement for an additional PK
+parameter, Dn (the &quot;modeled duration for compartment
+n&quot;), whose value at the time of the dose event gives
+the duration time of the dose. The rate and duration
+parameters can be modeled like any other PK parameters; in
+particular, the assignment statements can involve
+<img src="grohtml-152213-22.png" alt="Image grohtml-152213-22.png">
+&rsquo;s which are to be estimated. These parameters can be
+used to model the drug release rate or dissolution time of a
+tablet or capsule.</p>
+
+<p style="margin-top: 1em">Steady-state levels
+involving zero-order bolus doses can be
+computed.</p>
+
+<p style="margin-top: 1em">Steady-state with
+constant infusion was described in Chapter 6. Steady-state
+infusions may also have modeled rates (i.e., the RATE data
+item may be -1).</p>
+
+<p style="margin-top: 1em">References: Users Guide
+VI (PREDPP) III.F.3, F.4</p>
+
+<h3>2.4. The Additional Dose Data Item: ADDL
+<a name="2.4."></a>
+<a name="2.4. The Additional Dose Data Item: ADDL"></a>
+</h3>
+
+
+<p style="margin-top: 1em">ADDL is a dose-related
+data item that is used to request that a given number of
+additional doses, just like the dose specified on the event
+record, be added to the system at a regular time interval,
+starting from the time on the event record. PREDPP itself
+adds these doses at the appropriate future times; no actual
+dose event record is generated by the Data Preprocessor or
+by PREDPP. A positive integer value in ADDL specifies how
+many additional doses (i.e., in addition to that already
+specified in the event record) are to be given, and the
+value in the II (interdose interval) data item (which is
+required) specifies the time interval between
+doses.</p>
+
+<p style="margin-top: 1em">ADDL may be non-zero on a
+steady-state dose event record (except for steady-state
+infusions), in which case additional doses are given,
+maintaining the dosing regimen into the future.
+Non-steady-state kinetic formulas are used to advance the
+system between each additional dose. Reserved variables
+DOSTIM (the time of a lagged dose or additional dose to
+which the system is being advanced) and DOSREC (the dose
+record corresponding to the dose entering at DOSTIM) may be
+used. <br>
+See also Section 2.6 below.</p>
+
+<p style="margin-top: 1em">References: Users Guide
+VI (PREDPP) V.K</p>
+
+<h3>2.5. Lagged doses: the ALAG Parameter
+<a name="2.5."></a>
+<a name="2.5. Lagged doses: the ALAG Parameter"></a>
+</h3>
+
+
+<p style="margin-top: 1em">PREDPP permits an
+additional PK parameter called an absorption lag time. One
+such parameter can be defined for each compartment and
+applies to all doses to that compartment. It gives the
+amount of time that a dose is held as a &quot;pending&quot;
+dose. When the absorption lag time has expired, the dose is
+input into the system. In effect, the value of the
+absorption lag time parameter is added to the value of the
+TIME data item on the dose event record. With NM-TRAN,
+recognized names for absorption lag time parameters have the
+form ALAGn, where n is the compartment number. Reserved
+variables DOSTIM (the time of a lagged dose or additional
+dose to which the system is being advanced) and DOSREC (the
+dose record corresponding to the dose entering at DOSTIM)
+may be used. <br>
+See also Section 2.6 below.</p>
+
+<p style="margin-top: 1em">See Guide VI, Chapter V,
+Note 3 for the effect of ALAGn with Steady-State
+doses.</p>
+
+<p style="margin-top: 1em">References: Users Guide
+VI (PREDPP) III.F.6 <br>
+References: Users Guide IV (NM-TRAN) V.C.5</p>
+
+<h3>2.6. Model Event Times: MTIME
+<a name="2.6."></a>
+<a name="2.6. Model Event Times: MTIME"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Model event times
+MTIME(i) are additional PK parameters defined in the PK
+routine or $PK block. A model event time is not associated
+with any compartment, but, like an absorption lag time,
+defines a time to which the system is advanced. When the
+time is reached, indicator variables are set and a call to
+PK is made. At this call (and/or subsequent to this call) PK
+or DES or AES or ERROR can use the indicator variables to
+change some aspect of the system, e.g., a term in a
+differential equation, or the rate of an infusion. Reserved
+variables MNEXT, MPAST, MNOW, MTDIFF may be
+used.</p>
+
+<p style="margin-top: 1em">MTIME does not apply to
+Steady-State doses. See Guide VI, Chapter V, Note
+4.</p>
+
+<h3>2.7. Controlling Calls to PK and ERROR
+<a name="2.7."></a>
+<a name="2.7. Controlling Calls to PK and ERROR"></a>
+</h3>
+
+
+<p style="margin-top: 1em">In order to evaluate the
+$PK and $ERROR statements, PREDPP calls the PK and ERROR
+subroutines. By default, the subroutines are called with
+every event record. PREDPP may be instructed to limit calls
+to certain event records in order to save the computing time
+involved with unnecessary calls (e.g. when the PK parameters
+do not vary from event record to event record within an
+individual). It is also possible to cause the PK subroutine
+to be called at times which do not correspond to any actual
+event record.</p>
+
+<p style="margin-top: 1em">Using NM-TRAN, calls to
+PK are controlled by the presence of one of the following
+pseudo-statements, at the start of the $PK
+block:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p><tt>CALLFL=-2</tt>:</p></td>
+<td width="83%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">call with every event
+record, at additional and lagged dose times, and at modeled
+event times.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p><tt>CALLFL=-1</tt>:</p></td>
+<td width="83%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">call with every event
+record (default).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="15%">
+
+
+<p><tt>CALLFL=0</tt>:</p></td>
+<td width="85%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">call with the first event
+record of each individual record and with new values of
+TIME.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="15%">
+
+
+<p><tt>CALLFL=1</tt>:</p></td>
+<td width="85%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">call once per individual
+record.</p>
+
+<p>A <b>calling protocol phrase</b> may be used
+instead of a pseudo-statement. A calling protocol phrase may
+use upper- or lower-case characters. It must be enclosed in
+parentheses. NM-TRAN can understand minor variations in the
+wording. E.g., the word &quot;CALL&quot; and prepositions
+such as WITH can be omitted. Here are calling protocol
+phrases equivalent to the above four pseudo-statements,
+respectively.</p>
+
+<pre>(CALL WITH NON-EVENT TIMES)
+(CALL WITH EVERY EVENT RECORD)
+(CALL WITH FIRST EVENT RECORD AND NEW TIME)
+(CALL ONCE PER INDIVIDUAL RECORD)</pre>
+
+
+<p>The choice <tt>CALLFL=-2 (CALL WITH NON-EVENT
+TIMES)</tt> is intended to be used when PK parameters Dn
+and/or Fn apply to additional or lagged doses <i>and</i> the
+model for these parameters depends on some time-varying
+concomitant variable such as type of drug preparation or
+patient weight. By default, the values of the PK parameters
+which apply to the dose are those values computed by PK with
+the first event record having a value of TIME greater than
+the time at which the dose actually enters the system (the
+additional or lagged dose time). However, if PREDPP is
+instructed to also call PK at the additional or lagged dose
+time, then the values of the PK parameters are those values
+computed at these special calls. At such calls, PK has
+available to it information from the initiating dose event
+record itself, and information from the two event records
+whose TIME values bracket the additional or lagged dose
+time. Along with <tt>CALLFL=-2</tt> in the $PK block, the
+NM-TRAN $BIND record may be useful; see Users Guide IV. <br>
+Using NM-TRAN, calls to ERROR are controlled by the presence
+of one of the following pseudo-statements at the start of
+the $ERROR block:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p><tt>CALLFL=-1</tt>:</p></td>
+<td width="3%"></td>
+<td width="65%">
+
+
+<p>call with every event record
+(default).</p> </td>
+<td width="15%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p><tt>CALLFL=0</tt>:</p></td>
+<td width="3%"></td>
+<td width="65%">
+
+
+<p>call with observation events only.</p></td>
+<td width="15%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p><tt>CALLFL=1</tt>:</p></td>
+<td width="3%"></td>
+<td width="65%">
+
+
+<p>call once per individual record.</p></td>
+<td width="15%">
+</td></tr>
+</table>
+
+<p>A calling protocol phrase may be used instead of
+a pseudo-statement. As in the $PK block, the calling
+protocol phrase may use upper- or lower-case characters and
+must be enclosed in parentheses. <br>
+Here are calling protocol phrases equivalent to the above
+three pseudo-statements, respectively.</p>
+
+<pre>(CALL WITH EVERY EVENT RECORD)
+(CALL WITH OBSERVATION EVENTS)
+(CALL ONCE PER INDIVIDUAL RECORD)</pre>
+
+
+<p>NM-TRAN automatically instructs PREDPP to limit
+calls to ERROR to once per <i>problem</i> for the simple
+error models discussed in Chapter 8, Sections 3.1 and 3.2:
+<tt><b><br>
+Y=F+ERR(1) <br>
+Y=F+F*ERR(1) <br>
+Y=F*(1+ERR(1)) <br>
+Y=F*EXP(ERR(1))</b></tt> <br>
+During the Simulation Step, PREDPP ignores any limitation
+and calls the ERROR subroutine with every event record. <br>
+Even when calls to PK and/or ERROR are limited, the CALL
+input data item can be used to force additional calls for
+specific event records as needed. <br>
+References: Users Guide VI (PREDPP) III.B.2, III.H, IV.C,
+V.J <br>
+References: Users Guide IV (NM-TRAN) V.C.5, C.6</p>
+
+<h3>2.8. Output-Type Compartments
+<a name="2.8."></a>
+<a name="2.8. Output-Type Compartments"></a>
+</h3>
+
+
+<p style="margin-top: 1em">With all versions of
+PREDPP <b>output-type</b> compartments may be defined using
+the $MODEL record. Suppose there is a compartment named
+METABURI (for metabolite in urine). If it is to be an
+output-type compartment, it must defined as follows:
+<tt><b><br>
+$MODEL COMP=(METABURI,NODOSE,INITIALOFF)</b></tt>
+<br>
+The compartment is initally off, may be turned on and off,
+and may not receive a dose. Just as with the default output
+compartment, CMT may be negative on an observation record,
+allowing the observation to be obtained, and then the
+compartment turned off, with a single record. There may be
+more than one such compartment, in addition to the default
+output compartment. An output-type compartment must be
+turned on with an other-type event record in order to start
+accumulating drug. An output-type is not computed by
+mass-balance, but must instead be computed explictly by the
+ADVAN routine, e.g., using a differential equation when a
+general non-linear model is used. <br>
+For an example, see Chapter 6, Section 9.</p>
+
+<pre style="margin-top: 1em"><b> ID  TIME EVID UVOL  DV   CMT  AMT
+  1  9.50   0   75  .058   -3    0</b></pre>
+
+
+<p style="margin-top: 1em">With ADVAN2, compartment
+3 is the default compartment for output, and the observation
+at TIME 9.50 may have CMT=-3. But suppose a general linear
+or non-linear model is used (ADVAN5,6,7,8,9,13) and there
+are more than 3 user-defined compartments. <br>
+If the $MODEL statement describes the 3d. compartment as
+simply <tt><b><br>
+$MODEL COMP=NAME</b></tt> <br>
+then the default compartment attributes apply (initial on,
+off/on allowed, dose allowed) and the compartment is not an
+output-type compartment. PREDPP produces this error message
+for data record 3: <tt><b><br>
+SPECIFIED COMPARTMENT MAY NOT BE TURNED OFF WITH AN
+OBSERVATION RECORD</b></tt> <br>
+There are two ways to avoid this error message. First, it is
+always possible (for any compartment that may be turned off,
+even the output compartment) to use two records instead of
+one, e.g., first the observation, then a record with EVID=2
+that turns off the compartment:</p>
+
+<pre style="margin-top: 1em"><b>  1  9.50   0   75  .058    3    0
+  1  9.50   2    0   0     -3    0</b></pre>
+
+
+<p>Alternately, it is possible to leave the data
+as-is, and change the $MODEL statement so that compartment 3
+is an output-type compartment.</p>
+
+<h3>2.9. Transgeneration of Input Data: the INFNSubroutine
+<a name="2.9."></a>
+<a name="2.9. Transgeneration of Input Data: the INFNSubroutine"></a>
+</h3>
+
+
+<p style="margin-top: 1em">NONMEM may be used to
+modify the data records before any computations are
+performed and also after all computations have been
+performed. This is referred to as <b>transgeneration</b> of
+the data. Transgeneration at the beginning of a problem can
+be used, for example, to change weight-normalized doses to
+unnormalized doses. PREDPP allows the user to supply a
+subroutine called INFN or a $INFN block of abbreviated code
+(&quot;initialization/finalization&quot;) in which
+transgeneration can be performed. (The PREDPP library
+includes a default INFN subroutine which does nothing.) <br>
+The NONMEM PASS subroutine is used for transgeneration.
+$INFN and $PRED code may use the following statements to
+process each record of the data set. ICALL values may be 0,
+1 or 3, for run initializaton, problem initialization, and
+problem finalization, respectively.</p>
+
+<pre><b>IF (ICALL == 3) THEN
+DOWHILE(DATA)
+  ...
+ENDDO
+ENDDO</b></pre>
+
+
+<p>Reserved variable PASSRC may be of interest. <br>
+References: Users Guide VI (PREDPP) VI.A</p>
+
+<h2>3. User-written PRED Subroutines
+<a name="3."></a>
+<a name="3. User-written PRED Subroutines"></a>
+</h2>
+
+
+<p style="margin-top: 1em">It is not necessary to
+use PREDPP with NONMEM. Either $PRED statements or a
+user-written PRED subroutine may be used in place of PREDPP
+to supply NONMEM with predicted values for the DV data item
+according to some (not necessarily pharmacokinetic) model.
+An example using $PRED statements is given here. A special
+caveat applies to user-written PRED subroutines that are
+recursive: see 4.6 below. <br>
+References: Users Guide I (Basic) C.2</p>
+
+<h3>3.1. Required Data Items
+<a name="3.1."></a>
+<a name="3.1. Required Data Items"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The only required data
+items when PREDPP is not used are the NONMEM data items DV,
+MDV, and ID. When PREDPP is used, the Data Preprocessor is
+able to recognize which records contain observed values and
+which do not, and it supplies the MDV data item if it is not
+already present in the data file. When PREDPP is not used,
+the Data Preprocessor cannot do this. The input data file
+must already contain the MDV data item if it is needed,
+i.e., if the DV item of some data record does not contain a
+value of an actual observation. <br>
+If $PRED statements are used, they must calculate a variable
+called Y, using input data items and NONMEM&rsquo;s
+<img src="grohtml-152213-23.png" alt="Image grohtml-152213-23.png">
+,
+<img src="grohtml-152213-24.png" alt="Image grohtml-152213-24.png">
+, and (for population models)
+<img src="grohtml-152213-25.png" alt="Image grohtml-152213-25.png">
+vectors in the calculation. <br>
+References: Users Guide I (Basic) B.1 <br>
+References: Users Guide IV (NM-TRAN) III.B.8</p>
+
+<h3>3.2. An Example of $PRED Statements: PharmacodynamicModeling
+<a name="3.2."></a>
+<a name="3.2. An Example of $PRED Statements: PharmacodynamicModeling"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The syntax of $PRED
+statements is essentially the same as discussed for $PK and
+$ERROR statements. $PRED statements can be used for simple
+pharmacokinetic and pharmacodynamic models. In figure 12.1
+above an example was given of pharmacodynamic modeling using
+$ERROR statements. Suppose that in that example, drug
+concentration is always measured at the same time as drug
+effect. Suppose too, that rather than input the
+individuals&rsquo; values of K and V and use them to compute
+a predicted drug concentration for the individual, the
+observed drug concentration itself is used in the Emax
+model. This means that the the observed concentrations are
+again incorporated into the data, but now as values of an
+independent variable, rather than as the DV data item. This
+also means that a pharmacokinetic model is not needed, and
+therefore, PREDPP is not needed either. Figure 12.2 shows
+the control stream for this new example.</p>
+
+<pre style="margin-left:3%;"><b>$PROBLEM A SIMPLE PHARMACODYNAMIC MODEL
+$INPUT   ID TIME CP DV
+$DATA    EFFDATA
+$PRED
+ EMAX=THETA(1)+ETA(1)
+ C50=THETA(2)+ETA(2)
+ E=EMAX*CP/(C50+CP)
+ Y=E+ERR(1)
+$THETA   100   20
+$OMEGA   400   16
+$SIGMA   4
+$ESTIMATION</b></pre>
+
+
+<p style="margin-top: 1em">Figure 12.2. The
+input to NONMEM including $PRED statements for analysis of
+effect data.</small></p>
+
+<h2>4. Advanced Features of NONMEM
+<a name="4."></a>
+<a name="4. Advanced Features of NONMEM"></a>
+</h2>
+
+
+<h3>4.1. Full Covariance Matrices: $OMEGA BLOCK and $SIGMABLOCK
+<a name="4.1."></a>
+<a name="4.1. Full Covariance Matrices: $OMEGA BLOCK and $SIGMABLOCK"></a>
+</h3>
+
+
+<p style="margin-top: 1em">In the examples of
+Chapter 2 and 9, there appeared statements such as:
+<tt><b><br>
+$OMEGA .0000055, .04</b></tt> <br>
+This is an example of the specification of initial parameter
+estimates for a variance-covariance
+<img src="grohtml-152213-26.png" alt="Image grohtml-152213-26.png">
+matrix which is constrained to be <i>diagonal</i>. Initial
+estimates are given for the variances of
+<img src="grohtml-152213-27.png" alt="Image grohtml-152213-27.png">
+and of
+<img src="grohtml-152213-28.png" alt="Image grohtml-152213-28.png">
+. The covariance between
+<img src="grohtml-152213-29.png" alt="Image grohtml-152213-29.png">
+and
+<img src="grohtml-152213-30.png" alt="Image grohtml-152213-30.png">
+is constrained to be 0, i.e.,
+<img src="grohtml-152213-31.png" alt="Image grohtml-152213-31.png">
+. Another way of writing this statement is:
+<tt><b><br>
+$OMEGA DIAGONAL(2) .0000055, .04</b></tt> <br>
+The option <tt>DIAGONAL(2)</tt> states explicitly that the
+block contains two
+<img src="grohtml-152213-32.png" alt="Image grohtml-152213-32.png">
+s and that it has diagonal form. <br>
+If the data supports the possibility that
+<img src="grohtml-152213-33.png" alt="Image grohtml-152213-33.png">
+and
+<img src="grohtml-152213-34.png" alt="Image grohtml-152213-34.png">
+covary with each other, it may be useful to model
+<img src="grohtml-152213-35.png" alt="Image grohtml-152213-35.png">
+as being unconstrained and allow NONMEM to estimate the
+covariance. A special form of the $OMEGA record is used, in
+which initial values are supplied for both variances and the
+covariance. For example: <tt><b><br>
+$OMEGA BLOCK(2) .0000055, .0000001, .04</b></tt>
+<br>
+The option <tt>BLOCK(2)</tt> states that there are two
+<img src="grohtml-152213-36.png" alt="Image grohtml-152213-36.png">
+variables in the block, and that covariance is to be
+estimated. The new element is
+<img src="grohtml-152213-37.png" alt="Image grohtml-152213-37.png">
+. <br>
+$OMEGA BLOCK is used for both population and individual
+studies, i.e., it is the same whether
+<img src="grohtml-152213-38.png" alt="Image grohtml-152213-38.png">
+is used in the first case in a model for residual error or
+is used in the second case in a model for random
+interindividual error. In a population study, if there is
+more than one
+<img src="grohtml-152213-39.png" alt="Image grohtml-152213-39.png">
+variable, and the model allows these variables to covary,
+then $SIGMA BLOCK is used in a similar manner. <br>
+The initial estimates of even more complicated
+<img src="grohtml-152213-40.png" alt="Image grohtml-152213-40.png">
+and
+<img src="grohtml-152213-41.png" alt="Image grohtml-152213-41.png">
+matrices may be given using multiple $OMEGA and $SIGMA
+records. For example, the initial estimates of a mixture of
+correlated and uncorrelated random variables may given.
+Also, in this context (as with the simple form of the $OMEGA
+and $SIGMA records described in Chapter 9, Section 3)
+variances-covariances may be constrained to fixed values by
+means of the FIXED option. Finally, some
+variances-covariances may be constrained to equal others by
+means of the BLOCK SAME option. <br>
+The ability to fix all variances-covariances in both
+<img src="grohtml-152213-42.png" alt="Image grohtml-152213-42.png">
+and
+<img src="grohtml-152213-43.png" alt="Image grohtml-152213-43.png">
+allows Bayesian estimates to be obtained of the
+pharmacokinetic parameters of a single individual, based on
+the individual&rsquo;s data and a prior population
+distribution for the parameters. <br>
+References: Users Guide IV (NM-TRAN) III.B.10</p>
+
+<h4>4.1.1. More About $OMEGA and $SIGMA
+<a name="4.1.1."></a>
+<a name="4.1.1. More About $OMEGA and $SIGMA"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Initial estimates of a
+block of $OMEGA or $SIGMA must be positive definite unless
+the entire block is fixed to 0. <br>
+If initial estimates of a block of $OMEGA or $SIGMA is not
+positive definite because of rounding errors, a value will
+be added to the diagonal elements to make it positive
+definite. A message in the NONMEM report file will indicate
+if this was done. (nm73). <br>
+Additional options include: <tt><br>
+VARIANCE</tt> (initial estimates of diagonal elements are
+variances (default)) <tt><br>
+STANDARD</tt> or <tt>SD</tt> (initial estimates of diagonal
+elements are standard deviations) <tt><br>
+COVARIANCE</tt> (initial elements of off-diagonal elements
+are covariances (default)) <tt><br>
+CORRELATION</tt> (initial elements of off-diagonal elements
+are correlation) <tt><br>
+CHOLESKY</tt> (the block is specified in its Cholesky form)
+<br>
+NONMEM converts all initial estimates to variance and
+covariances. The values desplayed in the NONMEM report and
+in the raw and additional output files are always variances
+and covariances. <br>
+If the initial estimate of $OMEGA or $SIGMA has
+band-symmetric form, NONMEM will be constrained to retain
+this form (nm7). <br>
+Special value of $OMEGA elements for unconstrained etas: If
+all diagonal elements of $OMEGA are &quot;1.0E+06
+FIXED&quot; this indicates that, in a multi-subject data
+set, each subject&rsquo;s data is to be analyzed as
+individual data. This is described by NONMEM as <tt><br>
+ANALYSIS TYPE: POPULATION WITH UNCONSTRAINED ETAS</tt>(nm73)
+<br>
+Short-cuts may be used for entering repeated
+information.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="33%">
+
+
+<p>BLOCK SAME(m) option</p></td>
+<td width="67%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">A count m may be
+included. With <tt>$OMEGA&nbsp;BLOCK(n)&nbsp;SAME(m)</tt>
+the <tt>$OMEGA&nbsp;BLOCK(n)&nbsp;SAME</tt> record is
+repeated m times. Similarly for $SIGMA records
+(nm73).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="63%">
+
+
+<p>$THETA, $OMEGA, $SIGMA Repeated
+values</p> </td>
+<td width="37%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">When specifying initial
+estimates, a repeated value can be coded using notation
+(...)xn. E.g., $OMEGA (2)x4 can be used in place of $OMEGA 2
+2 2 2. Simliarly for $SIGMA and $THETA.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="45%">
+
+
+<p>$OMEGA,$SIGMA VALUES option</p></td>
+<td width="55%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">If initial estimates of
+all diagonal elements of $OMEGA or $SIGMA are the same, and
+initial estimates of all off-diagonal elements are the same,
+they can be specified simply as $OMEGA
+BLOCK(n)VALUES(diag,odiag).</p>
+
+<p>Informative record names for <tt>$OMEGA</tt> and
+<tt>$SIGMA</tt> may be used to make it easier place the
+records in the control stream. <tt><br>
+$OMEGAP</tt> specifies omega priors <tt><br>
+$OMEGAPD</tt> specifies degrees of freedom (or dispersion
+factor) for omega priors <br>
+They are identical to <tt>$OMEGA</tt> records, but
+understood to specify prior information for NWPRI. They may
+be placed anywhere in the control stream, whereas the same
+records without &quot;P&quot; or &quot;PD&quot; would have
+to be in a specific location. <br>
+Informative record names <tt>$SIGMAP</tt> and
+<tt>$SIGMAPD</tt> may be used similarly.</p>
+
+<h3>4.2. Grouping Related Observations: The L1 and L2 DataItems
+<a name="4.2."></a>
+<a name="4.2. Grouping Related Observations: The L1 and L2 DataItems"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The $ERROR statements for
+a problem may sometimes involve more than one random
+variable. For example, there may be two types of
+observations. One type may be an observation from one
+compartment of a PK system, or with one assay or
+preparation, and another type may be an observation from a
+different compartment or with a different assay or
+preparation. The model for the two types of observations
+would typically involve at least two
+<img src="grohtml-152213-44.png" alt="Image grohtml-152213-44.png">
+variables (e.g. (3.8)). If all observations are made at
+sufficiently separated times, there may be little reason to
+be concerned about correlation between the two random
+errors. However, if the two types of observations are taken
+at the same or very close to the same time, it is possible
+that correlation will exist; whatever circumstance has
+influenced one observation to be different from the
+predicted level may also have some influence on the other
+observation. In this case a covariance between the two
+<img src="grohtml-152213-45.png" alt="Image grohtml-152213-45.png">
+variables should be allowed, as described above in Section
+4.1. Then the two types of observations at the same time
+point are regarded as two elements of a <b>multivariate
+observation.</b> <br>
+In the case of population data, there exists a NONMEM data
+item, L2, which is used to identify the elements of a
+multivariate observation. In effect, L2 acts in a similar
+way as ID, but grouping observations <i>within</i>
+individual records. <br>
+In the case of individual data, the ID data item already
+serves this purpose: it forms groups of observations whose
+<img src="grohtml-152213-46.png" alt="Image grohtml-152213-46.png">
+variables may be correlated. Thus, in the input data file,
+the ID data item should be the same for those observations
+which may have correlated
+<img src="grohtml-152213-47.png" alt="Image grohtml-152213-47.png">
+s. However, for individual data, the Data Preprocessor
+normally replaces the ID data item with a new set of values
+which describe every observation as being independent of the
+others. To prevent the Data Preprocessor from doing this, L1
+should be included in the $INPUT record as the name or
+synonym for the user-supplied ID data item. <br>
+Auto-correlation: The values of epsilons used in the
+intraindividual model may be correlated across the
+observations contained in the L2 record. Auto-correlation
+may be part of both Simulation and Estimation. The CORRL2
+reserved variable may be used. <br>
+References: Users Guide IV (NM-TRAN) II.C.4, III.B.2 <br>
+References: Users Guide II (Supplemental) D.3</p>
+
+<h3>4.3. Continuing a NONMEM Run: MSFO and MSFI
+<a name="4.3."></a>
+<a name="4.3. Continuing a NONMEM Run: MSFO and MSFI"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The <tt>MSFO</tt> (Model
+Specification Output File) option of the $ESTIMATION record
+instructs NONMEM to write a <b>Model Specification File
+(MSF).</b> It is created when NONMEM writes the first
+iteration summary to the intermediate output file, and is
+re-written when every subsequent iteration summary is
+written. This file can then be read in a subsequent NONMEM
+run using a $MSFI (Model Specification File Input) record.
+This file has much of the information about the model used
+in the previous run, thus the name &quot;Model Specification
+File&quot;. It also contains all the information that allows
+the Estimation Step from the previous run (which may have
+terminated, for example, due to the number of function
+evaluations exceeding its limit or a computer crash or some
+other externally-caused interruption of the NONMEM run) to
+be continued in the subsequent run. There are a number of
+benefits to using a MSF. First, what might be a long
+Estimation Step (due to a very lengthy search) can be split
+over a series of runs, each with a limited number of
+function evaluations. Any run which terminates prematurely
+due to computer failure can be restarted from the MSF output
+in the previous run. (This provides a
+&quot;checkpoint/restart&quot; capability.) The progress
+made in the Estimation Step can also be evaluated between
+runs, and a decision made as to whether it is worth
+continuing a search which is consuming excessive amounts of
+computer time. Second, the Covariance, Tables, and
+Scatterplot Steps can be performed in later runs, each using
+the MSF from the final run with the Estimation Step. It is
+advisable to perform the Covariance Step only after
+satisfactory results have been obtained from the Estimation
+Step. Third, when NONMEM writes to the MSF, it also writes
+iteration summaries to the intermediate printout file
+(INTER). These iteration summaries are in the original
+parameterization (nm72). <br>
+Options are described in Guide VIII. These include
+NORESCALE, ONLYREAD , and NPOPETAS (nmvi). (NPOPETAS gives
+information to NM-TRAN rather than NONMEM.) The VERSION
+option allows NONMEM to read MSF files generated by previous
+versions of NONMEM (nm74). The NOMSFTEST option tells NONMEM
+to turn off strict MSFI error testing (nm74). <br>
+Option NEW allows analysis to continue, or to allow an
+analysis on a new data set, resuming from the final
+parameters of the MSF file. (nm74) <br>
+References: Users Guide I (Basic) C.4.4 <br>
+References: Users Guide IV (NM-TRAN) III.B.6, B.12 <br>
+References: Introduction to NONMEM 7</p>
+
+<h3>4.4. NONMEM Can Obtain Initial Estimates for , ,
+<a name="4.4."></a>
+<a name="4.4. NONMEM Can Obtain Initial Estimates for , ,"></a>
+</h3>
+
+
+<p style="margin-top: 1em">NONMEM can be directed to
+obtain initial estimates for one or more elements of
+<img src="grohtml-152213-51.png" alt="Image grohtml-152213-51.png">
+,
+<img src="grohtml-152213-52.png" alt="Image grohtml-152213-52.png">
+, or
+<img src="grohtml-152213-53.png" alt="Image grohtml-152213-53.png">
+. This is done in a separate Initial Estimates Step. For an
+element of
+<img src="grohtml-152213-54.png" alt="Image grohtml-152213-54.png">
+, omit the initial estimate but include lower and upper
+bounds, e.g., (1, ,50) in the $THETA record. (The
+NUMBERPOINTS option may be used to control the number of
+points in
+<img src="grohtml-152213-55.png" alt="Image grohtml-152213-55.png">
+space examined by NONMEM during the search for initial
+estimates of
+<img src="grohtml-152213-56.png" alt="Image grohtml-152213-56.png">
+.) For a block of
+<img src="grohtml-152213-57.png" alt="Image grohtml-152213-57.png">
+or
+<img src="grohtml-152213-58.png" alt="Image grohtml-152213-58.png">
+, omit all initial estimates on the $OMEGA BLOCK (or
+DIAGONAL) record, or $SIGMA BLOCK (or DIAGONAL) record,
+respectively. <br>
+Note that when $PK and $ERROR statements are present but the
+$OMEGA and/or $SIGMA records are absent, NONMEM will be
+directed to obtain initial estimates for the variances of
+the random variables in question, assuming the diagonal form
+of the matrix. <br>
+References: Users Guide IV (NM-TRAN) III.B.9-11</p>
+
+<h3>4.5. Improving Parameter Estimates: REPEAT and RESCALE
+<a name="4.5."></a>
+<a name="4.5. Improving Parameter Estimates: REPEAT and RESCALE"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The Estimation Step can
+be immediately repeated after the search has terminated
+successfully, by including the <tt>REPEAT</tt> option on the
+$ESTIMATION record. This can improve the accuracy of the
+parameter estimates when one or more initial estimates are
+wrong by a few orders of magnitude. The final estimates from
+the first implementation of the Estimation Step are used as
+the initial estimates of the second implementation, and thus
+the scaling used with the STP is different from that with
+the first implementation, allowing fewer leading zeros after
+the decimal point in the STP. When the Estimation Step is
+continued by means of a Model Specification File, similar
+rescaling can be requested using the <tt>RESCALE</tt> option
+of the $MSFI record. <br>
+References: Users Guide IV (NM-TRAN) III.B.12, B.14 <br>
+References: Users Guide II (Supplemental) F</p>
+
+<h3>4.6. The Covariance Step: , , SpecialComputation
+<a name="4.6."></a>
+<a name="4.6. The Covariance Step: , , SpecialComputation"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The Covariance Step,
+which computes standard errors of the parameter estimates,
+first computes a covariance matrix of the parameter
+estimates. (This is not the same as the
+<img src="grohtml-152213-61.png" alt="Image grohtml-152213-61.png">
+or
+<img src="grohtml-152213-62.png" alt="Image grohtml-152213-62.png">
+matrix). It is possible to request that this covariance
+matrix be computed in one of three different ways: either as
+<img src="grohtml-152213-63.png" alt="Image grohtml-152213-63.png">
+,
+<img src="grohtml-152213-64.png" alt="Image grohtml-152213-64.png">
+, or
+<img src="grohtml-152213-65.png" alt="Image grohtml-152213-65.png">
+(the default), where
+<img src="grohtml-152213-66.png" alt="Image grohtml-152213-66.png">
+and
+<img src="grohtml-152213-67.png" alt="Image grohtml-152213-67.png">
+are two matrices from statistical theory, the Hessian and
+Cross-Product Gradient matrices, respectively. Options
+<tt>MATRIX=R</tt> and <tt>MATRIX=S</tt> of the $COVARIANCE
+record are used to request the
+<img src="grohtml-152213-68.png" alt="Image grohtml-152213-68.png">
+and
+<img src="grohtml-152213-69.png" alt="Image grohtml-152213-69.png">
+matrices, respectively. The Covariance Step can produce
+additional output. When the default covariance matrix is
+used,
+<img src="grohtml-152213-70.png" alt="Image grohtml-152213-70.png">
+and/or
+<img src="grohtml-152213-71.png" alt="Image grohtml-152213-71.png">
+can be printed. This is requested by options
+<tt>PRINT=R</tt> and/or <tt>PRINT=S</tt>. Eigenvalues are be
+printed if requested by option <tt>PRINT=E</tt>. Multiple
+<tt>PRINT</tt> options can be specified. <br>
+A special computation is <i>required</i> when the data are
+from a single individual and a recursive PRED is used. A
+recursive PRED is one which stores the results of certain
+computations using the values from one event record, and
+uses these results in later computations with the values
+from a later event record. PREDPP advances the kinetic
+system from one time point to the next and therefore is an
+example of a recursive PRED. When PREDPP is used and the
+data is from a single individual, NM-TRAN automatically
+requests the special computation. When a recursive
+user-written PRED is used and the data are from a single
+individual, the <tt>SPECIAL</tt> option of the $COVARIANCE
+record <i>must</i> be used. <br>
+The <tt>CONDITIONAL</tt> option of the $COVARIANCE record
+requests that the Covariance Step be implemented only if
+Estimation Step terminates successfully, and is the default.
+The <tt>UNCONDITIONAL</tt> option can be used to request
+that it be implemented no matter how the Estimation Step
+terminates. <br>
+References: Users Guide IV (NM-TRAN) III.B.15 <br>
+References: Users Guide II (Supplemental) D.2.5</p>
+
+<h4>4.6.1. More About $COVARIANCE
+<a name="4.6.1."></a>
+<a name="4.6.1. More About $COVARIANCE"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Other options of
+interest: <tt><br>
+COMPRESS</tt> (affects how the Covariance matrices are
+displayed in the NONMEM report) <tt><br>
+NOSLOW|SLOW</tt> (SLOW Requests a slower method of
+computation) <tt><br>
+SIGL|SIGLO</tt> (affects how computations are done in the
+Covariance Step) <tt><br>
+RESUME</tt> (allows the Covariance Step to resume from a
+MSF) <tt><br>
+NOFCOV</tt> (turns of the Covariance Step for Estimation
+steps using the classical methods) <br>
+The $ESTIMATION record option NOCOV may be used to turn off
+the Covariance Step following a particular Estimation step,
+and to turn it back on again. <br>
+See Section 6.8 for more about $COV.</p>
+
+<h3>4.7. Multiple Problems in a Single NONMEM Run
+<a name="4.7."></a>
+<a name="4.7. Multiple Problems in a Single NONMEM Run"></a>
+</h3>
+
+
+<p style="margin-top: 1em">NONMEM can implement more
+than one problem in a single run. That is, the input control
+stream can contain more than one $PROBLEM record, each
+followed by its own set of problem specification statements.
+This feature can be useful in a variety of situations. A
+series of what otherwise would be separate runs, each
+analyzing a single individual&rsquo;s data within a
+population data file, can be performed conveniently without
+building separate data files for each individual. Also, more
+than one data set can be analyzed using the same model and
+the same problem specification. Multiple problems are also
+useful with NONMEM&rsquo;s Simulation Step, described below.
+<br>
+Note that abbreviated code such as $PK and $ERROR statements
+cannot appear after the first problem. If the $DATA record
+is omitted or the filename is specified as * on a $DATA
+record in a problem subsequent to the first, the previous
+data set is re-used. <br>
+With multiple problems, the following NONMEM reserved
+variables are of interest: <br>
+NPROB,IPROB <br>
+A sequence of problems may be defined to be a
+<b>superproblem</b> by means of the NM-TRAN $SUPER record,
+and NONMEM may also be directed to repeat them a specific
+number of times. <br>
+With superproblems, the following NONMEM reserved variables
+are of interest: <br>
+S1NUM S2NUM S1NIT S2NIT S1IT S2IT <br>
+SKIP_ variable for Superproblem termination <br>
+References: Users Guide IV (NM-TRAN) III.B.1</p>
+
+<h3>4.8. Simulation Using NONMEM: The $SIMULATION Record
+<a name="4.8."></a>
+<a name="4.8. Simulation Using NONMEM: The $SIMULATION Record"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The term
+<b>simulation</b> refers to the generation of data points
+according to some model. A simple form of simulation is
+performed when the Estimation Step is omitted but the Table
+Step is implemented. The PRED column of the table contains
+predictions based on the information in the data records and
+the initial estimates of
+<img src="grohtml-152213-72.png" alt="Image grohtml-152213-72.png">
+, under the model specified in the PRED (PREDPP) subroutine.
+Random variables
+<img src="grohtml-152213-73.png" alt="Image grohtml-152213-73.png">
+and
+<img src="grohtml-152213-74.png" alt="Image grohtml-152213-74.png">
+(if any) have no effect on the predictions and may be
+omitted. If the only purpose of the run is to obtain
+simulated values, and these variables are present, it is
+best (but not required) that their variances be fixed to 0.
+NONMEM does not compute the objective function in this
+circumstance, which has certain advantages. <br>
+NONMEM can also perform a Simulation Step, in which another
+type of simulation is performed. In the Simulation Step,
+each value of the DV data item of each record with MDV=0 is
+replaced by a simulated observation generated from the
+model, but including statistical variability&dagger;. <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; During the
+Simulation Step, values of F computed by PRED or PREDPP for
+records having MDV=1 are irrelevant and are ignored by
+NONMEM. <br>
+---------- <br>
+</cite></p>
+
+<p style="margin-top: 1em">The PRED (PREDPP) routine
+uses
+<img src="grohtml-152213-75.png" alt="Image grohtml-152213-75.png">
+and
+<img src="grohtml-152213-76.png" alt="Image grohtml-152213-76.png">
+values that are supplied by NONMEM according to
+user-specified random distributions (e.g., with variances
+given by the initial estimates of
+<img src="grohtml-152213-77.png" alt="Image grohtml-152213-77.png">
+and
+<img src="grohtml-152213-78.png" alt="Image grohtml-152213-78.png">
+). If
+<img src="grohtml-152213-79.png" alt="Image grohtml-152213-79.png">
+and
+<img src="grohtml-152213-80.png" alt="Image grohtml-152213-80.png">
+matrices are fixed to zero, for example, the simulated
+values are the same as the predictions described above. <br>
+If the data are then displayed by the Table Step, the DV
+column for records with MDV=0 contains the simulated
+observations obtained from the Simulation Step. For records
+having MDV=1, the DV column contains whatever was in the
+original data record. The PRED column of the table contains
+predictions as described above. If the Estimation Step was
+not implemented, the values of
+<img src="grohtml-152213-81.png" alt="Image grohtml-152213-81.png">
+used for these predictions are the initial values. If the
+Estimation Step was implemented, the values of
+<img src="grohtml-152213-82.png" alt="Image grohtml-152213-82.png">
+used for the predictions in the PRED column are the final
+parameter estimates. Note that the observations that are fit
+during the search are the simulated values obtained by the
+Simulation Step. <br>
+Often data are simulated using the Simulation Step, then
+analyzed using one or more other steps (e.g. Estimation and
+Covariance Steps), and this process is repeated a fixed
+number of times, using the same model. The Simulation Step
+accommodates this easily with the notion of a <b>NONMEM
+subproblem,</b> whereby these steps are repeated within the
+same NONMEM problem. However, on occasion it can be useful
+to have multiple problems (see Section 4.7), where one
+problem implements the Simulation Step, and the subsequent
+problem implements other steps. For example, this is one way
+to obtain different initial parameter estimates for the
+Estimation Step than for the Simulation Step. <br>
+The <tt>ONLYSIMULATION</tt> option causes NONMEM to suppress
+evaluation of the objective function. With this option,
+PRED-defined variables displayed in tables and scatterplots
+(see Section 4.13) are simulated values, i.e., use simulated
+<img src="grohtml-152213-83.png" alt="Image grohtml-152213-83.png">
+s and initial
+<img src="grohtml-152213-84.png" alt="Image grohtml-152213-84.png">
+s, and weighted residual values in tables and scatterplots
+are always 0. <br>
+References: Users Guide IV (NM-TRAN) III.B.13 <br>
+References: Users Guide VI (PREDPP) III.E.2, L.1 , IV.B.1-2,
+C, G.1</p>
+
+<h4>4.8.1. More About $SIMULATION
+<a name="4.8.1."></a>
+<a name="4.8.1. More About $SIMULATION"></a>
+</h4>
+
+
+<p style="margin-top: 1em">With simulation,
+subroutines SIMETA and SIMEPS are used. <br>
+With simulation and subproblems, the data set for each
+subproblem after the first is the same data set used by the
+previous subproblem, and includes any changes
+(transgeneration) made by the previous subproblem. With
+nm74, the REWIND option of $SIMULATION may be used to
+request that the original data set be used for all
+sub-problems. (If transgeneration is performed on the data
+set by $INFN when ICALL=1, the resulting data set is
+considered to be the original data set.) <br>
+See Section 6 for a discussion of the BOOTSTRAP and STRAT
+(stratification) features of simulation, and also
+parallelization during simulation. <br>
+The following NONMEM reserved variables are of interest
+during simulation: <br>
+IREP, NREP <br>
+NONMEM subroutine RANDOM may be used in abbreviated code to
+obtain numbers from a random source (nmiv, nm7). <br>
+The $SIMULATION record has other options, including: <br>
+a random seed and options <tt>NEW</tt>, <tt>NORMAL</tt>,
+<tt>UNIFORM</tt>, or <tt>PARAMETRIC</tt> for each of several
+random sources; <tt><br>
+TRUE=INITIAL</tt>, <tt>TRUE=FINAL</tt>, or
+<tt>TRUE=PRIOR</tt>, to specify what the &quot;true
+parameter values&quot; for the Simulation should be;
+<tt><br>
+PREDICTION</tt> or <tt>NOPREDICTION</tt> to specify whether
+the Y (or F) variable or the DV variable is set to the
+prediction; <tt><br>
+REQUESTFIRST</tt> or <tt>REQUESTSECOND</tt> to specify if
+any eta partials are to be computed. <br>
+NONMEM can use the BOOTSTRAP method for simulations. With
+BOOTSTRAP, other options are possible: <tt><br>
+REPLACE</tt> or <tt>NOREPLACE <br>
+STRAT</tt> or <tt>STRATF</tt>. <br>
+$SIM NOSUPRESET feature allows the simulation seeds not to
+be reset with each iteration of a super-problem.</p>
+
+<h3>4.9. Files for Subsequent Processing: the $TABLERecord
+<a name="4.9."></a>
+<a name="4.9. Files for Subsequent Processing: the $TABLERecord"></a>
+</h3>
+
+
+<p style="margin-top: 1em">NONMEM can write the data
+for a table to an external formatted file, as requested by
+the FILE option of the $TABLE record. Other computer
+programs can read these files. Such programs can perform
+further analysis or provide improved graphical displays.
+These files normally contain header lines similar to those
+in a printed table, but the header lines can be suppressed
+entirely or in part by means of the <tt>NOHEADER</tt>,
+<tt>ONEHEADER</tt>, <tt>ONEHEADERALL</tt>,
+<tt>ONEHEADERPERFILE</tt> options. <tt>NOTITLE</tt>
+(suppresses the table titles) and <tt>NOLABEL</tt>
+(supresses column labels) may be used. <br>
+Tables may be written to the same or to different table
+files. <br>
+References: Users Guide IV (NM-TRAN) III.B.16</p>
+
+<h4>4.9.1. More about $TABLE and $SCATTER
+<a name="4.9.1."></a>
+<a name="4.9.1. More about $TABLE and $SCATTER"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Some options may be used
+only with a table file. <br>
+Options <tt>NOFORWARD</tt> and <tt>FORWARD</tt> control
+whether a table file which is used with multiple problems is
+positioned at the start of the file or forwarded to the end
+of the file. <br>
+Option <tt>NOPRINT</tt> may be used suppress the table in
+the NONMEM report, or <tt>PRINT</tt> to include it as
+ususal. A printed table is limited to 8 items but a
+non-printed table file may have an ulimited number of items
+(controlled by PDT in $SIZES with default 500). <tt><br>
+FORMAT</tt> supplies an alternate format for every numeric
+item in a table file (the default is s1PE11.4). An alternate
+name for this option is <tt>DELIM</tt>. <tt><br>
+RFORMAT</tt> supplies an alternate format for the full
+numeric record of a file. <tt><br>
+LFORMAT</tt> supplies an alternate format for the full label
+record in a file. <br>
+Other options can be used with both printed tables and table
+files. <tt><br>
+FIRSTONLY</tt> (include only the first data record from each
+individual record) <tt><br>
+LASTONLY</tt> (include only the last data record from each
+individual record) <tt><br>
+FIRSSTLASTONLY</tt> (include only the first and last data
+record from each individual record) <tt><br>
+BY</tt> (sort records in the table) <tt><br>
+NOAPPEND</tt> (suppress items DV, PRED, RES, WRES) <tt><br>
+APPEND</tt> (list items DV, PRED, RES, WRES; this is the
+default) <br>
+With a $SCATTER record, additional options are: <tt><br>
+FIRSTONLY</tt> (include only the first data record from each
+individual record) <tt><br>
+OBSONLY</tt> (include only the observation records, having
+MDV=0) <br>
+The option <tt>ABS0</tt> is similar to <tt>ORD0</tt>
+described in Chapter 9, but adds a line zero line on the
+abscissa axis of the scatterplots. <br>
+Many additional diagnostic and reserved variables may be
+listed in tables and scatters; see 6.3 below. <br>
+With the Monte-Carlo generated diagnostics, new options of
+the $TABLE record may be used. Note that if these options
+affect the values of the weighted residual, the scatterplots
+will also be affected.</p>
+<pre>ESAMPLE=n1
+WRESCHOL
+SEED=n2
+RANMETHOD=[n|S|m]</pre>
+
+<h3>4.10. Data Checkout Mode
+<a name="4.10."></a>
+<a name="4.10. Data Checkout Mode"></a>
+</h3>
+
+
+<p style="margin-top: 1em">NONMEM&rsquo;s data
+checkout mode is intended for preliminary display of data
+without the use of a model. In data checkout mode, the PRED
+routine is not called. Predictions, the objective function,
+residuals, and weighted residuals are not computed. Only the
+Table and Scatterplot Steps can be implemented in the
+problem. With NM-TRAN, this mode is requested by coding the
+option <tt>CHECKOUT</tt> on the $DATA record. A $SUBROUTINES
+record and abbreviated code are required, but they have no
+effect and need only be syntactically correct. <br>
+References: Users Guide IV (NM-TRAN) III.B.6</p>
+
+<h3>4.11. Obtaining Individual Parameter Estimates -Conditional Estimates of s
+<a name="4.11."></a>
+<a name="4.11. Obtaining Individual Parameter Estimates -Conditional Estimates of s"></a>
+</h3>
+
+
+<p style="margin-top: 1em">With population data,
+NONMEM can obtain estimates of individual-specific true
+values of
+<img src="grohtml-152213-86.png" alt="Image grohtml-152213-86.png">
+from any given set of values of
+<img src="grohtml-152213-87.png" alt="Image grohtml-152213-87.png">
+,
+<img src="grohtml-152213-88.png" alt="Image grohtml-152213-88.png">
+,
+<img src="grohtml-152213-89.png" alt="Image grohtml-152213-89.png">
+, and the individual&rsquo;s data. These are called
+<b>conditional</b> estimates of
+<img src="grohtml-152213-90.png" alt="Image grohtml-152213-90.png">
+. When the conditional estimates are obtained after
+estimation is carried out by the First-Order method, they
+are referred to as &quot;posthoc&quot; estimates. With
+NM-TRAN, they are requested by the option <tt>POSTHOC</tt>
+on the $ESTIMATION record. <br>
+References: Users Guide IV (NM-TRAN) III.B.14</p>
+
+<h3>4.12. Population Conditional Estimation Methods
+<a name="4.12."></a>
+<a name="4.12. Population Conditional Estimation Methods"></a>
+</h3>
+
+
+<p style="margin-top: 1em">NONMEM can obtain
+conditional estimates of
+<img src="grohtml-152213-91.png" alt="Image grohtml-152213-91.png">
+variables as part of the computation of population parameter
+estimates. These are called <b>conditional estimation
+methods.</b> With NM-TRAN, such methods are requested by
+including the option <tt>METHOD=CONDITIONAL</tt> (or
+<tt>METHOD=1</tt>) on the $ESTIMATION record. (The option
+<tt>METHOD=ZERO</tt>, or <tt>METHOD=0</tt>, requests the
+conventional First-Order method and is the default.) There
+are two conditional estimation methods. If NONMEM uses only
+first-order approximations, this is the <b>First-Order
+Conditional Estimation Method.</b> This has one variation,
+<b>interaction,</b> which takes into account
+<img src="grohtml-152213-92.png" alt="Image grohtml-152213-92.png">
+-
+<img src="grohtml-152213-93.png" alt="Image grohtml-152213-93.png">
+interaction and is requested by the additional option
+<tt>INTERACTION</tt> on the $ESTIMATION record. If NONMEM
+uses a certain second-order approximation, this is the
+<b>Laplacian</b> method, which is requested by the
+additional option <tt>LAPLACIAN</tt> on the $ESTIMATION
+record. Interaction may be specified with any method,
+including the Laplacian method. <br>
+Note that this usage of the term CONDITIONAL is different
+from the usage on the $SCATTERPLOT, $TABLE, and $COVARIANCE
+records, in which it refers to the circumstances under which
+the step in question is implemented. <br>
+Option <tt>CENTERING</tt> requests that the average
+conditional estimates of each eta be constrained to be close
+to 0. <br>
+References: Users Guide IV (NM-TRAN) III.B.14</p>
+
+<h3>4.13. Displaying PRED-Defined Variables andConditional Estimates of s
+<a name="4.13."></a>
+<a name="4.13. Displaying PRED-Defined Variables andConditional Estimates of s"></a>
+</h3>
+
+
+<p style="margin-top: 1em">NONMEM can display
+PRED-defined variables in table and scatterplots. With
+NM-TRAN, any variable appearing on the left-hand side of an
+assignment statement in abbreviated code can be displayed by
+listing it in a $TABLE or $SCATTER record. If the data are
+population, NONMEM can also display conditional estimates of
+<img src="grohtml-152213-95.png" alt="Image grohtml-152213-95.png">
+. With NM-TRAN, variables ETA(1), ETA(2), etc., can be
+simply listed in $TABLE and $SCATTER records. When
+conditional estimation is not performed, the values
+displayed are zero. Displayed values of PRED-defined random
+variables will use conditional estimates of
+<img src="grohtml-152213-96.png" alt="Image grohtml-152213-96.png">
+if they have been obtained, otherwise they will be typical
+values. This feature is available with PREDPP, as well as
+with user-written PRED routines. For example, the following
+records could replace the $ESTIMATION record in Figure 12.2:
+<tt><b><br>
+$ESTIMATION POSTHOC <br>
+$TABLE ETA(1) EMAX</b></tt> <br>
+The $ABBREVIATED record can be used to limit the number of
+variables available for display when the number is
+excessive. <br>
+References: Guide III (Installation) V.2.4 <br>
+References: Guide IV (NM-TRAN) III.B.16-17 <br>
+References: Guide VI (PREDPP) III.J, IV.E</p>
+
+<h3>4.14. Mixture Models
+<a name="4.14."></a>
+<a name="4.14. Mixture Models"></a>
+</h3>
+
+
+<p style="margin-top: 1em">A <b>mixture model</b> is
+a model that explicitly assumes that the population consists
+of two or more sub-populations, each having its own model.
+For example, with two sub-populations, one might assume that
+some fraction p of the population has one set of typical
+values of the PK parameters, and the remaining fraction 1-p
+has another set of typical values. Both sets of typical
+values and the mixing fraction p may be estimated. For each
+individual, NONMEM also computes an estimate of the number
+of the subpopulation of which the individual is a member.
+The user must supply a FORTRAN subroutine called MIX or a
+$MIX block of abbreviated code to compute the fractions p
+and 1-p. <br>
+Reserved variables NSPOP, P, MIXNUM, MIXEST, MIXP and MIXPT
+can be used in abbreviated code. Reserved variable TEMPLT
+may be used. <br>
+References: Users Guide VI (PREDPP) III.L.2</p>
+
+<h3>4.15. PRED Error Return Codes and Error Messages inFile PRDERR
+<a name="4.15."></a>
+<a name="4.15. PRED Error Return Codes and Error Messages inFile PRDERR"></a>
+</h3>
+
+
+<p style="margin-top: 1em">A PRED routine can return
+a <b>PRED error return code</b> (1 or 2) to NONMEM,
+indicating that it is unable to compute a prediction for a
+given data record with the current values of
+<img src="grohtml-152213-97.png" alt="Image grohtml-152213-97.png">
+&rsquo;s and
+<img src="grohtml-152213-98.png" alt="Image grohtml-152213-98.png">
+&rsquo;s. For example, PREDPP returns error return code 1
+when a basic or additional PK parameter has a value that is
+physically impossible (e.g., a scale parameter which is zero
+or negative). Error return codes can also be specified by
+the user in user-written code or in abbreviated code using
+the EXIT statement. One reason for doing this is to
+constrain parameters in order to avoid floating point
+machine interrupts. The <b>PRED error recovery option</b>
+determines what action NONMEM will take. With NM-TRAN, the
+PRED error recovery option is either <tt>ABORT</tt> (which
+is the default) or <tt>NOABORT</tt>, and is specified on the
+$ESTIMATION and $THETA records. <br>
+If an error return code is returned during the Simulation,
+Covariance, Table or Scatterplot Step, or during computation
+of the initial value of the objective function, NONMEM will
+abort. If the error return code is returned during the
+Estimation or Initial Estimates Step, NONMEM will try to
+avoid those values of
+<img src="grohtml-152213-99.png" alt="Image grohtml-152213-99.png">
+and
+<img src="grohtml-152213-100.png" alt="Image grohtml-152213-100.png">
+for which the error occurs. If they cannot be avoided,
+NONMEM&rsquo;s actions depend on the error return code
+value, as follows:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="2%">
+
+
+<p>1</p></td>
+<td width="6%"></td>
+<td width="84%">
+
+
+<p>If <tt>NOABORT</tt> is specified on $ESTIM or
+$THETA, try to avoid the current values of
+<img src="grohtml-152213-101.png" alt="Image grohtml-152213-101.png">
+and
+<img src="grohtml-152213-102.png" alt="Image grohtml-152213-102.png">
+. If <tt>ABORT</tt> is specified on $ESTIM or $THETA, then
+abort.</p> </td>
+<td width="8%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="2%">
+
+
+<p>2</p></td>
+<td width="6%"></td>
+<td width="84%">
+
+
+<p>Abort in all cases.</p></td>
+<td width="8%">
+</td></tr>
+</table>
+
+<p><tt>NOABORTFIRST</tt> may be specified on $THETA
+(nmvi) Same as NOABORT option, but also applies to the first
+value of the theta vector that is tried. <tt><br>
+NOHABORT</tt> may be specified on $ESTIM (nm7). <br>
+PRED routines may optionally provide text accompanying the
+error return code. NONMEM writes all text associated with
+error return codes to a file, PRDERR. The contents of this
+file should always be carefully reviewed. <br>
+References: Users Guide III (Installation) III.2.1.1 <br>
+References: Users Guide IV (NM-TRAN) IV.A, IV.C.5-6 <br>
+References: Users Guide VI (PREDPP) III.K, IV.F</p>
+
+<h3>4.16. User-Written Subroutines
+<a name="4.16."></a>
+<a name="4.16. User-Written Subroutines"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Although most NONMEM
+applications can be accomplished using NM-TRAN abbreviated
+code, there are cases in which user-written FORTRAN
+subroutines are needed. The <tt>$SUBROUTINES</tt> record
+allows the user to specify the names of user-written
+routines that are needed in the NONMEM load module. A user
+may choose to write his own PRED, PK, ERROR, INFN, MODEL,
+DES, or AES subroutine. Some subroutines that are
+distributed with NONMEM are dummy, or &quot;stub&quot;
+routines, that do nothing. Of these, subroutines CCONTR,
+CONTR, CRIT, PRIOR, USMETA, SPTWO, MIX can be replaced to
+obtain an objective function different from the default.
+NONMEM subroutine MIX must be replaced for mixture models.
+The names of all such routines are specified using the
+identically named options of the <tt>$SUBROUTINES</tt>
+record, e.g., <tt>PRED=subname</tt>, <tt>CONTR=subname</tt>,
+etc. User-written routines may call other FORTRAN
+subroutines, which can be specified for inclusion in the
+load module using the option <tt>OTHER=subname</tt>. <br>
+With user-written CONTR routines, the NM-TRAN $CONTR record
+may be useful. <br>
+THETAI and THETAR are stubs that may be replaced to
+transform initial and final theta values. The $THETAI and
+$THETAR records described in Section 6 can be used to
+generate the replacement code in FSUBS. <br>
+References: Users Guide IV (NM-TRAN) III.B.4,
+B.6</p>
+
+<h3>4.17. PRIOR
+<a name="4.17."></a>
+<a name="4.17. PRIOR"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The PRIOR subroutine and
+$PRIOR record allows a Bayesian penalty function to be added
+to the NONMEM objective function. This serves as a
+constraint on the estimates of THETA, OMEGA, and SIGMA and
+thus as a way for stable estimates to be obtained with
+insufficient data. <br>
+NONMEM subroutines that may be used are NWPRI and TNPRI
+(nmvi). With NWPRI, informatively-named $THETAP, $OMEGAP,
+$SIGMAP records can be used to provide prior information
+(nm73). <br>
+The option NOPRIOR of the $ESTIMATION record controls
+whether or not the prior information is used for a given
+Estimation Step. <br>
+References: Introduction to NONMEM Version VI</p>
+
+<h2>5. Observations of Two Different Types
+<a name="5."></a>
+<a name="5. Observations of Two Different Types"></a>
+</h2>
+
+
+<p style="margin-top: 1em">An NM-TRAN control stream
+is shown in Figure 12.3, for the analysis of a data set
+which contains observations of two different types. A
+fragment of the data set, shown in Figure 12.4, contains the
+data for one individual. This example illustrates how
+concentration and effect data can be fit simultaneously, and
+includes many of the advanced features described in this
+chapter, such as pharmacodynamic modeling in the $ERROR
+statements, correlation between elements of
+<img src="grohtml-152213-103.png" alt="Image grohtml-152213-103.png">
+, and the L2 data item. <br>
+Suppose that the data set for the phenobarbital example of
+Chapter 2 is modified to include both concentration and
+effect observations, and that a data item called TYPE is
+used to distinguish between them. When TYPE is 1, DV
+contains an effect measurement. When TYPE is 2, DV contains
+a concentration. The $PK statements are the same as those of
+Figure 2.12. The $ERROR statements are the same as those of
+Figure 12.1, except that the elements of
+<img src="grohtml-152213-104.png" alt="Image grohtml-152213-104.png">
+and
+<img src="grohtml-152213-105.png" alt="Image grohtml-152213-105.png">
+are renumbered to follow those used in the $PK statements.
+The (random) variable Y1 is assigned the same value as Y in
+the $ERROR statements of Figure 12.1 The (random) variable
+Y2 is assigned the same value as Y in the $ERROR statements
+of Figure 2.12, except that
+<img src="grohtml-152213-106.png" alt="Image grohtml-152213-106.png">
+is used rather than
+<img src="grohtml-152213-107.png" alt="Image grohtml-152213-107.png">
+. <br>
+The input data file contains observations of both types
+which were made at the same time value. The event records
+therefore include the L2 data item. Figure 12.4, like Figure
+2.7, shows the data for the first individual, but includes
+TYPE and L2 data items and effect observations. Note that
+the L2 data item has a different value for each multivariate
+observation within the individual record. (The values 1 and
+2 are chosen arbitrarily and may be re-used for the L2 data
+items in the next individual&rsquo;s data, if desired.) <br>
+The $THETA, $OMEGA, and $SIGMA records contain the values
+shown in Figures 2.12 and 12.1 and one other value, 2.8, for
+the covariance
+<img src="grohtml-152213-108.png" alt="Image grohtml-152213-108.png">
+. The estimate 2.8 is chosen so that the correlation is,
+arbitrarily, .5 (
+<img src="grohtml-152213-109.png" alt="Image grohtml-152213-109.png">
+).</p>
+
+<pre style="margin-left:3%;"><b>$PROBLEM COMBINED PK/PD MODEL
+$INPUT   ID TIME AMT WT APGR DV TYPE L2
+$DATA    COMBDATA
+$SUBROUTINE ADVAN1
+$PK
+   TVCL=THETA(1)+THETA(3)*WT
+   CL=TVCL+ETA(1)
+   TVVD=THETA(2)+THETA(4)*WT
+   V=TVVD+ETA(2)
+                       ; THE FOLLOWING ARE REQUIRED BY PREDPP
+   K=CL/V
+   S1=V
+$ERROR
+ EMAX=THETA(5)+ETA(3)
+ C50=THETA(6)+ETA(4)
+ E=EMAX*F/(C50+F)
+ Y1=E+ERR(1)
+ Y2=F+ERR(2)
+ Q=1
+ IF (TYPE.EQ.2) Q=0
+ Y=Q*Y1+(1-Q)*Y2
+$THETA  (0,.0027) (0,.70) .0018 .5 100 20
+$OMEGA  .000007 .3 400 16
+$SIGMA BLOCK(2) 4 2.8 8
+$ESTIMATION</b></pre>
+
+
+<p style="margin-top: 1em">Figure 12.3. The
+input to NONMEM-PREDPP for analysis of the population
+phenobarbital data, including both concentration and effect
+observations.</small></p>
+
+<pre style="margin-left:3%; margin-top: 1em"><b>      1    0.    25.0    1.4      7      .   2   0
+      1    2.0      .    1.4      7    6.0   1   1
+      1    2.0      .    1.4      7   17.3   2   1
+      1   12.5    3.5    1.4      7      .   2   0
+      1   24.5    3.5    1.4      7      .   2   1
+      1   37.0    3.5    1.4      7      .   2   0
+      1   48.0    3.5    1.4      7      .   2   1
+      1   60.5    3.5    1.4      7      .   2   0
+      1   72.5    3.5    1.4      7      .   2   1
+      1   85.3    3.5    1.4      7      .   2   0
+      1   96.5    3.5    1.4      7      .   2   1
+      1  108.5    3.5    1.4      7      .   2   0
+      1  112.5      .    1.4      7    8.0   1   2
+      1  112.5      .    1.4      7   31.0   2   2</b></pre>
+
+
+<p>Figure 12.4. The first individual&rsquo;s
+phenobarbital data, including both concentration and effect
+observations.</p>
+
+<p style="margin-top: 1em">The above $ERROR
+statements can be coded more simply.</p>
+
+<pre style="margin-left:3%;"><b>$ERROR
+ EMAX=THETA(5)+ETA(3)
+ C50=THETA(6)+ETA(4)
+ E=EMAX*F/(C50+F)
+ IF (TYPE.EQ.2) THEN
+ Y=F+ERR(2)
+ ELSE
+ Y=E+ERR(1)
+ ENDIF</b></pre>
+
+
+<p style="margin-top: 1em">Figure 12.5.
+Alternate $ERROR statements</small></p>
+
+<h2>6. Supplemental List of Features through NONMEM 7.5
+<a name="6."></a>
+<a name="6. Supplemental List of Features through NONMEM 7.5"></a>
+</h2>
+
+
+<p style="margin-top: 1em">With NONMEM 7 there are
+many new features, including new Estimation Methods. This
+section lists features of NONMEM, PREDPP, and NM-TRAN that
+are not discussed elsewhere in this guide. The version of
+NONMEM in which each feature appears is listed. The user
+should consult other guides for details.</p>
+
+<h3>6.1. NONMEM Features
+<a name="6.1."></a>
+<a name="6.1. NONMEM Features"></a>
+</h3>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="58%">
+
+
+<p style="margin-top: 1em">NONMEM can drop data
+records (nm75)</p></td>
+<td width="42%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The IGNORE=(list) and
+ACCEPT=(list) options of $DATA provide a limited means of
+filtering the input data set, which is performed by NMTRAN
+(nm6). To provide more elaborate filtering for excluding
+data, PRED can request that NONMEM filter out additional
+data records at the begining of the run. This is done by
+setting the reserved variable PRED_IGNORE_DATA to a non-zero
+value within $INFN, $PK, or $PRED, for each record to be
+ignored.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="32%">
+
+
+<p>Odd-Type Data (nmv)</p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Non-continuous observed
+responses (&quot;odd-type data&quot;) can be analyzed.
+$ESTIMATION options LIKELIHOOD or -2LL must be used. Y is
+set to a (conditional) likelihood. <br>
+Reserved variable F_FLAG may be used (nmvi).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="42%">
+
+
+<p>New methods of Estimation</p></td>
+<td width="58%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">METHOD=HYBRID with option
+ZERO (nmv) <br>
+STIELTJES with options GRID, REPEAT1, REPEAT2, ZERO (nmvi)
+<br>
+ITS Iterative Two Stage (nm7) <br>
+Expectation-Maximization (EM) and Monte Carlo Bayesian
+(nm7)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="42%">
+
+
+<p>Expectation feature (nmv)</p></td>
+<td width="58%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">This feature uses the
+NONMEM marginal (MRG_) data item. MRG_ identifies records
+for which NONMEM computes and displays marginal quantities
+(expectations) Expectations are computed when
+ICALL=5.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="50%">
+
+
+<p>Raw data average feature (nmv)</p></td>
+<td width="50%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">This feature uses the
+NONMEM raw-data (RAW_) data item. RAW_ identifies template
+records for which NONMEM computes and displays raw-data
+averages. Raw data averages are computed when ICALL=6.
+Reserved variables TEMPLT and the $OMIT record may be used
+(nmvi). The NONMEM utility routine RANDOM may be used to
+obtain numbers from different random sources.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="63%">
+
+
+<p>Non-parametric analysis methods
+(nmvi)</p> </td>
+<td width="37%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The $NONPARAMETRIC record
+is used to request the Non-parametric method of analysis.
+Options include: <br>
+MARGINALS or ETAS, MSFO=filename, RECOMPUTE, EXPAND,
+NPSUPP=n or NPSUPPE=n</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="55%">
+
+
+<p>SORT option of $ESTIMATION (nmvi)</p></td>
+<td width="45%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">With classical methods,
+individual contribution to the objective function and
+gradients may be sorted before they are summed, so that
+smaller numbers are summed before larger
+numbers.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="55%">
+
+
+<p>Reserved Variables YLO/YUP (nmvi)</p></td>
+<td width="45%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">During the analysis an
+interval is defined in which (or outside of which) an
+observation is conditioned to exist. Reserved variable PR_Y
+is also of interest.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="60%">
+
+
+<p>Reserved Variables CTLO/CTUP (nmvi)</p></td>
+<td width="40%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">An observation may be the
+event that the value of a normally distributed variable
+falls in a given interval. Reserved variable PR_CT is also
+of interest.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="53%">
+
+
+<p>NONMEM Repetition feature (nmvi)</p></td>
+<td width="47%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">This features uses
+reserved variables RPTI,RPTO,RPTON,PRDFL. An alternate way
+is to use the RPT_ data item.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="57%">
+
+
+<p>MU Modeling (MU Referencing) (nm7)</p></td>
+<td width="43%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">MU_i variables may be
+used in Abbreviated code with EM methods of Estimation.
+NM-TRAN checks the use of MU_i variables, unless option
+<tt><i>NOCHECKMU</i></tt> of the $ABBR record is used
+(nm73). Thetas may be input and reported in their natural
+domain, even when used as logs (e.g., linear MU referencing)
+using $THETAI and $THETAR records (nm73).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="92%">
+
+
+<p>New method of setting initial values of thetas,
+omegas, and sigmas. (nm72)</p></td>
+<td width="8%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">See CHAIN option of
+$ESTIMATION and $CHAIN.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="53%">
+
+
+<p>Multiple Estimation steps (nm72)</p></td>
+<td width="47%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">If the $ESTIMATION record
+is present more than once within a problem, then each
+subsquent record requests a separate Estimation Step rather
+than providing more options for a single Estimation
+Step.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="38%">
+
+
+<p>BOOTSTRAP method (nm73)</p></td>
+<td width="62%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">BOOTSTRAP may be
+specified with $NONPARAMETRIC and $SIMULATION records. This
+requests that a bootstrap sample be used. Options STRAT and
+STRATF may be used for stratification. With $SIMULATION,
+options REPLACE or NOREPLACE may be used. An example is
+given of bootrapping single subject data (nm74).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="70%">
+
+
+<p>More than 2 levels of mixed effects
+(nm73)</p> </td>
+<td width="30%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Increased number of mixed
+effects levels. Random effects across groups of individuals,
+such as clinical site, can be modeled. The $LEVEL record is
+used.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="88%">
+
+
+<p>Alternate method (POPULATION WITH UNCONSTRAINED
+ETAS) for single-subject analysis (nm73)</p></td>
+<td width="12%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">All the subjects may be
+analyzed together, but with $OMEGA diagonal values fixed to
+a special value 1.0E+06.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="40%">
+
+
+<p>New values of MDV (nm73)</p></td>
+<td width="60%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">MDV may be set to 100,
+101. Such records are ignored during Estimation. Reserved
+variables MDVI1, MDVI2, MDVI3 may also be used; they are
+defined in include file nonmem_reserved_general.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="68%">
+
+
+<p>Initial Estimates for ETAs feature
+(nm73)</p> </td>
+<td width="32%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">By default, the initial
+value used for ETA&rsquo;s in the Estimation Step search is
+0. The $ETAS and $PHIS records provide user-supplied initial
+estimates.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="62%">
+
+
+<p>Tranformations of THETA values (nm73)</p></td>
+<td width="38%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">$THETAI transforms the
+initial values in the $THETA and $THETAP records. $THETAR
+transforms the final theta values for the NONMEM report and
+additional output files. May be used with MU
+Modeling.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="63%">
+
+
+<p>Constraints on model parameters
+(nm73)</p> </td>
+<td width="37%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Additional algorithmic
+constraints may be imposed upon model parameters by use of
+the subroutine CONSTRAINT. Option CONSTRAIN of the
+$ESTIMATION record and the $ANNEAL record may be used to
+give information to the subroutine. This feature is
+available only for the EM and Bayesian
+algorithms.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="48%">
+
+
+<p>Additional Reserved Variables</p></td>
+<td width="52%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The descriptions of the
+following reserved variables can be found in Introduction to
+NONMEM 7 MXSTEP FIRSTEM MDVRES NPDE_MODE DV_LOQ
+CDF_L</p>
+
+<h3>6.2. Miscellaneous Features
+<a name="6.2."></a>
+<a name="6.2. Miscellaneous Features"></a>
+</h3>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="58%">
+
+
+<p style="margin-top: 1em">Interactive control of
+NONMEM (nm7)</p></td>
+<td width="42%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">A NONMEM run can now be
+controlled to some extent from the console by issuing
+certain control characters.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="53%">
+
+
+<p>Dynamic Memory Allocation (nm72)</p></td>
+<td width="47%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">No need to recompile
+NONMEM or NM-TRAN for large problems. Most arrays are sized
+automatically. If necessary, the $SIZES record may be used.
+E.g., the default maximum number of data items per data
+record is 50, but may be increased by specifying a larger
+value for PD; the maximum number of items per table is 500,
+but may be increased by specifying a larger value for
+PDT.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="42%">
+
+
+<p>Parallel Computing (nm72)</p></td>
+<td width="58%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Parallel Computing is
+requested using the nmfe option -parafile and specified
+using .pnm files. The options PARAFILE of the $ESTIMATION
+and $COVARIANCE records may also be used. With nm74, Option
+FPARAFILE of the $ESTIMATION record controls parallelization
+for final eta (EBE) computation. Option PARAFILE of the
+$TABLE controls parallelization for weighted residual
+computation. Option PARAFILE of the $SIMULATION record may
+also be used.</p>
+
+<h3>6.3. Changes to NONMEM Outputs
+<a name="6.3."></a>
+<a name="6.3. Changes to NONMEM Outputs"></a>
+</h3>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="92%">
+
+
+<p style="margin-top: 1em">Reports include
+Covariance and Correlation Matrices for OMEGA and SIGMA
+(nm72)</p> </td>
+<td width="8%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="92%">
+
+
+<p>Reports include ETABAR, SE, N, P VAL
+(nm7)</p> </td>
+<td width="8%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Option ETABARCHECK of the
+$ESTIMATION record may be used.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="88%">
+
+
+<p>Reports include ETAshrink, EBVshrink, EPSshrink
+(nm7)</p> </td>
+<td width="12%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Eta shrinkage evaluation
+using empirical Bayes variances (EBVs, or conditional mean
+variances) is reported. The ETASTYPE option of the
+$ESTIMATION record and the ETASXI reserved variable in
+abbreviated code may be used to control which etas from
+which subjects are included.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="73%">
+
+
+<p style="margin-top: 1em">Reports include tag
+labels: #METH etc. (nm7)</p></td>
+<td width="27%">
+</td></tr>
+</table>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="87%">
+
+
+<p style="margin-top: 1em">Raw and additional output
+files: root.ext, root.cov, root.xml, etc. (nm7)</p></td>
+<td width="13%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">These files provide
+numerical results in a columnar format. $ESTIMATION record
+option ORDER may be used to control the order of theta,
+omega, sigma in these files. $ESTIMATION record option
+NUMDER may be used to request files with numerical and
+analytic eta derivatives: root.fgh, root.agh
+(nm73)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="90%">
+
+
+<p>Tables and Scatters may request NONMEM-generated
+items</p> </td>
+<td width="10%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Elements of G and H
+(e.g., G11, H11) and elements of ETA (nmvi) <br>
+A range of etas using the format ETAS(k:n) may be requested
+(nm73). <br>
+Number lists or a syntax flexible (TO, :, BY) may be
+used(nm74). Examples are <br>
+ETAS(1 TO 10 by 3), ETAS(1,5,12,4). <br>
+OBJI (Objective function values for each individual) (nm72)
+<br>
+Additional statistical diagnostic items (nm7,
+nm73)</p>
+
+<p style="margin-left:17%;">In addition to the PRED,
+RES, and WRES items, the following may be listed. <tt><br>
+PREDI</tt>, <tt>RESI</tt>, <tt>WRESI <br>
+CPRED</tt>, <tt>CRES</tt>, <tt>CWRES <br>
+CPREDI</tt>, <tt>CRESI</tt>, <tt>CWRESI <br>
+CIPRED</tt>, <tt>CIRES</tt>,<tt>CIWRES <br>
+CIPREDI</tt>, <tt>CIRESI</tt>,<tt>CIWRESI <br>
+NIPRED</tt>, <tt>NIRES</tt>, <tt>NIWRES <br>
+IPRD</tt>, <tt>IRS</tt>,<tt>IWRS <br>
+EPRED</tt>, <tt>ERES</tt>, <tt>EWRES</tt></p>
+
+<p style="margin-left:8%;">Monte-Carlo generated
+diagnostics are not linearized approximations like the other
+diagnostic types. These include</p>
+
+<pre style="margin-left:17%;">ECWRES
+EIPRED, EIRES,EIWRES
+NPDE Monte-Carlo  generated  normalized  probability distribution error) (nm71)
+NPD correlated value of NPDE (nm72)</pre>
+
+
+<p style="margin-left:8%;">With FIXEDETAS=(list),
+the specified etas are treated as if they are fixed effects
+when NONMEM evaluates population diagnostics during the
+$TABLE step.(nm74) <br>
+The EXCLUDE_BY option can be used to exclude records from
+the table or scatter. (nm74). <br>
+The VARCALC option asks NONMEM to report standard errors
+(xxx_SE) in the tables for PREDPP and user-defined items.
+(nm74) <br>
+A reserved variable of interest when evaluating residuals
+and weighted residuals is MDVRES which may be set in PRED to
+cause NONMEM to treat an observation as missing during the
+computation of residuals and weighted residuals.
+(nm73)</p>
+
+<h3>6.4. PREDPP
+<a name="6.4."></a>
+<a name="6.4. PREDPP"></a>
+</h3>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="83%">
+
+
+<p style="margin-top: 1em">New PREDPP data items in
+$INPUT: XVID1 XVID2 XVID3 XVID4 XVID5 (nm72)</p></td>
+<td width="17%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Special values of EVID
+allow repeated observation records, e.g., for Stochastic
+differential equations.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="47%">
+
+
+<p>CMT and PCMT values 100,1000</p></td>
+<td width="53%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specification of the
+default compartment for output (nm, nm73)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="67%">
+
+
+<p>Compartment Amounts A(i), TSTATE
+(nmvi)</p> </td>
+<td width="33%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="67%">
+
+
+<p>A_0 (compartment initialization)
+(nmvi)</p> </td>
+<td width="33%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The compartment
+initialization feature may be used with any
+ADVAN.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="63%">
+
+
+<p>A_U,A_UFLG (compartment update)
+(nm75)</p> </td>
+<td width="37%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The compartment update
+feature is similar to the compartment initialization feature
+but updates compartments at a time given by MTIME. May be
+used with any ADVAN.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="48%">
+
+
+<p>Empirical Steady State (nm75)</p></td>
+<td width="52%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The Empirical steady
+state method computes steady state by giving doses until the
+state variables no longer change according to the
+SSTOL/SSATOL toler- ance specified in $SUBROUTINES. The SS
+data item is not used. A neg- ative value of ADDL requests
+the computation, and also specifies the maximum number of
+doses (ABS(ADDL)+1). See ADDL_ACTUAL,ADDL_TIME,ADDL_TIMEDIFF
+reserved variables. May be used with any ADVAN.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="83%">
+
+
+<p>I_SS (Initial Steady State) for general
+non-linear models (nmvi2.0)</p></td>
+<td width="17%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">It is possible to specify
+initial conditions for the differential equations using the
+I_SS (Initial Steady State) feature. Reserved variable
+ISSMOD may be used.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="83%">
+
+
+<p>DES array: COMPACT vs. FULL for general
+non-linear models (nmv)</p></td>
+<td width="17%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="83%">
+
+
+<p>ISFINL reserved variable with AES and DES
+(nmvi)</p> </td>
+<td width="17%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Allows the abbreviated
+code to take special action on the final call to AES and DES
+for an integration interval.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="45%">
+
+
+<p>TIME may be negative (nm74)</p></td>
+<td width="55%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">With NONMEM 7.4, PREDPP
+permits the TIME data item to be negative.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="45%">
+
+
+<p>ITASK_ and STOP_TIME (nm75)</p></td>
+<td width="55%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The ITASK_ reserved
+variable may be set to 4 by the user to avoid overshoot in
+ADVAN9, ADVAN13, ADVAN14, and ADVAN15 The STOP_TIME reserved
+variable may be set to a STOP_TIME (Tcrit) past which it
+should not integrate, if it is different from the end of the
+normal integration interva.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="80%">
+
+
+<p>Absolute Tolerance for ADVAN
+9,13,14,15,16,17,18</p> </td>
+<td width="20%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">ODE ADVANs can have an
+absolute tolerance for each compartment, e.g.
+ANRD(1)=10.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="70%">
+
+
+<p>Relative Tolerance for ADVAN
+9,13,16,17,18</p> </td>
+<td width="30%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">ODE ADVANs except 14 and
+15 can have a relative tolerance for each compartment, e.g.
+NRD(1)=6.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="90%">
+
+
+<p>Values of absolute (ANRD) and relative (NRD)
+tolerance can be set for each NONMEM step</p></td>
+<td width="10%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Tolerance can be set for
+specific NONMEM steps, e.g., <br>
+IF(NM_STEP==EST_STEP) ANRD(1)=10</p>
+
+<h3>6.5. NM-TRAN
+<a name="6.5."></a>
+<a name="6.5. NM-TRAN"></a>
+</h3>
+
+
+<h4>6.5.1. General Features
+<a name="6.5.1."></a>
+<a name="6.5.1. General Features"></a>
+</h4>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="42%">
+
+
+<p style="margin-top: 1em">Case-insensitivity
+(nm72)</p> </td>
+<td width="58%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Both lower and upper case
+may be used in the NM-TRAN control file.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="58%">
+
+
+<p>Continuation and line length (nm73)</p></td>
+<td width="42%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Any line may be continued
+with &quot;&amp;&quot; and may be 67000 characters
+long.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%">
+
+
+<p>Warning messages (nmv)</p></td>
+<td width="63%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The numbers of warning
+messages of various types may be controlled using the
+$WARNING record.</p>
+
+<h4>6.5.2. Data Preprocessor
+<a name="6.5.2."></a>
+<a name="6.5.2. Data Preprocessor"></a>
+</h4>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="45%">
+
+
+<p style="margin-top: 1em">$DATA TRANSLATE (nmv,
+nm73)</p> </td>
+<td width="55%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Allows TIME and II values
+to be rescaled, with specified number of decimal
+points.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="47%">
+
+
+<p>ill-formed data files (nmvi)</p></td>
+<td width="53%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">NM-TRAN is better able to
+handle a data file whose final line does not terminate
+correctly.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="42%">
+
+
+<p>tabs in data files (nmvi)</p></td>
+<td width="58%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="42%">
+
+
+<p>^M in data files (nmvi)</p></td>
+<td width="58%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">NM-TRAN can read data
+files in which tabs are present, and whose lines end with
+^M.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="33%">
+
+
+<p>$DATA BLANKOK (nmvi)</p></td>
+<td width="67%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">NM-TRAN will not allow
+blank lines in a data file unless the BLANKOK option is
+used.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="40%">
+
+
+<p>Larger data files (nmvi)</p></td>
+<td width="60%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The RECORDS=n option of
+$DATA may specify a number as large as 99999999.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="60%">
+
+
+<p>MISDAT Missing Data Indicator (nm74)</p></td>
+<td width="40%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">MISDAT specifies a
+numerical value indicating a missing data value in the data
+set, which is displayed on $TABLE table outputs, but is
+safely interpreted as 0 by other steps of
+NONMEM.</p>
+
+<h4>6.5.3. Abbreviated Code
+<a name="6.5.3."></a>
+<a name="6.5.3. Abbreviated Code"></a>
+</h4>
+
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="55%">
+
+
+<p style="margin-top: 1em">FORTRAN 90/95 syntax may
+be used.</p></td>
+<td width="45%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">For example, logical
+expressions may be written using symbols ==,&gt;, instead of
+.EQ., .GT., etc.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="70%">
+
+
+<p>Increased number of THETA, ETA, EPS
+(nm72)</p> </td>
+<td width="30%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Subscripts of THETA, ETA,
+EPS may be as large as 999.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="47%">
+
+
+<p>$ABBR record: COMRES, COMSAV</p></td>
+<td width="53%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Creates variables that
+are saved between nonmem passes. NONMEM Reserved variables
+COM, COMACT are used.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="85%">
+
+
+<p>$ABBR record: DERIV2 (nmIV), NOFASTDER(nm72)
+DERIV1 (nm74)</p></td>
+<td width="15%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Affects generated code in
+FSUBS. See also NOFIRSTDERCODE reserved variable in
+abbreviated code.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="33%">
+
+
+<p>$ABBR REPLACE (nm73)</p></td>
+<td width="67%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Any character string may
+be replaced. This allows for symbolic reference to thetas,
+etas, and epsilons. Replacement with selection by data item
+and parameter is permitted. <br>
+With nm74, the syntax is more flexible. Symbolic labels for
+eta may be used in the $TABLE record. Symbolic label
+substitutions will appear in the NONMEM report file and
+$TABLE outputs. $ESTIMATION record option NOSUB may be used
+to control label substitution in the NONMEM report file.
+$TABLE record option NOSUB may be used to control label
+substitution in $TABLE files. $SCATTER record option NOSUB
+may be used to control label substitution in
+Scatterplots.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="33%">
+
+
+<p>$ABBR DECLARE (nm73)</p></td>
+<td width="67%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Allows integer variables
+and array (subscripted) variables to be used in Abbreviated
+code.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="55%">
+
+
+<p>Recursive abbreviated code (nmvi)</p></td>
+<td width="45%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Allows a random variable
+to retain the value from the previous data record instead of
+being set to zero. May be used to implement recursive
+kinetics in $PRED.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="75%">
+
+
+<p>User-supplied functions FUNCA,FUNCB,FUNCC and
+VECTRA,VECTRB,VECTRC (nmvi)</p></td>
+<td width="25%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">FUNCA etc. are reserved
+names for user-supplied functions They may have scalar or
+vector-valued arguments. VECTRA etc. are reserved names for
+vectors used as arguments. When functions are used in
+abbreviated code, the eta derivatives of the arguments are
+computed correctly. Any vector may be used with any
+function. With NONMEM 7, there are more reserved functions
+and vectors.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="58%">
+
+
+<p>$ABBR FUNCTION, $ABBR VECTOR (nm74)</p></td>
+<td width="42%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">In NONMEM 7.4 the $ABBR
+FUNCTION option and $ABBR VECTOR option allows user-defined
+function names and user-defined argument vector
+names.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="40%">
+
+
+<p>PROTECT functions (nm74)</p></td>
+<td width="60%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Versions of FORTRAN
+functions are available that protect against domain
+violations, divide by zero, and floating point overflows.
+For example, PLOG is the protective code routine that
+performs the LOG operation. The $ABBR PROTECT record causes
+NM-TRAN to automatically replace FORTRAN functions in
+abbreviated code with the protective functions.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%">
+
+
+<p>WRITE/PRINT statements</p></td>
+<td width="63%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Character strings, format
+specification, Array options FULL vs. DIAG</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="58%">
+
+
+<p>DO WHILE, DO WHILE(DATA) statements</p></td>
+<td width="42%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Looping;
+transgeneration.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="83%">
+
+
+<p>Include files for NONMEM_RESERVED variables
+(nm73)</p> </td>
+<td width="17%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">If the name of an include
+file starts with NONMEM_RESERVED, it may contain definitions
+of variables that will be parsed by NM-TRAN for use in
+abbreviated code.</p>
+
+<h4>6.5.4. Reserved Variables in Abbreviated Code
+<a name="6.5.4."></a>
+<a name="6.5.4. Reserved Variables in Abbreviated Code"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Here is a partial list of
+reserved variables that are not mentioned elsewhere in this
+guide.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%">
+
+
+<p>ICALL</p></td>
+<td width="84%">
+
+
+<p>NONMEM reserved variable. Tells PRED when NONMEM
+is doing Run initialization, Problem initialization,
+Estimation, Problem finalization, Simulation, Expectiation,
+Data Average. (nmv)</p></td>
+<td width="8%">
+</td></tr>
+</table>
+
+<p>NEWIND</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%"></td>
+<td width="84%">
+
+
+<p>NONMEM reserved variable. Tells PRED when data
+from a new individual record is starting.</p></td>
+<td width="8%">
+</td></tr>
+</table>
+
+<p>NIREC, NDREC (nmvi)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="40%"></td>
+<td width="60%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="40%">
+
+
+<p>FIRSTOBS, LASTOBS (nm74)</p></td>
+<td width="60%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">NONMEM reserved
+variables. Input data file record counters. NONMEM 7.4
+provides additional record counters such as FIRSTOBS,
+LASTOBS, etc. in file nonmem_reserved_general.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="87%">
+
+
+<p>LIREC NINDR INDR1 INDR2 reserved variables
+(nmvi2.0)</p> </td>
+<td width="13%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">NONMEM reserved
+variables. Descriptive of the individual record.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%">
+
+
+<p>MSEC, MFIRST, IFIRSTEM</p></td>
+<td width="63%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">NONMEM reserved
+variables. Tells PRED which derivatives to
+compute.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="90%">
+
+
+<p>THETAFR, OMEGA, SIGMA, SETHET, SETHETR, SEOMEG,
+SESIGM (nmvi,nm74)</p></td>
+<td width="10%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">NONMEM reserved
+variables. The current values of OMEGA, SIGMA, et. al., may
+be used in abbreviated code.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>IIDX,CNTID (nmvi)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">NONMEM reserved
+variables. Individual contribution to the objective
+function.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="62%">
+
+
+<p>PRED_,RES_,WRES_, and other variables</p></td>
+<td width="38%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Variables with similar
+names and the same values as statistical diagnostic items
+PRED_, RES_, WRES_, CPRED_, CRES__, CWRES, etc., may be used
+on the right in $PRED and $ERROR blocks (nm7)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="50%">
+
+
+<p>NONMEM_reserved_general (nm73)</p></td>
+<td width="50%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">This is a file in the
+util directory with declarations for many additional
+reserved variables.</p>
+
+<h3>6.6. Utility Routines
+<a name="6.6."></a>
+<a name="6.6. Utility Routines"></a>
+</h3>
+
+
+<p style="margin-top: 1em">This is a list of utility
+programs found in the util directory.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%">
+
+
+<p>nmfe75</p></td>
+<td width="90%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The nmfe shell script has
+many new options, including options for parallel
+computing.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="13%">
+
+
+<p>finedata</p></td>
+<td width="87%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Augments an NM-TRAN data
+file to incorporate additional, non-observation, time values
+spaced at regular increments.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p>nmtemplate</p></td>
+<td width="83%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Performs variable
+substitution on appropriately tagged control stream template
+files, and produces new control stream files. Compare with
+the $ABBR REPLACE feature, above.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>table_quant</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Transforms results in raw
+output file of $COV SIRAMPLE step, places into a table file
+with frequencies and cumulative values</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>table_resample</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Resamples from raw output
+file of $COV SIRAMPLE step, using the WEIGHT
+information</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>table_compare</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Compares the numerical
+values between two table files produced by the $TABLE
+record.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%">
+
+
+<p>table_to_xml</p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Converts additional
+output table files produced by NONMEM to XML Formatted
+files.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>xml_compare</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Compares the contents of
+two NONMEM report XML files.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="13%">
+
+
+<p>doexpand</p></td>
+<td width="87%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Expand an NM-TRAN control
+stream file that has been annotated with DOE (which stands
+for DO expand) and ENDDOE (which stands for ENDDO expand)
+directives.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="13%">
+
+
+<p>ddexpand</p></td>
+<td width="87%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Expands a control stream
+file by adding equations for time-delay differntial equation
+problems.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="8%">
+
+
+<p>neff</p></td>
+<td width="84%">
+
+
+<p>Performs effective sample statistics on
+population parameters in raw output file genereated by
+Bayesian or NUTS analysis</p></td>
+<td width="8%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="8%">
+
+
+<p>neffi</p></td>
+<td width="84%">
+
+
+<p>Performs effective sample statistics from
+individual parameters genereated by Bayesian or NUTS
+analysis</p> </td>
+<td width="8%">
+</td></tr>
+</table>
+
+<h3>6.7. All Options for $ESTIMATION
+<a name="6.7."></a>
+<a name="6.7. All Options for $ESTIMATION"></a>
+</h3>
+
+
+<p style="margin-top: 1em">This section lists all
+options of the $ESTIMATION record. Some are discussed
+earlier in this guide and are listed here for completion.
+Some options are only appropriate with specific estimation
+methods. For more information, see the $ESTIMATION help
+item.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p>-2LL (nmv)</p></td>
+<td width="83%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Y evaluated in $ERROR or
+$PRED is intepreted as -2 times log likelihood</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>ATOL (nm72)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Absolute tolerance
+adjustment for ADVAN9 and ADVAN13</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>AUTO (nm73)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Have NONMEM determine
+optimal settings for certain EM/Bayes options</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%">
+
+
+<p>BAYES_PHI_STORE (nm75)</p></td>
+<td width="63%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">When set to 1, stores phi
+and eta values from each BAYES iteration
+root.iph.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>BIONLY (nm75)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">When set to 1, will
+create new samples of individual parameters only during
+BAYES analysis, but will keep the population parameters
+fixed.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>BOOTDATA (nm75)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">By default (BOOTDATA=0),
+when data are selected based on $SIML BOOSTRAP, the randomly
+selected subjects are analyzed during the subsequent
+estimation method. If BOOTDATA=1, then the subjects not
+selected are analyzed.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%">
+
+
+<p>CALPHA (nm7)</p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">alpha error rate for
+Monte Carlo EM and Bayes convergence</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>CENTERING (nmv)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Impose centering of
+average empirical Bayes estimates (EBEs) about zero
+(FOCE).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>CINTERVAL (nm7)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Correlation iteration
+interval for Monte Carlo EM and Bayes
+convergence</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>CITER/CNSAMP (nm7)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of iteration
+samples to use for Monte Carlo EM and Bayes
+convergence</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>CLOCKSEED (nm75)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">If CLOCKSEED=1, the
+computer clock time will be used to help create a unique
+starting seed position for each new run of the control
+stream.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="32%">
+
+
+<p>CONDITIONAL (nmiv)</p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Assess objective function
+around each subject&rsquo;s (conditional) etas during
+Estimation (FOCE/Laplace)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>CONSTRAIN (nm72)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Impose algorithmic
+constraints on thetas through CONSTRAINT subroutine
+(EM/BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>CTYPE (nm7)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select convergence
+criterion</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>DERCONT (nm73)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Correct for derivative
+continuity in change of objective function with theta
+(SAEM/IMP)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="15%">
+
+
+<p>DF (nm71)</p></td>
+<td width="85%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">degrees of freedom of
+t-distribution of sampling density for IMP and
+IMPMAP</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p>DFS (nm73)</p></td>
+<td width="83%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">degrees of freedom for
+simulating initial SIGMAS (CHAIN only)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%">
+
+
+<p>EONLY (nm71)</p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Expectation step only, no
+advancement of thetas or sigmas for EM methods. With nm74,
+also affects individual conditional means/modes and
+conditional variances, and approximate
+variances.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>ETABARCHECK (nmvi)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">p-value of ETABAR (mean
+EBEs) tests similarity to ETABAR of a previous
+problem</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>ETADER (nm73)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select alternative finite
+difference methods for eta derivatives</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>ETASAMPLES (nm74)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Generates posterior
+density samples of etas</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>ETASTYPE (nm73)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Determine whether
+non-influential etas should be included in ETABAR/Shrinkage
+statistics</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>FAST (nm74)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Uses analatical
+derivatives of thetas and sigmas to speed up FOCE
+analyses</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>FILE (nm71)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">specify alternative name
+for raw ouptut file containing fixed effects parameters
+progress</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>FNLETA (nm72)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Determine how final etas
+are obtained for table outputs</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="32%">
+
+
+<p>FORMAT/DELIM (nm71)</p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">specify alternative
+numerical format for output files.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>FPARAFILE (nm74)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Turn ON or OFF
+parallelization of final etas evaluation.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p>GRD (nm71)</p></td>
+<td width="83%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify gradient behavior
+of THETAS and SIGMAS for EM/BAYES methods</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>GRDQ (nm74)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Gradient quick option,
+specifying what number of fraction of importance samples
+generate should be used for gradient evaluation of non-mu
+modeled parameters</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>GRID (nmvi)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Set up search grid
+pattern for Stieltjes method</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%">
+
+
+<p>HYBRID (nmv)</p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Use conditional etas
+except for those etas listed in ZERO option (hybrid of FOCE
+and FO)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>IACCEPT (nm71)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Acceptance/rejection
+ratio or proposal density coverage for EM/BAYES</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>IACCEPTL (nm74)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Scale a second
+multi-variate normal density, to cover long tails in the
+posterior density.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>IKAPPA (nm75)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">For ISAMPLE_M1B,
+individual parameters are averaged using a weight of N to
+the -IKAPPA power for the Nth iteration, <br>
+in obtaining the mean and variance-covariance for the
+ISAMPLE_M1B mode.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>INTERACTION (nmiv)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Assess residual variance
+(epsilon terms) using conditional (non-zero)
+etas.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>ISAMPEND (nm73)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Maximum value for
+ISAMPLE</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>ISAMPLE (nm71)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of Monte Carlo ETA
+samples to collect for each subject</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>ISAMPLE_M1 (nm71)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of ETA samplings
+to test in the OMEGA space (SAEM/BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>ISAMPLE_M1A (nm72)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of ETA samplings
+to test using ETA samples of other subjects
+(SAEM/BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>ISAMPLE_M1B (nm75)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of eta samplings
+to test, using the individual conditional mean and
+individual conditional variance collected from previous
+iterations as the proposal density.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>ISAMPLE_M2 (nm71)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of multi-variate
+ETA vector samplings to test in the local space
+(SAEM/BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>ISAMPLE_M3 (nm71)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of uni-variate ETA
+samplings to test in the local space
+(SAEM/BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>ISCALE_MAX (nm72)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Maximum factor to expand
+prospoal density for ETA sampling
+(SAEM/BAYES/IMP/IMPMAP)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>ISCALE_MIN (nm72)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Minimum factor to scale
+prospoal density for ETA sampling
+(SAEM/BAYES/IMP/IMPMAP)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%">
+
+
+<p>KAPPA (nm74)</p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify power term to be
+used in average acumulating samples for mass matrix
+production for NUTS analysis</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>KNUTHSUMOFF (nm74)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Turn off precision
+retaining KnuthSUm algorithm when summing individual OFVs to
+produce total OFV.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>LAPLACE (nmiv)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">2nd Order conditional
+estimation method</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>LEVCENTER (nm75)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">If LEVCENTER=1, ensures
+the etas of super ID random levels sum to 0. LEVCENTER=0 is
+now preferred.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%">
+
+
+<p>LEVWT (nm74)</p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify how to weigh
+subjects in nested random levels ($LEVEL)
+problem</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p>LIKE (nmv)</p></td>
+<td width="83%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Y evaluated in $ERROR or
+$PRED is interpreted as likelihood</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>LNTWOPI (nm74)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Add the N*log(2pi) term
+to the objective function</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>MADAPT (nm74)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify how the mass
+matrix is updated during a NUTS analysis</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>MAPCOV (nm74)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">MAPCOV=1 is the
+default.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>MAPINTER (nm72)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Iteration interval at
+which to use MAP estimates for proposal density
+(IMP)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>MAPITER (nm72)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of first set of
+iterations at which to use MAP estimates for proposal
+density (IMP)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>MASSRESET (nm74)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Initialize mass matrix
+accumulation, or borrow from previous
+estimation.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>MAXEVAL (nmiv)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Maximum number of
+function evaluations (FO/FOCE/FOCEI/Laplace)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%">
+
+
+<p>MCETA (nm73)</p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of Monte Carlo
+samples to assess best starting eta vector for MAP
+estimation</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>METHOD (nmiv)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify method of
+estimation</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>MSFO (nmiv)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">File name for containing
+estimation information to use in subsequent
+analyses</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p>MUM (nm71)</p></td>
+<td width="83%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Turn on or off
+MU-referencing for EM/BAYES analysis</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%">
+
+
+<p>NBURN (nm71)</p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of burn-in
+iterations for SAEM/BAYES methods</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="33%">
+
+
+<p>NITER/NSAMPLE (nm71)</p></td>
+<td width="67%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of iterations for
+EM/BAYES methods</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>NOABORT (nmiv)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Have NONMEM Recover from
+numerical errors during estimation</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%">
+
+
+<p>NOCOV (nm73)</p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Do not evaluate
+covaruiance step for particular estimation step</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>NOHABORT (nm73)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Have NONMEM recover from
+all numerical errors during estimation (stronger than
+NOABORT)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>NOLABEL (nm71)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Do not print column names
+in additional output files</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="38%">
+
+
+<p>NOOMEGABOUNDTEST (nmvi)</p></td>
+<td width="62%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Do not limit how much
+OMEGA elements may change in an estimation
+(FO/FOCE/Laplace)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="40%">
+
+
+<p>NOSIGMABOUNDTEST (nmvi)</p></td>
+<td width="60%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Do not limit how much
+SIGMA elements may change in an estimation
+(FO/FOCE/Laplace)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="40%">
+
+
+<p>NOTHETABOUNDTEST (nmvi)</p></td>
+<td width="60%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Do not limit how much
+THETA parameters change in an estimation
+(FO/FOCE/Laplace)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>NOSUB (nm74)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Turn off substitution of
+variable labels in Table headers.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>NOTITLE (nm71)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Do not print title
+(header) in additional output files</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>NONINFETA (nm73)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Determine how NONMEM
+treats etas that do not influence the subject&rsquo;s data
+likelihood</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>NOPRIOR (nm71)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Turn on or off the
+contribution of the prior information</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>NSIG (nmiv)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">number of signficant
+digits for convergence criterion (classical methods,
+ITS)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>NUMDER (nm73)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Output numerical and/or
+analytical ETA derivatives</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>NUMERICAL (nmv)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Use finite difference
+method for 2nd derivative ETAS in MAP estimation (Laplace,
+ITS, MAP, IMPMAP)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>NUTS_BASE (nm74)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify number of
+iterations for stage II of warmup process of NUTS
+analysis</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>NUTS_DELTA (nm74)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Sample acceptance rate
+for NUTS analysis</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>NUTS_EPARAM (nm74)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify parameterization
+for individual parameters/etas in NUTS analysis</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>NUTS_GAMMA (nm74)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Gamma factor for NUTS
+algorithm</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>NUTS_INIT (nm74)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify number of
+iterations for stage I of warmup process of NUTS
+analysis</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>NUTS_MASS (nm74)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify whether mass
+matrix should be full, diagonal, block-diagonal,
+etc.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="33%">
+
+
+<p>NUTS_MAXDEPTH (nm74)</p></td>
+<td width="67%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Sets the maximum number
+of total branchings to try in the NUTS algorithm in the
+search for the next decorrelated sample</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>NUTS_OPARAM (nm74)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify parameterization
+for Omegas in NUTS analysis</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>NUTS_REG (nm74)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify diagonal
+dominance algorithm for mass matrix in NUTS
+analysis.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>NUTS_SPARAM (nm74)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify parameterization
+for Sigmas in NUTS analysis</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="35%">
+
+
+<p>NUTS_STEPINTER (nm74)</p></td>
+<td width="65%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">An initial step size is
+calculated every NUTS_STEPINTER iterations.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="35%">
+
+
+<p>NUTS_STEPITER (nm74)</p></td>
+<td width="65%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">An initial step size is
+calculated for the first NUTS_STEPITER
+iterations.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>NUTS_TERM (nm74)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify number of
+iterations for stage III of warmup process of NUTS
+analysis</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>NUTS_TEST (nm74)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify
+acceptance/rejection algorithm in NUTS algorithm</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%">
+
+
+<p>NUTS_TRANSFORM (nm74)</p></td>
+<td width="63%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify whether
+estimation parameters or momentum parameters are to be
+transformed in NUTS algorithm.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>OACCEPT (nm7)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select
+acceptance/rejection ratio for Metroplis-Hastings algorithm
+of finding OMEGAS (BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="33%">
+
+
+<p>OLKJDF (nm74)</p></td>
+<td width="67%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Set degrees of freedom
+for LKJ correlation for Omegas</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="37%">
+
+
+<p>OLNTWOPI (nm74)</p></td>
+<td width="63%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Include log(2pi) degrees
+of freedom from eta density portion of objective
+function</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="35%">
+
+
+<p>OMEGABOUNDTEST (nm74)</p></td>
+<td width="65%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Limit how much OMEGA
+elements may change in an estimation
+(FO/FOCE/Laplace)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>OMITTED (nmiv)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Omit
+estimation</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>OPTMAP (nm73)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select optimization
+method for MAP estimation</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>ORDER (nm72)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select ordering of fixed
+effects parameters in raw output file</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>OSAMPLE_M1 (nm71)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of samples for
+Metroplis-Hastings global search of finding OMEGAS
+(BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>OSAMPLE_M2 (nm71)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of samples for
+Metroplis-Hastings local search of finding OMEGAS
+(BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>OSAMPLE_M3 (nm75)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of samples for
+generating individual cholesky elements of
+OMEGA.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%">
+
+
+<p>OVARF (nm74)</p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The weight to STD prior
+to the log sqrt OMEGA diagonal elements</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>PACCEPT (nm71)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select
+acceptance/rejection ratio for Metroplis-Hastings algorithm
+of finding THETAS/SIGMAS (BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>PARAFILE (nm72)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Specify new parallization
+file for estimation, or turn ON/OFF
+parallelization</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>PARAFPRINT (nm74)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Print iteration interval
+for parallelization log file</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>PHITYPE (nm74)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">have .phi file contain
+conditional neans phis or etas</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>POSTHOC (nmiv)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Assess EBEs for each
+subject after FO estimation</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>PREDICTION (nmv)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Determines how Y or F is
+interpreted with simulation</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%">
+
+
+<p>PRINT (nmiv)</p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Iteration print
+interval</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>PRIORC (nm75)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Have the objective
+function reported include the constant term to the
+prior.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>PSAMPLE_M1 (nm71)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of samples for
+Metroplis-Hastings (MH) global search of finding
+THETAS/SIGMAS (BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>PSAMPLE_M2 (nm71)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of samples for MH
+local multi-variate search of finding THETAS/SIGMAS
+(BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>PSAMPLE_M3 (nm71)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of samples for MH
+local uni-variate search of finding THETAS/SIGMAS
+(BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>PSCALE_MIN (nm73)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Minimum factor to expand
+prospoal density for MH sampling of
+THETAS/SIGMAS(BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>PSCALE_MAX (nm73)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Maximum factor to scale
+prospoal density for MH sampling of
+THETAS/SIGMAS(BAYES)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>RANMETHOD (nm72)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select random number
+generator and behavior for Monte Carlo EM and BAYES
+methods</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>REPEAT (nmiv)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">repeat estimation
+starting at final parameters from first loop
+(FO/FOCE/Laplace)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>REPEAT1 (nmvi)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">repeat first stage of
+Stieltjes estimation</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>REPEAT2 (nmvi)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">repeat second stage of
+Stieltjes estimation</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>SADDLE_HESS (nm74)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Selects type of Hessian
+to be used for Saddle reset process</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="32%">
+
+
+<p>SADDLE_RESET (nm74)</p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Set the number of times a
+saddle_reset is performed</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p>SEED (nm7)</p></td>
+<td width="83%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select starting seed for
+Monte Carlo EM and Bayes methods</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p>SIGL (nm7)</p></td>
+<td width="83%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Significant digits of
+individual objective function assessment</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%">
+
+
+<p>SIGLO (nm72)</p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Significant digits to
+assess ETAS in MAP estimation</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>SLOW (nmvi)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Use slow method of
+advancing fixed effects parameters</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="35%">
+
+
+<p>SIGMABOUNDTEST (nmvi)</p></td>
+<td width="65%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Limit how much SIGMA
+elements may change in an estimation
+(FO/FOCE/Laplace)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>SLKJDF (nm74)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Set degrees of freedom
+for LKJ correlation for Sigmas</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>SORT (nmvi)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Sort individual objective
+function values before summing into total objective
+function</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>STDOBJ (nm73)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Stochastic standard
+deviation tolerance of objective function to determine best
+ISAMPLE for IMP/IMPMAP</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>STIELTJES (nmvi)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Higher order assessment
+of objective function</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="32%">
+
+
+<p>SVARF (nm74)</p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The weight to STD prior
+to the log sqrt Sigma diagonal elements</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>TBLN (nm75)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select table number TBLN
+from the chain file.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="35%">
+
+
+<p>THETABOUNDTEST (nmvi)</p></td>
+<td width="65%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Limit how much THETA
+parameters change in an estimation
+(FO/FOCE/Laplace)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>THIN (nm74)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Sample intervals to be
+recorded in the raw output file for Bayesian
+analysis</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="17%">
+
+
+<p>TPU (nm75)</p></td>
+<td width="83%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select user-defined prior
+for thetas.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>TTDF (nm74)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Set t-distribution
+degrees of freedom for priors to Thetas</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>ZERO (nmv)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">List of etas for which
+conditional etas are not to be used in HYBRID
+method</p>
+
+<p>References: Introduction to NONMEM 7</p>
+
+<h3>6.8. All Options for $COVARIANCE
+<a name="6.8."></a>
+<a name="6.8. All Options for $COVARIANCE"></a>
+</h3>
+
+
+<p style="margin-top: 1em">This section lists all
+options of the $COVARIANCE record. Some are discussed
+earlier in this guide and are listed here for completion.
+For more information, see the $COVARIANCE help
+item.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>ATOL (nm73)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Asolute tolerance for
+differential equation problems</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>CHOLROFF (nm74)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Have R matrix evaluated
+according to earlier versions of NONMEM.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>COMPRESS (nmv)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Covariance Step arrays
+are printed in compressed format regardless of dimension
+size of covariance of estimates</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="30%">
+
+
+<p>CONDITIONAL (nmiv)</p></td>
+<td width="70%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Evaluate covaraince step
+only if estimation successful</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>FAST (nm74)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Uses analatical
+derivatives of thetas and sigmas to speed up covariance
+step</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>FILE (nm74)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select file name of raw
+output file for SIR sampling</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>FORMAT (nm74)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select format of numbers
+to be written to raw output file during SIR
+sampling</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>FPOSDEF (nm74)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Force positive
+definiteness on R matrix after Preconditioning</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>IACCEPT (nm74)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Acceptance rate (sampler
+expansion) during SIR importance sampling</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>IACCEPTL (nm74)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Acceptance rate of the
+secondary sampler during SIR Importance sampling</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="32%">
+
+
+<p>KNUTHSUMOFF (nm74)</p></td>
+<td width="68%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Turn off precision
+retaining KnuthSUm algorithm when summing individual OFVs to
+produce total OFV.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>MATRIX (nmiv)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select type of
+Information matrix to be evalauted during Covariance
+step</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>NOFCOV (nm72)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Turn off covariance
+estimation for FOCE method</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>NOSLOW (nm72)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Use analytical
+derivatives of Omegas to evaluate gradients during
+covariance step</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>PARAFPRINT (nm74)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Print iteration interval
+for parallelization log file during covariance
+step</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>PFCOND (nm74)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Force predonditioning
+even if Rmatrix is positive definite during covariance
+step</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>PRECOND (nm74)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Set number of
+preconditioning cycles to perform during covaraince
+step</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>PRECONDS (nm74)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select whether
+preconditioning should be done on Thetas, Omegas, and/or
+Sigmas of R matrix portion in covariance step</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>PRETYPE (nm74)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select the R matrix
+corrector type when preconditioning during the
+variance-covariance step.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%">
+
+
+<p>PRINT (nmiv)</p></td>
+<td width="80%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select to Print out
+additional matrices and items (E=eigenvalues, R=R matrix,
+S=S matrix)</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>RANMETHOD (nm74)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Select randomozation
+method for SIR sampling</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>RESUME (nm73)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Collect intermediate
+information to resume covariance step if
+interrupted</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>SIGL (nm71)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Significant digits of
+individual objective function assessment during covariance
+step</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>SIGLO (nm72)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Significant digits to
+assess ETAS in MAP estimation during covariance
+step</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>SIRCENTER (nm74)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Where the sampling
+(proposal) density is to be centered during SIR
+sampling</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="22%">
+
+
+<p>SIRDF (nm74)</p></td>
+<td width="78%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Degrees of freedom of
+t-distribution sampler used during SIR sampling</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>SIRNITER (nm74)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The number of times to
+perform SIR sampling</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>SIRPRINT (nm74)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Set the console print
+iterations interval during SIR sampling of covariance
+step</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="28%">
+
+
+<p>SIRSAMPLE (nm74)</p></td>
+<td width="72%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Number of random samples
+to generate during SIR sampling of covariance
+step.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="27%">
+
+
+<p>SIRTHBND (nm74)</p></td>
+<td width="73%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Determines whether R and
+S matrix are evaluated in uncosntrained or constrained
+domain for thetas during SIR sampling</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>SLOW (nmvi)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Have Omega gradients
+evaluated numerically</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="23%">
+
+
+<p>SPECIAL (nmiv)</p></td>
+<td width="77%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The special computation
+will be used in the Covariance Step with a recursive PRED
+subroutine.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="25%">
+
+
+<p>THBND (nm74)</p></td>
+<td width="75%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Determines whether R and
+S matrix are evaluated in uncosntrained or constrained
+domain for thetas during main covariance step</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+<p>TOL (nm72)</p></td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Selects relative
+tolerance for differential equation integration during
+covariance step</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="33%">
+
+
+<p>UNCONDITIONAL (nmiv)</p></td>
+<td width="67%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">Evaluate covaraince step
+whether or not estimation successful</p>
+
+<p>References: Introduction to NONMEM 7 <br>
+<a href="12.html">TOP</a> <br>
+<a href="index.html">TABLE OF CONTENTS</a> <br>
+ <a href="13.html">NEXT</a></p>
+<hr>
+</body>
+</html>

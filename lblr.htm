@@ -1,0 +1,83 @@
+<HTML><HEAD> <TITLE> lblr.sup</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                                LBLR                                |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Insert User-Defined Labels in Additional Files (NM75)
+ CONTEXT: NONMEM run
+
+ The label substitution process is described in
+ I.28.General New Options for $ESTIMATION Record (NOSUB=0)
+ I.6.Expansions on Abbreviated and Verbatim Code and Other Items
+ It  is  normally  done  only in the NONMEM report file, but not in the
+ additional files, such as the .ext, .cov, .coi, .phi, etc. These addi-
+ tional  files need often be read by 3rd party software, which may rely
+ on traditional names for thetas, omegas, sigmas, phi, eta, etc.  None-
+ theless,  one may wish to make label substitutions on these additional
+ files, which  can  be  done  after  the  NONMEM  analysis,  using  the
+ label_replace utility.
+
+ USAGE:
+ lblr file1 file2 file3 [S|T|C] [0|1|2]
+
+ file1
+      Input  file  to have label substitutions done.  Typically this is
+      the name of the NONMEM report file (e.g., root.res).
+
+ file2
+      NONMEM report file containing label substitution patterns, or any
+      file containing label substitution patterns such as:
+      THETA(1)=THETA(CL)
+      ETA(2)=ETA(ETV1)
+      EPS(1)=EPS(RSW)
+
+ file3
+      The results are written to file3.
+
+ Option 1
+      Option 1 may be summarized as [S|T|C]
+      S=Expand and adjust with spaces (default)
+      T=Do not expand, and truncate label if necessary
+      C=Expand, and compress so there are no spaces (suitable only for comma delimited files)
+
+ Option 2
+      Option 2 may be summarized as [0|1|2]
+      0=Full name of parameter type (THETA/OMEGA/SIGMA/ETA/EPS/PHI/ETC/PHC) (default)
+      1=two letter truncation of parameter type name (TH/OM/SG/ET/EP/PH/EC/PC)
+      2=single letter truncation of parameter type name (T/O/S/E/P/H/C/C)
+
+ Truncated  parameter  type  name  (1  or 2) works well with T, when no
+ label expansion is permitted, and you want to make the label  as  com-
+ pact as possible.
+
+ If  the user specified NOSUB=1, then the thetas, omegas/etas, and sig-
+ mas/eps will not have been label substituted during the NONMEM  execu-
+ tion.  The user may wish to make the label substitution afterword with
+ label_replace. For example,
+
+  lblr myresult.res myresult.res myresult_new.res T 2
+
+ Notice in this example that the report file myresult.res serves as the
+ input file, and the file from which to get label substitution pattern.
+
+ If  you  also  want  to  perform an lpcc, do lblr first, then the lpcc
+ utility.
+
+ See INTRODUCTION TO NONMEM 7,  lblr:  Insert  User-Defined  Labels  in
+ Additional Files
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

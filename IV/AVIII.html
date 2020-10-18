@@ -1,0 +1,123 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Fri Sep 18 22:03:11 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part IV - NM-TRAN">NONMEM Users Guide Part IV - NM-TRAN</a><br>
+<a href="#Appendix.VIII. Additional NM-TRAN Control Streams">Appendix.VIII. Additional NM-TRAN Control Streams</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part IV - NM-TRAN
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part IV - NM-TRAN"></a>
+</h2>
+
+
+<h2>Appendix.VIII. Additional NM-TRAN Control Streams
+<a name="Appendix.VIII."></a>
+<a name="Appendix.VIII. Additional NM-TRAN Control Streams"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The NM-TRAN control stream
+listed in chapter V specifies that ADVAN2 be used. The
+results from NONMEM-PREDPP, using this control stream along
+with the NM-TRAN data set listed in Appendix VI, can be
+essentially duplicated, using NM-TRAN control streams which
+specify different ADVAN&rsquo;s, but which name the the same
+data set. Two such control streams are given here, one
+specifying ADVAN7 and the other specifying ADVAN6. See Guide
+III for some relative performance statistics. The two
+control streams are recorded on the NONMEM distribution
+medium; see Guide III.</p>
+
+<p align="center" style="margin-top: 1em">NM-TRAN Control
+Stream Specifying ADVAN7</p>
+<pre style="margin-top: 1em">$PROB  THEOPHYLLINE   POPULATION DATA
+$INPUT      ID DOSE=AMT TIME CP=DV WT
+$DATA       THEOPP
+
+$SUBROUTINES  ADVAN7
+$MODEL COMP=(DEPOT,INITIALOFF,DEFDOSE) COMP=(CENTRAL,DEFOBS,NOOFF)
+
+
+$PK
+;THETA(1)=MEAN ABSORPTION RATE CONSTANT (1/HR)
+;THETA(2)=MEAN ELIMINATION RATE CONSTANT (1/HR)
+;THETA(3)=SLOPE OF CLEARANCE VS WEIGHT RELATIONSHIP (LITERS/HR/KG)
+;SCALING PARAMETER=VOLUME/WT SINCE DOSE IS WEIGHT-ADJUSTED   CALLFL=1
+   K12=THETA(1)+ETA(1)
+   K20=THETA(2)+ETA(2)
+   CL=THETA(3)*WT+ETA(3)
+   S2=CL/K20/WT</pre>
+
+
+<p style="margin-top: 1em">$THETA (.1,3,5) (.008,.08,.5)
+(.004,.04,.9) $OMEGA BLOCK(3) 6 .005 .0002 .3 .006 .4</p>
+
+<p style="margin-top: 1em">$ERROR <br>
+Y=F+EPS(1)</p>
+
+<p style="margin-top: 1em">$SIGMA .4</p>
+
+<p style="margin-top: 1em">$EST MAXEVAL=450 PRINT=5 $COV
+$TABLE ID DOSE WT TIME $SCAT (RES WRES) VS TIME BY ID</p>
+
+<p align="center" style="margin-top: 1em">NM-TRAN Control
+Stream Specifying ADVAN6</p>
+<pre style="margin-top: 1em">$PROB  THEOPHYLLINE   POPULATION DATA
+$INPUT      ID DOSE=AMT TIME CP=DV WT
+$DATA       THEOPP
+
+$SUBROUTINES  ADVAN6  TOL=5
+$MODEL COMP=(DEPOT,INITIALOFF,DEFDOSE) COMP=(CENTRAL,DEFOBS,NOOFF)
+
+
+$PK
+;THETA(1)=MEAN ABSORPTION RATE CONSTANT (1/HR)
+;THETA(2)=MEAN ELIMINATION RATE CONSTANT (1/HR)
+;THETA(3)=SLOPE OF CLEARANCE VS WEIGHT RELATIONSHIP (LITERS/HR/KG)
+;SCALING PARAMETER=VOLUME/WT SINCE DOSE IS WEIGHT-ADJUSTED   CALLFL=1
+   KA=THETA(1)+ETA(1)
+   KE=THETA(2)+ETA(2)
+   CL=THETA(3)*WT+ETA(3)
+   S2=CL/KE/WT</pre>
+
+
+<p style="margin-top: 1em">$THETA (.1,3,5) (.008,.08,.5)
+(.004,.04,.9) $OMEGA BLOCK(3) 6 .005 .0002 .3 .006 .4</p>
+
+<p style="margin-top: 1em">$DES <br>
+DADT(1)=-KA*A(1) <br>
+DADT(2)= KA*A(1)-KE*A(2)</p>
+
+<p style="margin-top: 1em">$ERROR <br>
+Y=F+EPS(1)</p>
+
+<p style="margin-top: 1em">$SIGMA .4</p>
+
+<p style="margin-top: 1em">$EST MAXEVAL=450 PRINT=5 $COV
+$TABLE ID DOSE WT TIME $SCAT (RES WRES) VS TIME BY ID</p>
+
+<p style="margin-top: 1em"><a href="AVIII.html">TOP</a> <br>
+<a href="index.html">TABLE OF CONTENTS</a> <br>
+ <a href="AIX.html">NEXT APPENDIX ...</a></p>
+<hr>
+</body>
+</html>

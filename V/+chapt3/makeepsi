@@ -1,0 +1,4 @@
+#On ubuntu (on dell):
+  ps2epsi fig3.1.ps fig3.1.ubuntu.epsi
+  ps2epsi fig3.2.ps fig3.2.ubuntu.epsi
+  ps2epsi fig3.3.ps fig3.3.ubuntu.epsi

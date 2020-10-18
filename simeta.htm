@@ -1,0 +1,121 @@
+<HTML><HEAD> <TITLE> simeta.utl</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               SIMETA                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: SIMETA subroutine
+ CONTEXT: NONMEM utility routine
+
+ USAGE:
+      USE SIZES, ONLY: DPSIZE,LVR
+      REAL(KIND=DPSIZE):: ETA(LVR)
+      CALL SIMETA (ETA)
+
+ DISCUSSION:
+ The  NONMEM  utility  routine  SIMETA can be called by PRED during the
+ simulation step, to obtain simulated eta values.   It  may  be  called
+ only when ICALL=4.
+
+ Output argument:
+
+  ETA An  array  into  which SIMETA stores simulated eta values ETA(1),
+      ETA(2), ...  The dimension of the array may be smaller  than  the
+      maximum, e.g., it may equal the number of etas in the problem.
+
+ Simulated  eta  values  arise from a multivariate normal pseudo-random
+ distribution with mean 0  and  variance-covariance  as  specified  for
+ OMEGA.   With  different  calls  to  SIMETA  with different individual
+ records, new and different simulated eta values are obtained.
+ (With population data, an individual record has the same value  of  ID |
+ and may also be called a level-one "L1" record.)  (See <A HREF="i.htm#id">ID</A>).
+ By  default,  with  different calls to SIMETA with the same individual
+ record, the same simulated eta values are obtained - those obtained at
+ the first call with the record.  (There is an advanced feature whereby
+ records are "repeated"
+ (See <A HREF="r.htm#repetition_variables">Repetition_Variables</A>),
+ and when records of an individual record are being repeated, with dif-
+ ferent  calls  to  SIMETA  with the same individual record, the values
+ obtained are the last values stored in these variables when the record
+ was previously passed to PRED.)
+
+ If, though, the NEW option is used with the first random source on the
+ $SIMULATION record, then each time SIMETA is called (with the same  or
+ different  individual  record), new and different values are obtained.
+ Thus, for example, when PRED is called with the first data  record  of
+ an  individual  record,  PRED  can  in turn call SIMETA multiple times
+ until values are obtained such that, for example, ETA(2) is not larger
+ than 5 in absolute value; that is, values can be obtained from a trun-
+ cated distribution (see below).  With any particular call  to  SIMETA,
+ the effect of the NEW option can, though, be overridden;
+ (See <A HREF="s.htm#simulation:_ietaol_iepsol">Simulation:_IETAOL_IEPSOL</A>)
+ So  that  simple simulation can be easily implemented with abbreviated
+ code, values of etas are obtained by calls to SIMETA occurring in  the
+ generated  subroutine.   When  the data are population data, SIMETA is
+ called once per individual record by PRED (or PK if PREDPP  is  used).
+ (In  the  case  of  PK, the array of etas is stored in a common and is
+ available to the ERROR subroutine as well.)  When the data are single-
+ subject  data,  SIMETA  is  called once at every call to PRED (once at
+ every call to ERROR if PREDPP is used).
+
+ These calls are implemented so that even if, initially, the Simulation
+ Step is not implemented, the NONMEM executable resulting from using an
+ abbreviated code for PRED (for PK or ERROR if PREDPP is used)  can  be
+ reused with a run implementing the Simulation Step.
+
+ EXAMPLES OF USAGE:
+
+ In  this example, the value of ETA(2) used by PRED will be less than 5
+ in absolute value.  For this code to  have  the  desired  effect,  the
+ option NEW must be used in the $SIMULATION record.
+
+      IF (ICALL.EQ.4.AND.NEWIND.NE.2) THEN
+         DO WHILE (ABS(ETA(2)).GT.5)
+         CALL SIMETA (ETA)
+         ENDDO
+      ENDIF
+
+ Suppose  there  are  two etas to be selected in this manner.  Each one
+ needs its own CALL SIMETA loop, because each CALL SIMETA replaces  all
+ the etas.
+
+      IF (ICALL.EQ.4.AND.NEWIND.NE.2) THEN
+         DO WHILE (ABS(ETA(2)).GT.5)
+         CALL SIMETA (ETA)
+         ENDDO
+         ETA2=ETA(2)
+         DO WHILE (ABS(ETA(1)).GT.0.52)
+         CALL SIMETA (ETA)
+         ENDDO
+         ETA1=ETA(1)
+      ENDIF
+
+ Another way this can be implemented is as follows:
+
+       IF (ICALL.EQ.4.AND.NEWIND.NE.2) THEN
+          DO WHILE(ABS(ETA(2)).GT.5.OR.ABS(ETA(1)).GT.0.52)
+          CALL SIMETA (ETA)
+          ENDDO
+          ETA2=ETA(2)
+          ETA1=ETA(1)
+       ENDIF
+
+ There is an analogous routine SIMEPS.  (See <A HREF="s.htm#simeps">simeps</A>).
+
+REFERENCES: Guide IV Section <a href="IV/III.html#B.13.">III.B.13<a/>, <a href="IV/IV.html#I.">IV.I<a/>
+REFERENCES: Guide V Section <a href="V/12.html#4.8.">12.4.8<a/>
+REFERENCES: Guide VI Section <a href="VI/III.html#E.2.">III.E.2<a/>, <a href="VI/IV.html#B.2.">IV.B.2<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

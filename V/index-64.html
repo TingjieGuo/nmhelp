@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 64</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index064.png" alt="background image">
+<DIV style="position:absolute;top:41;left:152"><nobr><span class="ft0">Chapter 6 - Data Sets, $DAT A and $INPUT Records, and the Data Preprocessor</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft3">fault compartment is used, except as noted below. This is what was done in the examples of<br>Chapter 2. The meaning of the two data items depends on the particular kind of event record.</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:72"><nobr><span class="ft0">•</span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:97"><nobr><span class="ft3">Observation event: CMT speciﬁes the compartment from which the predicted value of the<br>observation is obtained. PCMT is ignored. When CMT speciﬁes the output compartment,<br>it is allowed to have a neg ative sign (e.g., with the One-compartment model, CMT may be<br>-2). This signals that <i>after </i>the prediction is computed the output compartment is to be<br>turned off, i.e. the amount in the compartment is to be set to zero. The amount remains zero<br>until the compartment is subsequently turned on. This is quite useful with urine observa-<br>tions; see Section 9 below.</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:72"><nobr><span class="ft0">•</span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:97"><nobr><span class="ft3">Dose event: CMT speciﬁes the compartment into which the dose is introduced. The com-<br>partment is turned on if it was previously off. PCMT speciﬁes the compartment for which a<br>predicted observation is computed. This predicted value is not associated with an observa-<br>tion, but it can be useful because it will appear in tables or scatterplots.</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:72"><nobr><span class="ft0">•</span></nobr></DIV>
+<DIV style="position:absolute;top:257;left:97"><nobr><span class="ft3">Other event: A positive value of CMT speciﬁes that the compartment is to be turned on if it<br>is off. A negative value of CMT speciﬁes that the compartment is to be turned off if it is on.<br>(If CMT is 0, no compartment is turned on or off.) PCMT is the same as for dose events.</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:72"><nobr><span class="ft0">•</span></nobr></DIV>
+<DIV style="position:absolute;top:300;left:97"><nobr><span class="ft0">Reset event: CMT is ignored. PCMT is the same as for dose events.</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:72"><nobr><span class="ft0">•</span></nobr></DIV>
+<DIV style="position:absolute;top:316;left:97"><nobr><span class="ft0">Reset-dose event: CMT and PCMT are the same as for dose events.</span></nobr></DIV>
+<DIV style="position:absolute;top:342;left:72"><nobr><span class="ft2"><b>7.5. CALL Data Item</b></span></nobr></DIV>
+<DIV style="position:absolute;top:359;left:72"><nobr><span class="ft3">The Call data item (CALL) is used to force a call to either or both of the PK and ERROR subrou-<br>tines with the event record when such a call would not normally occur. A call to the PK or ER-<br>ROR subroutine causes the code speciﬁed by the $PK or $ERROR records, respectively, to be ex-<br>ecuted with the event record. This is discussed in Chapters 7 ($PK) and 8 ($ERROR).) When not<br>deﬁned in the data set, CALL is assumed to be 0 always. The values are:</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:72"><nobr><span class="ft0">0</span></nobr></DIV>
+<DIV style="position:absolute;top:428;left:97"><nobr><span class="ft0">No forced call; PREDPP takes its normal action.</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:72"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:444;left:97"><nobr><span class="ft0">Force a call to ERROR.</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:72"><nobr><span class="ft0">2</span></nobr></DIV>
+<DIV style="position:absolute;top:461;left:97"><nobr><span class="ft0">Force a call to PK.</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:72"><nobr><span class="ft0">3</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:97"><nobr><span class="ft0">Force a call to both PK and ERROR.</span></nobr></DIV>
+<DIV style="position:absolute;top:494;left:72"><nobr><span class="ft0">10 Force a call to ADVAN9. May be combined with other values. E.g., the value 12 means</span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:97"><nobr><span class="ft0">&quot;Force a call to PK and to ADVAN9&quot;.</span></nobr></DIV>
+<DIV style="position:absolute;top:533;left:72"><nobr><span class="ft2"><b>8. Describing Doses to PREDPP</b></span></nobr></DIV>
+<DIV style="position:absolute;top:550;left:72"><nobr><span class="ft3">Doses are described using one or more of the data items discussed below. A detailed discussion<br>of the actual kinds of doses that PREDPP recognizes follows in Section 8.2, including a precise<br>deﬁnition of what is meant by the term &quot;steady-state dose&quot; (Section 8.2.3). A data item that is not<br>needed to describe the kinds of doses used in the study need not be deﬁned in the data set; it will<br>in effect always have the value 0. Only AMT (Dose amount) was used in the examples of Chap-<br>ter 2, for example. The values of dose-related data items should be 0 for non-dose events and for<br>those dose events to which they are not relevant.</span></nobr></DIV>
+<DIV style="position:absolute;top:654;left:72"><nobr><span class="ft2"><b>8.1. Dose-related Data Items</b></span></nobr></DIV>
+<DIV style="position:absolute;top:670;left:72"><nobr><span class="ft2"><b>AMT data item</b></span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:72"><nobr><span class="ft3">The Amount data item (AMT) gives the amount of a bolus dose or of an infusion of ﬁnite dura-<br>tion. This amount should be a positive number.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-56-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

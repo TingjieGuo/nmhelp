@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 149</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:7px;font-family:Courier;color:#000000;}
+	.ft2{font-size:7px;font-family:Times;color:#000000;}
+	.ft3{font-size:7px;line-height:10px;font-family:Courier;color:#000000;}
+	.ft4{font-size:7px;line-height:10px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;line-height:10px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index149.png" alt="background image">
+<DIV style="position:absolute;top:41;left:286"><nobr><span class="ft0">Chapter 12 - Brief Descriptions of Other Features</span></nobr></DIV>
+<DIV style="position:absolute;top:76;left:94"><nobr><span class="ft3"><b>$PROBLEM COMBINED PK/PD MODEL<br>$INPUT ID TIME AMT WT APGR DV TYPE L2<br>$DATA COMBDATA<br>$SUBROUTINE ADVAN1<br>$PK</b></span></nobr></DIV>
+<DIV style="position:absolute;top:126;left:110"><nobr><span class="ft3"><b>TVCL=THETA(1)+THETA(3)*WT<br>CL=TVCL+ETA(1)<br>TVVD=THETA(2)+THETA(4)*WT<br>V=TVVD+ETA(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:166;left:218"><nobr><span class="ft1"><b>; THE FOLLOWING ARE REQUIRED BY PREDPP</b></span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:110"><nobr><span class="ft3"><b>K=CL/V<br>S1=V</b></span></nobr></DIV>
+<DIV style="position:absolute;top:196;left:94"><nobr><span class="ft1"><b>$ERROR</b></span></nobr></DIV>
+<DIV style="position:absolute;top:206;left:99"><nobr><span class="ft3"><b>EMAX=THETA(5)+ETA(3)<br>C50=THETA(6)+ETA(4)<br>E=EMAX*F/(C50+F)<br>Y1=E+ERR(1)<br>Y2=F+ERR(2)<br>Q=1<br>IF (TYPE.EQ.2) Q=0<br>Y=Q*Y1+(1-Q)*Y2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:286;left:94"><nobr><span class="ft3"><b>$THETA (0,.0027) (0,.70) .0018 .5 100 20<br>$OMEGA .000007 .3 400 16<br>$SIGMA BLOCK(2) 4 2.8 8<br>$ESTIMATION</b></span></nobr></DIV>
+<DIV style="position:absolute;top:336;left:72"><nobr><span class="ft4">Figure 12.3. The input to NONMEM-PREDPP for analysis of the population phenobarbital data, including both con-<br>centration and effect observations.</span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:149"><nobr><span class="ft1"><b>0.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:182"><nobr><span class="ft1"><b>25.0 1.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:274"><nobr><span class="ft1"><b>7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:311"><nobr><span class="ft1"><b>.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:333"><nobr><span class="ft1"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:387;left:355"><nobr><span class="ft1"><b>0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:149"><nobr><span class="ft1"><b>2.0 .</b></span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:225"><nobr><span class="ft1"><b>1.4 7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:397;left:301"><nobr><span class="ft1"><b>6.0 1 1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:149"><nobr><span class="ft1"><b>2.0 .</b></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:225"><nobr><span class="ft1"><b>1.4 7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:407;left:295"><nobr><span class="ft1"><b>17.3 2 1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:144"><nobr><span class="ft1"><b>12.5 3.5 1.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:274"><nobr><span class="ft1"><b>7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:311"><nobr><span class="ft1"><b>.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:333"><nobr><span class="ft1"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:355"><nobr><span class="ft1"><b>0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:144"><nobr><span class="ft1"><b>24.5 3.5 1.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:274"><nobr><span class="ft1"><b>7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:311"><nobr><span class="ft1"><b>.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:333"><nobr><span class="ft1"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:427;left:355"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:144"><nobr><span class="ft1"><b>37.0 3.5 1.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:274"><nobr><span class="ft1"><b>7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:311"><nobr><span class="ft1"><b>.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:333"><nobr><span class="ft1"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:437;left:355"><nobr><span class="ft1"><b>0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:144"><nobr><span class="ft1"><b>48.0 3.5 1.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:274"><nobr><span class="ft1"><b>7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:311"><nobr><span class="ft1"><b>.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:333"><nobr><span class="ft1"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:447;left:355"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:144"><nobr><span class="ft1"><b>60.5 3.5 1.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:274"><nobr><span class="ft1"><b>7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:311"><nobr><span class="ft1"><b>.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:333"><nobr><span class="ft1"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:355"><nobr><span class="ft1"><b>0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:144"><nobr><span class="ft1"><b>72.5 3.5 1.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:274"><nobr><span class="ft1"><b>7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:311"><nobr><span class="ft1"><b>.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:333"><nobr><span class="ft1"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:467;left:355"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:144"><nobr><span class="ft1"><b>85.3 3.5 1.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:274"><nobr><span class="ft1"><b>7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:311"><nobr><span class="ft1"><b>.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:333"><nobr><span class="ft1"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:355"><nobr><span class="ft1"><b>0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:144"><nobr><span class="ft1"><b>96.5 3.5 1.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:274"><nobr><span class="ft1"><b>7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:311"><nobr><span class="ft1"><b>.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:333"><nobr><span class="ft1"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:487;left:355"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:139"><nobr><span class="ft1"><b>108.5 3.5 1.4</b></span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:274"><nobr><span class="ft1"><b>7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:311"><nobr><span class="ft1"><b>.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:333"><nobr><span class="ft1"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:497;left:355"><nobr><span class="ft1"><b>0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:139"><nobr><span class="ft1"><b>112.5 .</b></span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:225"><nobr><span class="ft1"><b>1.4 7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:507;left:301"><nobr><span class="ft1"><b>8.0 1 2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:122"><nobr><span class="ft1"><b>1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:139"><nobr><span class="ft1"><b>112.5 .</b></span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:225"><nobr><span class="ft1"><b>1.4 7</b></span></nobr></DIV>
+<DIV style="position:absolute;top:517;left:295"><nobr><span class="ft1"><b>31.0 2 2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:525;left:72"><nobr><span class="ft5">Figure 12.4. The ﬁrst individual’s phenobarbital data, including both concentration and effect<br>observations.</span></nobr></DIV>
+<DIV style="position:absolute;top:562;left:72"><nobr><span class="ft0">The above $ERROR statements can be coded more simply.</span></nobr></DIV>
+<DIV style="position:absolute;top:582;left:94"><nobr><span class="ft1"><b>$ERROR</b></span></nobr></DIV>
+<DIV style="position:absolute;top:592;left:99"><nobr><span class="ft3"><b>EMAX=THETA(5)+ETA(3)<br>C50=THETA(6)+ETA(4)<br>E=EMAX*F/(C50+F)<br>IF (TYPE.EQ.2) THEN<br>Y=F+ERR(2)<br>ELSE<br>Y=E+ERR(1)<br>ENDIF</b></span></nobr></DIV>
+<DIV style="position:absolute;top:681;left:72"><nobr><span class="ft2">Figure 12.5. Alternate $ERROR statements</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:276"><nobr><span class="ft0">-141-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

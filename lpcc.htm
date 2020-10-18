@@ -1,0 +1,91 @@
+<HTML><HEAD> <TITLE> lpcc.sup</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                                LPCC                                |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Line Printer Controls Converter Program (NM75)
+ CONTEXT: NONMEM run
+
+ The  utility  program Line Printer Controls Converter will convert the
+ line printer control characters in the NONMEM report file  into  their
+ proper  actions.  The line printer control characters are in the first
+ character in each line, and at one time was  interpreted  by  old  132
+ column line-printers.
+
+ USAGE:
+ lpcc inputfile outputfile codes ...
+
+ Inputfile
+      should be the name of the NONMEM report file (e.g., root.res).
+
+ outputfile
+      The results are written to outputfile.
+
+ codes ...
+      A list of 1 or more codes.
+
+ The conversion is acted upon only between the lines
+ NM-TRAN MESSAGES
+ and just before
+ Stop Time:
+ as  the  lines  before  and after these do not use column 1 as a line-
+ printer control column.
+
+ The code command characters are interpreted by lpcc as follows:
+ ------------------------------------------------------------------------------
+ Code      Acting on Action
+ Option    Control
+ character
+ ------------------------------------------------------------------------------
+ A0        +         Advance 0 lines (overprint on (merge with) previous line)
+ A1        space          Advance 1 line (no action is taken)
+ A2        0         Advance 2 lines (insert a blank line)
+ A3        -         Advance 3 lines (insert 2 blank lines) Not used in NONMEM
+ AS                  Remove action character column once code is acted upon
+                     (But will not remove character in col 1 if not one of the above)
+ FF        1         Advance page (insert Form feed character)
+ FFA       1         Advance page and add blank line
+ (insert Form feed with a next line)
+ FFA2      1         Advance page and add 2 blank lines
+ FF1       1         Replace '1' as ' ' (interpret FF as A1)
+ FF2       1         Replace '1' as '0' (interpret FF as A2)
+ FF3       1         Replace '1' as '-' (interpret FF as A3)
+ ALL                 FF,A0,A1,A2,A3
+ ALLS                FF,A0,A1,A2,A3,AS
+ ------------------------------------------------------------------------------
+ After an action, the control character is replaced with a space.  That
+ space  will  be printed unless AS is requested.  So AS shifts the line
+ one column to the left.
+ An N followed by the code prevents that action from occurring.
+
+ EXAMPLE  (options are acted upon in order):
+
+ lpcc example1.res example1.lst FF A0
+ Only replace "1" in column 1 with form feed, and merge line  with  '+'
+ with previous line.
+
+ lpcc example1.res example1.lst ALL FFA
+ Act on all codes, and replace "1" with FF/next line.
+
+ lpcc example1.res example1.lst ALLS FFA
+ Act  on  all  codes, replace "1" with FF/next line, and shift line one
+ column to the left.
+
+ See INTRODUCTION TO NONMEM 7, lpcc: Line  Printer  Controls  Converter
+ Program
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

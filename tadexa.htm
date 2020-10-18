@@ -1,0 +1,222 @@
+<HTML><HEAD> <TITLE> tadexa.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                   TIME AFTER DOSE (TAD) EXAMPLE                    |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This  fully-worked  out example shows how Time After Dose (TAD) may be
+ computed in $PK abbreviated code.  It works with transient and steady-
+ state doses, and also with additional and lagged doses.
+
+ It  is  based on suggestions from the NONMEM tips directory but is not
+ identical to any of them.  See Note 8 for a discussion of the tips.
+
+ Two versions of the code are given.
+
+ VERSION I
+      Code to compute TADE ("TAD Effective").  The time that  the  dose
+      enters  the system is used, which is the time the dose was admin-
+      istered plus ALAG.
+
+ VERSION II
+      Code to compute TADA ("TAD Administered"). The time that the dose
+      was administered is used, and ALAG is ignored.
+
+ If  PDxPop is used or any other software that looks for TAD in the ta-
+ ble, specify TAD=TADA or TAD=TADE in the $TABLE record.
+
+ $PROB  TIME AFTER DOSE (Based on RUN# 705 nonmem coding challenge #1)
+ ; This example shows how Time After Dose can be computed.
+ ; It contains two independent versions of the computation.
+ ; Version I computes TADE (Time After Dose Effective)
+ ; If there is absorption lag, TADE is the Time after the lagged dose,
+ ; that is, the time the dose actually enters the sysem.
+ ; Version II computes TADA (Time After Dose Administered)
+ ; Absorption lag is ignored.
+ ;
+ ; As of Dec. 17, 2018
+ ;
+ $INPUT C ID TIME DV AMT WT AGE CRCL SMK ADDL II EVID DROP
+ $DATA 706.csv IGNORE=C
+ $SUBROUTINE ADVAN2 TRANS2
+ $PK
+ ;
+ ALAG1=0  ;  ALAG1 is 0 for this example, but could be set to some other
+ ;           value. With ALAG1=0, either version can be used.
+ ;           However, VERSION I IS simpler and is preferred.
+ ;
+ ; VERSION I:  CODE TO COMPUTE TADE = TAD EFFECTIVE (USE ALAG)
+ ;  PREDPP KEEPS TRACK INITIATING AND IMPLIED DOSES, AND COMPUTES DOSTIM
+    IF (NEWIND.LT.2.OR.EVID.EQ.3) THEN
+       TDOSE=-999 ; TIME OF MOST RECENT DOSE. -999 IF NO PREVIOUS DOSE.
+       TADE=0.0   ; TIME AFTER DOSE EFFECTIVE
+    ENDIF
+    IF (EVID.EQ.1.AND.ALAG1.EQ.0.OR.EVID.EQ.4.AND.ALAG1.EQ.0) TDOSE=TIME
+    IF (DOSTIM.GT.0) TDOSE=DOSTIM
+    IF (TDOSE.GT.-999) TADE=TIME-TDOSE
+
+ ; If no ALAG and no ADDL doses, the above three lines become:
+ ;    IF (EVID.EQ.1.OR.EVID.EQ.4) TDOSE=TIME
+ ;    IF (TDOSE.GT.-999) TADE=TIME-TDOSE
+ ;
+ ; End of VERSION I
+
+ ; VERSION II: CODE TO COMPUTE TADA = TAD ADMINISTERED (IGNORES ALAG)
+ ;  IF ALAG&gt;0,  PREDPP's DOSTIM CANNOT BE USED FOR TADA
+ ;  THE ABBREVIATED CODE MUST KEEP TRACK OF INITIATING AND IMPLIED DOSES.
+ ;  THIS CODE IS SIMILAR TO tip4-new-general-01-31-18.txt
+    IF (NEWIND.LT.2.OR.EVID.EQ.3) THEN
+       TDOSA=-999 ; TIME OF MOST RECENT DOSE. -999 IF NO PREVIOUS DOSE.
+       TADA=0.0   ; TIME AFTER DOSE ADMINISTERED
+     ENDIF
+   IF (DOSTIM==0) THEN ; IGNORE NON-EVENT DOSE TIMES (DOSTIM&gt;0)
+        IF(EVID.EQ.1.OR.EVID.EQ.4) THEN ; NEW DOSE EVENT RECORD
+           TADA=0.0
+           DIV=II
+           TDOSA=TIME
+           TLAST=TDOSA+ADDL*II ; TLAST IS THE TIME OF THE FINAL IMPLIED DOSE
+        ENDIF
+        IF (TDOSA.GE.0.AND.EVID.NE.1.AND.EVID.NE.4) THEN ; THERE WAS AN EARLIER DOSE
+           IF (TIME&gt;TLAST) THEN
+              TADA=TIME-TLAST ; CURRENT TIME IS PAST THE TIME OF THE FINAL IMPLIED DOSE
+           ELSE
+              DIFF=TIME-TDOSA
+              TADA=MOD(DIFF,DIV) ; COMPUTES TIME OF THE MOST RECENT IMPLIED DOSE
+           ENDIF
+        ENDIF ; NOT A DOSE
+   ENDIF ; END OF DOSTIM==0
+ ;
+ ; End of VERSION II
+
+   CL=THETA(1)*EXP(ETA(1))
+   TVV=THETA(2)
+   V=TVV*EXP(ETA(2))
+   TVKA=THETA(3)
+   KA=TVKA*EXP(ETA(3))
+   S2=V
+ $THETA
+   (0, 10)
+   (0, 100)
+   (0, 0.5)
+ $ERROR
+   Y=F+ERR(1)
+   IPRED=F
+ $OMEGA
+   0.04 ;[P] INTERIND VAR IN CL
+   0.04 ;[P] INTERIND VAR IN V
+   0.04 ;[P] INTERIND VAR IN KA
+ $SIGMA
+   0.2 ;[A] ADDITIVE COMPONENT
+ $EST MAXEVAL=0 PRINT=2 NOABORT ;POSTHOC
+ ;
+ ; If PDxPop is used or any other software that looks for TAD in the table, specify
+ ; TAD=TADA or TAD=TADE in the $TABLE record
+ $TABLE ID TIME EVID TDOSA TADA TDOSE TADE IPRED NOAPPEND NOPRINT ONEHEADER
+ FILE=tadexa.tab FORMAT=SF11.7
+
+ The data for the first subject in 706.csv is:
+
+ C,Data Desc: test of TAD for ADDL,,,,,,,,,,
+ C,ID,TIME,DV,AMT,WT,AGE,CRCL,SMK,ADDL,II,EVID,TAD
+ 0,1,0,0,0,58.4,51,4.49,1,0,0,2,0
+ 0,1,0.1,0,500,58.4,51,4.49,1,1,24,1,0
+ 0,1,1.1,1.67538,0,58.4,51,4.49,1,0,0,0,0
+ 0,1,4.1,2.79283,0,58.4,51,4.49,1,0,0,0,0
+ 0,1,10.1,0.583263,0,58.4,51,4.49,1,0,0,0,0
+ 0,1,24.1,0.146255,0,58.4,51,4.49,1,0,0,0,0
+ 0,1,25.1,1.67538,0,58.4,51,4.49,1,0,0,0,0
+
+ The original data set 704.csv is embedded in  tip3-2-25-02.txt.   Data
+ set  706.csv  can be found in the tips directory.  It was created from
+ 704.csv by appending an extra column,  TAD,  whose  values  are  zero.
+ $INFN  code  in  the tips assign values to the TAD data item (see Note
+ 8).  The code in the present example does not use the  TAD  data  item
+ (DROP  is  listed in $INPUT).  Instead, TAD is a user-defined variable
+ listed in MODULE NMPRD4 from which its values may be  displayed  in  a
+ table file.
+
+ Note 1.
+      It  is assumed that TAD is displayed in tables for the purpose of
+      graphical display of the data.  It is not a random variable,  and
+      is not intended to be part of the prediction model.
+
+ Note 2.
+      If  there  are non-dose records prior to the first dose record of
+      the Individual record, TAD is set  to  zero  for  these  records.
+      This  is  an  arbitrary  convention; the user could use different
+      values, especially if these conditions might signal an  error  in
+      the data set.
+
+ Note 3.
+      ALAG1  is used in the example, but a different dosing compartment
+      could be used, e.g., ALAG2 for doses  into  compartment  2.   The
+      code would need modification to compute TAD for doses into two or
+      more compartments.
+
+ Note 4.
+      This code can handle random DOSTIM (Eta on ALAG or  ETA  on  mod-
+      elled duration or rate.)
+
+ Note 5.
+      The  code  does  not  use INFN. The information is developed with
+      passes through the data set at ICALL=2,  in  which  NONMEM  calls
+      PREDPP.   During  a  pass  in which INFN is called, PREDPP is not
+      called. The abbreviated code would have to account for additional
+      and lagged dose times.
+
+ Note 6.
+      TDOS=-999  until the first dose. TDOS=0 when the first dose is at
+      TIME 0.  This makes it possible to dispense with a flag  variable
+      whose  only  function  is to say "a dose has occurred".  If there
+      are negative time values in the data set and any  time  value  is
+      smaller than -999, then
+
+ Note 7.
+      The code is intended to compute TAD for multiple individual doses
+      or one initiating dose.  (An initiating dose has ADDL&gt;0,II&gt;0).
+
+ Note 8.
+      Changes were made to tip3, tip4, and  tip4update  in  the  NONMEM
+      tips directory.  See tips in
+
+      https://nonmem.iconplc.com/nonmem/tips
+
+      In  each  case, the name of the revised tip contains 01-31-18 and
+      supercedes the original.  Although the tips were revised as  part
+      of  the  nonmem  7.4.2 release they apply to previous versions of
+      nonmem.
+
+      tip3-revised-01-31-18.txt
+           The original version, tip3-2-25-02.txt, provides a data file
+           704.csv  and  a  simple model.  The revised version provides
+           improved code, similar to the code in tadexa.exa.
+
+      tip4-revised-01-31-18.txt
+           Uses Fortran suboutine INFN and equivalent $INFN code.   The
+           datafile is 706.csv.
+
+      tip4update-revised-01-31-18.txt
+           Uses DOSTIM.
+
+           The  original  versions are still in the tips directory with
+           new names that include the original dates.
+
+           tip3-2-25-02.txt
+           tip4-3-04-02.txt
+           tip4update-10-11-13.txt
+
+ REFERENCES: None
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

@@ -1,0 +1,74 @@
+<HTML><HEAD> <TITLE> siml3.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        SIMULATION_3 EXAMPLE                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This is an example of simulation and estimation within the same NONMEM
+ run.  It is a continuation of Simulation Example 2.
+
+ As in Simulation Example 2, values of the covariate WT  are  simulated
+ during  the  Simulation Step. They also replace the original WT values
+ in NONMEM's internal copy of the data set.  This transgeneration makes
+ them available in the Estimation and Table Steps.
+
+ There are two models for V, illustrating the use of diferent models in
+ the Simulation and Estimation Steps:
+
+   (simulated V)  VS = THETA(2) * EXP(ETA(3))
+   (non-simulated V)  VN = THETA(3) + ETA(4)
+
+ There are two epsilons in the $ERROR block, illustrating the use of an
+ of  using  an initial estimate for estimation different from the value
+ used to simulate.
+
+ Because theta(2), eta(2), eta(3) and eps(1) are used only in the Simu-
+ lation   Step,   the   FIXED  attribute  is  specified  for  theta(2),
+ omega(2,2), omega(3,3) and sigma(1,1) during the Estimation Step.
+
+ $PROBLEM Simulation of population data w/ covariates
+ $INPUT ID TIME WT AMT DV
+ $DATA SIMORIG IGNORE=#
+ $SUBROUTINE ADVAN1
+ $PK
+      IF (ICALL.EQ.4) THEN
+      WT=70+70*ETA(3)
+      ENDIF
+      CL=THETA(1)*WT*EXP(ETA(1))
+      IF (ICALL.EQ.4) THEN
+       V=THETA(2)*EXP(ETA(2))  ; Simulated V
+      ELSE
+       V=THETA(3)+ETA(4)       ; Non-simulated V
+      ENDIF
+      K=CL/V
+      S1=V
+ $ERROR
+      IF (ICALL.EQ.4) THEN
+       Y=F+F*EPS(1)
+      ELSE
+       Y=F+F*EPS(2)
+      ENDIF
+ $THETA  (0,.0625)  (10 FIX) (0,12)
+ $OMEGA .09 (.05 FIX) (.04 FIX) 4
+ $SIGMA (.01 FIX) .03
+ $SIMULATION (9215690) SUBPROBLEMS=10
+ $ESTIMATION
+ $TABLE ID TIME WT AMT NOPRINT FILE=SIMDATA3 NOHEADER
+
+REFERENCES: Guide IV Section <a href="IV/III.html#B.13.">III.B.13<a/>, <a href="IV/IV.html#I.">IV.I<a/>
+REFERENCES: Guide V Section <a href="V/12.html#4.8.">12.4.8<a/>
+REFERENCES: Guide VI Section <a href="VI/III.html#C.">III.C<a/>, <a href="VI/III.html#E.">III.E<a/>, <a href="VI/IV.html#B.">IV.B<a/>, <a href="VI/IV.html#G.1.">IV.G.1<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 78</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:7px;font-family:Courier;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V078.png" alt="background image">
+<DIV style="position:absolute;top:41;left:267"><nobr><span class="ft0">Chapter 7 - $SUBROUTINE Record and $PK Record</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft3">The user must describe on the $SUBROUTINE record which TRANS routine is to be used. For<br>example, the following record requests the One Compartment Linear Model parameterized (in the<br>PK routine) in terms of clearance and volume.</span></nobr></DIV>
+<DIV style="position:absolute;top:118;left:77"><nobr><span class="ft1"><b>$SUBROUTINE ADVAN1,TRANS2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:129;left:72"><nobr><span class="ft3">When a TRANS other than TRANS1 is used, only the alternative parameters listed in column 1<br>need be assigned values in the $PK abbreviated code. In this example, these are CL, V, and KA.</span></nobr></DIV>
+<DIV style="position:absolute;top:159;left:72"><nobr><span class="ft3">Note that TRANS1 is the default. That is, if no TRANS routine is listed on the $SUBROUTINE<br>record, it is assumed that TRANS1 is intended. This is the case in the examples of Chapter 2.<br>Alternative parameterizations using TRANS1 are discussed later in this chapter in Section 4.2.</span></nobr></DIV>
+<DIV style="position:absolute;top:215;left:72"><nobr><span class="ft2"><b>3. $PK Abbreviated Code</b></span></nobr></DIV>
+<DIV style="position:absolute;top:231;left:72"><nobr><span class="ft3">$PK abbreviated code consists of a block of $PK statements, one per line, which look much like<br>FORTRAN statements. In fact, they are a subset of FORTRAN: simple assignment statements,<br>certain kinds of conditional (IF) statements, and certain kinds of CALL, WRITE, PRINT, RE-<br>TURN, OPEN, CLOSE, REWIND statements. The $PK abbreviated code must be preceded by a<br>record containing the characters &quot;$PK&quot;. This record and the abbreviated code constitute the $PK<br>record.</span></nobr></DIV>
+<DIV style="position:absolute;top:313;left:72"><nobr><span class="ft3">$PK statements must include assignment statements giving a value to every basic PK parameter<br>for the given ADVAN and TRANS combination, as listed in Appendix 1 (when TRANS1 is used)<br>or column 1 of Appendix 2 (when a different TRANS is used). They may also include assign-<br>ment statements giving values to one or more of the additional PK parameters.</span></nobr></DIV>
+<DIV style="position:absolute;top:378;left:72"><nobr><span class="ft2"><b>3.1. Syntax</b></span></nobr></DIV>
+<DIV style="position:absolute;top:394;left:72"><nobr><span class="ft3">We assume the readers of this document are familiar with writing FORTRAN assignment and<br>conditional statements. If not, the examples in this and the following chapter should give ade-<br>quate guidance. FORTRAN statement numbers are not used, and the statements may start in any<br>column. As with all NM-TRAN records, blank lines are permitted, and all text following a semi-<br>colon (;) is ignored and may be used for comments. FORTRAN continuation lines are not per-<br>mitted.</span></nobr></DIV>
+<DIV style="position:absolute;top:476;left:72"><nobr><span class="ft3">The statements are built using the following: elements of the THETA array (e.g., THETA(1));<br>constants; names of input data items appearing on the $INPUT record; names of previously-<br>assigned variables; FORTRAN library functions SQRT, LOG, LOG10, EXP, SIN, COS, ABS,<br>TAN, ASIN, ACOS, ATAN and INT. arithmetic operators +, -, *, /, **; and arithmetical and logi-<br>cal expressions using all of the above. In addition, statements may include representations for<br>random variables such as ETA(1) and EPS(3). Input data items have the values appearing on the<br>current event record, and thus these values may change from one event record to the next. A user-<br>deﬁned variable name follows the usual FORTRAN rules (1-6 letters and digits, starting with a<br>letter) and may not be subscripted. It is deﬁned (&quot;declared&quot;) by being assigned a value (i.e., by<br>appearing to the left of = in an assignment statement).</span></nobr></DIV>
+<DIV style="position:absolute;top:610;left:72"><nobr><span class="ft3">Nested parentheses and nested IF statements are allowed. A pair of parentheses enclosing a sub-<br>script may be nested within another pair of parentheses. All subscripts must be constants (e.g.<br>THETA(1)). The statements are evaluated sequentially, in the order in which they appear.</span></nobr></DIV>
+<DIV style="position:absolute;top:652;left:72"><nobr><span class="ft3">All variables, constants, and expressions are evaluated using ﬂoating-point (not integer) arith-<br>metic. Single or double precision function names and constants may be used interchangeably.</span></nobr></DIV>
+<DIV style="position:absolute;top:691;left:72"><nobr><span class="ft2"><b>3.2. When are $PK Statements Evaluated?</b></span></nobr></DIV>
+<DIV style="position:absolute;top:708;left:72"><nobr><span class="ft3">$PK statements are normally evaluated with every event record for both population and individual<br>data. This enables the amounts in the compartments to be updated from event time to event time</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-70-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

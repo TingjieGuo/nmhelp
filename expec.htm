@@ -1,0 +1,129 @@
+<HTML><HEAD> <TITLE> expec.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        EXPECTATION EXAMPLE                         |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ These are examples of the use of the Marginal (MRG_) data item.  Exam-
+ ple 1
+
+ Suppose that the probability that a particular subject  experiences  a
+ pain relief score of 2 is computed.  Suppose also one wants to compute
+ the (posterior population) expectation of the probability with each of
+ 4  different  bolus  doses,  not  all of which are among those used to
+ obtain observations.  A fragment of the control file follows.
+
+ $INPUT ID DOSE MDV MRG_ ...
+
+ $PRED
+  ....
+  Y = likelihood of observation given ETA
+
+ $EST METH=COND LAPLACE LIKELIHOOD
+ $TABLE DOSE
+
+ A fragment of the data follows, with comments following ";".
+
+ #ID DOSE DV MDV MRG_
+  100 5    2  1   1    ; PRED item is set to expectation for DOSE=5
+  100 10   2  1   1    ; PRED item is set to expectation for DOSE=10
+  100 20   2  1   1    ; PRED item is set to expectation for DOSE=20
+  100 40   2  1   1    ; PRED item is set to expectation for DOSE=40
+  1   3    1  0   0
+  1   10   1  0   0
+  1   25   2  0   0
+  1   30   2  0   0
+  2   3    1  0   0
+  2   10   1  0   0
+  2   25   1  0   0
+  2   30   1  0   0
+  3   3    1  0   0
+  3   10   2  0   0
+  3   25   2  0   0
+  3   30   3  0   0
+  ... etc ...
+
+ Example 2
+
+ This example produces a plot of four residuals, formed by the  differ-
+ ences  between  the raw-data-averages and their (posterior population)
+ expectations, versus the doses used to obtain the data.
+
+ $INPUT ID DOSE MDV MRG_ RAW_
+ $PRED
+  ...
+ IF (ICALL.EQ.5) THEN
+   Y = expectation of observation given ETA
+ ELSE
+   Y = likelihood of observation given ETA
+ ENDIF
+ $EST METHOD=COND LAPLACE LIKELIHOOD
+ $SCAT RES VS DOSE
+
+ #ID DOSE DV MDV MRG_ RAW_
+  100 5    .  1   1    1
+  100 10   .  1   1    1
+  100 20   .  1   1    1
+  100 40   .  1   1    1
+  1   5    1  0   0    0
+  1   10   1  0   0    0
+  1   20   2  0   0    0
+  1   40   2  0   0    0
+  ... etc ...
+
+ Example 3
+
+ This example produces a plot of four residuals, formed by the  differ-
+ ences  between  the  proportion  of subjects in the data set with pain
+ relief score 2 and the (posterior population) expectation of the prob-
+ ability that a subject experiences a pain score of 2, versus the doses
+ used to obtain the data.
+
+ $INPUT ID DOSE MDV MRG_ RAW_
+ $PRED
+  ...
+   Y = likelihood of observation given ETA
+   IF (ICALL.EQ.6) THEN
+      DVR=DV
+      DV=0
+      IF (DVR.EQ.2) DV=1
+    ENDIF
+ $EST METHOD=COND LAPLACE LIKELIHOOD
+ $SCAT RES VS DOSE
+
+ #ID DOSE DV MDV MRG_ RAW_
+  100 5    2  1   1    1
+  100 10   2  1   1    1
+  100 20   2  1   1    1
+  100 40   2  1   1    1
+  1   5    1  0   0    0
+  1   10   1  0   0    0
+  1   20   2  0   0    0
+  1   40   2  0   0    0
+  2   5    1  0   0    0
+  2   10   1  0   0    0
+  2   20   1  0   0    0
+  2   40   3  0   0    0
+  3   5    1  0   0    0
+  3   10   2  0   0    0
+  3   20   2  0   0    0
+  3   40   3  0   0    0
+  ... etc ...
+
+ (See <A HREF="m.htm#mrg_">mrg</A>, <A HREF="e.htm#expectation_block">expectation block</A>, <A HREF="d.htm#data_average_block">data average block</A>, <A HREF="r.htm#raw_data">raw</A>).
+
+ REFERENCES: none.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

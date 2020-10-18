@@ -1,0 +1,64 @@
+<HTML><HEAD> <TITLE> correlat.out</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                   CORRELATION MATRIX OF ESTIMATE                   |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING:  Part  of NONMEM's estimate of the precision of its parameter
+ estimates
+ CONTEXT: NONMEM output
+
+ DISCUSSION:
+ Asymptotic statistical theory applied to extended least-squares  esti-
+ mation (as used in NONMEM) says that the distribution of the parameter
+ estimators is multivariate  normal,  with  variance-covariance  matrix
+ that can be estimated from the data.  NONMEM supplies such an estimate
+ of  the  variance-covariance  matrix  of   the   parameter   estimates
+ (See <A HREF="c.htm#covariance_matrix_of_estimate">covariance matrix of estimate</A>).   The  correlation  matrix is the
+ variance-covariance matrix in correlation form.   If  the  correlation
+ between  two  parameters  is large (e.g., &gt;.95), then one may conclude
+ that a considerable portion of the uncertainty in  each  parameter  is
+ due  to the inability of the data to distinguish between the two.  The
+ problem can be avoided by getting additional data or by using  a  sim-
+ pler (fewer parameters) model.
+
+ **************** CORRELATION MATRIX OF ESTIMATE ********************
+             TH 1      TH 2      OM11      OM12      OM22      SG11
+  TH 1        1.01E+00
+  TH 2       -2.85E-01  2.55E-02
+  OM11        8.87E-01 -6.77E-01  1.67E+01
+  OM12       ......... ......... ......... .........
+  OM22        2.81E-01 -9.96E-01  6.72E-01 .........  1.31E-03
+  SG11       -4.83E-01  3.10E-01 -5.44E-01 ......... -2.67E-01  1.60E-01
+
+ The matrix (which is symmetric) is given in lower triangular form.  In
+ this example, the 2x2 matrix, OMEGA, was constrained to  be  diagonal;
+ the  omitted entries above (.........) indicate that omega(2,1) is not
+ estimated, and consequently has no  corresponding  row/column  in  the
+ correlation matrix of the estimates.
+
+ With  NONMEM  7.2  and  higher, the diagonal elements are equal to the |
+ square root of the diagonal elements of the covariance  matrix  (stan- |
+ dard error); with previous versions they were 1.0.
+
+ When the size of the array exceeds 75x75, a compressed form is printed
+ in which the omitted entries (.........) are not  printed.   The  com-
+ pressed  form  may  also  be  requested  for arrays smaller than 75x75
+ (See <A HREF="$.htm#$covariance">$covariance</A>).
+
+REFERENCES: Guide I Section <a href="I/C.html#3.5.2.">C.3.5.2<a/>
+REFERENCES: Guide V Section <a href="V/5.html#4.">5.4<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

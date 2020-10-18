@@ -1,0 +1,65 @@
+<HTML><HEAD> <TITLE> $rcov.ctl</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                            $RCOV,$RCOVI                            |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING:  Inputting Variance-Covariance information from another prob-
+ lem
+ CONTEXT: NM-TRAN Control Record
+
+ USAGE:
+ $RCOV
+        FILE=filename [FORMAT|DELIM=s1]  [TBLN=n]
+ $RCOVI
+        FILE=filename [FORMAT|DELIM=s1]  [TBLN=n]
+
+ SAMPLE:
+ $RCOV FILE=sirsample.cov TBLN=1 DELIM=,
+
+ The $RCOV record can be used to load the variance-covariance matrix of
+ estimates  results  from a previous problem, and use it for subsequent
+ use in assessing total standard errors of table items  without  having
+ to re-calculate the variance with a $COV step.
+
+ The  record  $RCOVI  may  be  used to load the the variance-covariance
+ information from the inverse-covariance file:
+
+ $RCOVI FILE=sirsample.coi TBLN=1 DELIM=,
+
+ The FILE=filename option is required.
+
+ If FORMAT or DELIM is used, it should be the same as was specified  on
+ the  $ESTIMATION record that created the file to be used.  The default
+ is s1PE12.5.
+
+ TBLN is the table number in the file.  If TBLN is  not  specified,  it
+ defaults to 1.
+
+ NONMEM describes the use of these records with a message in the report
+ file and to the terminal such as the following:
+
+ LOADED VARIANCE/COVARIANCE DATA FROM FILE c5.cov
+ If NONMEM is unable to read the file, the message is
+ COULD NOT FIND APPROPRIATE VARIANCE/COVARIANCE DATA IN FILE c5.cov
+
+ $RCOV and $RCOVI can be used with the $CHAIN record.  For examples and
+ discussion:
+
+ See INTRODUCTION  TO  NONMEM  7, $RCOV and $RCOVI Record For Inputting
+ Variance-Covariance information from another problem.
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

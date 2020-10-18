@@ -1,0 +1,101 @@
+<HTML><HEAD> <TITLE> transit.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                    TRANSIT COMPARTMENT EXAMPLES                    |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ A  number  of  examples  are  provided  for the implementation of dose
+ superimposition into a transit compartment.
+
+ BACKGROUND:
+
+ These examples are based on the following two papers:
+
+      Implementation of a transit compartment model for describing drug
+      absorption in pharmacokinetic studies
+      J Pharmacokinet Pharmacodyn (2007) 34:711-726 DOI 10.1007/s10928-007-9066-0
+      Radojka M. Savic, Daniel M. Jonker, Thomas Kerbusch, Mats. O. Karlsson
+
+      Implementation  of  dose  superimposition  to  introduce multiple
+      doses for a mathematical absorption  model  (transit  compartment
+      model)
+      J Pharmacokinet Pharmacodyn (2012) 39:251-262 DOI 10.1007/s10928-012-9247
+      Jun Shen, Alison Boeckmann & Andrew Vick
+
+ The  first  paper  defines what a transit compartment is, and gives  a
+ model for a single dose into such a  compartment.   The  second  paper
+ gives  several ways that multiple dosing with dose superimposition can
+ be modelled with NONMEM 7.
+
+ Files on ftp site and NONMEM 7
+      The files for the second paper are provided on the IDS ftp site:
+
+      ftp://nonmem.iconplc.com/Public/nonmem/transit_compartment/
+
+      The same files are also provided with NONMEM 7 in directory
+
+      examples\transit_compartment
+
+      The general solution (Appendix 4; sumdosetf.ctl) is of particular
+      interest  in  that  it  gives  an  example of  the use of vectors
+      (e.g., VECTRA(n), VECTRB(n)) and user-written  functions  (FUNCA,
+      FUNCB) in abbreviated code.
+
+ NEW FILES FOR NONMEM 7:
+
+ The following files may be found in the examples directory.
+
+ sumdosetn.ctl, sumdosetf.dat
+      With  NONMEM  7, it is also possible to code the general solution
+      directly in abbreviated code, using the DO WHILE statement, user-
+      declared arrays, and subscripted variables.
+
+      Note  that  data  file  sumdosetf.csv  is  identical to data file
+      sall6.csv on the ftp site.
+
+      As noted in the INTRODUCTION TO NONMEM 7, this includes  abbrevi-
+      ated code for summation such as:
+
+      $abbr declare dosetime(100),dose(100)
+      $abbr declare dowhile i
+
+      $DES
+      INPT=0
+      I=1
+      DOWHILE (I&lt;=NDOSE)
+      IPT=0
+      IF (T&gt;=dosetime(I)) &
+         IPT=DOSE(I)*(T-dosetime(I))**NN*EXP(-KTR*(T-dosetime(I)))
+      INPT=INPT+IPT
+      I=I+1
+      ENDDO
+
+ ssmultidose.ctl, ssmultidose.dat
+      This is an example of a steady state reached using multiple tran-
+      sient bolus doses.  The abbreviated code  is  the  same  as  sum-
+      dosetn.ctl,  but the data file ssmultidose.dat has nine identical
+      bolus doses, at 12 hour intervals, leading to  steady  state  (to
+      the number of significant digits printed).
+
+ ssonedose.ctl, ssonedose.dat
+      This  is an example of a steady state computed with a single dose
+      record having SS=1 and II=12.  The data  file  is  ssonedose.dat.
+      The  $PK  block  saves  the  values  of  AMT and II from the dose
+      record.  Abbreviated code in the $DES block contains a  DO  WHILE
+      loop  that  adds  drug from each implied dose, going back in time
+      till the amount from the implied dose is negligible.
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

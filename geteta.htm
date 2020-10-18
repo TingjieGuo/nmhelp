@@ -1,0 +1,71 @@
+<HTML><HEAD> <TITLE> geteta.utl</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               GETETA                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: GETETA subroutine
+ CONTEXT: NONMEM utility routine
+
+ USAGE:
+
+      DIMENSION ETA(LVR)
+      DOUBLE PRECISION ETA
+      CALL GETETA (ETA)
+
+ DISCUSSION:
+ The  NONMEM  utility routine GETETA is used to obtain subject-specific
+ values of eta.  It may be called only when  the  data  are  population
+ data.
+
+ Output argument:
+
+  ETA An  array  into  which  GETETA stores subject-specific eta values
+      ETA(1), ETA(2), etc.  If a conditional estimation method  is  not
+      used, GETETA stores zeros in the ETA array.
+
+ GETETA  must  always  be  initialized at ICALL=1. This simply involves
+ calling GETETA at ICALL=1.  No values are stored in ETA at this call.
+
+ When the data are population and abbreviated code is used,  values  of
+ etas are always obtained by a call to GETETA occurring in generated or
+ Library PK or PRED subroutines.  (In the case of PK, the array of etas
+ is  stored  in  a  common  and is available to the ERROR subroutine as
+ well.)  This call occurs even if a conditional  estimation  method  is
+ not  implemented,  in  which  case  GETETA  stores zeros in ETA.  As a
+ result, when the first-order method is used, apparent subject-specific
+ values  computed  in NM-TRAN abbreviated code are the required typical
+ values.  Thus, an executable resulting from using an abbreviated  code
+ for  PRED  (for  PK  and ERROR if PREDPP is used) can be used with any
+ estimation method.
+
+ EXAMPLE OF USAGE:
+
+ IF (ICALL.EQ.1) THEN
+  ...
+ CALL GETETA (ETA)
+  ...
+ RETURN
+ ENDIF
+  ...
+ IF (ICALL.EQ.2) CALL GETETA (ETA)
+
+ It is also possible to obtain  simulated  subject-specific  values  of
+ eta.  (See <A HREF="s.htm#simeta">simeta</A>).
+
+REFERENCES: Guide IV Section <a href="IV/V.html#C.5.">V.C.5<a/>
+REFERENCES: Guide VI Section <a href="VI/III.html#E.2.">III.E.2<a/>, <a href="VI/IV.html#B.2.">IV.B.2<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

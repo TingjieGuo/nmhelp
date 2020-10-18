@@ -1,0 +1,1125 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Sat Sep 19 21:21:11 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part V - Introductory Guide - Chapter 4">NONMEM Users Guide Part V - Introductory Guide - Chapter 4</a><br>
+<a href="#1. What This Chapter is About">1. What This Chapter is About</a><br>
+<a href="#2. General">2. General</a><br>
+<a href="#3. Structural Parameter Models">3. Structural Parameter Models</a><br>
+<a href="#3.1. Linear Models">3.1. Linear Models</a><br>
+<a href="#3.2. Multiplicative Models">3.2. Multiplicative Models</a><br>
+<a href="#3.3. Saturation Models">3.3. Saturation Models</a><br>
+<a href="#3.4. Models with Indicator Variables">3.4. Models with Indicator Variables</a><br>
+<a href="#3.4.1. Combinations">3.4.1. Combinations</a><br>
+<a href="#3.4.2. Time Varying">3.4.2. Time Varying</a><br>
+<a href="#3.5. Structural Kinetic Models">3.5. Structural Kinetic Models</a><br>
+<a href="#4. Population Random Effects Models">4. Population Random Effects Models</a><br>
+<a href="#4.1. Models for Interindividual Errors">4.1. Models for Interindividual Errors</a><br>
+<a href="#4.1.1. Additive/Multiplicative Models and theExponential Model">4.1.1. Additive/Multiplicative Models and theExponential Model</a><br>
+<a href="#4.1.2. Other Models">4.1.2. Other Models</a><br>
+<a href="#4.1.3. General Form for the Parameter Model">4.1.3. General Form for the Parameter Model</a><br>
+<a href="#4.2. Statistical Models for an Individual&rsquo;sObservations">4.2. Statistical Models for an Individual&rsquo;sObservations</a><br>
+<a href="#5. The Population Mixed Effects Model">5. The Population Mixed Effects Model</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part V - Introductory Guide - Chapter 4
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part V - Introductory Guide - Chapter 4"></a>
+</h2>
+
+
+<p align="center" style="margin-top: 1em"><b>Chapter 4 -
+Models for Population Data</b></p>
+
+<h2>1. What This Chapter is About
+<a name="1."></a>
+<a name="1. What This Chapter is About"></a>
+</h2>
+
+
+<p style="margin-top: 1em">In this chapter, models
+for data from (animal or human) populations will be
+discussed. These models describe observations from a number
+of individuals sampled from the population. The
+distinguishing feature of the data to which such models
+apply is that there is <i>more than one</i> observation from
+some (usually most) individuals. A population model includes
+the structural model of Chapter 3, but also a new model,
+which shall be called the <b>parameter model,</b> for each
+individual&rsquo;s kinetic parameters. The parameter model
+can have both fixed and random effects. A population model
+also includes the error model of Chapter 3.</p>
+
+<h2>2. General
+<a name="2."></a>
+<a name="2. General"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Individuals differ, and
+the types, degrees and causes of these differences are often
+what we want to learn. NONMEM was designed to help us learn
+these things. These individual differences can be due to
+fixed and/or random effects, but they all manifest
+themselves by affecting the value of an individual&rsquo;s
+parameters,</p>
+
+
+<p align="center"><img src="grohtml-147484-2.png" alt="Image grohtml-147484-2.png"></p>
+
+<p>. That is, first, each individual is regarded as
+having his own particular value of
+<img src="grohtml-147484-3.png" alt="Image grohtml-147484-3.png">
+. If the data come from
+<img src="grohtml-147484-4.png" alt="Image grohtml-147484-4.png">
+individuals, then we may rewrite the (not completely)
+general mixed effects model, (3.4) for
+<img src="grohtml-147484-5.png" alt="Image grohtml-147484-5.png">
+, the
+<img src="grohtml-147484-6.png" alt="Image grohtml-147484-6.png">
+observation from the
+<img src="grohtml-147484-7.png" alt="Image grohtml-147484-7.png">
+individual, as</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1474842.png" alt="Image grohtml-1474842.png"></p>
+
+<p style="margin-top: 1em">Eq (4.1) is now (part of)
+a population model because it explicitly recognizes, through
+the subscript,
+<img src="grohtml-147484-9.png" alt="Image grohtml-147484-9.png">
+, that the data come from distinct individuals. Note too
+that we have written
+<img src="grohtml-147484-10.png" alt="Image grohtml-147484-10.png">
+, rather than
+<img src="grohtml-147484-11.png" alt="Image grohtml-147484-11.png">
+. According to NONMEM conventions, when modeling data from a
+<i>population</i>, the random effects in the residual errors
+are denoted by
+<img src="grohtml-147484-12.png" alt="Image grohtml-147484-12.png">
+, their individual variances by
+<img src="grohtml-147484-13.png" alt="Image grohtml-147484-13.png">
+, and the collection of the variances by the matrix
+<img src="grohtml-147484-14.png" alt="Image grohtml-147484-14.png">
+, denoted SIGMA in NONMEM input and output. We also adopt
+the same convention here as we did for
+<img src="grohtml-147484-15.png" alt="Image grohtml-147484-15.png">
+: the
+<img src="grohtml-147484-16.png" alt="Image grohtml-147484-16.png">
+diagonal element of
+<img src="grohtml-147484-17.png" alt="Image grohtml-147484-17.png">
+is interchangeably denoted
+<img src="grohtml-147484-18.png" alt="Image grohtml-147484-18.png">
+or
+<img src="grohtml-147484-19.png" alt="Image grohtml-147484-19.png">
+.</p>
+
+<p style="margin-top: 1em">When dealing with
+population data, the symbol
+<img src="grohtml-147484-20.png" alt="Image grohtml-147484-20.png">
+is reserved for random effects influencing the vectors
+<img src="grohtml-147484-21.png" alt="Image grohtml-147484-21.png">
+, as is now explained. We can write a general model (but not
+yet as general a model as we will present later) for
+<img src="grohtml-147484-22.png" alt="Image grohtml-147484-22.png">
+:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1474843.png" alt="Image grohtml-1474843.png"></p>
+
+<p style="margin-top: 1em">It is called the
+<b>parameter model.</b> Here,
+<img src="grohtml-147484-24.png" alt="Image grohtml-147484-24.png">
+is a structural (though non-kinetic) type model (of which
+examples will be given shortly), which is a function of
+fixed effects,
+<img src="grohtml-147484-25.png" alt="Image grohtml-147484-25.png">
+, and fixed effects parameters,
+<img src="grohtml-147484-26.png" alt="Image grohtml-147484-26.png">
+. Note that since, in general,
+<img src="grohtml-147484-27.png" alt="Image grohtml-147484-27.png">
+is a vector,
+<img src="grohtml-147484-28.png" alt="Image grohtml-147484-28.png">
+must be a vector-valued function, and for the same reason,
+<img src="grohtml-147484-29.png" alt="Image grohtml-147484-29.png">
+is usually a vector. This will be discussed further later.
+All fixed effects, whether they are part of the kinetic
+structural model, or are part of the parameter model, are
+input to NONMEM in a uniform way. For the purposes of this
+discussion, the symbol
+<img src="grohtml-147484-30.png" alt="Image grohtml-147484-30.png">
+is used for the particular fixed effects in
+<img src="grohtml-147484-31.png" alt="Image grohtml-147484-31.png">
+, such as the individual&rsquo;s height, weight, and so
+forth (this will be discussed further in a moment). Even
+though most often
+<img src="grohtml-147484-32.png" alt="Image grohtml-147484-32.png">
+is regarded as time invariant, as is done in most of the
+discussion in this document, fixed effects can change with
+time, and thus kinetic parameters within
+<img src="grohtml-147484-33.png" alt="Image grohtml-147484-33.png">
+can change with time. This will be discussed further in
+Section 3.4.2.</p>
+
+<h2>3. Structural Parameter Models
+<a name="3."></a>
+<a name="3. Structural Parameter Models"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The symbol in (4.2) for
+the fixed effects parameter vector is
+<img src="grohtml-147484-34.png" alt="Image grohtml-147484-34.png">
+, not
+<img src="grohtml-147484-35.png" alt="Image grohtml-147484-35.png">
+. As mentioned in Chapter 3, we reserve the symbol
+<img src="grohtml-147484-36.png" alt="Image grohtml-147484-36.png">
+, in this document, for an individual&rsquo;s fixed effect
+parameters and use the symbol
+<img src="grohtml-147484-37.png" alt="Image grohtml-147484-37.png">
+for a vector of <i>population</i> (fixed effects and
+possibly random effects) parameters.</p>
+
+<p style="margin-top: 1em">Recall the phenobarbital
+example of Chapter 2. For the second run, the input
+contained the line of code</p>
+
+<p style="margin-top: 1em"><tt><b>TVCL =
+THETA(1) + THETA(3)*WT</b></tt></small></p>
+
+<p style="margin-top: 1em">Translated into the
+symbols we are using here, this is</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1474844.png" alt="Image grohtml-1474844.png"></p>
+
+<p style="margin-top: 1em">In (4.3),
+<img src="grohtml-147484-39.png" alt="Image grohtml-147484-39.png">
+and
+<img src="grohtml-147484-40.png" alt="Image grohtml-147484-40.png">
+are the first and third elements of the parameter vector
+<img src="grohtml-147484-41.png" alt="Image grohtml-147484-41.png">
+, and
+<img src="grohtml-147484-42.png" alt="Image grohtml-147484-42.png">
+is an element of
+<img src="grohtml-147484-43.png" alt="Image grohtml-147484-43.png">
+(recall that this value of weight appears as a data item).
+The tilde over
+<img src="grohtml-147484-44.png" alt="Image grohtml-147484-44.png">
+is meant to distinguish this typical population value of
+clearance from the
+<img src="grohtml-147484-45.png" alt="Image grohtml-147484-45.png">
+individual&rsquo;s actual value of clearance. According to
+this model,
+<img src="grohtml-147484-46.png" alt="Image grohtml-147484-46.png">
+will be the same for any two individuals both of whom have
+the same value of weight. Equation (4.3) defines an element
+(the one associated with clearance) of the vector-valued
+function
+<img src="grohtml-147484-47.png" alt="Image grohtml-147484-47.png">
+. Note that in (4.3), we use the subscript
+<img src="grohtml-147484-48.png" alt="Image grohtml-147484-48.png">
+to stress that this equation applies to the
+<img src="grohtml-147484-49.png" alt="Image grohtml-147484-49.png">
+individual, but there is no confusion when, as in the
+NM-TRAN input, and in the following, the subscript is
+omitted. It should always be understood that all variables
+and data items used in the parameter model definition refer
+to the same individual. Many different models are possible
+to describe the dependence of individual parameters on fixed
+effects. However, certain model forms are simple, easy to
+use, and cover most cases. An assortment of these will be
+discussed briefly next.</p>
+
+<h3>3.1. Linear Models
+<a name="3.1."></a>
+<a name="3.1. Linear Models"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The simplest form that
+<img src="grohtml-147484-50.png" alt="Image grohtml-147484-50.png">
+can take, and the most common, is one that is linear in
+<img src="grohtml-147484-51.png" alt="Image grohtml-147484-51.png">
+. An example is (4.3): all elements of
+<img src="grohtml-147484-52.png" alt="Image grohtml-147484-52.png">
+appear as linear coefficients of terms involving data items.
+The data items themselves can appear nonlinearly, without
+affecting the linearity with respect to
+<img src="grohtml-147484-53.png" alt="Image grohtml-147484-53.png">
+. For example, if clearance is the sum of renal and
+non-renal components, and renal clearance is believed to be
+proportional to renal function as described according to a
+standard formula involving the elements of
+<img src="grohtml-147484-54.png" alt="Image grohtml-147484-54.png">
+: age (
+<img src="grohtml-147484-55.png" alt="Image grohtml-147484-55.png">
+), serum creatinine (
+<img src="grohtml-147484-56.png" alt="Image grohtml-147484-56.png">
+), and weight (
+<img src="grohtml-147484-57.png" alt="Image grohtml-147484-57.png">
+), then one might write</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1474845.png" alt="Image grohtml-1474845.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1474846.png" alt="Image grohtml-1474846.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1474847.png" alt="Image grohtml-1474847.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1474848.png" alt="Image grohtml-1474848.png"></p>
+
+<p style="margin-top: 1em">Clearly,
+<img src="grohtml-147484-62.png" alt="Image grohtml-147484-62.png">
+is a nonlinear function of
+<img src="grohtml-147484-63.png" alt="Image grohtml-147484-63.png">
+, for example, and so, therefore, is
+<img src="grohtml-147484-64.png" alt="Image grohtml-147484-64.png">
+, but
+<img src="grohtml-147484-65.png" alt="Image grohtml-147484-65.png">
+is linear in
+<img src="grohtml-147484-66.png" alt="Image grohtml-147484-66.png">
+, and (4.4 - 4.6) is still considered a linear model. (Do
+not worry about the non-consecutive numbering of the
+elements of
+<img src="grohtml-147484-67.png" alt="Image grohtml-147484-67.png">
+; a model for
+<img src="grohtml-147484-68.png" alt="Image grohtml-147484-68.png">
+is being developed (an alternative to 4.3), and the missing
+elements
+<img src="grohtml-147484-69.png" alt="Image grohtml-147484-69.png">
+and
+<img src="grohtml-147484-70.png" alt="Image grohtml-147484-70.png">
+will appear presently.)</p>
+
+<h3>3.2. Multiplicative Models
+<a name="3.2."></a>
+<a name="3.2. Multiplicative Models"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Multiplicative models are
+linear models, but on a logarithmic scale. For example, if
+patients covering a very wide range of weights are studied,
+metabolic clearance might vary with weight, but not
+linearly, and a substitute for (4.4) might be</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1474849.png" alt="Image grohtml-1474849.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748410.png" alt="Image grohtml-14748410.png"></p>
+
+<p style="margin-top: 1em">Note that the logarithm
+of
+<img src="grohtml-147484-73.png" alt="Image grohtml-147484-73.png">
+(
+<img src="grohtml-147484-74.png" alt="Image grohtml-147484-74.png">
+) is linear in
+<img src="grohtml-147484-75.png" alt="Image grohtml-147484-75.png">
+, but
+<img src="grohtml-147484-76.png" alt="Image grohtml-147484-76.png">
+itself is not. Of course, (4.4.1) can also be
+written</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748411.png" alt="Image grohtml-14748411.png"></p>
+
+<p style="margin-top: 1em">Models (4.4.1) and
+(4.4.2) are equivalent so far as
+<img src="grohtml-147484-78.png" alt="Image grohtml-147484-78.png">
+is concerned, but
+<img src="grohtml-147484-79.png" alt="Image grohtml-147484-79.png">
+of (4.4.2) corresponds to
+<img src="grohtml-147484-80.png" alt="Image grohtml-147484-80.png">
+of (4.4.1).</p>
+
+<h3>3.3. Saturation Models
+<a name="3.3."></a>
+<a name="3.3. Saturation Models"></a>
+</h3>
+
+
+<p style="margin-top: 1em">A useful model for
+processes reaching a maximum is a hyperbolic model. For
+example, if a second drug, (whose steady-state plasma
+concentration,
+<img src="grohtml-147484-81.png" alt="Image grohtml-147484-81.png">
+is known and available in the data set), is present in some
+individuals and it is believed that this second drug is an
+inhibitor of the metabolism of the study drug, one might
+wish to use</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748412.png" alt="Image grohtml-14748412.png"></p>
+
+<p style="margin-top: 1em">This model is shown in
+figure 4.1. The inhibition is expressed by the ratio
+occurring within the brackets and is a concave hyperbola,
+asymptoting to a maximum value equal to
+<img src="grohtml-147484-83.png" alt="Image grohtml-147484-83.png">
+. It is identical in form to the familiar Michaelis-Menten
+model.</p>
+
+
+<p align="center"><img src="+chapt4/fig4.1.ubuntu.epsi.png" alt="Image +chapt4/fig4.1.ubuntu.epsi.png"></p>
+
+<p style="margin-top: 1em">Figure 4.1. A
+hyperbolic model for metabolic clearance of drug on the
+ordinate, as inhibited by another drug at steady-state
+concentration
+<img src="grohtml-147484-85.png" alt="Image grohtml-147484-85.png">
+on the abscissa.</small></p>
+
+<h3>3.4. Models with Indicator Variables
+<a name="3.4."></a>
+<a name="3.4. Models with Indicator Variables"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Indicator variables were
+discussed in Chapter 3 in connection with the error model.
+They can be quite useful when modelling individual
+parameters. They are usually used in a linear model. For
+example, if the clinical condition, heart failure, is noted
+as &quot;present&quot; or &quot;absent&quot;, one can define
+an indicator variable,
+<img src="grohtml-147484-86.png" alt="Image grohtml-147484-86.png">
+which equals 0 if heart failure is absent, and 1 if it is
+present. If metabolic clearance is thought to be affected by
+heart failure, one might choose</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748413.png" alt="Image grohtml-14748413.png"></p>
+
+<p style="margin-top: 1em">Here, the
+non-heart-failure cases will have
+<img src="grohtml-147484-88.png" alt="Image grohtml-147484-88.png">
+, while the heart-failure cases will have
+<img src="grohtml-147484-89.png" alt="Image grohtml-147484-89.png">
+&dagger;. <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; Heart
+failure is expected to decrease metabolic clearance. If it
+does, using a minus sign in (4.4.4) allows the more pleasing
+result that
+<img src="grohtml-147484-90.png" alt="Image grohtml-147484-90.png">
+will be estimated as positive. The model is identical to one
+with a positive sign, but then
+<img src="grohtml-147484-91.png" alt="Image grohtml-147484-91.png">
+would probably be negative. If
+<img src="grohtml-147484-92.png" alt="Image grohtml-147484-92.png">
+were constrained to be non-negative, then the sign chosen in
+the model statement would, of course, be important. <br>
+---------- <br>
+</cite></p>
+
+<h4>3.4.1. Combinations
+<a name="3.4.1."></a>
+<a name="3.4.1. Combinations"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Given the basic building
+blocks of linear, multiplicative and saturation models,
+these can be combined in the usual algebraic ways (usually
+by addition) to make more complex models. For example, one
+could use (4.4.3), (4.5), and (4.6) as a model for
+<img src="grohtml-147484-93.png" alt="Image grohtml-147484-93.png">
+. A non-additive example arises if plasma and urine
+concentrations are both observed and (kinetic) model (3.6)
+is to be used for the latter. The parameter
+<img src="grohtml-147484-94.png" alt="Image grohtml-147484-94.png">
+, the fraction of drug excreted unchanged into the urine
+might be modeled as</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748414.png" alt="Image grohtml-14748414.png"></p>
+
+<p style="margin-top: 1em">where
+<img src="grohtml-147484-96.png" alt="Image grohtml-147484-96.png">
+is given by (4.5) and
+<img src="grohtml-147484-97.png" alt="Image grohtml-147484-97.png">
+by (4.6) (using any of the (4.4) variants).</p>
+
+<h4>3.4.2. Time Varying
+<a name="3.4.2."></a>
+<a name="3.4.2. Time Varying"></a>
+</h4>
+
+
+<p style="margin-top: 1em">As mentioned in Section
+2, although most of the time the data items affecting an
+individual&rsquo;s
+<img src="grohtml-147484-99.png" alt="Image grohtml-147484-99.png">
+do not change over the course of his data, they occasionally
+do, and PREDPP can handle this. For example, if an
+individual had heart failure for part of his observation
+period, but not the rest,
+<img src="grohtml-147484-100.png" alt="Image grohtml-147484-100.png">
+, according to (4.4.4) should change. Or, if acute renal
+failure occurred during a patient&rsquo;s observation
+period,
+<img src="grohtml-147484-101.png" alt="Image grohtml-147484-101.png">
+would change, according to model (4.5).</p>
+
+<p style="margin-top: 1em">PREDPP implements its
+kinetic model recursively: given the state of the system at
+time
+<img src="grohtml-147484-102.png" alt="Image grohtml-147484-102.png">
+(by state we mean the amounts of drug in all the
+compartments), it updates (i.e. advances) the state to that
+at time
+<img src="grohtml-147484-103.png" alt="Image grohtml-147484-103.png">
+, using the value of
+<img src="grohtml-147484-104.png" alt="Image grohtml-147484-104.png">
+(and in general, the value of
+<img src="grohtml-147484-105.png" alt="Image grohtml-147484-105.png">
+) at time
+<img src="grohtml-147484-106.png" alt="Image grohtml-147484-106.png">
+to compute a value of
+<img src="grohtml-147484-107.png" alt="Image grohtml-147484-107.png">
+holding between times
+<img src="grohtml-147484-108.png" alt="Image grohtml-147484-108.png">
+and
+<img src="grohtml-147484-109.png" alt="Image grohtml-147484-109.png">
+. The value of
+<img src="grohtml-147484-110.png" alt="Image grohtml-147484-110.png">
+used to compute this
+<img src="grohtml-147484-111.png" alt="Image grohtml-147484-111.png">
+is that value found on the data record with time
+<img src="grohtml-147484-112.png" alt="Image grohtml-147484-112.png">
+. So, in order to have
+<img src="grohtml-147484-113.png" alt="Image grohtml-147484-113.png">
+change appropriately as
+<img src="grohtml-147484-114.png" alt="Image grohtml-147484-114.png">
+does, one places a value of
+<img src="grohtml-147484-115.png" alt="Image grohtml-147484-115.png">
+which is typical for the time period
+<img src="grohtml-147484-116.png" alt="Image grohtml-147484-116.png">
+to
+<img src="grohtml-147484-117.png" alt="Image grohtml-147484-117.png">
+on the data record associated with the time point
+<img src="grohtml-147484-118.png" alt="Image grohtml-147484-118.png">
+. This will not always be easy since the relevant element(s)
+of
+<img src="grohtml-147484-119.png" alt="Image grohtml-147484-119.png">
+may not be measured at, for example, the midpoint of the
+time interval (the value at the
+<img src="grohtml-147484-120.png" alt="Image grohtml-147484-120.png">
+of the time interval is a good choice for the
+<img src="grohtml-147484-121.png" alt="Image grohtml-147484-121.png">
+value for the interval). If not, one will have to use some
+interpolation method to arrive at the typical value. The
+important point is that the values of the independent
+variables at time
+<img src="grohtml-147484-122.png" alt="Image grohtml-147484-122.png">
+determine the values of the individual&rsquo;s parameters
+applying to the entire period
+<img src="grohtml-147484-123.png" alt="Image grohtml-147484-123.png">
+to
+<img src="grohtml-147484-124.png" alt="Image grohtml-147484-124.png">
+.</p>
+
+<h3>3.5. Structural Kinetic Models
+<a name="3.5."></a>
+<a name="3.5. Structural Kinetic Models"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The kinetic models (i.e.,
+the models for responses such as drug concentrations) used
+when performing a population analysis do not differ at all
+from those used for an individual analysis. One still needs
+a model for the relationship of
+<img src="grohtml-147484-125.png" alt="Image grohtml-147484-125.png">
+to
+<img src="grohtml-147484-126.png" alt="Image grohtml-147484-126.png">
+and
+<img src="grohtml-147484-127.png" alt="Image grohtml-147484-127.png">
+, and this relationship does not depend on whether
+<img src="grohtml-147484-128.png" alt="Image grohtml-147484-128.png">
+changes from individual to individual or with time within an
+individual.</p>
+
+<h2>4. Population Random Effects Models
+<a name="4."></a>
+<a name="4. Population Random Effects Models"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Under NONMEM conventions,
+there are two levels of random effects, and
+<img src="grohtml-147484-129.png" alt="Image grohtml-147484-129.png">
+and
+<img src="grohtml-147484-130.png" alt="Image grohtml-147484-130.png">
+are the symbols used for the vectors of first and second
+level random effects, respectively. With data from a single
+individual, only first-level random effects are needed.
+However, with data from a population of individuals, both
+first- and second-level random effects are needed.
+First-level effects are needed in the parameter model to
+help model unexplainable interindividual differences in
+<img src="grohtml-147484-131.png" alt="Image grohtml-147484-131.png">
+, and second-level effects are needed in the
+(intraindividual) error model. For example, in (4.2) there
+is an element of
+<img src="grohtml-147484-132.png" alt="Image grohtml-147484-132.png">
+,
+<img src="grohtml-147484-133.png" alt="Image grohtml-147484-133.png">
+, that is the difference between the individual value
+<img src="grohtml-147484-134.png" alt="Image grohtml-147484-134.png">
+(an element of
+<img src="grohtml-147484-135.png" alt="Image grohtml-147484-135.png">
+) and
+<img src="grohtml-147484-136.png" alt="Image grohtml-147484-136.png">
+, the typical value of
+<img src="grohtml-147484-137.png" alt="Image grohtml-147484-137.png">
+. This is a first-level random effect. In (4.1)
+<img src="grohtml-147484-138.png" alt="Image grohtml-147484-138.png">
+is the error between
+<img src="grohtml-147484-139.png" alt="Image grohtml-147484-139.png">
+and
+<img src="grohtml-147484-140.png" alt="Image grohtml-147484-140.png">
+. This is a second-level random effect.</p>
+
+<h3>4.1. Models for Interindividual Errors
+<a name="4.1."></a>
+<a name="4.1. Models for Interindividual Errors"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The difference between
+<img src="grohtml-147484-141.png" alt="Image grohtml-147484-141.png">
+and
+<img src="grohtml-147484-142.png" alt="Image grohtml-147484-142.png">
+is called an <b>interindividual error.</b> It arises from a
+few sources: the function
+<img src="grohtml-147484-143.png" alt="Image grohtml-147484-143.png">
+may be only approximate, and/or
+<img src="grohtml-147484-144.png" alt="Image grohtml-147484-144.png">
+may be measured with error. It is regarded as a random
+quantity, and it may be modeled in terms of
+<img src="grohtml-147484-145.png" alt="Image grohtml-147484-145.png">
+variables. As usual, each of these variables is assumed to
+have mean 0 and a variance denoted by
+<img src="grohtml-147484-146.png" alt="Image grohtml-147484-146.png">
+which may be estimated. This variance describes biological
+population variability.</p>
+
+<p style="margin-top: 1em">The difference between
+<img src="grohtml-147484-147.png" alt="Image grohtml-147484-147.png">
+and
+<img src="grohtml-147484-148.png" alt="Image grohtml-147484-148.png">
+is called an <b>intraindividual error.</b> It has been
+discussed at some length in Chapter 3. Although in that
+discussion about individual data, this difference was
+modeled in terms of
+<img src="grohtml-147484-149.png" alt="Image grohtml-147484-149.png">
+variables, in this discussion about population data, it is
+modeled in terms of
+<img src="grohtml-147484-150.png" alt="Image grohtml-147484-150.png">
+variables. Each
+<img src="grohtml-147484-151.png" alt="Image grohtml-147484-151.png">
+variable is assumed to have mean 0 and a variance denoted by
+<img src="grohtml-147484-152.png" alt="Image grohtml-147484-152.png">
+which also may be estimated.</p>
+
+<p style="margin-top: 1em">Each pair of elements in
+<img src="grohtml-147484-153.png" alt="Image grohtml-147484-153.png">
+has a covariance, and NONMEM can also estimate this,
+although often we choose to assume that the covariance is
+zero (we made this same assumption for the different
+elements of
+<img src="grohtml-147484-154.png" alt="Image grohtml-147484-154.png">
+in Chapter 3, Section 3.5.1). <br>
+A covariance between two elements of
+<img src="grohtml-147484-155.png" alt="Image grohtml-147484-155.png">
+,
+<img src="grohtml-147484-156.png" alt="Image grohtml-147484-156.png">
+and
+<img src="grohtml-147484-157.png" alt="Image grohtml-147484-157.png">
+, say, is a measure of statistical association between these
+two random variables. Their covariance is related to their
+correlation,
+<img src="grohtml-147484-158.png" alt="Image grohtml-147484-158.png">
+(
+<img src="grohtml-147484-159.png" alt="Image grohtml-147484-159.png">
+) by</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748415.png" alt="Image grohtml-14748415.png"></p>
+
+<p style="margin-top: 1em">(Note that now that we
+are suppressing the subscript
+<img src="grohtml-147484-161.png" alt="Image grohtml-147484-161.png">
+on
+<img src="grohtml-147484-162.png" alt="Image grohtml-147484-162.png">
+, we may, without confusion, use the subscript position to
+designate elements of
+<img src="grohtml-147484-163.png" alt="Image grohtml-147484-163.png">
+.)</p>
+
+<p style="margin-top: 1em">The variances and
+covariances among the elements of
+<img src="grohtml-147484-164.png" alt="Image grohtml-147484-164.png">
+are laid out in a <b>covariance matrix,</b> called
+<img src="grohtml-147484-165.png" alt="Image grohtml-147484-165.png">
+, and labeled OMEGA in NONMEM input and output. This matrix
+was defined in Chapter 3, Section 3.8, but some additional
+comment here may be helpful. If
+<img src="grohtml-147484-166.png" alt="Image grohtml-147484-166.png">
+has, for example, 3 elements,
+<img src="grohtml-147484-167.png" alt="Image grohtml-147484-167.png">
+has the following form:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748416.png" alt="Image grohtml-14748416.png"></p>
+
+<p style="margin-top: 1em">Here, as previously,
+<img src="grohtml-147484-187.png" alt="Image grohtml-147484-187.png">
+is another way of writing the variance
+<img src="grohtml-147484-188.png" alt="Image grohtml-147484-188.png">
+, and
+<img src="grohtml-147484-189.png" alt="Image grohtml-147484-189.png">
+(
+<img src="grohtml-147484-190.png" alt="Image grohtml-147484-190.png">
+) is the covariance between
+<img src="grohtml-147484-191.png" alt="Image grohtml-147484-191.png">
+and
+<img src="grohtml-147484-192.png" alt="Image grohtml-147484-192.png">
+.</p>
+
+<p style="margin-top: 1em">The elements
+<img src="grohtml-147484-193.png" alt="Image grohtml-147484-193.png">
+,
+<img src="grohtml-147484-194.png" alt="Image grohtml-147484-194.png">
+,
+<img src="grohtml-147484-195.png" alt="Image grohtml-147484-195.png">
+are called the <b>diagonal elements</b> of the matrix. If
+the nondiagonal elements (the covariances) are all zero,
+i.e. the correlation among all pairs of
+<img src="grohtml-147484-196.png" alt="Image grohtml-147484-196.png">
+elements is zero, the matrix is called a diagonal matrix.
+The <b>lower triangular elements</b> of the matrix are the
+elements</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748417.png" alt="Image grohtml-14748417.png"></p>
+
+<p>To specify the matrix only its lower triangular elements
+need be given (and these are all NONMEM does give), since
+from (4.8) it is clear that for all
+<img src="grohtml-147484-210.png" alt="Image grohtml-147484-210.png">
+,
+<img src="grohtml-147484-211.png" alt="Image grohtml-147484-211.png">
+.</p>
+
+<h4>4.1.1. Additive/Multiplicative Models and theExponential Model
+<a name="4.1.1."></a>
+<a name="4.1.1. Additive/Multiplicative Models and theExponential Model"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Frequently, the model for an
+interindividual error is the simple additive one (as in
+(4.2)), such as</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748418.png" alt="Image grohtml-14748418.png"></p>
+
+<p style="margin-top: 1em">A feature of (4.9) is that the
+resulting units for
+<img src="grohtml-147484-213.png" alt="Image grohtml-147484-213.png">
+depend on the units of the parameter (
+<img src="grohtml-147484-214.png" alt="Image grohtml-147484-214.png">
+in this case). For example, this model was used in the
+theophylline problem of Chapter 2 (Figure 2.6). The final
+estimate of
+<img src="grohtml-147484-215.png" alt="Image grohtml-147484-215.png">
+is .286 (Figure 2.8). Assuming that the units of V are
+liters, we interpret this to mean that the standard
+deviation of V between individuals is .53 Liters ( .53 =
+<img src="grohtml-147484-216.png" alt="Image grohtml-147484-216.png">
+).</p>
+
+<p style="margin-top: 1em">Perhaps even more often, a
+multiplicative model equivalent to the Constant Coefficient
+of Variation (CCV) error model (3.5) is used, such as</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748419.png" alt="Image grohtml-14748419.png"></p>
+
+<p style="margin-top: 1em">This model is also referred to
+as the proportional error model. <br>
+A feature of (4.10) is that the resulting units for
+<img src="grohtml-147484-218.png" alt="Image grohtml-147484-218.png">
+are independent of the units of the parameter (
+<img src="grohtml-147484-219.png" alt="Image grohtml-147484-219.png">
+in this case). When this model is used in the theophylline
+problem instead of the additive model, so that Figure 2.6
+contains the code <tt>V=TVVD*(1+ETA(2))</tt> instead of
+<tt>V=TVVD+ETA(2)</tt>, then NONMEM estimates
+<img src="grohtml-147484-220.png" alt="Image grohtml-147484-220.png">
+to be .146. We interpret this to mean that the coefficient
+of variation of V in the population is 38% (.38 =
+<img src="grohtml-147484-221.png" alt="Image grohtml-147484-221.png">
+).</p>
+
+<p style="margin-top: 1em">The exponential model is</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748420.png" alt="Image grohtml-14748420.png"></p>
+
+<p style="margin-top: 1em">During simulation, (Chapter 12,
+Section 4.8), the exponential and proportional models give
+different results. During estimation by the first-order
+method, the exponential model and proportional models give
+identical results, i.e., NONMEM cannot distinguish between
+them. During estimation by a conditional estimation method,
+the exponential and proportional models for inter-individual
+variability give different results. The exponential model is
+preferred for conditional estimation methods. (See NONMEM
+User&rsquo;s Guide Part VII, Conditional Estimation
+Methods.)</p>
+
+<h4>4.1.2. Other Models
+<a name="4.1.2."></a>
+<a name="4.1.2. Other Models"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Occasionally, a model for an
+individual&rsquo;s pharmacokinetic parameter might involve
+scaling an
+<img src="grohtml-147484-223.png" alt="Image grohtml-147484-223.png">
+, as in (3.6), or two or more
+<img src="grohtml-147484-224.png" alt="Image grohtml-147484-224.png">
+&rsquo;s as in (3.10). For example, a study might involve
+patients in the intensive care unit (ICU) and others on
+non-acute care units. It might be reasonable to suppose that
+some aspects of the kinetics of ICU patients (e.g.,
+metabolic clearance of drug) are more variable, due to
+unmeasured factors (e.g., hepatic function) that vary
+greatly among acutely ill patients. Even though the
+variation is, in reality, due to a potentially measurable
+fixed effect (hepatic function), if information on this
+fixed effect is not available, differences caused by it must
+be assigned to random factors (
+<img src="grohtml-147484-225.png" alt="Image grohtml-147484-225.png">
+). In this case, one might wish to use an indicator
+variable,
+<img src="grohtml-147484-226.png" alt="Image grohtml-147484-226.png">
+(which equals 1 if the patient is in the ICU, and 0,
+otherwise), and a model such as</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748421.png" alt="Image grohtml-14748421.png"></p>
+
+<p style="margin-top: 1em">In addition to model (4.11) we
+might have, for example,</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748422.png" alt="Image grohtml-14748422.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748423.png" alt="Image grohtml-14748423.png"></p>
+
+<p style="margin-top: 1em">Models (4.11) and (4.12)
+together, along with suitable models for
+<img src="grohtml-147484-230.png" alt="Image grohtml-147484-230.png">
+and
+<img src="grohtml-147484-231.png" alt="Image grohtml-147484-231.png">
+, form a complete model for an individual&rsquo;s
+<img src="grohtml-147484-232.png" alt="Image grohtml-147484-232.png">
+parameter, and involve 3
+<img src="grohtml-147484-233.png" alt="Image grohtml-147484-233.png">
+&rsquo;s.</p>
+
+<h4>4.1.3. General Form for the Parameter Model
+<a name="4.1.3."></a>
+<a name="4.1.3. General Form for the Parameter Model"></a>
+</h4>
+
+
+<p style="margin-top: 1em">As we have just seen in (4.10)
+and in (4.11)-(4.12), an element of
+<img src="grohtml-147484-234.png" alt="Image grohtml-147484-234.png">
+need not act in a simple additive way and may act solely on
+an intermediate variable (e.g.
+<img src="grohtml-147484-235.png" alt="Image grohtml-147484-235.png">
+). Indeed, there may be more or fewer elements in
+<img src="grohtml-147484-236.png" alt="Image grohtml-147484-236.png">
+than in
+<img src="grohtml-147484-237.png" alt="Image grohtml-147484-237.png">
+, the elements in
+<img src="grohtml-147484-238.png" alt="Image grohtml-147484-238.png">
+may act in nonlinear ways to influence
+<img src="grohtml-147484-239.png" alt="Image grohtml-147484-239.png">
+, and one element of
+<img src="grohtml-147484-240.png" alt="Image grohtml-147484-240.png">
+may influence more than a single element of
+<img src="grohtml-147484-241.png" alt="Image grohtml-147484-241.png">
+. We now give a more general form for the parameter model
+than (4.2) and then an example illustrating it.</p>
+
+<p style="margin-top: 1em">The general form of the
+parameter model is</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748424.png" alt="Image grohtml-14748424.png"></p>
+
+<p style="margin-top: 1em">Here,
+<img src="grohtml-147484-243.png" alt="Image grohtml-147484-243.png">
+is a very general function of fixed effects,
+<img src="grohtml-147484-244.png" alt="Image grohtml-147484-244.png">
+, fixed effects parameters,
+<img src="grohtml-147484-245.png" alt="Image grohtml-147484-245.png">
+, and a vector of
+<img src="grohtml-147484-246.png" alt="Image grohtml-147484-246.png">
+&rsquo;s,
+<img src="grohtml-147484-247.png" alt="Image grohtml-147484-247.png">
+. The dimensions of the vectors
+<img src="grohtml-147484-248.png" alt="Image grohtml-147484-248.png">
+and
+<img src="grohtml-147484-249.png" alt="Image grohtml-147484-249.png">
+need not be the same. An individual&rsquo;s kinetic
+parameter may change with time. As explained in Section 1.6,
+with NONMEM-PREDPP changes can occur only at discrete time
+points. Therefore, the parameter actually can be regarded as
+being a number of parameters, each one applying to a
+different time period. The parameter
+<img src="grohtml-147484-250.png" alt="Image grohtml-147484-250.png">
+in (4.13), being a vector of all the kinetic parameters for
+the
+<img src="grohtml-147484-251.png" alt="Image grohtml-147484-251.png">
+individual, can be regarded as encompassing these
+time-interval-specific parameters.</p>
+
+<p style="margin-top: 1em">An example utilizing this
+generality is provided by a model for observations of both
+plasma and urine drug concentrations, similar to the one
+presented previously. Ignoring the details of the structural
+part of the model, consider the following model</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748425.png" alt="Image grohtml-14748425.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748426.png" alt="Image grohtml-14748426.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748427.png" alt="Image grohtml-14748427.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748428.png" alt="Image grohtml-14748428.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748429.png" alt="Image grohtml-14748429.png"></p>
+
+<p style="margin-top: 1em">In this model,
+<img src="grohtml-147484-257.png" alt="Image grohtml-147484-257.png">
+; the parameters
+<img src="grohtml-147484-258.png" alt="Image grohtml-147484-258.png">
+and
+<img src="grohtml-147484-259.png" alt="Image grohtml-147484-259.png">
+are regarded as intermediate parameters. We have
+<img src="grohtml-147484-260.png" alt="Image grohtml-147484-260.png">
+, where both
+<img src="grohtml-147484-261.png" alt="Image grohtml-147484-261.png">
+and
+<img src="grohtml-147484-262.png" alt="Image grohtml-147484-262.png">
+influence both
+<img src="grohtml-147484-263.png" alt="Image grohtml-147484-263.png">
+(linearly) and
+<img src="grohtml-147484-264.png" alt="Image grohtml-147484-264.png">
+(nonlinearly).</p>
+
+<h3>4.2. Statistical Models for an Individual&rsquo;sObservations
+<a name="4.2."></a>
+<a name="4.2. Statistical Models for an Individual&rsquo;sObservations"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Model (4.1) can be generalized
+by incorporating a model like those given in Chapter 3 for
+the residual errors, i.e. for the differences between the
+<img src="grohtml-147484-265.png" alt="Image grohtml-147484-265.png">
+and
+<img src="grohtml-147484-266.png" alt="Image grohtml-147484-266.png">
+, rather than using just the simple Additive model. A
+particular instance of such a model may have several types
+of
+<img src="grohtml-147484-267.png" alt="Image grohtml-147484-267.png">
+&rsquo;s, and as mentioned in Section 2, the variances of
+these
+<img src="grohtml-147484-268.png" alt="Image grohtml-147484-268.png">
+&rsquo;s are denoted by
+<img src="grohtml-147484-269.png" alt="Image grohtml-147484-269.png">
+&rsquo;s. With a population model these variances could
+change from individual to individual. With NONMEM, they are
+considered as constants over individuals. The
+<img src="grohtml-147484-270.png" alt="Image grohtml-147484-270.png">
+&rsquo;s can co-vary. A covariance matrix
+<img src="grohtml-147484-271.png" alt="Image grohtml-147484-271.png">
+, like the
+<img src="grohtml-147484-272.png" alt="Image grohtml-147484-272.png">
+matrix given in Section 4.1, gives the variances and
+covariances of the
+<img src="grohtml-147484-273.png" alt="Image grohtml-147484-273.png">
+&rsquo;s, as already discussed at the end of Chapter 3. This
+does not preclude the magnitudes of the errors from being
+affected by fixed effects. A model such as (3.8) can still
+be used. This is shown explicitly by the general model given
+in the next section.</p>
+
+<h2>5. The Population Mixed Effects Model
+<a name="5."></a>
+<a name="5. The Population Mixed Effects Model"></a>
+</h2>
+
+
+<p style="margin-top: 1em">We have now presented all of the
+parts needed to fully define a population model. It may be
+useful to recap this information by stating the entire
+general model here:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748430.png" alt="Image grohtml-14748430.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748431.png" alt="Image grohtml-14748431.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748432.png" alt="Image grohtml-14748432.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-147484-277.png" alt="Image grohtml-147484-277.png">
+,
+<img src="grohtml-147484-278.png" alt="Image grohtml-147484-278.png">
+independent for
+<img src="grohtml-147484-279.png" alt="Image grohtml-147484-279.png">
+<br>
+
+<img src="grohtml-147484-280.png" alt="Image grohtml-147484-280.png">
+,
+<img src="grohtml-147484-281.png" alt="Image grohtml-147484-281.png">
+independent for
+<img src="grohtml-147484-282.png" alt="Image grohtml-147484-282.png">
+<br>
+
+<img src="grohtml-147484-283.png" alt="Image grohtml-147484-283.png">
+,
+<img src="grohtml-147484-284.png" alt="Image grohtml-147484-284.png">
+independent for all
+<img src="grohtml-147484-285.png" alt="Image grohtml-147484-285.png">
+,</p>
+
+<p style="margin-top: 1em">where here,
+<img src="grohtml-147484-286.png" alt="Image grohtml-147484-286.png">
+is a vector, along with
+<img src="grohtml-147484-287.png" alt="Image grohtml-147484-287.png">
+,
+<img src="grohtml-147484-288.png" alt="Image grohtml-147484-288.png">
+,
+<img src="grohtml-147484-289.png" alt="Image grohtml-147484-289.png">
+and
+<img src="grohtml-147484-290.png" alt="Image grohtml-147484-290.png">
+, and
+<img src="grohtml-147484-291.png" alt="Image grohtml-147484-291.png">
+and
+<img src="grohtml-147484-292.png" alt="Image grohtml-147484-292.png">
+are square matrices with dimensions equal to those of
+<img src="grohtml-147484-293.png" alt="Image grohtml-147484-293.png">
+and
+<img src="grohtml-147484-294.png" alt="Image grohtml-147484-294.png">
+.</p>
+
+<p style="margin-top: 1em">To try to represent the
+relationship between all the fixed and random effects of a
+population model graphically, consider figure 4.2. The model
+corresponding to this figure is</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748433.png" alt="Image grohtml-14748433.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748434.png" alt="Image grohtml-14748434.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748435.png" alt="Image grohtml-14748435.png"></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-14748436.png" alt="Image grohtml-14748436.png"></p>
+
+<p style="margin-top: 1em">where the
+<img src="grohtml-147484-299.png" alt="Image grohtml-147484-299.png">
+are all equal to a constant
+<img src="grohtml-147484-300.png" alt="Image grohtml-147484-300.png">
+, i.e. there is no random interindividual variability in the
+volume of distribution, so that for the sake of this
+example,
+<img src="grohtml-147484-301.png" alt="Image grohtml-147484-301.png">
+is just a scalar.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="+chapt4/fig4.2.ubuntu.epsi.png" alt="Image +chapt4/fig4.2.ubuntu.epsi.png"></p>
+
+<p style="margin-top: 1em">Figure 4.2. Random and
+fixed effects influence observation,
+<img src="grohtml-147484-303.png" alt="Image grohtml-147484-303.png">
+, from the population point of view. Open circle, lower
+left, is population parameter predicted clearance, closed
+circle is true clearance for
+<img src="grohtml-147484-304.png" alt="Image grohtml-147484-304.png">
+individual which differs from population prediction by
+<img src="grohtml-147484-305.png" alt="Image grohtml-147484-305.png">
+, chosen randomly from a distribution (upper left) with mean
+0 and SD
+<img src="grohtml-147484-306.png" alt="Image grohtml-147484-306.png">
+. Similarly, lower right, the observed
+<img src="grohtml-147484-307.png" alt="Image grohtml-147484-307.png">
+at time
+<img src="grohtml-147484-308.png" alt="Image grohtml-147484-308.png">
+(open square) differs by
+<img src="grohtml-147484-309.png" alt="Image grohtml-147484-309.png">
+from the true value (closed circle) by an error
+<img src="grohtml-147484-310.png" alt="Image grohtml-147484-310.png">
+, chosen independently from a distribution with mean 0 and
+SD
+<img src="grohtml-147484-311.png" alt="Image grohtml-147484-311.png">
+. The
+<img src="grohtml-147484-312.png" alt="Image grohtml-147484-312.png">
+corresponding to the population-based prediction is also
+shown (upper curve, open circle).</p>
+
+<p style="margin-top: 1em"><a href="4.html">TOP</a></p>
+
+
+<p style="margin-top: 1em"><a href="index.html">TABLE OF CONTENTS</a></p>
+ 
+<p style="margin-top: 1em"><a href="5.html">NEXT</a></p>
+<hr>
+</body>
+</html>

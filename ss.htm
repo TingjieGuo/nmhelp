@@ -1,0 +1,67 @@
+<HTML><HEAD> <TITLE> ss.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                            SS DATA ITEM                            |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Steady-State (SS) data item for PREDPP
+ CONTEXT: $INPUT record and NONMEM data set
+
+ USAGE:
+ $INPUT ... SS ...
+
+ DISCUSSION:
+ SS labels PREDPP's steady-state (SS) data item.  The steady-state data
+ item is optional.  It can take  one  of  three  values  in  any  event
+ record.
+
+ 0    indicates that the dose is not a steady state dose.
+
+ 1    indicates that the dose is a steady state dose, and that the com-
+      partment amounts are to be  reset  to  the  steady-state  amounts
+      resulting  from  the  given  dose.  Compartment amounts resulting
+      from prior dose event records are "zeroed out," and infusions  in
+      progress  or  pending additional doses are cancelled.  The system
+      is not totally reset:  the  on/off  status  of  the  compartments
+      remains as it was at the time of the prior event record (if any),
+      and the value of time must be greater than or equal to its  value
+      on the prior event record (if any).
+
+ 2    indicates  that the dose is a steady state dose and that the com-
+      partment amounts are to be set to the  sum  of  the  steady-state
+      amounts resulting from the given dose plus whatever those amounts
+      would have been at the event time were the steady-state dose  not
+      given.  I.e., letting t be the time on the event record, then the
+      amounts in the compartments are updated to amounts valid for time
+      t, and next, these amounts are added to the steady-state amounts.
+      This is meaningful when kinetics are linear and the superposition
+      principle holds.
+
+ 3    indicates  that the dose is a steady state dose.  SS = 3 is iden-
+      tical to SS = 1 with one exception: with  Steady  State  routines
+      SS6  and  SS9, the existing state vector (compartment amounts and
+      eta derivatives) is used as the initial estimate in the  computa-
+      tion  of the steady-state amounts.  The user supplies the initial
+      estimate with some combination  of  prior  event  records,  e.g.,
+      reset, transient dose, and other-type event records.
+
+ When  the  SS  data  item  is used, one or more of the data items AMT,
+ RATE, and II must be present in the event record to specify the steady
+ state dosing pattern.
+
+REFERENCES: Guide VI Section <a href="VI/V.html#F.">V.F<a/>
+REFERENCES: Guide V Section <a href="V/6.html#8.">6.8<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

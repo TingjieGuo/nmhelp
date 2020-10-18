@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 90</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:7px;font-family:Courier;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:9px;font-family:Times;color:#000000;}
+	.ft4{font-size:5px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="V090.png" alt="background image">
+<DIV style="position:absolute;top:41;left:373"><nobr><span class="ft0">Chapter 8 - $ERROR Record</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft0">2)</span></nobr></DIV>
+<DIV style="position:absolute;top:79;left:102"><nobr><span class="ft1"><b>IF (ASY.EQ.1) Y=F+ERR(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:92;left:102"><nobr><span class="ft1"><b>IF (ASY.NE.1) Y=F+ERR(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:107;left:72"><nobr><span class="ft0">3)</span></nobr></DIV>
+<DIV style="position:absolute;top:109;left:102"><nobr><span class="ft1"><b>Y=F+ERR(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:122;left:102"><nobr><span class="ft1"><b>IF (ASY.EQ.1) Y=F+ERR(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:146;left:72"><nobr><span class="ft2"><b>3.6. Two Different Types of Observations</b></span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:72"><nobr><span class="ft5">In Chapter 3, Section 3.6, an example is given in which there are two kinds of observations,<br>plasma (<i>C</i>) and urine (<i>C</i></span></nobr></DIV>
+<DIV style="position:absolute;top:180;left:186"><nobr><span class="ft4"><i>u</i></span></nobr></DIV>
+<DIV style="position:absolute;top:176;left:190"><nobr><span class="ft0">). With PREDPP, measurements from different compartments of the</span></nobr></DIV>
+<DIV style="position:absolute;top:189;left:72"><nobr><span class="ft5">model are recorded in the DV data item of different observation event records. The CMT data<br>item identiﬁes the compartment from which the prediction associated with the event record is to<br>be obtained. When the $ERROR statements are evaluated for a given event record, the variable F<br>contains the prediction from the compartment speciﬁed for that event record. All that need be<br>done is to select the correct error model, depending on the compartment. Suppose, for example,<br>that ADVAN2 is used, so that the central compartment is compartment 2 and the output (urine)<br>compartment is compartment 3. Then the error model (3.10) can be coded:</span></nobr></DIV>
+<DIV style="position:absolute;top:282;left:77"><nobr><span class="ft1"><b>TYP=0</b></span></nobr></DIV>
+<DIV style="position:absolute;top:295;left:77"><nobr><span class="ft1"><b>IF (CMT.EQ.2) TYP=1</b></span></nobr></DIV>
+<DIV style="position:absolute;top:308;left:77"><nobr><span class="ft1"><b>Y=F+TYP*ERR(1)+(1-TYP)*ERR(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:322;left:72"><nobr><span class="ft0">This model can also be coded in several ways, one of which is shown here:</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:77"><nobr><span class="ft1"><b>IF (CMT.EQ.2) THEN</b></span></nobr></DIV>
+<DIV style="position:absolute;top:350;left:77"><nobr><span class="ft1"><b>Y=F+ERR(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:363;left:77"><nobr><span class="ft1"><b>ELSE</b></span></nobr></DIV>
+<DIV style="position:absolute;top:376;left:77"><nobr><span class="ft1"><b>Y=F+ERR(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:389;left:77"><nobr><span class="ft1"><b>ENDIF</b></span></nobr></DIV>
+<DIV style="position:absolute;top:413;left:72"><nobr><span class="ft2"><b>3.7. More than One Indicator Variable</b></span></nobr></DIV>
+<DIV style="position:absolute;top:430;left:72"><nobr><span class="ft5">In Chapter 3, Section 3.7, an example is given in which there are three kinds of observations.<br>Suppose that there are two data items, ASY1 and ASY2. ASY1 is 1 if assay 1 is used and 0 oth-<br>erwise. ASY2 is 1 if assay 2 is used and 0 otherwise. This is the error model (3.11):</span></nobr></DIV>
+<DIV style="position:absolute;top:471;left:77"><nobr><span class="ft1"><b>Y=F+ASY1*ERR(1)+ASY2*ERR(2)+(1-ASY1)*(1-ASY2)*ERR(3)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:485;left:72"><nobr><span class="ft0">This model can also be coded in several ways, one of which is shown here:</span></nobr></DIV>
+<DIV style="position:absolute;top:500;left:77"><nobr><span class="ft1"><b>Y=F+ERR(3)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:513;left:77"><nobr><span class="ft1"><b>IF (ASY1.EQ.1) Y=F+ERR(1)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:526;left:77"><nobr><span class="ft1"><b>IF (ASY2.EQ.1) Y=F+ERR(2)</b></span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft0">-82-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

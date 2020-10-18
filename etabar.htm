@@ -1,0 +1,118 @@
+<HTML><HEAD> <TITLE> etabar.out</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                               ETABAR                               |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING:  NONMEM's  estimate  of the bias in the underlying assumption
+ about eta.
+ CONTEXT: NONMEM output
+
+ DISCUSSION:
+
+ ETABAR is printed when a conditional population estimation  method  is
+ used.  The following is an example.
+
+  ETABAR IS THE ARITHMETIC MEAN OF THE ETA-ESTIMATES,
+  AND THE P-VALUE IS GIVEN FOR THE NULL HYPOTHESIS THAT THE TRUE MEAN IS 0.
+
+  ETABAR:        -3.5224E-02 -7.1437E-05  2.5095E-03
+  SE:             3.4060E-01  3.1223E-03  1.9001E-01
+  N:                      12          12          12
+
+  P VAL.:         9.1763E-01  9.8175E-01  9.8946E-01
+
+ The  ith  number  listed  after "ETABAR" is the sample average (across
+ individuals) of the conditional estimates of the ith eta, and the  ith
+ number  listed  after  "SE"  is  the  standard error for this average.
+ Under the assumed model, the population average of the the conditional
+ estimates  is approximately zero.  If the model is well-specified, the
+ sample average should be near 0. (but see below for a mixture  model).
+ The  P-value helps one assess whether the sample average is "far" from
+ 0.  A value under 0.05, for example, indicates such an average (notice
+ the value 0.32E-02).
+
+ With  a  mixture  model, the ith eta is understood to have a different
+ distribution for each subpopulation of the mixture.  Accordingly, dif-
+ ferent  instances of the above output will appear, one for each of the
+ different subpopulations.  Using a standard Bayesian-type computation,
+ each  individual is classified into one of the subpopulations, and the
+ conditional estimate of the ith eta under the model for this  subpopu-
+ lation is used in the sample average for that subpopulation.  If under
+ the mth submodel, the ith eta does not influence  the  data  from  any
+ individual,  but it does influence the data from some individual under
+ some other submodel, then the sample average for the ith eta  for  the
+ mth  submodel  will  be 0.  If the ith eta does not influence the data
+ from any individual under any model, then the sample average  for  the
+ ith  eta for the mth submodel will usually be 0, but it will not be if
+ (i) the ith eta is correlated with an eta that influences  some  indi-
+ vidual's  data  under  the  mth  submodel, and (ii) that individual is
+ classified to be in the mth subpopulation.
+
+ The population average of the conditional estimates is  only  approxi-
+ mately  zero  because a conditional estimate is a (Bayesian) posterior
+ mode, and not a posterior expectation.  However with a mixture  model,
+ with  the  estimate for a given individual, the posterior distribution
+ is that for the subpopulation into which the individual is classified,
+ and due to possible missclassification the expectation of the estimate
+ may be even "further from" zero than with  a  nonmixture  model.   For
+ this  reason  too,  the  centered FOCE method may not work well with a
+ mixture model.
+
+ With a mixture model, or with a nonmixture model, one may implement  a
+ second  Estimation  Step  (in a subsequent problem), and then a second
+ ETABAR estimate (EB2) can be obtained, with  which  the  first  ETABAR
+ estimate  (EB1)  can be compared.  If the data-analytic model is well-
+ specified, the two estimates should represent nearly  the  same  quan-
+ tity.   Using  an option on the $ESTIMATION record, the second P-value
+ assesses the magnitude of the difference between EB1 and EB2, and a P-
+ value  under  0.05  would  suggest that the data-analytic model is not
+ well-specifed.  To obtain EB2, a data set is simulated under the  fit-
+ ted  model, and EB2 is obtained using this data set.  Both EB1 and EB2
+ are (univariate) measures of central tendency of the  distribution  of
+ interindividual  "residuals", i.e. the distribution of the conditional
+ estimates of the etas.  In both cases the  residuals  are  defined  in
+ terms  of  the  data-analytic model.  But for EB1, the distribution is
+ governed by the true (unknown) model, and for EB2, the distribution is
+ governed by the fitted  model.  If the two models are "close", EB1 and
+ EB2 will be close.  The conditional estimates of  the  etas  from  the
+ simulated  data  should be based on the population parameter estimates
+ from these data.  It may cost considerable CPU  time  to  obtain  this
+ second  set of parameter estimates, and so it may not always be feasi-
+ ble to compute EB2.
+
+ One proceeds by constructing a problem specification that
+ (a) includes the same $INPUT record as was used with a previous  prob-
+ lem wherein EB1 was obtained
+ (b)  includes  an  $MSFI  record specifying a model specification file
+ from that previous problem, so that in particular, EB1 is available
+ (c) includes a $SIMULATION record with the option TRUE=FINAL, so  that
+ a  data  set will be simulated using the final parameter estimate from
+ that previous problem.
+ (d) includes a $ESTIMATION record with  the  option  ETABARCHECK  (and
+ either the option METHOD=COND or METHOD=HYBRID).
+ A  data  set  will  be  simulated, and EB2 will be obtained.  With the
+ ETABARCHECK option, the P-value for the  difference  EB2-EB1  will  be
+ computed.   Otherwise,  if  the  model  is  a nonmixture model, EB1 is
+ ignored, and the P-value will be simply that for EB2, and if the model
+ is a mixture model, no P-value will be output (only the standard error
+ for EB2 will be  output).   The  numbers  of  data  and/or  individual
+ records in the simulated data set may differ from those for the previ-
+ ous problem; so if desired, this data set can be much larger than  the
+ real data set.
+
+REFERENCES: Guide VII Section <a href="VII/II.html#A.">II.A<a/>, <a href="VII/III.html#D.">III.D<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

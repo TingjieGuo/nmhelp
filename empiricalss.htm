@@ -1,0 +1,40 @@
+<HTML><HEAD> <TITLE> empiricalss.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                   EMPIRICAL SS DOSE EVENT RECORD                   |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Specification of empirical steady-state dose for PREDPP
+ CONTEXT: $INPUT record and NONMEM data set
+
+ DISCUSSION:
+
+ With  some systems, steady state cannot be computed by the usual meth-
+ ods requested by the SS data item.  The Empirical steady state  method
+ computes  steady  state  by  giving  a large number of doses until the
+ state variables no longer change according to the SSTOL/SSATOL  toler-
+ ance specified in $SUBROUTINES.  The SS data item is not used.  A neg-
+ ative value of ADDL requests the computation, and also  specifies  the
+ maximum  number of doses (ABS(ADDL)+1).  Interdose interval II is used
+ as usual.
+
+ Reserved variables ADDL_ACTUAL and  ADDL_TIME  and  ADDL_TIMEDIFF  are
+ given useful values.
+
+ (See Guide Introduction_7  "An  Empirical  Method  of Achieving Steady
+ State")
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

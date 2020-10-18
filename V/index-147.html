@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 147</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:9px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft3{font-size:9px;font-family:Courier;color:#000000;}
+	.ft4{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft5{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index147.png" alt="background image">
+<DIV style="position:absolute;top:41;left:286"><nobr><span class="ft0">Chapter 12 - Brief Descriptions of Other Features</span></nobr></DIV>
+<DIV style="position:absolute;top:77;left:72"><nobr><span class="ft0">fractions p and 1-p.</span></nobr></DIV>
+<DIV style="position:absolute;top:94;left:72"><nobr><span class="ft0">References: Users Guide VI (PREDPP) III.L.2</span></nobr></DIV>
+<DIV style="position:absolute;top:120;left:72"><nobr><span class="ft1"><b>4.15. PRED Error Return Codes and Error Messages in File PRDERR</b></span></nobr></DIV>
+<DIV style="position:absolute;top:137;left:72"><nobr><span class="ft4">A PRED routine can return a PRED error return code (1 or 2) to NONMEM, indicating that it is<br>unable to compute a prediction for a given data record with the current values of</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:431"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:438"><nobr><span class="ft0">’s and</span></nobr></DIV>
+<DIV style="position:absolute;top:147;left:466"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:150;left:473"><nobr><span class="ft0">’s. For</span></nobr></DIV>
+<DIV style="position:absolute;top:163;left:72"><nobr><span class="ft4">example, PREDPP returns error return code 1 when a basic or additional PK parameter has a val-<br>ue that is physically impossible (e.g., a scale parameter which is zero or negative). Error return<br>codes can also be speciﬁed by the user in user-written code or in abbreviated code using the EXIT<br>statement. One reason for doing this is to constrain parameters in order to avoid ﬂoating point<br>machine interrupts. The PRED error recovery option determines what action NONMEM will<br>take. With NM-TRAN, the PRED error recovery option is either</span></nobr></DIV>
+<DIV style="position:absolute;top:229;left:362"><nobr><span class="ft3">ABORT</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:398"><nobr><span class="ft0">(which is the default) or</span></nobr></DIV>
+<DIV style="position:absolute;top:242;left:72"><nobr><span class="ft3">NOABORT</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:118"><nobr><span class="ft0">, and is speciﬁed on the $ESTIMATION and $THETA records.</span></nobr></DIV>
+<DIV style="position:absolute;top:258;left:72"><nobr><span class="ft4">If an error return code is returned during the Simulation, Covariance, Table or Scatterplot Step, or<br>during computation of the initial value of the objective function, NONMEM will abort. If the<br>error return code is returned during the Estimation or Initial Estimates Step, NONMEM will try<br>to avoid those values of</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:185"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:196"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:294;left:215"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:297;left:226"><nobr><span class="ft0">for which the error occurs. If they cannot be avoided, NON-</span></nobr></DIV>
+<DIV style="position:absolute;top:310;left:72"><nobr><span class="ft0">MEM’s actions depend on the error return code value, as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:72"><nobr><span class="ft0">1</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:99"><nobr><span class="ft0">If</span></nobr></DIV>
+<DIV style="position:absolute;top:328;left:110"><nobr><span class="ft3">NOABORT</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:160"><nobr><span class="ft0">is speciﬁed on $ESTIM or $THETA, try to avoid the current values of</span></nobr></DIV>
+<DIV style="position:absolute;top:324;left:478"><nobr><span class="ft2">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:327;left:488"><nobr><span class="ft0">and</span></nobr></DIV>
+<DIV style="position:absolute;top:337;left:99"><nobr><span class="ft2">η</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:106"><nobr><span class="ft0">. If</span></nobr></DIV>
+<DIV style="position:absolute;top:341;left:124"><nobr><span class="ft3">ABORT</span></nobr></DIV>
+<DIV style="position:absolute;top:340;left:160"><nobr><span class="ft0">is speciﬁed on $ESTIM or $THETA, then abort.</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:72"><nobr><span class="ft0">2</span></nobr></DIV>
+<DIV style="position:absolute;top:357;left:100"><nobr><span class="ft0">Abort in all cases.</span></nobr></DIV>
+<DIV style="position:absolute;top:374;left:72"><nobr><span class="ft4">PRED routines may optionally provide text accompanying the error return code. NONMEM<br>writes all text associated with error return codes to a ﬁle, PRDERR. The contents of this ﬁle<br>should always be carefully reviewed.</span></nobr></DIV>
+<DIV style="position:absolute;top:417;left:72"><nobr><span class="ft4">References: Users Guide III (Installation) III.2.1.1<br>References: Users Guide IV (NM-TRAN) IV.A, IV.C.5-6<br>References: Users Guide VI (PREDPP) III.K, IV.F</span></nobr></DIV>
+<DIV style="position:absolute;top:469;left:72"><nobr><span class="ft1"><b>4.16. User-Written Subroutines</b></span></nobr></DIV>
+<DIV style="position:absolute;top:486;left:72"><nobr><span class="ft4">Although most NONMEM applications can be accomplished using NM-TRAN abbreviated code,<br>there are cases in which user-written FORTRAN subroutines are needed. The</span></nobr></DIV>
+<DIV style="position:absolute;top:499;left:425"><nobr><span class="ft3">$SUBROUTINES</span></nobr></DIV>
+<DIV style="position:absolute;top:512;left:72"><nobr><span class="ft4">record allows the user to specify the names of user-written routines that are needed in the NON-<br>MEM load module. A user may choose to write his own PRED, PK, ERROR, MODEL, DES, or<br>AES subroutine. Some subroutines that are distributed with NONMEM are dummy, or &quot;stub&quot;<br>routines, that do nothing. Of these, subroutines CCONTR, CONPAR, CONTR, and CRIT can be<br>replaced to obtain an objective function different from the default. NONMEM subroutine MIX<br>must be replaced for mixture models. PREDPP subroutine INFN may be replaced by user-writ-<br>ten code. The names of all such routines are speciﬁed using the identically named options of the</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:72"><nobr><span class="ft3">$SUBROUTINES</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:155"><nobr><span class="ft0">record, e.g.,</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:211"><nobr><span class="ft3">PRED=subname</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:290"><nobr><span class="ft0">,</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:296"><nobr><span class="ft3">CONTR=subname</span></nobr></DIV>
+<DIV style="position:absolute;top:603;left:382"><nobr><span class="ft0">, etc. User-written routines</span></nobr></DIV>
+<DIV style="position:absolute;top:616;left:72"><nobr><span class="ft4">may call other FORTRAN subroutines, which can be speciﬁed for inclusion in the load module<br>using the option</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:146"><nobr><span class="ft3">OTHER=subname</span></nobr></DIV>
+<DIV style="position:absolute;top:629;left:231"><nobr><span class="ft0">.</span></nobr></DIV>
+<DIV style="position:absolute;top:646;left:72"><nobr><span class="ft0">With user-written CONTR routines, the NM-TRAN $CONTR record may be useful.</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:72"><nobr><span class="ft0">References: Users Guide IV (NM-TRAN) III.B.4, B.6</span></nobr></DIV>
+<DIV style="position:absolute;top:688;left:72"><nobr><span class="ft1"><b>4.17. PRIOR</b></span></nobr></DIV>
+<DIV style="position:absolute;top:705;left:72"><nobr><span class="ft4">The PRIOR subroutine and $PRIOR record allows a Bayesian penalty function to be added to<br>the NONMEM objective function. This serves as a constraint on the estimates of THETA,</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:276"><nobr><span class="ft0">-139-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

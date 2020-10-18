@@ -1,0 +1,994 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Sat Sep 19 21:23:04 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part V - Introductory Guide - Chapter 9">NONMEM Users Guide Part V - Introductory Guide - Chapter 9</a><br>
+<a href="#1. What This Chapter is About">1. What This Chapter is About</a><br>
+<a href="#2. Providing Initial Estimates For : The $THETARecord">2. Providing Initial Estimates For : The $THETARecord</a><br>
+<a href="#2.1. Providing Initial Estimates For Elements Of">2.1. Providing Initial Estimates For Elements Of</a><br>
+<a href="#2.2. Providing Constraints for Elements of">2.2. Providing Constraints for Elements of</a><br>
+<a href="#2.3. Fixing Elements of">2.3. Fixing Elements of</a><br>
+<a href="#2.4. How to Obtain Initial Estimates for">2.4. How to Obtain Initial Estimates for</a><br>
+<a href="#3. Providing Initial Estimates for and : the $OMEGAand $SIGMA Records">3. Providing Initial Estimates for and : the $OMEGAand $SIGMA Records</a><br>
+<a href="#3.1. $OMEGA Record With Individual Data">3.1. $OMEGA Record With Individual Data</a><br>
+<a href="#3.2. $OMEGA Record With Population Data">3.2. $OMEGA Record With Population Data</a><br>
+<a href="#3.3. The $SIGMA Record">3.3. The $SIGMA Record</a><br>
+<a href="#3.4. Fixing Elements of or">3.4. Fixing Elements of or</a><br>
+<a href="#3.5. How to Obtain Initial Estimates for and">3.5. How to Obtain Initial Estimates for and</a><br>
+<a href="#4. Specifying Optional Tasks">4. Specifying Optional Tasks</a><br>
+<a href="#4.1. Requesting the Estimation Step: the $ESTIMATIONRecord">4.1. Requesting the Estimation Step: the $ESTIMATIONRecord</a><br>
+<a href="#4.2. Requesting the Covariance Step: the $COVARIANCERecord">4.2. Requesting the Covariance Step: the $COVARIANCERecord</a><br>
+<a href="#5. Specifying Optional Output">5. Specifying Optional Output</a><br>
+<a href="#5.1. Requesting the Table Step: the $TABLE Record">5.1. Requesting the Table Step: the $TABLE Record</a><br>
+<a href="#5.2. Requesting Scatterplots: the $SCATTERPLOT Record">5.2. Requesting Scatterplots: the $SCATTERPLOT Record</a><br>
+<a href="#6. Placement and Order of Records">6. Placement and Order of Records</a><br>
+<a href="#7. INCLUDE records">7. INCLUDE records</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part V - Introductory Guide - Chapter 9
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part V - Introductory Guide - Chapter 9"></a>
+</h2>
+
+
+<p align="center" style="margin-top: 1em"><b>Chapter 9 -
+Additional NM-TRAN Records</b></p>
+
+<h2>1. What This Chapter is About
+<a name="1."></a>
+<a name="1. What This Chapter is About"></a>
+</h2>
+
+
+<p style="margin-top: 1em">This chapter tells how to
+give initial estimates to NONMEM&rsquo;s parameters ($THETA,
+$OMEGA, $SIGMA records); how to tell NONMEM what tasks to
+perform ($ESTIMATION, $COVARIANCE records); and how to tell
+NONMEM what additional output to produce ($TABLE,
+$SCATTERPLOT records).</p>
+
+<h2>2. Providing Initial Estimates For : The $THETARecord
+<a name="2."></a>
+<a name="2. Providing Initial Estimates For : The $THETARecord"></a>
+</h2>
+
+
+<p style="margin-top: 1em">This record provides an
+initial estimate (and, optionally, provides lower and upper
+bounds) for every element of NONMEM&rsquo;s
+<img src="grohtml-150733-4.png" alt="Image grohtml-150733-4.png">
+vector.</p>
+
+<h3>2.1. Providing Initial Estimates For Elements Of
+<a name="2.1."></a>
+<a name="2.1. Providing Initial Estimates For Elements Of"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The $THETA record
+contains a list of values, separated by spaces or commas,
+which are the initial estimates for the
+<img src="grohtml-150733-6.png" alt="Image grohtml-150733-6.png">
+&rsquo;s used in the $PK and $ERROR statements. The position
+of a value in the list corresponds to its position
+(subscript) in the
+<img src="grohtml-150733-7.png" alt="Image grohtml-150733-7.png">
+vector. For example, consider the following statement:
+<tt><b><br>
+$THETA 1.7 .102 29.</b></tt> <br>
+This says that the initial estimate for
+<img src="grohtml-150733-8.png" alt="Image grohtml-150733-8.png">
+is 1.7, the initial estimate for
+<img src="grohtml-150733-9.png" alt="Image grohtml-150733-9.png">
+is .102, and the initial estimate for
+<img src="grohtml-150733-10.png" alt="Image grohtml-150733-10.png">
+is 29. Some users of NONMEM prefer to code each value on a
+separate line so that they can include comments to
+themselves describing the significance of the
+<img src="grohtml-150733-11.png" alt="Image grohtml-150733-11.png">
+&rsquo;s. The above record could have been coded as follows:
+<tt><b><br>
+$THETA 1.7 ; RATE CONSTANT OF ABSORPTION <br>
+.102 ; RATE CONSTANT OF ELIMINATION <br>
+19. ; VOLUME OF DISTRIBUTION</b></tt> <br>
+This is a matter of style.</p>
+
+<h3>2.2. Providing Constraints for Elements of
+<a name="2.2."></a>
+<a name="2.2. Providing Constraints for Elements of"></a>
+</h3>
+
+
+<p style="margin-top: 1em">When NONMEM is told to
+estimate the parameters (Section 4.1, the Estimation Step,
+below), it varies the elements of
+<img src="grohtml-150733-13.png" alt="Image grohtml-150733-13.png">
+to find values which cause the model to fit the observations
+best. The values on the $THETA record are the initial
+estimates of
+<img src="grohtml-150733-14.png" alt="Image grohtml-150733-14.png">
+for this search. When only an initial estimate is provided,
+NONMEM is free to chose any positive or negative value for
+that element of
+<img src="grohtml-150733-15.png" alt="Image grohtml-150733-15.png">
+. We then say that the
+<img src="grohtml-150733-16.png" alt="Image grohtml-150733-16.png">
+element is <i>unconstrained</i>, which means that its lower
+bound (lower limit) is
+<img src="grohtml-150733-17.png" alt="Image grohtml-150733-17.png">
+and its upper bound (upper limit) is
+<img src="grohtml-150733-18.png" alt="Image grohtml-150733-18.png">
+. When finite bounds are desired, the initial estimate and
+its bounds must be enclosed in parentheses and specified in
+the order (lower, initial, upper). When the upper bound
+needn&rsquo;t be finite, the initial estimate and its lower
+bound are enclosed in parentheses and specified in the order
+(lower, initial). Note that when no estimation is performed,
+upper and lower bounds have no effect.</p>
+
+<p style="margin-top: 1em">In the theophylline
+example of Chapter 2, for example, negative
+<img src="grohtml-150733-19.png" alt="Image grohtml-150733-19.png">
+values are physiologically impossible. Each
+<img src="grohtml-150733-20.png" alt="Image grohtml-150733-20.png">
+element was given a lower bound of 0, which constrained it
+to be non-negative: <tt><b><br>
+$THETA (0, 1.7) (0, .102) (0,
+29.)</b></tt></small></p>
+
+<p style="margin-top: 1em">It is possible to mix
+constrained and unconstrained
+<img src="grohtml-150733-21.png" alt="Image grohtml-150733-21.png">
+s; this was done in Chapter 2, figure 2.12:
+<tt><b><br>
+$THETA (0,.0027) (0,.70) .0018
+.5</b></tt></small></p>
+
+<p style="margin-top: 1em">An upper bound of
+<img src="grohtml-150733-22.png" alt="Image grohtml-150733-22.png">
+may be stated explicitly using the value <tt>1000000</tt> or
+the word <tt>INFINITY</tt>. Similarly, a lower bound of
+<img src="grohtml-150733-23.png" alt="Image grohtml-150733-23.png">
+may be stated explicitly as <tt>-1000000</tt> or
+<tt>-INFINITY</tt>.</p>
+
+<h3>2.3. Fixing Elements of
+<a name="2.3."></a>
+<a name="2.3. Fixing Elements of"></a>
+</h3>
+
+
+<p style="margin-top: 1em">When estimation is
+performed, it is sometimes desirable to hold one or more
+elements of
+<img src="grohtml-150733-25.png" alt="Image grohtml-150733-25.png">
+to a constant value. One example is when a full model is
+reduced to a simpler model, as discussed in Chapter 5,
+Section 2.1; usually this is done by holding some
+<img src="grohtml-150733-26.png" alt="Image grohtml-150733-26.png">
+element to 0. In fact, the value 0 may not be used as an
+initial estimate for an element of
+<img src="grohtml-150733-27.png" alt="Image grohtml-150733-27.png">
+unless this element is fixed to this value. A
+<img src="grohtml-150733-28.png" alt="Image grohtml-150733-28.png">
+element is held constant by inserting the word FIXED
+<i>after</i> the initial estimate. For example, the
+following statement allows
+<img src="grohtml-150733-29.png" alt="Image grohtml-150733-29.png">
+and
+<img src="grohtml-150733-30.png" alt="Image grohtml-150733-30.png">
+to vary, but holds
+<img src="grohtml-150733-31.png" alt="Image grohtml-150733-31.png">
+to the value .102: <tt><b><br>
+$THETA 1.7 .102 FIXED 29.</b></tt> <br>
+Parentheses may be used to make the statement easier to
+read: <tt><b><br>
+$THETA 1.7 (.102 FIXED) 29.</b></tt> <br>
+If the lower, initial, and upper values for an element of
+<img src="grohtml-150733-32.png" alt="Image grohtml-150733-32.png">
+are identical, the element of
+<img src="grohtml-150733-33.png" alt="Image grohtml-150733-33.png">
+is understood to be fixed, even if the word FIXED does not
+appear.</p>
+
+<h3>2.4. How to Obtain Initial Estimates for
+<a name="2.4."></a>
+<a name="2.4. How to Obtain Initial Estimates for"></a>
+</h3>
+
+
+<p style="margin-top: 1em">When estimating
+parameters, good initial estimates for
+<img src="grohtml-150733-35.png" alt="Image grohtml-150733-35.png">
+are sometimes important. Poor initial estimates may
+occasionally cause the NONMEM run to take excessive amounts
+of computer time, to produce parameter estimates that are
+not physiologically reasonable, or to fail to produce any
+parameter estimates at all. For some drugs and models,
+initial estimates for
+<img src="grohtml-150733-36.png" alt="Image grohtml-150733-36.png">
+can be obtained from published literature describing prior
+studies with the drug. For some studies, very accurate
+values may have been obtained by prior runs with NONMEM or
+other regression programs. Highly accurate values should be
+perturbed (modified) by about 10% before being used as
+initial estimates in a NONMEM run. (Initial estimates that
+are too close to what may be the actual final estimates will
+cause problems in a NONMEM run; see Chapter 13.) Sometimes,
+however, there is little guidance in choosing initial
+estimates for some elements of
+<img src="grohtml-150733-37.png" alt="Image grohtml-150733-37.png">
+.</p>
+
+<p style="margin-top: 1em">One approach with
+population data, where there is a reasonable amount of data
+for each individual, is as follows. It is often easier to
+guess at appropriate parameter values for individual data
+than for population data. So, first estimate each
+individual&rsquo;s parameter values using only the data from
+the individual. The mean values of the individuals&rsquo;
+parameter estimates can then be used as the initial
+parameter estimates in the population analysis. Results from
+individual runs can also be used to obtain initial estimates
+for elements of
+<img src="grohtml-150733-38.png" alt="Image grohtml-150733-38.png">
+and
+<img src="grohtml-150733-39.png" alt="Image grohtml-150733-39.png">
+; see below.</p>
+
+<p style="margin-top: 1em">Another approach is
+simply to let NONMEM find an initial estimate. NONMEM has an
+automatic strategy for so doing; see Chapter 12, Section
+4.4.</p>
+
+<h2>3. Providing Initial Estimates for and : the $OMEGAand $SIGMA Records
+<a name="3."></a>
+<a name="3. Providing Initial Estimates for and : the $OMEGAand $SIGMA Records"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Recall that
+<img src="grohtml-150733-42.png" alt="Image grohtml-150733-42.png">
+and
+<img src="grohtml-150733-43.png" alt="Image grohtml-150733-43.png">
+are variance/covariance matrices for the following random
+variables:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="92%">
+
+
+<p style="margin-top: 1em">Individual Model
+<img src="grohtml-150733-44.png" alt="Image grohtml-150733-44.png">
+(OMEGA) for
+<img src="grohtml-150733-45.png" alt="Image grohtml-150733-45.png">
+(Random Intraindividual Variability)</p></td>
+<td width="8%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="92%">
+
+
+<p style="margin-top: 1em">Population Model
+<img src="grohtml-150733-46.png" alt="Image grohtml-150733-46.png">
+(OMEGA) for
+<img src="grohtml-150733-47.png" alt="Image grohtml-150733-47.png">
+(Random Interindividual Variability)
+<img src="grohtml-150733-48.png" alt="Image grohtml-150733-48.png">
+(SIGMA) for
+<img src="grohtml-150733-49.png" alt="Image grohtml-150733-49.png">
+(Random Intraindividual Variability)</p></td>
+<td width="8%">
+</td></tr>
+</table>
+
+<p style="margin-top: 1em">In all the examples in
+this document,
+<img src="grohtml-150733-50.png" alt="Image grohtml-150733-50.png">
+and
+<img src="grohtml-150733-51.png" alt="Image grohtml-150733-51.png">
+are <i>diagonal</i> matrices, in which covariance elements
+such as
+<img src="grohtml-150733-52.png" alt="Image grohtml-150733-52.png">
+(which is
+<img src="grohtml-150733-53.png" alt="Image grohtml-150733-53.png">
+) are assumed to be zero. NONMEM also allows full
+variance/covariance matrices; this is beyond the scope of
+this text, but see Chapter 12, Section 4.1.</p>
+
+<p style="margin-top: 1em">Initial estimates for the
+variances must be provided to NONMEM via the $OMEGA and
+$SIGMA records. Initial estimates of <i>all model
+parameters</i> (
+<img src="grohtml-150733-54.png" alt="Image grohtml-150733-54.png">
+,
+<img src="grohtml-150733-55.png" alt="Image grohtml-150733-55.png">
+, and
+<img src="grohtml-150733-56.png" alt="Image grohtml-150733-56.png">
+) must be provided even if estimation is not requested.
+$OMEGA and $SIGMA records each contain a list of values,
+separated by spaces or commas, which are the estimates for
+the corresponding variances. As in the $THETA record, the
+position of a value in the list corresponds to the position
+(subscript) of the corresponding variance (along the
+diagonal) in the matrix.</p>
+
+<h3>3.1. $OMEGA Record With Individual Data
+<a name="3.1."></a>
+<a name="3.1. $OMEGA Record With Individual Data"></a>
+</h3>
+
+
+<p style="margin-top: 1em">With individual data,
+<img src="grohtml-150733-57.png" alt="Image grohtml-150733-57.png">
+variables are used in $ERROR records, where they are called
+either ERR or ETA. For example, in the theophylline problem
+of Chapter 2 (figure 2.1) there appear the records:
+<tt><b><br>
+$ERROR <br>
+Y=F+ERR(1) <br>
+$OMEGA 1.2</b></tt> <br>
+Here, ERR(1) corresponds to
+<img src="grohtml-150733-58.png" alt="Image grohtml-150733-58.png">
+, and the initial estimate for its variance is 1.2: i.e.,
+<img src="grohtml-150733-59.png" alt="Image grohtml-150733-59.png">
+.</p>
+
+<h3>3.2. $OMEGA Record With Population Data
+<a name="3.2."></a>
+<a name="3.2. $OMEGA Record With Population Data"></a>
+</h3>
+
+
+<p style="margin-top: 1em">With population data,
+<img src="grohtml-150733-60.png" alt="Image grohtml-150733-60.png">
+variables are used in $PK statements. For example, in the
+phenobarbital problem of Chapter 2 (figure 2.6) there appear
+the lines: <tt><b><br>
+CL=TVCL+ETA(1) <br>
+V=TVVD+ETA(2) <br>
+$OMEGA .0000055, .04</b></tt> <br>
+The $OMEGA record says that the initial estimate for the
+variance of
+<img src="grohtml-150733-61.png" alt="Image grohtml-150733-61.png">
+is
+<img src="grohtml-150733-62.png" alt="Image grohtml-150733-62.png">
+, and of
+<img src="grohtml-150733-63.png" alt="Image grohtml-150733-63.png">
+is .04: i.e.,
+<img src="grohtml-150733-64.png" alt="Image grohtml-150733-64.png">
+and
+<img src="grohtml-150733-65.png" alt="Image grohtml-150733-65.png">
+. Some users of NONMEM prefer to code each value on a
+separate line so that they can include comments:
+<tt><b><br>
+$OMEGA .0000005 ; VARIANCE IN CL <br>
+.04 ; VARIANCE IN V</b></tt></small></p>
+
+<h3>3.3. The $SIGMA Record
+<a name="3.3."></a>
+<a name="3.3. The $SIGMA Record"></a>
+</h3>
+
+
+<p style="margin-top: 1em">This record is used only
+with population data, and is similar to the $OMEGA record.
+It gives the initial estimates of the variances of the
+<img src="grohtml-150733-66.png" alt="Image grohtml-150733-66.png">
+variables used in the $ERROR statements, where they are
+called either ERR or EPS. For example, in Figure 2.6, there
+also appears the records: <tt><b><br>
+$ERROR <br>
+Y=F+ERR(1) <br>
+$SIGMA 25</b></tt> <br>
+Here, ERR(1) corresponds to
+<img src="grohtml-150733-67.png" alt="Image grohtml-150733-67.png">
+, and the initial estimate for its variance is 25: i.e.,
+<img src="grohtml-150733-68.png" alt="Image grohtml-150733-68.png">
+.</p>
+
+<h3>3.4. Fixing Elements of or
+<a name="3.4."></a>
+<a name="3.4. Fixing Elements of or"></a>
+</h3>
+
+
+<p style="margin-top: 1em">It is sometimes desirable
+to hold one or more elements of
+<img src="grohtml-150733-71.png" alt="Image grohtml-150733-71.png">
+or
+<img src="grohtml-150733-72.png" alt="Image grohtml-150733-72.png">
+to constant value(s). In the population example of Chapter 2
+it is possible to ignore interindividual variability in CL
+by fixing
+<img src="grohtml-150733-73.png" alt="Image grohtml-150733-73.png">
+to 0&dagger;. <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; One could
+also re-write the $PK statements to eliminate ETA(1) in the
+model for CL, which also requires that ETA(2) in the model
+for V be re-numbered as ETA(1). It is easier to modify only
+$OMEGA. <br>
+---------- <br>
+</cite></p>
+
+<p style="margin-top: 1em">The variance of an
+<img src="grohtml-150733-74.png" alt="Image grohtml-150733-74.png">
+or
+<img src="grohtml-150733-75.png" alt="Image grohtml-150733-75.png">
+variable is held constant by inserting the word FIXED
+<i>after</i> the initial estimate: <tt><b><br>
+$OMEGA 0 FIXED .0225</b></tt> <br>
+Parentheses may be used to make the statement easier to
+read: <tt><b><br>
+$OMEGA (0 FIXED) .0225</b></tt> <br>
+As with
+<img src="grohtml-150733-76.png" alt="Image grohtml-150733-76.png">
+, the value 0 may not be used as an initial estimate for any
+element of
+<img src="grohtml-150733-77.png" alt="Image grohtml-150733-77.png">
+or
+<img src="grohtml-150733-78.png" alt="Image grohtml-150733-78.png">
+unless the element is fixed to this value.</p>
+
+<h3>3.5. How to Obtain Initial Estimates for and
+<a name="3.5."></a>
+<a name="3.5. How to Obtain Initial Estimates for and"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The initial estimates for
+the variances will depend on the particular (interindividual
+and/or intraindividual) error models chosen. The estimates
+do not have to be particularly accurate, although values
+which are much too small can cause difficulties for NONMEM.
+In general, it is better to over-estimate the variances
+rather than to under-estimate them. As with initial
+estimates for
+<img src="grohtml-150733-81.png" alt="Image grohtml-150733-81.png">
+, initial estimates can sometimes be obtained from published
+literature or from prior runs with NONMEM or other
+regression programs.</p>
+
+<p style="margin-top: 1em">Initial estimates can
+also be obtained by an approach which we illustrate with
+examples for both intraindividual and interindividual error
+models. The standard deviation of a physiological quantity
+is generally some fraction
+<img src="grohtml-150733-82.png" alt="Image grohtml-150733-82.png">
+of its typical value
+<img src="grohtml-150733-83.png" alt="Image grohtml-150733-83.png">
+:
+<img src="grohtml-150733-84.png" alt="Image grohtml-150733-84.png">
+.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="38%">
+
+
+<p style="margin-top: 1em">For the additive
+model:</p> </td>
+<td width="62%">
+</td></tr>
+</table>
+
+
+<p style="margin-top: 1em"><img src="grohtml-1507333.png" alt="Image grohtml-1507333.png"></p>
+
+
+<p style="margin-top: 1em"><img src="grohtml-1507334.png" alt="Image grohtml-1507334.png"></p>
+
+
+<p style="margin-top: 1em"><img src="grohtml-1507335.png" alt="Image grohtml-1507335.png"></p>
+
+<p style="margin-top: 1em">Some ambiguity exists
+about what we mean by &quot;the typical value&quot; of y.
+For the purpose of obtaining an initial estimate of the
+variance, we need not be too particular about this. For the
+theophylline example (Figure 2.1), we may choose the mean of
+the observed values as the typical value. This value is
+approximately 5.4. Assuming 20% error, i.e.
+<img src="grohtml-150733-88.png" alt="Image grohtml-150733-88.png">
+, then
+<img src="grohtml-150733-89.png" alt="Image grohtml-150733-89.png">
+. Similarly, in the first phenobarbital example (Figure
+2.6), the mean of the observations is approximately 25.
+Again assuming 20% error, then
+<img src="grohtml-150733-90.png" alt="Image grohtml-150733-90.png">
+, and
+<img src="grohtml-150733-91.png" alt="Image grohtml-150733-91.png">
+. For that same example, the typical value of CL was
+estimated according to the model for the parameter:
+<tt>TVCL=THETA(1)</tt>. We used the initial estimate of
+<img src="grohtml-150733-92.png" alt="Image grohtml-150733-92.png">
+, .0047, as the typical value of CL, and assumed 50% error:
+<img src="grohtml-150733-93.png" alt="Image grohtml-150733-93.png">
+. The model for V is <tt>TVVD=THETA(2)</tt>. Again, we used
+the initial estimate of
+<img src="grohtml-150733-94.png" alt="Image grohtml-150733-94.png">
+, .99, as the typical value of V, but assumed 20% error:
+<img src="grohtml-150733-95.png" alt="Image grohtml-150733-95.png">
+. Note finally that in the second phenobarbital example
+(Figure 2.12), we used as initial estimates of variance the
+final estimates obtained from the first example
+(understanding that these estimates could be somewhat large
+due to some of the variability being explained in this
+example by a systematic influence of weight).</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="80%">
+
+
+<p style="margin-top: 1em">For the constant
+coefficient of variation model:</p></td>
+<td width="20%">
+</td></tr>
+</table>
+
+
+<p style="margin-top: 1em"><img src="grohtml-1507336.png" alt="Image grohtml-1507336.png"></p>
+
+
+<p style="margin-top: 1em"><img src="grohtml-1507337.png" alt="Image grohtml-1507337.png"></p>
+
+
+<p style="margin-top: 1em"><img src="grohtml-1507338.png" alt="Image grohtml-1507338.png"></p>
+
+<p style="margin-top: 1em">If we identify t with the
+value of f (whatever it may be), we have:</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><img src="grohtml-1507339.png" alt="Image grohtml-1507339.png"></p>
+
+<p style="margin-top: 1em">In other words, using the
+CCV model, we do not need to estimate the typical value of
+the variable. For example, assuming 20% error,
+<img src="grohtml-150733-100.png" alt="Image grohtml-150733-100.png">
+.</p>
+
+<p style="margin-top: 1em">As with
+<img src="grohtml-150733-101.png" alt="Image grohtml-150733-101.png">
+, it is possible for NONMEM itself to obtain initial
+estimates of
+<img src="grohtml-150733-102.png" alt="Image grohtml-150733-102.png">
+and
+<img src="grohtml-150733-103.png" alt="Image grohtml-150733-103.png">
+automatically; see Chapter 12, Section 4.4.</p>
+
+<h2>4. Specifying Optional Tasks
+<a name="4."></a>
+<a name="4. Specifying Optional Tasks"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Two main tasks of NONMEM,
+the Estimation Step and the Covariance Step, are optional
+and must be specifically requested by including the
+$ESTIMATION and $COVARIANCE records. To skip the Estimation
+Step, simply omit the $ESTIMATION record. To skip the
+Covariance Step, simply omit the $COVARIANCE
+record.</p>
+
+<p style="margin-top: 1em">In every run NONMEM
+computes and prints the value of the objective function and
+the final parameter estimates. The values printed are based
+on the final parameter estimates if the Estimation Step is
+requested, and are based on the initial estimates if it is
+not.</p>
+
+<h3>4.1. Requesting the Estimation Step: the $ESTIMATIONRecord
+<a name="4.1."></a>
+<a name="4.1. Requesting the Estimation Step: the $ESTIMATIONRecord"></a>
+</h3>
+
+
+<p style="margin-top: 1em">In the Estimation Step,
+NONMEM performs a search to obtain those values of
+<img src="grohtml-150733-104.png" alt="Image grohtml-150733-104.png">
+,
+<img src="grohtml-150733-105.png" alt="Image grohtml-150733-105.png">
+, and (for population studies)
+<img src="grohtml-150733-106.png" alt="Image grohtml-150733-106.png">
+which give the lowest value of the objective function. The
+output of this step is the pages whose titles are &quot;
+MONITORING OF SEARCH: &quot;, &quot;
+MINIMUM VALUE OF OBJECTIVE FUNCTION &quot;,
+and &quot; FINAL PARAMETER ESTIMATE &quot;.
+This step is requested by the presence of the following
+statement: <tt><b><br>
+$ESTIMATION</b></tt> <br>
+There are several options, which are described in the NONMEM
+Users Guide, Part IV. The most frequently used ones are as
+follows.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="13%">
+
+
+
+<p style="margin-top: 1em">METHOD=0</small></p> </td>
+<td width="87%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">NONMEM always sets etas
+to 0 during the computation of the objective function. Also
+called the &quot;first order (FO) method.&quot; This is the
+default. It may also be coded as METHOD=ZERO
+.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="13%">
+
+
+
+<p style="margin-top: 1em">METHOD=1</small></p> </td>
+<td width="87%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%; margin-top: 1em">NONMEM
+uses conditional estimates for the etas during the
+computation of the objective function. METHOD=1 is also
+called the &quot;first order conditional estimation (FOCE)
+method.&quot; It may also be coded as
+METHOD=CONDITIONAL . When the option
+INTERACTION is also present, the method is
+called the &quot;FOCE with INTERACTION method&quot;. It is
+recommended for continuous variables unless the data are
+very sparse. These methods are discussed in Guide VII,
+Conditional Estimation Methods.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%">
+
+
+
+<p style="margin-top: 1em">SIGDIGITS=n</small></p> </td>
+<td width="82%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">By default, the search
+continues until the estimates of all elements of
+<img src="grohtml-150733-107.png" alt="Image grohtml-150733-107.png">
+,
+<img src="grohtml-150733-108.png" alt="Image grohtml-150733-108.png">
+, and
+<img src="grohtml-150733-109.png" alt="Image grohtml-150733-109.png">
+have been determined to at least 3 significant figures.
+Because only 3 significant digits are used to print
+parameter estimates in the output, and for other reasons as
+well, this amount of accuracy is often sufficient. However,
+the SIGDIGITS option can be used to request a different
+number (n) of significant digits.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="15%">
+
+
+
+<p style="margin-top: 1em">MAXEVAL=n</small></p> </td>
+<td width="85%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">The Estimation Step
+always runs with a specific limit on the number of objective
+function evaluations allowed during the search, as a
+protection against infinite loops and excessively long runs.
+The default maximum is computed according to the number of
+parameters being estimated. The MAXEVALS option can be used
+to request a different number (n) for the maximum number of
+function evaluations.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="12%">
+
+
+
+<p style="margin-top: 1em">PRINT=n</small></p> </td>
+<td width="88%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">As the Estimation Step
+progresses, by default it prints intermediate output
+summarizing the progress of the search. The search proceeds
+in stages, called iterations. At the end of certain
+iterations a summarization is printed which consists of the
+values of the objective function, its gradient vector with
+respect to the parameters, and the parameter values
+themselves. By default, this summarization is only printed
+for the first and last iterations. The PRINT option can be
+used to request a number (n) such that starting from the
+first iteration, only n-1 iterations are skipped before
+another summarization is printed&dagger;. <br>
+----------</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><cite>&dagger;
+The PRINT option can also be used to suppress intermediate
+printout altogether, but this should usually not be done
+because the information is often of value. See Chapter 10,
+Section 4. <br>
+---------- <br>
+</cite></p>
+
+<p style="margin-top: 1em">An example of the use of
+these options is: <tt><b><br>
+$EST SIG=6,MAX=900,PRI=5</b></tt> <br>
+In addition to the first and last iterations, summarizations
+are printed every 5th iteration. Notice that abbreviations
+of the record and option names were used; this is a matter
+of style.</p>
+
+<h3>4.2. Requesting the Covariance Step: the $COVARIANCERecord
+<a name="4.2."></a>
+<a name="4.2. Requesting the Covariance Step: the $COVARIANCERecord"></a>
+</h3>
+
+
+<p style="margin-top: 1em">In the Covariance Step,
+NONMEM obtains information on the precision of the parameter
+estimates obtained in the Estimation Step. The output of
+this step are pages with titles &quot; STANDARD ERROR
+OF ESTIMATE &quot;, &quot; COVARIANCE MATRIX
+OF ESTIMATE &quot;, &quot; CORRELATION MATRIX
+OF ESTIMATE &quot;, and &quot; INVERSE
+COVARIANCE MATRIX OF ESTIMATE &quot;. This step is
+requested by the presence of the following record:
+<tt><b><br>
+$COVARIANCE</b></tt> <br>
+There are several options, which are discussed in NONMEM
+Users Guide, Part IV. The Covariance Step cannot be
+requested by itself; the Estimation Step must precede
+it&Dagger;. <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&Dagger; The
+Estimation Step may be omitted when the run is continued
+from a prior run using a Model Specification input file; see
+Chapter 12, Section 4.3, and Chapter 13, Section 3.2. <br>
+---------- <br>
+</cite></p>
+
+<h2>5. Specifying Optional Output
+<a name="5."></a>
+<a name="5. Specifying Optional Output"></a>
+</h2>
+
+
+<p style="margin-top: 1em">$TABLE and $SCATTERPLOT
+records are used to request NONMEM steps which generate
+additional output. If one of these records is omitted,
+NONMEM does not produce the corresponding additional output.
+Tables and scatterplots are generated <i>after</i> all other
+tasks have been performed. This affects the values displayed
+for PRED, RES, and WRES. If the Estimation Step is
+<i>not</i> run, then the <i>initial</i> estimates of the
+parameters are used to compute these quantities. If the
+Estimation Step <i>is</i> run, then the <i>final</i>
+parameter estimates are used. Residuals (RES) and weighted
+residuals (WRES) are defined in Chapter 11, Section
+4.4.2.</p>
+
+<p style="margin-top: 1em">The UNCONDITIONAL option
+of the $TABLE and $SCATTERPLOT records requests that output
+of this type be generated even if the Estimation Step
+terminates unsuccessfully, and is the default. The
+CONDITIONAL option of these records requests that output of
+this type be generated only if the Estimation Step
+terminates successfully.</p>
+
+<h3>5.1. Requesting the Table Step: the $TABLE Record
+<a name="5.1."></a>
+<a name="5.1. Requesting the Table Step: the $TABLE Record"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The values of DV, PRED,
+RES, and WRES are always printed in every table. Other data
+items to be printed should be listed on the record. The data
+items are printed in the order in which they are listed.
+This does not have to be the same order as in the data file,
+nor does every data item have to be listed. For example, the
+following record appears in Chapter 2, figure 2.12:
+<tt><b><br>
+$TABLE ID TIME AMT WT APGR</b></tt> <br>
+Figure 10.10 in Chapter 10 shows a portion of the resulting
+output.</p>
+
+<p style="margin-top: 1em">It is possible for the
+lines of a table to be sorted into a different order than
+that of the original input file; this is discussed in the
+NONMEM Users Guide, Part IV.</p>
+
+<p style="margin-top: 1em">More than one table can
+be printed. A separate $TABLE record is used to request each
+one.</p>
+
+<h3>5.2. Requesting Scatterplots: the $SCATTERPLOT Record
+<a name="5.2."></a>
+<a name="5.2. Requesting Scatterplots: the $SCATTERPLOT Record"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Chapter 2 contained many
+examples of $SCATTERPLOT records and the resulting output.
+Here, for example, are the records from figure 2.6:
+<tt><b><br>
+$SCATTERPLOT PRED VS DV UNIT <br>
+$SCATTERPLOT RES VS WT</b></tt> <br>
+The word UNIT requests a unit-slope line, which is the line
+PRED=DV. Figures 2.10 and 2.11 show the resulting
+output.</p>
+
+<p style="margin-top: 1em">Similarly, the word ORD0
+can be used to request a zero line on the ordinate
+axis.</p>
+
+<p style="margin-top: 1em">It is possible to
+generate several scatterplots with a single record, by using
+a list of data item names: <tt><b><br>
+$SCATTERPLOT (PRED,RES,WRES) VS WT</b></tt> <br>
+This produces three scatterplots, and has the same effect as
+the three records: <tt><b><br>
+$SCATTERPLOT PRED VS WT <br>
+$SCATTERPLOT RES VS WT <br>
+$SCATTERPLOT WRES VS WT</b></tt></small></p>
+
+<p style="margin-top: 1em">Sometimes it is desirable
+to partition a scatterplot into a number of separate
+scatterplots. For example, if the data contain both plasma
+and urine observations, it would be better to separate the
+scatterplot of PRED vs. DV into one scatterplot where the DV
+values are the plasma observations, and another one where
+the DV values are the urine observations. To do this, it is
+necessary to specify a partitioning data item, in this case,
+the CMT data item, which gives the compartment number of the
+observation. The following record could be used.
+<tt><b><br>
+$SCATTERPLOT PRED VS DV BY CMT UNIT</b></tt> <br>
+This will produce separate scatterplots: one with plasma
+observations (CMT=1 if ADVAN1 is used), and one with urine
+observations (CMT=2 if ADVAN1 is used).</p>
+
+<p style="margin-top: 1em">Two partitioning items
+can also be specified: <tt><b><br>
+$SCATTERPLOT PRED VS DV BY CMT SEX UNIT</b></tt>
+<br>
+One scatterplot is produced for each unique
+<i>combination</i> of values of the two partitioning data
+items.</p>
+
+<h2>6. Placement and Order of Records
+<a name="6."></a>
+<a name="6. Placement and Order of Records"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Two main rules control
+the placement and order of records within a NM-TRAN control
+file:</p>
+
+<p style="margin-left:8%; margin-top: 1em">The
+$INPUT record must appear <i>before</i> any records which
+contain data item names ($PK, $ERROR, $TABLE,
+$SCATTERPLOT)</p>
+
+<p style="margin-left:8%; margin-top: 1em">The
+$SUBROUTINE, $PK, and $ERROR records should appear in the
+indicated order, but do not have to be
+consecutive.</p>
+
+<p style="margin-top: 1em">The records $DATA,
+$THETA, $OMEGA, $SIGMA, $ESTIMATION, $COVARIANCE, $TABLE,
+and $SCATTERPLOT can be placed anywhere among the control
+records, in any order. However, NONMEM always performs its
+tasks in a fixed order:</p>
+
+<p style="margin-left:8%;">Estimation Step <br>
+Covariance Step <br>
+Table Step <br>
+Scatterplot Step</p>
+
+<p>Thus, even if the $TABLE record precedes the
+$ESTIMATION record, the values of PRED, RES, and WRES in the
+table will be based on the final parameter
+estimates.</p>
+
+<h2>7. INCLUDE records
+<a name="7."></a>
+<a name="7. INCLUDE records"></a>
+</h2>
+
+
+<p style="margin-top: 1em">One or more records of
+the form</p>
+
+<p style="margin-top: 1em"><tt><b>INCLUDE
+filename n</b></tt></small></p>
+
+<p style="margin-top: 1em">may appear anywhere among
+the NM-TRAN control records. The characters INCLUDE may be
+upper- or lower-case. &quot;n&quot; is an optional integer,
+and gives the number of copies (default is 1).</p>
+
+<p style="margin-top: 1em">NM-TRAN opens the named
+file and reads it to end-of-file. The contents of the named
+file may be any portion of an NM-TRAN control stream, e.g.,
+NM-TRAN control records and/or abbreviated code. After
+reaching end-of-file, if the number of copies is greater
+than 1, NM-TRAN rewinds the file and re-reads it the
+specified number of times. After reaching end-of-file on the
+final (or only) copy, NM-TRAN resumes reading the original
+control stream after the include record.</p>
+
+<p style="margin-top: 1em">There may be more than
+one INCLUDE record, but they may not be nested. That is, an
+included file may not contain INCLUDE records.</p>
+
+<p style="margin-top: 1em">For example,</p>
+
+<p style="margin-top: 1em"><tt><b>$PROBLEM
+Model &quot;a&quot; with data set 27, proportional error
+<br>
+INCLUDE data27.def <br>
+INCLUDE modela.def <br>
+$ERROR Y=F+F*ERR(1) <br>
+$THETA 1.3 4 <br>
+$OMEGA .04 <br>
+$SIGMA 1 <br>
+$ESTIMATION</b></tt></small></p>
+
+<p style="margin-top: 1em">The file data27.def
+contains the $INPUT and $DATA records. <br>
+The file modela.def contains the $SUBROUTINE record and $PK
+block.</p>
+
+
+<p style="margin-top: 1em"><a href="9.html">TOP</a></p>
+
+
+<p style="margin-top: 1em"><a href="index.html">TABLE OF CONTENTS</a></p>
+
+
+<p style="margin-top: 1em"><a href="10.html">NEXT</a></p>
+<hr>
+</body>
+</html>

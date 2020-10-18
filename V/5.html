@@ -1,0 +1,1134 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Sat Sep 19 21:22:02 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part V - Introductory Guide - Chapter 5">NONMEM Users Guide Part V - Introductory Guide - Chapter 5</a><br>
+<a href="#1. What This Chapter is About">1. What This Chapter is About</a><br>
+<a href="#2. Model Fitting Criterion">2. Model Fitting Criterion</a><br>
+<a href="#2.1. Least Squares for Individual Data with anAdditive Error Model">2.1. Least Squares for Individual Data with anAdditive Error Model</a><br>
+<a href="#2.2. Least Squares for Individual Data with OtherTypes of Error Models">2.2. Least Squares for Individual Data with OtherTypes of Error Models</a><br>
+<a href="#2.3. Least Squares for Population Data">2.3. Least Squares for Population Data</a><br>
+<a href="#3. Parameter Estimates">3. Parameter Estimates</a><br>
+<a href="#4. Precision of Parameter Estimates">4. Precision of Parameter Estimates</a><br>
+<a href="#4.1. Distribution of Parameters vs Distribution ofParameter Estimates">4.1. Distribution of Parameters vs Distribution ofParameter Estimates</a><br>
+<a href="#4.2. Confidence Interval for a Single Parameter">4.2. Confidence Interval for a Single Parameter</a><br>
+<a href="#4.2.1. Estimating a Parameter&rsquo;s Standard Error">4.2.1. Estimating a Parameter&rsquo;s Standard Error</a><br>
+<a href="#4.2.2. Relating the Confidence Interval to the">4.2.2. Relating the Confidence Interval to the</a><br>
+<a href="#4.2.3. A Confidence Interval for a Function of aSingle Parameter">4.2.3. A Confidence Interval for a Function of aSingle Parameter</a><br>
+<a href="#4.3. Multiple Parameters">4.3. Multiple Parameters</a><br>
+<a href="#4.3.1. Correlation of Parameter Estimates">4.3.1. Correlation of Parameter Estimates</a><br>
+<a href="#4.3.2. Confidence Intervals for a Function of SeveralParameters">4.3.2. Confidence Intervals for a Function of SeveralParameters</a><br>
+<a href="#5. Hypothesis Testing">5. Hypothesis Testing</a><br>
+<a href="#5.1. Hypothesis Testing Using the">5.1. Hypothesis Testing Using the</a><br>
+<a href="#5.2. Hypothesis Testing Using the Likelihood Ratio">5.2. Hypothesis Testing Using the Likelihood Ratio</a><br>
+<a href="#5.2.1. Definition &mdash; Full/Reduced Models">5.2.1. Definition &mdash; Full/Reduced Models</a><br>
+<a href="#5.2.2. Reduced/Full Models Express theNull/Alternative Hypotheses">5.2.2. Reduced/Full Models Express theNull/Alternative Hypotheses</a><br>
+<a href="#5.2.3. The Likelihood Ratio Test">5.2.3. The Likelihood Ratio Test</a><br>
+<a href="#6. Choosing Among Models">6. Choosing Among Models</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part V - Introductory Guide - Chapter 5
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part V - Introductory Guide - Chapter 5"></a>
+</h2>
+
+
+<p align="center" style="margin-top: 1em"><b>Chapter 5 -
+Estimates, Confidence Intervals, and Hypothesis
+Tests</b></p>
+
+<h2>1. What This Chapter is About
+<a name="1."></a>
+<a name="1. What This Chapter is About"></a>
+</h2>
+
+
+<p style="margin-top: 1em">In this chapter, we
+discuss the fitting criterion that NONMEM uses, parameter
+estimates, and standard error estimates. We then discuss how
+to form confidence intervals for parameters and do
+hypothesis tests with NONMEM.</p>
+
+<h2>2. Model Fitting Criterion
+<a name="2."></a>
+<a name="2. Model Fitting Criterion"></a>
+</h2>
+
+
+<p style="margin-top: 1em">In principle, all fitting
+procedures attempt to adjust the values of the parameters of
+the model to give a &quot;best fit&quot; of the predictions
+to the actual observations. The set of parameters that
+accomplish this are called the parameter estimates, and are
+denoted here as</p>
+
+
+<p align="center"><img src="grohtml-148990-2.png" alt="Image grohtml-148990-2.png"></p>
+
+<p>,
+<img src="grohtml-148990-3.png" alt="Image grohtml-148990-3.png">
+, and
+<img src="grohtml-148990-4.png" alt="Image grohtml-148990-4.png">
+. Methods differ in how they define &quot;best&quot;. The
+criterion that NONMEM uses is a Least Squares (LS) type
+criterion. The form of this criterion varies as the error
+model varies, and as population models with multiple random
+effects must be considered. We briefly discuss these various
+criteria next, to give the reader a feel for what NONMEM is
+doing. A detailed knowledge of the statistical basis for the
+choice of fitting criterion is not necessary either to use
+or interpret NONMEM fits. In this chapter, a fixed effects
+parameter will be denoted by a
+<img src="grohtml-148990-5.png" alt="Image grohtml-148990-5.png">
+; the distinction between individual fixed effects
+parameters (
+<img src="grohtml-148990-6.png" alt="Image grohtml-148990-6.png">
+) and population fixed effects parameters will not be
+important here.</p>
+
+<h3>2.1. Least Squares for Individual Data with anAdditive Error Model
+<a name="2.1."></a>
+<a name="2.1. Least Squares for Individual Data with anAdditive Error Model"></a>
+</h3>
+
+
+<p style="margin-top: 1em">For the Additive error
+model (3.4), the Ordinary Least Squares criterion (OLS)
+chooses the estimate
+<img src="grohtml-148990-7.png" alt="Image grohtml-148990-7.png">
+so as to make the sum of squared (estimated) errors as small
+as possible. These estimates cause the prediction, here
+denoted
+<img src="grohtml-148990-8.png" alt="Image grohtml-148990-8.png">
+, to be an estimate of the mean value of
+<img src="grohtml-148990-9.png" alt="Image grohtml-148990-9.png">
+, which is intuitively appealing. The prediction is obtained
+by computing the value for y under the model with parameters
+set to their estimated values and
+<img src="grohtml-148990-10.png" alt="Image grohtml-148990-10.png">
+set to zero&dagger;. <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger;
+<img src="grohtml-148990-11.png" alt="Image grohtml-148990-11.png">
+, not
+<img src="grohtml-148990-12.png" alt="Image grohtml-148990-12.png">
+, since we follow the NONMEM convention and, when discussing
+individual type data as here, use
+<img src="grohtml-148990-13.png" alt="Image grohtml-148990-13.png">
+to denote the random effects of a single level that appear
+in the model, those in the residual error model. <br>
+---------- <br>
+</cite></p>
+
+<h3>2.2. Least Squares for Individual Data with OtherTypes of Error Models
+<a name="2.2."></a>
+<a name="2.2. Least Squares for Individual Data with OtherTypes of Error Models"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The simple OLS criterion
+just defined becomes inefficient and is no longer the
+&quot;best&quot; one to use when the error model is other
+than the Additive error model. It treats all estimated
+errors as equally important (i.e. a reduction in the
+magnitude of either of two estimated errors that are of the
+same magnitude is equally valuable in that either reduction
+decreases the sum of squared errors by the same amount), and
+this results in parameter estimates that cause all errors to
+have about the same typical magnitude, as assumed under the
+Additive model. The CCV error model, though, says that the
+typical magnitude of an error varies monotonically with the
+magnitude of the (true) prediction of y. In principle,
+Weighted Least Squares (WLS) gives a fit more commensurate
+with the CCV or other non-Additive error model. WLS chooses
+<img src="grohtml-148990-14.png" alt="Image grohtml-148990-14.png">
+as that value of
+<img src="grohtml-148990-15.png" alt="Image grohtml-148990-15.png">
+minimizing</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1489902.png" alt="Image grohtml-1489902.png"></p>
+
+<p style="margin-top: 1em">Each
+<img src="grohtml-148990-17.png" alt="Image grohtml-148990-17.png">
+is a weight which, ideally, is set proportional to the
+inverse of the variance of
+<img src="grohtml-148990-18.png" alt="Image grohtml-148990-18.png">
+. In the CCV model this variance is proportional to
+<img src="grohtml-148990-19.png" alt="Image grohtml-148990-19.png">
+(evaluated at the true value of
+<img src="grohtml-148990-20.png" alt="Image grohtml-148990-20.png">
+). Use of such weights will down-weight the importance of
+estimated squared errors associated with large values of
+<img src="grohtml-148990-21.png" alt="Image grohtml-148990-21.png">
+and promote the relative contribution of those associated
+with small values of
+<img src="grohtml-148990-22.png" alt="Image grohtml-148990-22.png">
+.</p>
+
+<p style="margin-top: 1em">In many cases, users can
+supply approximate weights, and the WLS objective function
+can be used as stated in (5.1). When, as with the CCV model
+for example, the ideal weights depend on the true values of
+parameters, these true values can be replaced by initial
+estimates, and then the WLS objective function as given in
+(5.1) can be minimized. Alternatively, instead of viewing
+<img src="grohtml-148990-23.png" alt="Image grohtml-148990-23.png">
+as a function of
+<img src="grohtml-148990-24.png" alt="Image grohtml-148990-24.png">
+only through the estimated error&rsquo;s dependence on
+<img src="grohtml-148990-25.png" alt="Image grohtml-148990-25.png">
+, it can be viewed as a function of
+<img src="grohtml-148990-26.png" alt="Image grohtml-148990-26.png">
+through both that dependence and <i>also</i> through the
+ideal weights&rsquo; dependence on
+<img src="grohtml-148990-27.png" alt="Image grohtml-148990-27.png">
+. The entire function can then be minimized with respect to
+<img src="grohtml-148990-28.png" alt="Image grohtml-148990-28.png">
+. That this creates a problem is most easily seen when the
+error model contains a parameter which is not itself a
+parameter of the structural model, but which, nonetheless,
+must be regarded as an element of
+<img src="grohtml-148990-29.png" alt="Image grohtml-148990-29.png">
+. Such an error model is the Power Function model of (3.7),
+and the &quot;extra&quot; parameter is
+<img src="grohtml-148990-30.png" alt="Image grohtml-148990-30.png">
+. The WLS objective function with the reciprocal variance of
+<img src="grohtml-148990-31.png" alt="Image grohtml-148990-31.png">
+substituted for
+<img src="grohtml-148990-32.png" alt="Image grohtml-148990-32.png">
+is&dagger; <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; Again, we
+call attention to the symbols used for the random effects
+parameter: the term
+<img src="grohtml-148990-33.png" alt="Image grohtml-148990-33.png">
+appears in the objective function, (5.2), not
+<img src="grohtml-148990-34.png" alt="Image grohtml-148990-34.png">
+, because we are discussing individual type data, not
+population type data. <br>
+---------- <br>
+</cite></p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1489903.png" alt="Image grohtml-1489903.png"></p>
+
+<p style="margin-top: 1em">In this case if
+<img src="grohtml-148990-36.png" alt="Image grohtml-148990-36.png">
+were set to a very large number, while the other parameters
+in
+<img src="grohtml-148990-37.png" alt="Image grohtml-148990-37.png">
+were only such as to make all
+<img src="grohtml-148990-38.png" alt="Image grohtml-148990-38.png">
+, then all
+<img src="grohtml-148990-39.png" alt="Image grohtml-148990-39.png">
+would be very large, and the summation would attain a very
+small value. (The value of
+<img src="grohtml-148990-40.png" alt="Image grohtml-148990-40.png">
+is irrelevant to the minimization with respect to
+<img src="grohtml-148990-41.png" alt="Image grohtml-148990-41.png">
+.) Thus, all elements in
+<img src="grohtml-148990-42.png" alt="Image grohtml-148990-42.png">
+other than
+<img src="grohtml-148990-43.png" alt="Image grohtml-148990-43.png">
+would be indeterminate (as long as they were such that all
+<img src="grohtml-148990-44.png" alt="Image grohtml-148990-44.png">
+were greater than 1); a most unsatisfactory state of
+affairs.</p>
+
+<p style="margin-top: 1em">There is a way to deal
+with this problem that preserves the spirit of least-squares
+fitting, and NONMEM uses it. In essence, it adds to the WLS
+objective function a term proportional to the sum of the
+logarithms of the error variances. Thus a penalty is paid
+for increasing the error variances without a concomitant
+decrease in the estimated errors themselves. This modified
+objective function is called the Extended Least Squares
+(ELS) objective function. It is minimized with respect to
+all parameters of the structural and error models
+simultaneously (in the current example,
+<img src="grohtml-148990-45.png" alt="Image grohtml-148990-45.png">
+and
+<img src="grohtml-148990-46.png" alt="Image grohtml-148990-46.png">
+, as
+<img src="grohtml-148990-47.png" alt="Image grohtml-148990-47.png">
+can be considered an element of
+<img src="grohtml-148990-48.png" alt="Image grohtml-148990-48.png">
+). Note that the objective function may be negative. This
+has no particular significance.</p>
+
+<h3>2.3. Least Squares for Population Data
+<a name="2.3."></a>
+<a name="2.3. Least Squares for Population Data"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The complications arising
+from a population model are due entirely to the random
+interindividual effects occurring in the parameter model. To
+deal with this, NONMEM uses an approximation to the true
+model. The approximate model is linear in all the random
+effects. For this linearized model, the vector of mean
+values for the observations from the
+<img src="grohtml-148990-49.png" alt="Image grohtml-148990-49.png">
+individual is the vector of true predictions for these
+observations. These predictions are obtained from the model
+by setting the parameters to their true values and by
+setting all the elements of both
+<img src="grohtml-148990-50.png" alt="Image grohtml-148990-50.png">
+and
+<img src="grohtml-148990-51.png" alt="Image grohtml-148990-51.png">
+to zero. In other words, these are the true predictions for
+the mean individual with fixed effects equal to those of the
+<img src="grohtml-148990-52.png" alt="Image grohtml-148990-52.png">
+individual. For this linearized model it is also possible to
+write a formula for the variance-covariance matrix of the
+observations from the
+<img src="grohtml-148990-53.png" alt="Image grohtml-148990-53.png">
+individual. This matrix is a function of the
+individual&rsquo;s fixed effects and the population
+parameters
+<img src="grohtml-148990-54.png" alt="Image grohtml-148990-54.png">
+,
+<img src="grohtml-148990-55.png" alt="Image grohtml-148990-55.png">
+, and
+<img src="grohtml-148990-56.png" alt="Image grohtml-148990-56.png">
+. Finally, the ELS objective function discussed above is
+generalized to be a sum over individuals, rather than
+observations, and where the
+<img src="grohtml-148990-57.png" alt="Image grohtml-148990-57.png">
+term of the sum involves a squared error between a vector of
+observations and an associated vector of predictions,
+weighted by the reciprocal of the associated
+variance-covariance matrix for the
+<img src="grohtml-148990-58.png" alt="Image grohtml-148990-58.png">
+individual.</p>
+
+<h2>3. Parameter Estimates
+<a name="3."></a>
+<a name="3. Parameter Estimates"></a>
+</h2>
+
+
+<p style="margin-top: 1em">It is useful to consider
+how to estimate parameters that do not appear in the model
+we use to fit the data, but are, instead, functions of them
+(e.g. the half-life parameter
+<img src="grohtml-148990-59.png" alt="Image grohtml-148990-59.png">
+, when the rate constant of elimination
+<img src="grohtml-148990-60.png" alt="Image grohtml-148990-60.png">
+is the model parameter).</p>
+
+<p style="margin-top: 1em">It is always possible, of
+course, to parameterize the model in the function of
+interest. For example, we have already seen (Chapters 2
+&amp; 3) that we may use the function (parameter)
+<img src="grohtml-148990-61.png" alt="Image grohtml-148990-61.png">
+in the one-compartment model instead of
+<img src="grohtml-148990-62.png" alt="Image grohtml-148990-62.png">
+. However, we may be interested in the values of several
+alternative parameterizations (e.g., we may want to know k,
+clearance, and half-life). Rather than rerun the same
+problem with several alternative parameterizations, we can
+use the fact that the LS estimate of a function of the
+parameters is given by the same function of the LS parameter
+estimates. Formally, if
+<img src="grohtml-148990-63.png" alt="Image grohtml-148990-63.png">
+is the function of interest, then
+<img src="grohtml-148990-64.png" alt="Image grohtml-148990-64.png">
+. E.g. Letting
+<img src="grohtml-148990-65.png" alt="Image grohtml-148990-65.png">
+,
+<img src="grohtml-148990-66.png" alt="Image grohtml-148990-66.png">
+, and
+<img src="grohtml-148990-67.png" alt="Image grohtml-148990-67.png">
+, then
+<img src="grohtml-148990-68.png" alt="Image grohtml-148990-68.png">
+.</p>
+
+<h2>4. Precision of Parameter Estimates
+<a name="4."></a>
+<a name="4. Precision of Parameter Estimates"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Clearly, it is almost
+impossible for the estimates to actually be the true values.
+The question is: how far are the true values from the
+estimates? To discuss this question, imagine replicating the
+entire experiment (gathering new data, but keeping
+<img src="grohtml-148990-69.png" alt="Image grohtml-148990-69.png">
+fixed) multiple times. Also, for simplicity, imagine that
+the model has only one scalar parameter,
+<img src="grohtml-148990-70.png" alt="Image grohtml-148990-70.png">
+, and that its true value,
+<img src="grohtml-148990-71.png" alt="Image grohtml-148990-71.png">
+is known. If, after each replication, the estimate of
+<img src="grohtml-148990-72.png" alt="Image grohtml-148990-72.png">
+is recorded, and a histogram of these values is plotted, one
+might see something like figure 5.1A or 5.1B.</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="+chapt5/fig5.1.ubuntu.epsi.png" alt="Image +chapt5/fig5.1.ubuntu.epsi.png"></p>
+
+<p style="margin-top: 1em">Figure 5.1. Two
+hypothetical histograms of estimates of a single parameter
+upon replication of a given experiment. Left panel (A): The
+estimates have small variance (spread) but are biased (the
+mean of the estimates differs from the true value,
+<img src="grohtml-148990-74.png" alt="Image grohtml-148990-74.png">
+); Right panel: The estimates have large variance but are
+relatively unbiased.</small></p>
+
+<p style="margin-top: 1em">The difference between
+the estimate and the true value,
+<img src="grohtml-148990-75.png" alt="Image grohtml-148990-75.png">
+, obviously differs from replication to replication. Let
+this difference be called the <b>estimation error.</b> We
+cannot know the estimation error of any particular estimate
+(if we could, we could know the true value itself, by
+subtraction), but we can hope to estimate the mean error
+magnitude. Since errors can be positive or negative, a
+measure of magnitude that is unaffected by sign is
+desirable. This is traditionally the Mean Squared Error (
+<img src="grohtml-148990-76.png" alt="Image grohtml-148990-76.png">
+). The MSE can be factored into two parts:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1489904.png" alt="Image grohtml-1489904.png"></p>
+
+<p style="margin-top: 1em">where
+<img src="grohtml-148990-78.png" alt="Image grohtml-148990-78.png">
+is the bias of the estimates (mean (signed) difference
+between the estimates and the true value) and
+<img src="grohtml-148990-79.png" alt="Image grohtml-148990-79.png">
+is the standard error of the estimates (
+<img src="grohtml-148990-80.png" alt="Image grohtml-148990-80.png">
+is the variance of the estimates). As illustrated in figure
+5.1, the
+<img src="grohtml-148990-81.png" alt="Image grohtml-148990-81.png">
+can be about the same for two types of estimates while both
+their bias and
+<img src="grohtml-148990-82.png" alt="Image grohtml-148990-82.png">
+differ. It is very hard to estimate the bias of an estimator
+unless the true parameter value is, in fact, known. This is
+not true of the
+<img src="grohtml-148990-83.png" alt="Image grohtml-148990-83.png">
+: the standard deviation of the distribution of estimates of
+a parameter on replication is the
+<img src="grohtml-148990-84.png" alt="Image grohtml-148990-84.png">
+; no knowledge of the true value of the parameter is
+required. In many situations, LS estimators of fixed effects
+parameters are unbiased, although in nonlinear problems,
+such as most pharmacokinetic ones, this cannot be
+assured.</p>
+
+<h3>4.1. Distribution of Parameters vs Distribution ofParameter Estimates
+<a name="4.1."></a>
+<a name="4.1. Distribution of Parameters vs Distribution ofParameter Estimates"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Figure 5.1 illustrates
+the distribution of parameter estimates that might result if
+an experiment were replicated. The bias and spread depend on
+the estimation method, the design of the experiment (
+<img src="grohtml-148990-85.png" alt="Image grohtml-148990-85.png">
+, which implicitly includes
+<img src="grohtml-148990-86.png" alt="Image grohtml-148990-86.png">
+) and on the true parameter values, including the variances
+(and covariances) of the random effects influencing
+<img src="grohtml-148990-87.png" alt="Image grohtml-148990-87.png">
+. If, for example, more observations were obtained in each
+experiment (more individuals in a population study), the
+spread of the estimates (one from each experiment) would
+decrease until, in the limit, if an infinite number of
+observations were obtained in each experiment, every
+estimate would be the same (equal to the true value plus the
+bias of the estimator). Thus, the distribution of the
+estimate tells us nothing about biology or measurement
+error, but only about the
+<img src="grohtml-148990-88.png" alt="Image grohtml-148990-88.png">
+of the estimate itself.</p>
+
+<p style="margin-top: 1em">In contrast,
+<img src="grohtml-148990-89.png" alt="Image grohtml-148990-89.png">
+and
+<img src="grohtml-148990-90.png" alt="Image grohtml-148990-90.png">
+tell us about unexplained (or random) interindividual
+variability (biology) or error magnitude (biology plus
+measurement error), not about how precisely we know these
+things. No matter how many observations we make,
+interindividual variability will remain the same size (but
+the variability of our estimate of its size will decrease),
+as will the measurement error variability of a particular
+instrument.</p>
+
+<p style="margin-top: 1em">It is very important not
+to confuse variability (e.g., between individuals) in a
+model parameter with variability in the estimate of that
+parameter, despite the fact that the terms we use to
+describe both variabilities are similar. Thus an element of
+<img src="grohtml-148990-91.png" alt="Image grohtml-148990-91.png">
+, say
+<img src="grohtml-148990-92.png" alt="Image grohtml-148990-92.png">
+has a
+<img src="grohtml-148990-93.png" alt="Image grohtml-148990-93.png">
+,
+<img src="grohtml-148990-94.png" alt="Image grohtml-148990-94.png">
+, while the estimate of
+<img src="grohtml-148990-95.png" alt="Image grohtml-148990-95.png">
+,
+<img src="grohtml-148990-96.png" alt="Image grohtml-148990-96.png">
+, also has a
+<img src="grohtml-148990-97.png" alt="Image grohtml-148990-97.png">
+given by the square of the standard error for
+<img src="grohtml-148990-98.png" alt="Image grohtml-148990-98.png">
+. Indeed, the use of the term &quot;standard error&quot;
+rather than &quot;standard deviation&quot; to name a measure
+of the spread in the distribution of the parameter
+<img src="grohtml-148990-99.png" alt="Image grohtml-148990-99.png">
+rather than in the parameter helps call attention to the
+distinction between these two types of things.</p>
+
+<h3>4.2. Confidence Interval for a Single Parameter
+<a name="4.2."></a>
+<a name="4.2. Confidence Interval for a Single Parameter"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Acknowledging that any
+particular estimate from any particular experiment is
+unlikely to equal the true parameter value implies that we
+should be interested in &quot;interval&quot; estimates of
+parameters as well as (instead of?) point estimates. An
+interval estimate of a parameter is usually a range of
+values for the parameter, often centered at the point
+estimate, such that the range contains the true parameter
+value with a specified probability. The probability chosen
+is often 95%, in which case the interval estimate is called
+the 95% Confidence Interval (CI).</p>
+
+<p style="margin-top: 1em">A CI is often based only
+on the parameter estimate and its
+<img src="grohtml-148990-100.png" alt="Image grohtml-148990-100.png">
+. In the next sections we discuss three questions about such
+CIs a little further. (i) How to estimate the
+<img src="grohtml-148990-101.png" alt="Image grohtml-148990-101.png">
+from a single set of data (we cannot replicate our
+experiment many times and construct a histogram as in figure
+5.1). (ii) Given an estimate of
+<img src="grohtml-148990-102.png" alt="Image grohtml-148990-102.png">
+, how to use that number to compute a (95% confidence)
+interval with 95% chance of containing the true parameter
+value. (iii) Given an estimate of
+<img src="grohtml-148990-103.png" alt="Image grohtml-148990-103.png">
+, how to compute a confidence interval for a function of the
+parameter.</p>
+
+<h4>4.2.1. Estimating a Parameter&rsquo;s Standard Error
+<a name="4.2.1."></a>
+<a name="4.2.1. Estimating a Parameter&rsquo;s Standard Error"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Remarkably, the
+<img src="grohtml-148990-104.png" alt="Image grohtml-148990-104.png">
+of a parameter estimate can be estimated using only the data
+from a single experiment. The idea is that the data give us
+estimates of the variances of all random effects in our
+model, from which we can estimate the variability in future
+data (if we were to replicate the experiment). That is, the
+SE of the estimates on replication depends only on
+quantities we either know or have estimates of: the
+<img src="grohtml-148990-105.png" alt="Image grohtml-148990-105.png">
+, the number of
+<img src="grohtml-148990-106.png" alt="Image grohtml-148990-106.png">
+observed (
+<img src="grohtml-148990-107.png" alt="Image grohtml-148990-107.png">
+), and the variances of all random effects.</p>
+
+<p style="margin-top: 1em">It is a little beyond the
+scope of this discussion to give the method by which NONMEM
+actually estimates the
+<img src="grohtml-148990-108.png" alt="Image grohtml-148990-108.png">
+of a parameter estimate; however, examples of how this can
+be done are found in any statistical textbook on regression.
+NONMEM presents the estimated standard error for each
+parameter of the model (including the random effects
+parameters,
+<img src="grohtml-148990-109.png" alt="Image grohtml-148990-109.png">
+and
+<img src="grohtml-148990-110.png" alt="Image grohtml-148990-110.png">
+) as part of its output.</p>
+
+<h4>4.2.2. Relating the Confidence Interval to the
+<a name="4.2.2."></a>
+<a name="4.2.2. Relating the Confidence Interval to the"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Statistical theory tells
+us not only how to compute the
+<img src="grohtml-148990-112.png" alt="Image grohtml-148990-112.png">
+of a parameter estimate, but also that for a LS estimate
+(and many other kinds of estimates), the shape of the
+distribution of the estimates is approximately Normal if the
+data set is large enough. This means that we may use
+percentiles of the Normal distribution, to compute
+confidence interval bounds (when
+<img src="grohtml-148990-113.png" alt="Image grohtml-148990-113.png">
+is small, the
+<img src="grohtml-148990-114.png" alt="Image grohtml-148990-114.png">
+distribution is often used instead; this is discussed in
+statistics texts). In general, a 100(1-
+<img src="grohtml-148990-115.png" alt="Image grohtml-148990-115.png">
+)% confidence interval for a single parameter,
+<img src="grohtml-148990-116.png" alt="Image grohtml-148990-116.png">
+say, is computed as
+<img src="grohtml-148990-117.png" alt="Image grohtml-148990-117.png">
+. Here
+<img src="grohtml-148990-118.png" alt="Image grohtml-148990-118.png">
+denotes the
+<img src="grohtml-148990-119.png" alt="Image grohtml-148990-119.png">
+percentile of the Normal distribution. As previously noted,
+<img src="grohtml-148990-120.png" alt="Image grohtml-148990-120.png">
+is often chosen to be .05, in which case
+<img src="grohtml-148990-121.png" alt="Image grohtml-148990-121.png">
+is approximately 2.</p>
+
+<h4>4.2.3. A Confidence Interval for a Function of aSingle Parameter
+<a name="4.2.3."></a>
+<a name="4.2.3. A Confidence Interval for a Function of aSingle Parameter"></a>
+</h4>
+
+
+<p style="margin-top: 1em">As discussed above, one
+can reparameterize the model in terms of the new parameter,
+and NONMEM will then estimate its standard error. If
+re-running the fit presents a problem, there is a simple way
+to compute a confidence interval for a function
+<img src="grohtml-148990-122.png" alt="Image grohtml-148990-122.png">
+of a single parameter. If the lower and upper bounds of a
+100(1-
+<img src="grohtml-148990-123.png" alt="Image grohtml-148990-123.png">
+)% confidence interval for
+<img src="grohtml-148990-124.png" alt="Image grohtml-148990-124.png">
+are denoted
+<img src="grohtml-148990-125.png" alt="Image grohtml-148990-125.png">
+and
+<img src="grohtml-148990-126.png" alt="Image grohtml-148990-126.png">
+, respectively, then a 100(1-
+<img src="grohtml-148990-127.png" alt="Image grohtml-148990-127.png">
+)% confidence interval for
+<img src="grohtml-148990-128.png" alt="Image grohtml-148990-128.png">
+has lower and upper bounds
+<img src="grohtml-148990-129.png" alt="Image grohtml-148990-129.png">
+and
+<img src="grohtml-148990-130.png" alt="Image grohtml-148990-130.png">
+, respectively. This confidence interval, however, is not
+necessarily centered at
+<img src="grohtml-148990-131.png" alt="Image grohtml-148990-131.png">
+.</p>
+
+<h3>4.3. Multiple Parameters
+<a name="4.3."></a>
+<a name="4.3. Multiple Parameters"></a>
+</h3>
+
+
+<h4>4.3.1. Correlation of Parameter Estimates
+<a name="4.3.1."></a>
+<a name="4.3.1. Correlation of Parameter Estimates"></a>
+</h4>
+
+
+<p style="margin-top: 1em">A truly new feature
+introduced by multiple parameters is the phenomenon of
+correlation among parameter estimates. NONMEM outputs a
+correlation matrix for the parameter estimates. The
+<img src="grohtml-148990-132.png" alt="Image grohtml-148990-132.png">
+element of the matrix is the correlation between the ith and
+jth parameter estimates. A large correlation (e.g.
+<img src="grohtml-148990-133.png" alt="Image grohtml-148990-133.png">
+) means that the conditional distribution of the ith
+estimate, given a fixed value of the jth estimate, depends
+considerably on this fixed value. Sometimes each parameter
+estimate of a pair that is highly correlated has a large
+standard error, meaning that neither parameter can be
+well-estimated. This problem may be caused by data that do
+not distinguish among the parameters very well, while a
+simpler model, or a different design, or more data might
+permit more precise estimates of each.</p>
+
+<p style="margin-top: 1em">As a simple example,
+imagine a straight line fit to just two points, both at the
+same value of
+<img src="grohtml-148990-134.png" alt="Image grohtml-148990-134.png">
+: neither slope nor intercept can be estimated at all as
+long as the other is unknown, but fixing either one
+(simplifying the model) determines the other. Both
+parameters could be estimated by observing another point at
+some other value of
+<img src="grohtml-148990-135.png" alt="Image grohtml-148990-135.png">
+(more data), or, still using just 2 points, by placing these
+points at two different values of
+<img src="grohtml-148990-136.png" alt="Image grohtml-148990-136.png">
+(modifying the design). Thus, when standard errors are
+large, it is useful to examine the correlation matrix of
+parameter estimates to see, in particular, if some
+simplification of the model may help.</p>
+
+<h4>4.3.2. Confidence Intervals for a Function of SeveralParameters
+<a name="4.3.2."></a>
+<a name="4.3.2. Confidence Intervals for a Function of SeveralParameters"></a>
+</h4>
+
+
+<p style="margin-top: 1em">There is an approximate
+formula for computing a standard error, and hence a
+confidence interval for a function of several parameters
+(e.g., a confidence interval for half-life when the
+estimated parameters are
+<img src="grohtml-148990-137.png" alt="Image grohtml-148990-137.png">
+and
+<img src="grohtml-148990-138.png" alt="Image grohtml-148990-138.png">
+). It uses the standard errors of the parameter estimates
+and the correlations between the parameter estimates.
+However, discussion of this formula is beyond the scope of
+this introduction. If a confidence interval for a function
+of several parameters is desired, it is often more
+convenient to re-fit the data with the model reparameterized
+to include the function as an explicit
+parameter.</p>
+
+<h2>5. Hypothesis Testing
+<a name="5."></a>
+<a name="5. Hypothesis Testing"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Before going into
+details, a note of caution is in order about hypothesis
+testing in general. The logic of hypothesis testing is that
+one sets up a hypothesis about a parameter&rsquo;s value,
+called the <b>null hypothesis,</b> and asks if the data are
+sufficiently in conflict with it to call it into question.
+If they are, one rejects the null hypothesis. However,
+logically, if they are not, one has simply failed to reject
+the null hypothesis; one does not necessarily have
+sufficient data to accept it. An extreme example will make
+this clear. Let the null hypothesis be any assertion at all
+about the state of nature. Gather no evidence bearing on the
+question. Clearly, the evidence (which is void) is
+insufficient to reject the null hypothesis, but just as
+clearly, in this case the evidence provides no support for
+it either.</p>
+
+<p style="margin-top: 1em">In less extreme cases
+there is a way to view failure to reject as lending some
+support to the null hypothesis, but the matter is
+problematic. It is somewhat less problematic to use a
+confidence interval to quantify support for a null
+hypothesis. A null hypothesis is an assertion that a
+parameter&rsquo;s true value is found among a set of <b>null
+values.</b> A confidence interval puts reasonable bounds on
+the possible values of a parameter. One can then say that
+the evidence (the data from which the parameter estimate is
+derived) <i>does</i> support a null hypothesis (about the
+value of the parameter) if the null values are included in
+the interval and that the evidence fully support the null
+hypothesis if all nonnull values lie outside. An example
+will help make this clear.</p>
+
+<p style="margin-top: 1em">Consider that mean drug
+clearance in adults varies linearly with the weight of the
+individual to a <i>clinically</i> significant degree.
+Formally, this can be put as a statement about a regression
+coefficient in a model such as</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1489905.png" alt="Image grohtml-1489905.png"></p>
+
+<p style="margin-top: 1em">The null hypothesis might
+be that
+<img src="grohtml-148990-140.png" alt="Image grohtml-148990-140.png">
+is close to zero, i.e. that it is not so different from zero
+as to be clinically significant. To make this precise,
+suppose that we know that mean clearance for a 70 kg person
+(i.e.,
+<img src="grohtml-148990-141.png" alt="Image grohtml-148990-141.png">
+) is about 100 ml/min. If
+<img src="grohtml-148990-142.png" alt="Image grohtml-148990-142.png">
+were .20 ml/min/kg or less, a 50 kg increment (decrement) in
+weight from 70 kg would be associated with less than a 10%
+change in total clearance. This is clinically insignificant,
+so the appropriate null values for
+<img src="grohtml-148990-143.png" alt="Image grohtml-148990-143.png">
+might be 0.0 to .20, assuming, of course, that a physical
+lower bound for the parameter is zero. (More usually in
+statistical discussions a set of null values consists of a
+single number, e.g. 0.) If the confidence interval for
+<img src="grohtml-148990-144.png" alt="Image grohtml-148990-144.png">
+only includes null values (e.g., it is .10 to .15), one
+might then safely conclude that weight, if it has any effect
+at all, has no
+<img src="grohtml-148990-145.png" alt="Image grohtml-148990-145.png">
+significant effect, and that the data fully support the null
+hypothesis. If the confidence interval includes null values
+and others (e.g., it is 0.0 to .60), one would conclude that
+there is some support for the null hypothesis, but that
+there is also some support for rejecting it. In this case
+the data are insufficient to allow outright acceptance or
+rejection. If the confidence interval includes no null
+values (e.g., it is .80 to 1.3), one would reject the null
+hypothesis and conclude that weight has a clinically
+significant (linear) effect on clearance.</p>
+
+<p style="margin-top: 1em">For these reasons, we
+urge caution when performing hypothesis tests and suggest
+that confidence intervals are often more useful. None the
+less, the popularity of hypothesis tests requires that they
+be done, and we now describe two methods for so doing, the
+first somewhat more approximate and less general than the
+second, but easier to do.</p>
+
+<h3>5.1. Hypothesis Testing Using the
+<a name="5.1."></a>
+<a name="5.1. Hypothesis Testing Using the"></a>
+</h3>
+
+
+<p style="margin-top: 1em">A straight-forward way to
+test a null hypothesis about the value of a parameter is to
+use a confidence interval for this purpose. In other words,
+if the confidence interval excludes the null values, then
+the null hypothesis is rejected. As described in Section
+4.2.2, such a confidence interval is based on the estimated
+standard error. This method generalizes to a hypothesis
+about the values of several parameters simultaneously, but
+this is beyond the scope of this introduction.</p>
+
+<h3>5.2. Hypothesis Testing Using the Likelihood Ratio
+<a name="5.2."></a>
+<a name="5.2. Hypothesis Testing Using the Likelihood Ratio"></a>
+</h3>
+
+
+<p style="margin-top: 1em">An approach that involves
+the extra effort of re-fitting the data has the advantage of
+being less approximate than the one that uses a confidence
+interval based on the SE. This method is the so-called
+Likelihood Ratio Test.</p>
+
+<p style="margin-top: 1em">The basic idea is to
+compare directly the goodness of fit (as indicated by the
+minimum value of the extended least squares objective
+function) obtained between using a model in which the
+parameter is fixed to the hypothesized value (the
+<i>reduced</i> model) and a model in which the parameter
+must be estimated (the <i>full</i> model).</p>
+
+<h4>5.2.1. Definition &mdash; Full/Reduced Models
+<a name="5.2.1."></a>
+<a name="5.2.1. Definition &mdash; Full/Reduced Models"></a>
+</h4>
+
+
+<p style="margin-top: 1em">A model is a reduced
+model of a full model if it is identical to the full model
+except that one or more parameters of the latter have been
+fixed to hypothesized values (usually 0). Consider the
+examples:</p>
+
+<p style="margin-left:8%; margin-top: 1em">E.g. #1.
+Valid Full/Reduced Pair:</p>
+
+<p style="margin-left:17%; margin-top: 1em">Full
+model:
+<img src="grohtml-148990-147.png" alt="Image grohtml-148990-147.png"></p>
+
+<p style="margin-left:17%; margin-top: 1em">Reduced
+model:
+<img src="grohtml-148990-148.png" alt="Image grohtml-148990-148.png"></p>
+
+<p style="margin-left:8%; margin-top: 1em">E.g. #2.
+Invalid Full/Reduced Pair:</p>
+
+<p style="margin-left:17%; margin-top: 1em">Full
+model:
+<img src="grohtml-148990-149.png" alt="Image grohtml-148990-149.png"></p>
+
+<p style="margin-left:17%; margin-top: 1em">Reduced
+model:
+<img src="grohtml-148990-150.png" alt="Image grohtml-148990-150.png"></p>
+
+<p style="margin-top: 1em">In example #1, fixing
+<img src="grohtml-148990-151.png" alt="Image grohtml-148990-151.png">
+to 0 produces the reduced model, while in example #2, no
+parameter of the full model can be fixed to a particular
+value to yield the &quot;reduced&quot; model. It will always
+be true that if the models are set up correctly, the number
+of parameters that must be estimated will be greater in the
+full model than in the reduced model. Note that this is not
+so for example #2.</p>
+
+<h4>5.2.2. Reduced/Full Models Express theNull/Alternative Hypotheses
+<a name="5.2.2."></a>
+<a name="5.2.2. Reduced/Full Models Express theNull/Alternative Hypotheses"></a>
+</h4>
+
+
+<p style="margin-top: 1em">The reduced model
+expresses the <i>null hypothesis</i>; the full model
+expresses an <i>alternative hypothesis</i>. In example #1
+above, the null hypothesis is &quot;typical value of
+clearance is independent of weight&quot;, and the
+alternative is &quot;typical value of clearance depends
+linearly on weight.&quot;</p>
+
+<p style="margin-top: 1em">Note an important point
+here: the alternative hypothesis represents a
+<i>particular</i> alternative, and the likelihood ratio test
+using it will most sensitively reject the null hypothesis
+<i>only when</i> this particular alternative holds. If the
+full model were that &quot;the typical value of clearance is
+inversely proportional to weight&quot; (so that as weight
+increases, the typical value of clearance decreases, a
+situation which rarely holds), the likelihood ratio test
+using the alternative we have stated would not be
+particularly sensitive to rejecting the null hypothesis, and
+we might fail to do so. In contrast, we might succeed in
+rejecting the null hypothesis if we used some other
+alternative model closer to the truth.</p>
+
+<h4>5.2.3. The Likelihood Ratio Test
+<a name="5.2.3."></a>
+<a name="5.2.3. The Likelihood Ratio Test"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Part of the NONMEM output
+is the &quot;Minimum Value of the Objective Function&quot;
+(see Chapter 2). Denote this by
+<img src="grohtml-148990-152.png" alt="Image grohtml-148990-152.png">
+. If NONMEM&rsquo;s approximate model were the true model,
+then
+<img src="grohtml-148990-153.png" alt="Image grohtml-148990-153.png">
+would be minus twice the maximum logarithm of the likelihood
+of the data (for those readers unfamiliar with likelihoods,
+and curious as to what they are, we suggest consulting a
+statistics textbook). Statistical theory tells us that the
+difference in minus twice the maximum log likelihoods
+between a full and reduced model can be referenced to a
+known distribution. Thus, to perform the Likelihood Ratio
+Test, one proceeds as follows.</p>
+
+<p style="margin-top: 1em">Let
+<img src="grohtml-148990-154.png" alt="Image grohtml-148990-154.png">
+be the minimum value of the objective function from the fit
+to the full model, and let
+<img src="grohtml-148990-155.png" alt="Image grohtml-148990-155.png">
+be the corresponding quantity from the fit to the reduced
+model. Fit both models separately yielding
+<img src="grohtml-148990-156.png" alt="Image grohtml-148990-156.png">
+and
+<img src="grohtml-148990-157.png" alt="Image grohtml-148990-157.png">
+, and form the statistic,</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1489906.png" alt="Image grohtml-1489906.png"></p>
+
+<p style="margin-top: 1em">This statistic is
+approximately distributed chi-square (
+<img src="grohtml-148990-159.png" alt="Image grohtml-148990-159.png">
+) with
+<img src="grohtml-148990-160.png" alt="Image grohtml-148990-160.png">
+degree of freedom, where
+<img src="grohtml-148990-161.png" alt="Image grohtml-148990-161.png">
+is the number of parameters whose values are fixed in the
+reduced model. For an
+<img src="grohtml-148990-162.png" alt="Image grohtml-148990-162.png">
+-level test, compare
+<img src="grohtml-148990-163.png" alt="Image grohtml-148990-163.png">
+to
+<img src="grohtml-148990-164.png" alt="Image grohtml-148990-164.png">
+, the 100(1-
+<img src="grohtml-148990-165.png" alt="Image grohtml-148990-165.png">
+) percentile of the
+<img src="grohtml-148990-166.png" alt="Image grohtml-148990-166.png">
+distribution.</p>
+
+<p style="margin-top: 1em">In particular, when
+exactly one parameter of the full model is fixed in the
+reduced model, a decrease of 3.84 in the minimum value of
+the objective function is significant at
+<img src="grohtml-148990-167.png" alt="Image grohtml-148990-167.png">
+.</p>
+
+<p style="margin-top: 1em">If NONMEM&rsquo;s
+approximate model (linear in the random effects) were the
+true model, and in addition,
+<img src="grohtml-148990-168.png" alt="Image grohtml-148990-168.png">
+were linear in the fixed effects, then
+<img src="grohtml-148990-169.png" alt="Image grohtml-148990-169.png">
+would be (approximately) distributed according to the
+<img src="grohtml-148990-170.png" alt="Image grohtml-148990-170.png">
+distribution with
+<img src="grohtml-148990-171.png" alt="Image grohtml-148990-171.png">
+, and
+<img src="grohtml-148990-172.png" alt="Image grohtml-148990-172.png">
+degrees of freedom (
+<img src="grohtml-148990-173.png" alt="Image grohtml-148990-173.png">
+). Since
+<img src="grohtml-148990-174.png" alt="Image grohtml-148990-174.png">
+is equal to
+<img src="grohtml-148990-175.png" alt="Image grohtml-148990-175.png">
+only when
+<img src="grohtml-148990-176.png" alt="Image grohtml-148990-176.png">
+is &quot;large&quot;, and is greater otherwise, it is more
+conservative to reference
+<img src="grohtml-148990-177.png" alt="Image grohtml-148990-177.png">
+to
+<img src="grohtml-148990-178.png" alt="Image grohtml-148990-178.png">
+in all instances, even when
+<img src="grohtml-148990-179.png" alt="Image grohtml-148990-179.png">
+is nonlinear.</p>
+
+<h2>6. Choosing Among Models
+<a name="6."></a>
+<a name="6. Choosing Among Models"></a>
+</h2>
+
+
+<p style="margin-top: 1em">An idea related to
+hypothesis testing is this: when faced with alternative
+explanations (models) for some data, how does one use the
+data to determine which model(s) is (are) most plausible?
+When one of the models is a reduced sub-model of the other,
+and there is some
+<img src="grohtml-148990-180.png" alt="Image grohtml-148990-180.png">
+reason to prefer the reduced model to the alternative, then
+the Likelihood Ratio test can be used to test whether this a
+priori preference must be rejected (at the
+<img src="grohtml-148990-181.png" alt="Image grohtml-148990-181.png">
+level). However, when one gives the matter some thought,
+there is usually little <i>objective</i> reason to prefer
+one model over another on a priori grounds. For example,
+although possibly more convenient, a monoexponential model
+is, if anything, less likely on biological grounds than a
+biexponential.</p>
+
+<p style="margin-top: 1em">Not only may there not be
+a clear
+<img src="grohtml-148990-182.png" alt="Image grohtml-148990-182.png">
+probability favoring one contending model over another, but
+the two models may not form a full and reduced model pair.
+In such circumstances, one must rely on some goodness-of-fit
+criterion to distinguish between the models. Consider
+choosing between just two models (the ideas to be discussed
+readily generalize to more than two), denoted model
+<img src="grohtml-148990-183.png" alt="Image grohtml-148990-183.png">
+and model
+<img src="grohtml-148990-184.png" alt="Image grohtml-148990-184.png">
+. If the number of free parameters in model
+<img src="grohtml-148990-185.png" alt="Image grohtml-148990-185.png">
+(
+<img src="grohtml-148990-186.png" alt="Image grohtml-148990-186.png">
+) is the same as that of
+<img src="grohtml-148990-187.png" alt="Image grohtml-148990-187.png">
+(
+<img src="grohtml-148990-188.png" alt="Image grohtml-148990-188.png">
+), then here is a reasonable criterion: favor the model with
+the better fit. Note that there is no
+<img src="grohtml-148990-189.png" alt="Image grohtml-148990-189.png">
+value associated with this statement; no hypothesis is being
+tested.</p>
+
+<p style="margin-top: 1em">Unfortunately, if
+<img src="grohtml-148990-190.png" alt="Image grohtml-148990-190.png">
+one cannot simply compare
+<img src="grohtml-148990-191.png" alt="Image grohtml-148990-191.png">
+and
+<img src="grohtml-148990-192.png" alt="Image grohtml-148990-192.png">
+and choose the one with the smaller value. The reason is
+best understood when
+<img src="grohtml-148990-193.png" alt="Image grohtml-148990-193.png">
+and
+<img src="grohtml-148990-194.png" alt="Image grohtml-148990-194.png">
+are a full and reduced model pair. The full model will
+<i>always</i> fit the data better (i.e., have a smaller
+<img src="grohtml-148990-195.png" alt="Image grohtml-148990-195.png">
+) as it has more free parameters to adjust its shape to the
+data. While the same is not always true for any pair of
+non-linear models with different numbers of parameters, it
+is often true: the model with the greater number of
+parameters will fit a given data set better than the model
+with fewer parameters. Yet the larger (more parameters)
+model may not really be better; it may, in fact, fit an
+entirely new data set worse than the simpler model if its
+better fit to the original data was simply because it
+exploited the flexibility of its extra parameter(s) to
+better fit some random aspect of that data.</p>
+
+<p style="margin-top: 1em">Based on the above
+intuitive argument, it seems that one should penalize the
+larger model in some way before comparing the likelihoods.
+This intuition is formally realized in the Akaike
+Information Criterion (AIC) which says that one should
+compute
+<img src="grohtml-148990-196.png" alt="Image grohtml-148990-196.png">
++
+<img src="grohtml-148990-197.png" alt="Image grohtml-148990-197.png">
+, and choose model
+<img src="grohtml-148990-198.png" alt="Image grohtml-148990-198.png">
+if
+<img src="grohtml-148990-199.png" alt="Image grohtml-148990-199.png">
+is &gt;0, and model
+<img src="grohtml-148990-200.png" alt="Image grohtml-148990-200.png">
+if
+<img src="grohtml-148990-201.png" alt="Image grohtml-148990-201.png">
+is &lt;0. The second term penalizes model
+<img src="grohtml-148990-202.png" alt="Image grohtml-148990-202.png">
+if
+<img src="grohtml-148990-203.png" alt="Image grohtml-148990-203.png">
+, and vice versa. When
+<img src="grohtml-148990-204.png" alt="Image grohtml-148990-204.png">
+, the
+<img src="grohtml-148990-205.png" alt="Image grohtml-148990-205.png">
+reduces to the comparison of
+<img src="grohtml-148990-206.png" alt="Image grohtml-148990-206.png">
+and
+<img src="grohtml-148990-207.png" alt="Image grohtml-148990-207.png">
+described previously.</p>
+
+
+<p style="margin-top: 1em"><a href="5.html">TOP</a></p>
+
+
+<p style="margin-top: 1em"><a href="index.html">TABLE OF CONTENTS</a></p>
+
+
+<p style="margin-top: 1em"><a href="6.html">NEXT</a></p>
+<hr>
+</body>
+</html>

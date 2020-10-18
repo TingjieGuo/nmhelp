@@ -1,0 +1,79 @@
+<HTML><HEAD> <TITLE> l2.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                            L2 DATA ITEM                            |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Level Two (L2) data item for NONMEM
+ CONTEXT: $INPUT record and NONMEM data set
+
+ USAGE:
+ $INPUT ... L2 ...
+
+ DISCUSSION:
+ L2  labels  level-two  (L2)  data  items.   The level two data item is
+ optional.
+
+ Recall that the ID data item  is  used  to  group  together  the  data
+ records containing observations which have the same realization of the
+ level-one random effects (etas).  Similarly, the L2 data item is  used
+ to  group together the data records containing observations which have
+ the same realization of the level-two random effects (epsilons).   The
+ observations  of  such a group is called a level-two observation.  The
+ group itself is called a level-two (L2) record.  Data records of an L2
+ record  must  be  contiguous (and contained within the same individual
+ record).  By default, level-two observations are treated as being sta-
+ tistically  independent multivariate observations.  (However, within a
+ level-one observation, the level-two random effects can be made to  be
+ correlated between level-two observations.)
+
+ Here  is  an  example of a fragment of a data set using L2 data items.
+ There are two types of observations, designated by the  two  different
+ values  of  the  user data item TYPE.  Note that the L2 data items are
+ the same for both of the observations at TIME=2, and they are also the
+ same for both of the observations at TIME=112.5.
+
+      ID   TIME    AMT   APGR     WT     DV TYPE L2
+       1    0.    25.0    1.4      7      .   .   1
+       1    2.0      .    1.4      7    6.0   1   1
+       1    2.0      .    1.4      7   17.3   2   1
+       1   12.5    3.5    1.4      7      .   2   2
+       1   24.5    3.5    1.4      7      .   2   2
+       1   37.0    3.5    1.4      7      .   2   2
+       1   48.0    3.5    1.4      7      .   2   2
+       1   60.5    3.5    1.4      7      .   2   2
+       1   72.5    3.5    1.4      7      .   2   2
+       1   85.3    3.5    1.4      7      .   2   2
+       1   96.5    3.5    1.4      7      .   2   2
+       1  108.5    3.5    1.4      7      .   2   2
+       1  112.5      .    1.4      7    8.0   1   2
+       1  112.5      .    1.4      7   31.0   2   2
+
+ When  the  data  are single-subject and the L2 data item is defined to
+ NM-TRAN in a $INPUT record, the ID data item is taken  to  be  the  L2
+ data  item.   The  ID  item may be defined, but then it is not in turn
+ identified to NONMEM as such.  The labels L2 and ID (if  defined)  may
+ be  used in abbreviated code, and then they refer to the corresponding
+ items of the data record, as specified in the $INPUT record.  However,
+ if  the  user  uses  the label L1 instead of the label ID, or uses the
+ label L1 as a synonym with the ID label, then NM-TRAN does not  change
+ the designations: For NONMEM, the items labeled L1 are taken to be the
+ ID data items, and the items labeled L2 are taken to be  the  L2  data
+ items.
+
+REFERENCES: Guide II Section <a href="II/D.html#3.3.">D.3.3<a/>
+REFERENCES: Guide V Section <a href="V/12.html#4.2.">12.4.2<a/>, <a href="V/12.html#5.">12.5<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

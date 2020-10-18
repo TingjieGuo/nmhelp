@@ -1,0 +1,42 @@
+<HTML><HEAD> <TITLE> amt.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           AMT DATA ITEM                            |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Dose Amount (AMT) data item for PREDPP
+ CONTEXT: $INPUT record and NONMEM data set
+
+ USAGE:
+ $INPUT ... AMT ...
+
+ DISCUSSION:
+ AMT labels PREDPP's dose amount (AMT) data item.  The dose amount data
+ item is optional.
+
+ AMT must be 0 for non-dose event records.
+
+ AMT must be 0 for "steady-state with constant infusion" dose or reset-
+ dose event records.
+
+ AMT  must  be  a positive number in all other dose or reset-dose event
+ records.
+
+ (See <A HREF="d.htm#dose">dose</A>, <A HREF="s.htm#steady_state">steady_state_dose</A>).
+
+REFERENCES: Guide VI Section <a href="VI/V.html#D.">V.D<a/>
+REFERENCES: Guide V Section <a href="V/6.html#8.">6.8<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

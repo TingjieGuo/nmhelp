@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 48</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:10px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:8px;font-family:Symbol;color:#000000;}
+	.ft4{font-size:9px;font-family:Symbol;color:#000000;}
+	.ft5{font-size:9px;font-family:Times;color:#000000;}
+	.ft6{font-size:5px;font-family:Times;color:#000000;}
+	.ft7{font-size:14px;font-family:Symbol;color:#000000;}
+	.ft8{font-size:5px;font-family:Times;color:#000000;}
+	.ft9{font-size:6px;font-family:Times;color:#000000;}
+	.ft10{font-size:6px;font-family:Symbol;color:#000000;}
+	.ft11{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft12{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index048.png" alt="background image">
+<DIV style="position:absolute;top:77;left:119"><nobr><span class="ft0"><b>Chapter 5 - Estimates, Conﬁdence Intervals, and Hypothesis Tests</b></span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:72"><nobr><span class="ft1"><b>1. What This Chapter is About</b></span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:72"><nobr><span class="ft11">In this chapter, we discuss the ﬁtting criterion that NONMEM uses, parameter estimates, and<br>standard error estimates. We then discuss how to form conﬁdence intervals for parameters and do<br>hypothesis tests with NONMEM.</span></nobr></DIV>
+<DIV style="position:absolute;top:185;left:72"><nobr><span class="ft1"><b>2. Model Fitting Criterion</b></span></nobr></DIV>
+<DIV style="position:absolute;top:202;left:72"><nobr><span class="ft11">In principle, all ﬁtting procedures attempt to adjust the values of the parameters of the model to<br>give a &quot;best ﬁt&quot; of the predictions to the actual observations. The set of parameters that accom-<br>plish this are called the parameter estimates, and are denoted here as ˆ</span></nobr></DIV>
+<DIV style="position:absolute;top:226;left:378"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:384"><nobr><span class="ft2">, ˆ</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:390"><nobr><span class="ft4">Ω</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:399"><nobr><span class="ft2">, and ˆ</span></nobr></DIV>
+<DIV style="position:absolute;top:225;left:423"><nobr><span class="ft4">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:228;left:430"><nobr><span class="ft2">. Methods differ</span></nobr></DIV>
+<DIV style="position:absolute;top:241;left:72"><nobr><span class="ft11">in how they deﬁne &quot;best&quot;. The criterion that NONMEM uses is a Least Squares (LS) type crite-<br>rion. The form of this criterion varies as the error model varies, and as population models with<br>multiple random effects must be considered. We brieﬂy discuss these various criteria next, to<br>give the reader a feel for what NONMEM is doing. A detailed knowledge of the statistical basis<br>for the choice of ﬁtting criterion is not necessary either to use or interpret NONMEM ﬁts. In this<br>chapter, a ﬁxed effects parameter will be denoted by a</span></nobr></DIV>
+<DIV style="position:absolute;top:304;left:316"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:306;left:322"><nobr><span class="ft2">; the distinction between individual ﬁxed</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:72"><nobr><span class="ft2">effects parameters (</span></nobr></DIV>
+<DIV style="position:absolute;top:317;left:158"><nobr><span class="ft3">φ</span></nobr></DIV>
+<DIV style="position:absolute;top:319;left:164"><nobr><span class="ft2">) and population ﬁxed effects parameters will not be important here.</span></nobr></DIV>
+<DIV style="position:absolute;top:345;left:72"><nobr><span class="ft1"><b>2.1. Least Squares for Individual Data with an Additive Error Model</b></span></nobr></DIV>
+<DIV style="position:absolute;top:362;left:72"><nobr><span class="ft11">For the Additive error model (3.4), the Ordinary Least Squares criterion (OLS) chooses the esti-<br>mate ˆ</span></nobr></DIV>
+<DIV style="position:absolute;top:372;left:96"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:375;left:106"><nobr><span class="ft2">so as to make the sum of squared (estimated) errors as small as possible. These estimates</span></nobr></DIV>
+<DIV style="position:absolute;top:388;left:72"><nobr><span class="ft11">cause the prediction, here denoted <i>˜y</i>, to be an estimate of the mean value of <i>y</i>, which is intuitively<br>appealing. The prediction is obtained by computing the value for y under the model with parame-<br>ters set to their estimated values and</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:233"><nobr><span class="ft3">η</span></nobr></DIV>
+<DIV style="position:absolute;top:414;left:243"><nobr><span class="ft2">set to zero†.</span></nobr></DIV>
+<DIV style="position:absolute;top:440;left:72"><nobr><span class="ft1"><b>2.2. Least Squares for Individual Data with Other Types of Error Models</b></span></nobr></DIV>
+<DIV style="position:absolute;top:457;left:72"><nobr><span class="ft11">The simple OLS criterion just deﬁned becomes inefﬁcient and is no longer the &quot;best&quot; one to use<br>when the error model is other than the Additive error model. It treats all estimated errors as<br>equally important (i.e. a reduction in the magnitude of either of two estimated errors that are of<br>the same magnitude is equally valuable in that either reduction decreases the sum of squared<br>errors by the same amount), and this results in parameter estimates that cause all errors to have<br>about the same typical magnitude, as assumed under the Additive model. The CCV error model,<br>though, says that the typical magnitude of an error varies monotonically with the magnitude of<br>the (true) prediction of y. In principle, Weighted Least Squares (WLS) gives a ﬁt more commen-<br>surate with the CCV or other non-Additive error model. WLS chooses ˆ</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:390"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:400"><nobr><span class="ft2">as that value of</span></nobr></DIV>
+<DIV style="position:absolute;top:558;left:470"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:561;left:480"><nobr><span class="ft2">mini-</span></nobr></DIV>
+<DIV style="position:absolute;top:574;left:72"><nobr><span class="ft2">mizing</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:228"><nobr><span class="ft5"><i>O</i></span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:237"><nobr><span class="ft6"><i>WLS</i></span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:252"><nobr><span class="ft2">(</span></nobr></DIV>
+<DIV style="position:absolute;top:590;left:255"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:262"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:269"><nobr><span class="ft4">=</span></nobr></DIV>
+<DIV style="position:absolute;top:605;left:282"><nobr><span class="ft6"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:587;left:278"><nobr><span class="ft7">Σ</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:291"><nobr><span class="ft5"><i>w</i></span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:300"><nobr><span class="ft6"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:303"><nobr><span class="ft2">(<i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:597;left:314"><nobr><span class="ft6"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:589;left:320"><nobr><span class="ft4">−</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:331"><nobr><span class="ft5"><i>˜y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:598;left:336"><nobr><span class="ft6"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:339"><nobr><span class="ft2">)</span></nobr></DIV>
+<DIV style="position:absolute;top:591;left:343"><nobr><span class="ft8">2</span></nobr></DIV>
+<DIV style="position:absolute;top:593;left:483"><nobr><span class="ft2">(5.1)</span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:72"><nobr><span class="ft2">Each <i>w</i></span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:107"><nobr><span class="ft6"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:113"><nobr><span class="ft2">is a weight which, ideally, is set proportional to the inverse of the variance of <i>y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:625;left:467"><nobr><span class="ft6"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:620;left:470"><nobr><span class="ft2">. In the</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:72"><nobr><span class="ft2">CCV model this variance is proportional to <i>˜y</i></span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:280"><nobr><span class="ft8">2</span></nobr></DIV>
+<DIV style="position:absolute;top:639;left:282"><nobr><span class="ft6"><i>j</i></span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:289"><nobr><span class="ft2">(evaluated at the true value of</span></nobr></DIV>
+<DIV style="position:absolute;top:631;left:429"><nobr><span class="ft3">θ</span></nobr></DIV>
+<DIV style="position:absolute;top:634;left:436"><nobr><span class="ft2">). Use of such</span></nobr></DIV>
+<DIV style="position:absolute;top:647;left:72"><nobr><span class="ft11">weights will down-weight the importance of estimated squared errors associated with large values<br>of <i>˜y </i>and promote the relative contribution of those associated with small values of <i>˜y</i>.</span></nobr></DIV>
+<DIV style="position:absolute;top:677;left:72"><nobr><span class="ft11">In many cases, users can supply approximate weights, and the WLS objective function can be<br>used as stated in (5.1). When, as with the CCV model for example, the ideal weights depend on</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:72"><nobr><span class="ft9">†</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:78"><nobr><span class="ft10">η</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:83"><nobr><span class="ft9">, not</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:100"><nobr><span class="ft10">ε</span></nobr></DIV>
+<DIV style="position:absolute;top:710;left:105"><nobr><span class="ft9">, since we follow the NONMEM convention and, when discussing individual type data as here, use</span></nobr></DIV>
+<DIV style="position:absolute;top:707;left:427"><nobr><span class="ft10">η</span></nobr></DIV>
+<DIV style="position:absolute;top:720;left:72"><nobr><span class="ft9">to denote the random effects of a single level that appear in the model, those in the residual error model.</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft2">-40-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

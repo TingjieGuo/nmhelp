@@ -1,0 +1,89 @@
+<HTML><HEAD> <TITLE> modtime.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        MODEL TIME EXAMPLES                         |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ These are examples of the use of model times in PREDPP.
+
+ Enterohepatic Recycling
+
+      This  fragment of abbreviated code may be used to model EHC.  The
+      transfer of drug from compt. 4 to 1 is controlled by FLAG,  which
+      is 1 between the times specified by MTIME(1) and MTIME(2), and is
+      0 otherwise.
+
+      $PK
+      MTIME(1)=THETA(8)
+      MTIME(2)=MTIME(1)+THETA(9)
+       ....
+      $DES
+      FLAG=MPAST(1)-MPAST(2)
+      DADT(1)=-KA*A(1)+K41*A(4)*FLAG
+      DADT(4)=K1G*A(2)-K41*A(4)*FLAG
+       ....
+
+ Flexible Input Rate
+
+      This fragment of abbreviated code may be used to model a flexible
+      modeled infusion rate R1.
+
+      The rate is 400*EXP(ETA(1)) from time 0 to 1.5
+      The rate is 300*EXP(ETA(2)) from time 1.5 to 2.5
+      The rate is 200*EXP(ETA(3)) from time 2.5 till end of infusion.
+
+      In  the  three  assignment  statments  for R1, exactly one of the
+      right-side expressions is non-zero at each call to PK.
+
+      $PK
+      MTIME(1)=1.5
+      MTIME(2)=2.5
+      R1=   400*EXP(ETA(1))*(1-MPAST(1))
+      R1=R1+300*EXP(ETA(2))*(MPAST(1)-MPAST(2))
+      R1=R1+200*EXP(ETA(3))*MPAST(2)
+
+ Changing a Model Time
+
+      This fragment of abbreviated code shows how a model time  parame-
+      ter  can  be changed.  Suppose there are events at times 0 and 10
+      but one wants to advance in increments of 1 with stops  at  times
+      1, 2, 3, .... , 9.
+
+      IF (TIME.EQ.0) TEMP=0
+      TEMP=TEMP+1
+      MTIME(1)=TEMP
+      MTDIFF=1
+
+ Changing Absorption Rate
+
+      This  fragment  of abbreviated code shows how the Absorption Rate
+      KA can be changed.
+      KA is XKA1 from time 0 to THETA(5).
+      KA is XKA2 after time THETA(5).
+
+      $PK
+      MTIME(1)=THETA(5)  ; change point for KA
+      XKA1=THETA(3)*EXP(ETA(3))
+      XKA2=THETA(4)*EXP(ETA(4))
+      KA=XKA1*(1-MPAST(1))+XKA2*(MPAST(1))
+
+ (See <A HREF="m.htm#mtime">mtime</A>).
+
+ See also "Cirdadian example: Examples Using MTIME  to  Model  Periodic
+ Discontinuities in $DES".
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

@@ -1,0 +1,1552 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Sat Sep 19 21:22:32 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part V - Introductory Guide - Chapter 7">NONMEM Users Guide Part V - Introductory Guide - Chapter 7</a><br>
+<a href="#1. What This Chapter is About">1. What This Chapter is About</a><br>
+<a href="#2. The $SUBROUTINE Record">2. The $SUBROUTINE Record</a><br>
+<a href="#2.1. Choosing an ADVAN Subroutine: StandardPharmacokinetic Models">2.1. Choosing an ADVAN Subroutine: StandardPharmacokinetic Models</a><br>
+<a href="#2.2. Choosing a TRANS Subroutine: AlternativeParameterizations">2.2. Choosing a TRANS Subroutine: AlternativeParameterizations</a><br>
+<a href="#3. $PK Abbreviated Code">3. $PK Abbreviated Code</a><br>
+<a href="#3.1. Syntax">3.1. Syntax</a><br>
+<a href="#3.2. When are $PK Statements Evaluated?">3.2. When are $PK Statements Evaluated?</a><br>
+<a href="#3.3. Time Varying PK parameters">3.3. Time Varying PK parameters</a><br>
+<a href="#4. $PK Statements for Individual Data">4. $PK Statements for Individual Data</a><br>
+<a href="#4.1. Basic and Additional Parameters">4.1. Basic and Additional Parameters</a><br>
+<a href="#4.2. Alternative Parameterizations using $PKStatements">4.2. Alternative Parameterizations using $PKStatements</a><br>
+<a href="#4.3. Scale Parameters">4.3. Scale Parameters</a><br>
+<a href="#4.3.1. Scaling by a Known Constant">4.3.1. Scaling by a Known Constant</a><br>
+<a href="#4.3.2. Scaling by a Parameter: Conditional Statementsand Indicator Variables">4.3.2. Scaling by a Parameter: Conditional Statementsand Indicator Variables</a><br>
+<a href="#4.3.3. Scaling by a Data Item">4.3.3. Scaling by a Data Item</a><br>
+<a href="#4.4. Bioavailability Fraction Parameters">4.4. Bioavailability Fraction Parameters</a><br>
+<a href="#4.5. Output Fraction">4.5. Output Fraction</a><br>
+<a href="#5. $PK Statements for Population Data">5. $PK Statements for Population Data</a><br>
+<a href="#5.1. Structural Part of Parameter Models">5.1. Structural Part of Parameter Models</a><br>
+<a href="#5.1.1. Linear Models">5.1.1. Linear Models</a><br>
+<a href="#5.1.2. Multiplicative Models">5.1.2. Multiplicative Models</a><br>
+<a href="#5.1.3. Saturation Models">5.1.3. Saturation Models</a><br>
+<a href="#5.1.4. Models with Indicator Variables">5.1.4. Models with Indicator Variables</a><br>
+<a href="#5.2. Population Random Effect Models">5.2. Population Random Effect Models</a><br>
+<a href="#5.3. Models for Interindividual Errors">5.3. Models for Interindividual Errors</a><br>
+<a href="#5.3.1. Additive/Multiplicative Models">5.3.1. Additive/Multiplicative Models</a><br>
+<a href="#5.3.2. Other Models">5.3.2. Other Models</a><br>
+<a href="#5.4. Restrictions on Random Variables">5.4. Restrictions on Random Variables</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part V - Introductory Guide - Chapter 7
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part V - Introductory Guide - Chapter 7"></a>
+</h2>
+
+
+<p align="center" style="margin-top: 1em"><b>Chapter 7 -
+$SUBROUTINE Record and $PK Record</b></p>
+
+<h2>1. What This Chapter is About
+<a name="1."></a>
+<a name="1. What This Chapter is About"></a>
+</h2>
+
+
+<p style="margin-top: 1em">This chapter tells how to
+write a $SUBROUTINE record and how to write a simple $PK
+record for both individual and population data. This chapter
+is meant to be read in parallel with Chapters 3 and
+4.</p>
+
+<h2>2. The $SUBROUTINE Record
+<a name="2."></a>
+<a name="2. The $SUBROUTINE Record"></a>
+</h2>
+
+
+<p style="margin-top: 1em">The $SUBROUTINE record
+describes which pharmacokinetic model is to be used. Recall
+that NONMEM calls a subroutine named PRED to compute the
+predicted value. The user must choose to use his own PRED
+subroutine or to use the PREDPP package. In this text it is
+assumed that the PREDPP package is chosen.</p>
+
+<h3>2.1. Choosing an ADVAN Subroutine: StandardPharmacokinetic Models
+<a name="2.1."></a>
+<a name="2.1. Choosing an ADVAN Subroutine: StandardPharmacokinetic Models"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The PREDPP Library
+includes subroutines which are pre-preprogrammed, each for a
+specific pharmacokinetic model. They are: <br>
+ADVAN1 (One Compartment Linear Model) <br>
+ADVAN2 (One Compartment Linear Model with First Order
+Absorption) <br>
+ADVAN3 (Two Compartment Linear Model) <br>
+ADVAN4 (Two Compartment Linear Model with First Order
+Absorption) <br>
+ADVAN10 (One Compartment Model with Michaelis-Menten
+Elimination) <br>
+ADVAN11 (Three Compartment Linear Model) <br>
+ADVAN12 (Three Compartment Linear Model with First Order
+Absorption) <br>
+PREDPP calls only one subroutine, ADVAN; the different names
+above are external names distinguishing different instances
+of the ADVAN routine in the PREDPP Library. The name
+&rsquo;ADVAN&rsquo; is used because the routine advances
+(i.e. updates the state of) the kinetic system from one
+point in time to the next. There are additional ADVAN
+routines in the Library which implement more general types
+of pharmacokinetic models; see Chapter 12, Section 2.2. Each
+of the ADVAN&rsquo;s can be used for either individual or
+population data. The (external) name of the ADVAN to be used
+is coded on the $SUBROUTINE record; this also implies that
+PREDPP is to be used. As an example, the following record
+specifies the One Compartment Linear Model:
+<tt><b><br>
+$SUBROUTINE ADVAN1</b></tt></small></p>
+
+<p style="margin-top: 1em">The ADVAN&rsquo;s are
+described in Appendix 1. They share certain
+features.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="5%"></td>
+<td width="84%">
+
+
+<p style="margin-top: 1em">The compartments are
+numbered. These numbers are used in two places. First, they
+are used in the CMT and PCMT data items to describe specific
+compartments. Second, the compartment number n is part of
+the name of PK parameters such as compartment scale (Sn), as
+discussed below.</p></td>
+<td width="8%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="5%"></td>
+<td width="84%">
+
+
+<p style="margin-top: 1em">Each model has a
+<b>default observation compartment,</b> which for each of
+the above ADVAN&rsquo;s happens to be the central
+compartment. If an event record contains an observation
+(i.e. is an observation event record), the prediction
+associated with that record will be the scaled drug amount
+in this compartment, unless the CMT data item on the record
+specifies differently. The prediction associated with a
+non-observational event record will again be the scaled drug
+amount in this compartment, unless the PCMT data item on the
+record specifies differently.</p></td>
+<td width="8%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">3.</p></td>
+<td width="5%"></td>
+<td width="84%">
+
+
+<p style="margin-top: 1em">Each model has a
+<b>default dose compartment.</b> Unless specified
+differently by the CMT data item, it is understood that a
+dose is input into this compartment. With ADVAN1, ADVAN3,
+and ADVAN10, this is the central compartment. With ADVAN2
+and ADVAN4, a drug depot compartment is part of the model
+and is the default dose compartment. In these cases, if a
+dose is to go directly into the central compartment, its
+compartment number (2) must be present in the CMT data item
+of the dose record. Note that it is never <i>required</i>
+that there be doses into the depot compartment. In a study
+involving mixed oral and IV doses, for example, some
+patients may receive only IV doses. All dose event records
+for such patients will have the value 2 in the CMT data
+item.</p> </td>
+<td width="8%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">4.</p></td>
+<td width="5%"></td>
+<td width="84%">
+
+
+<p style="margin-top: 1em">Each model has an output
+compartment. The amount of drug in this compartment is the
+accumulated amount of drug eliminated from the system and
+typically represents the amount of drug which accumulates in
+the urine. This compartment is special. It may not receive a
+dose. It is initially off, and it remains off (so that the
+amount therein remains zero) until it is explicitly turned
+on by an other type event record which has the output
+compartment&rsquo;s number in the CMT data item. It is
+computed by &quot;mass balance&quot;, as follows. Between
+any two points in time, it increases by an amount equal to
+the amount of drug in the other compartments at the first
+point in time, plus the amount added via doses between the
+two time points, less the amount remaining in the other
+compartments at the second point in time. (This difference
+is multiplied by an output fraction (F0) parameter, if F0 is
+computed by the PK routine.) The output compartment can be
+turned off (i.e. its amount reset to zero). If the
+compartment is interpreted as a urine compartment, this is
+equivalent to &quot;emptying&quot; the compartment. This is
+done by putting the <i>negative</i> of its number in the CMT
+data item of an other type or observation event
+record.&dagger;</p> </td>
+<td width="8%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;">----------</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><cite>&dagger;
+This is also permitted with output-type compartments; see
+Chapter 12, Section 2.8. <br>
+---------- <br>
+</cite></p>
+
+<p style="margin-left:8%; margin-top: 1em">On event
+records, the output compartment is referred to by the
+compartment number given in Appendix 1. A PK parameter which
+refers to the output compartment may use either this number
+or 0 (zero). Thus, F0 and F2 both denote the output fraction
+for ADVAN1; similarly, S0 and S4 both denote the scale for
+ADVAN4&rsquo;s output compartment. SC denotes the scale for
+any ADVAN&rsquo;s central compartment.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">5.</p></td>
+<td width="5%"></td>
+<td width="84%">
+
+
+<p style="margin-top: 1em">Each model has a set of
+basic (required) pharmacokinetic (PK) parameters, which are
+the microconstants used to compute the amounts of drug via
+the kinetic equations for the model. Each one also has a set
+of additional (optional) PK parameters, including
+compartment scales (Sn), bioavailability fractions (Fn), and
+output fraction (F0). Compartment scales are typically used
+to convert amounts to concentrations, but they also can be
+used for other purposes. Bioavailability fractions multiply
+dose amounts. The output fraction is described
+above.</p> </td>
+<td width="8%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">6.</p></td>
+<td width="5%"></td>
+<td width="84%">
+
+
+<p style="margin-top: 1em">Each model&rsquo;s basic
+and additional pharmacokinetic parameters must be computed
+for it by a subroutine named PK. The error model must be
+described by a subroutine named ERROR. $PK and $ERROR
+abbreviated code provide an easy way to specify the
+essential computations that must occur in these
+subroutines.</p> </td>
+<td width="8%">
+</td></tr>
+</table>
+
+<h3>2.2. Choosing a TRANS Subroutine: AlternativeParameterizations
+<a name="2.2."></a>
+<a name="2.2. Choosing a TRANS Subroutine: AlternativeParameterizations"></a>
+</h3>
+
+
+<p style="margin-top: 1em">As discussed in Chapter
+3, we may prefer to use pharmacokinetic parameters in our PK
+routine other than the microconstants used by PREDPP.
+Appendix 2 shows several commonly-used parameterizations.
+The PREDPP package includes a family of subroutines called
+TRANS routines which are pre-programmed to translate
+(reparameterize) from these commonly used parameterizations
+to the ones expected by PREDPP. Appendix 2 also gives the
+TRANS routine for each alternative parameterization. As with
+ADVAN, TRANS is the name of the routine. The names given in
+Appendix 2 are instances of external subroutine names used
+in the PREDPP Library. The first member of the family,
+TRANS1, simply translates a set of microconstants into these
+same microconstants and must be included in the NONMEM load
+module in lieu of the others when the $PK abbreviated code
+computes the microconstants.</p>
+
+<p style="margin-top: 1em">The user must describe on
+the $SUBROUTINE record which TRANS routine is to be used.
+For example, the following record requests the One
+Compartment Linear Model parameterized (in the PK routine)
+in terms of clearance and volume. <tt><b><br>
+$SUBROUTINE ADVAN1,TRANS2</b></tt> <br>
+When a TRANS other than TRANS1 is used, only the alternative
+parameters listed in column 1 need be assigned values in the
+$PK abbreviated code. In this example, these are CL, V, and
+KA.</p>
+
+<p style="margin-top: 1em">Note that TRANS1 is the
+default. That is, if no TRANS routine is listed on the
+$SUBROUTINE record, it is assumed that TRANS1 is intended.
+This is the case in the examples of Chapter 2. Alternative
+parameterizations using TRANS1 are discussed later in this
+chapter in Section 4.2.</p>
+
+<h2>3. $PK Abbreviated Code
+<a name="3."></a>
+<a name="3. $PK Abbreviated Code"></a>
+</h2>
+
+
+<p style="margin-top: 1em">$PK abbreviated code
+consists of a block of <b>$PK statements,</b> one per line,
+which look much like FORTRAN statements. In fact, they are a
+subset of FORTRAN: simple assignment statements, certain
+kinds of conditional (IF) statements, and certain kinds of
+CALL, WRITE, PRINT, RETURN, OPEN, CLOSE, REWIND statements.
+The $PK abbreviated code must be preceded by a record
+containing the characters &quot;$PK&quot;. This record and
+the abbreviated code constitute the <b>$PK
+record.</b></p>
+
+<p style="margin-top: 1em">$PK statements must
+include assignment statements giving a value to every basic
+PK parameter for the given ADVAN and TRANS combination, as
+listed in Appendix 1 (when TRANS1 is used) or column 1 of
+Appendix 2 (when a different TRANS is used). They may also
+include assignment statements giving values to one or more
+of the additional PK parameters.</p>
+
+<h3>3.1. Syntax
+<a name="3.1."></a>
+<a name="3.1. Syntax"></a>
+</h3>
+
+
+<p style="margin-top: 1em">We assume the readers of
+this document are familiar with writing FORTRAN assignment
+and conditional statements. If not, the examples in this and
+the following chapter should give adequate guidance. FORTRAN
+statement numbers are not used, and the statements may start
+in any column. As with all NM-TRAN records, blank lines are
+permitted, and all text following a semi-colon (;) is
+ignored and may be used for comments. FORTRAN 95
+continuation lines are permitted. An ampersand (&amp;) is
+used at the end of a line to be continued.</p>
+
+<p style="margin-top: 1em">The statements are built
+using the following: elements of the THETA array (e.g.,
+THETA(1)); constants; names of input data items appearing on
+the $INPUT record; names of previously-assigned variables;
+FORTRAN library functions SQRT, LOG, LOG10, EXP, SIN, COS,
+ABS, TAN, ASIN, ACOS, ATAN, INT, MIN, MAX, and MOD; NONMEM
+functions GAMLN and PHI&dagger;; arithmetic operators +, -,
+*, /, **; and arithmetical and logical expressions using all
+of the above. <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; PHI gives
+the value of the cumulative distribution function. GAMLN
+gives an accurate evaluation of the logarithm of the gamma
+function. <br>
+---------- <br>
+</cite></p>
+
+<p style="margin-top: 1em">In addition, statements
+may include representations for random variables such as
+ETA(1) and EPS(3). Input data items have the values
+appearing on the current event record, and thus these values
+may change from one event record to the next. A user-defined
+variable name follows the usual FORTRAN rules (1-6 letters
+and digits, starting with a letter) and may not be
+subscripted. It is defined (&quot;declared&quot;) by being
+assigned a value (i.e., by appearing to the left of = in an
+assignment statement).</p>
+
+<p style="margin-top: 1em">Nested parentheses and
+nested IF statements are allowed. A pair of parentheses
+enclosing a subscript may be nested within another pair of
+parentheses. All subscripts must be constants (e.g.
+THETA(1)). The statements are evaluated sequentially, in the
+order in which they appear.</p>
+
+<p style="margin-top: 1em">All variables, constants,
+and expressions are evaluated using floating-point (not
+integer) arithmetic. Single or double precision function
+names and constants may be used interchangeably.</p>
+
+<h3>3.2. When are $PK Statements Evaluated?
+<a name="3.2."></a>
+<a name="3.2. When are $PK Statements Evaluated?"></a>
+</h3>
+
+
+<p style="margin-top: 1em">$PK statements are
+normally evaluated with every event record for both
+population and individual data. This enables the amounts in
+the compartments to be updated from event time to event time
+using current values of the data items. This may be more
+frequent than is necessary. In the theophylline example of
+Chapter 2, no data item is used in the $PK statements. In
+the phenobarbital example, the data item used, WT, is
+constant within any individual&rsquo;s data. In these cases,
+it is sufficient, and it can save noticeable amounts of run
+time, to evaluate the $PK statements once per individual
+record. PREDPP can be instructed that the set of event
+records with which the $PK statements are evaluated are to
+be limited in some way (see Chapter 12, Section 2.7). The
+CALL data item can be used to force the statements to be
+evaluated with any event records.</p>
+
+<p style="margin-top: 1em">Certain advanced forms of
+dosing (additional and lagged doses; see Chapter 12,
+Sections 2.4 and 2.5) introduce doses at times which do not
+necessarily coincide with any event record. PREDPP does not
+normally evaluate the $PK statements at such times, but can
+be instructed to do so (See Chapter 12, Section 2.6). Model
+event time parameters can be used to instruct PREDPP to
+evaluate the $PK statements at specified times (See Chapter
+12, Section 2.7).</p>
+
+<h3>3.3. Time Varying PK parameters
+<a name="3.3."></a>
+<a name="3.3. Time Varying PK parameters"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The state of the kinetic
+system at a given event time is obtained using PK parameter
+values computed with the data items on the event record.
+Using these parameter values the system is advanced to the
+event time from the last event time. Population models
+sometimes use data items which change value within
+individual records and thus give rise to PK parameters whose
+values change within individual records. In Chapter 4,
+Section 3.1.6, it is pointed out that it is desirable for
+the value of such a data item on the event record to be that
+value holding at the midpoint of the interval between the
+current event time and the last previous event time, since
+the system is advanced over this interval using the PK
+parameters determined with this value.</p>
+
+<p style="margin-top: 1em">If the data item changes
+too rapidly for this value to fairly represent the data item
+over the entire time period, it is possible to subdivide the
+interval into smaller intervals. Event records with EVID=2
+(other type event records) can be introduced for this
+purpose. For example, between two consecutive event records
+<img src="grohtml-150250-3.png" alt="Image grohtml-150250-3.png">
+and
+<img src="grohtml-150250-4.png" alt="Image grohtml-150250-4.png">
+, with event times
+<img src="grohtml-150250-5.png" alt="Image grohtml-150250-5.png">
+and
+<img src="grohtml-150250-6.png" alt="Image grohtml-150250-6.png">
+, one might introduce two new other type event records
+<img src="grohtml-150250-7.png" alt="Image grohtml-150250-7.png">
+and
+<img src="grohtml-150250-8.png" alt="Image grohtml-150250-8.png">
+, with event times
+<img src="grohtml-150250-9.png" alt="Image grohtml-150250-9.png">
+and
+<img src="grohtml-150250-10.png" alt="Image grohtml-150250-10.png">
+, into the data set. The value of the data item in
+<img src="grohtml-150250-11.png" alt="Image grohtml-150250-11.png">
+will be used to compute the PK parameters used to advance
+the system over the interval
+<img src="grohtml-150250-12.png" alt="Image grohtml-150250-12.png">
+to
+<img src="grohtml-150250-13.png" alt="Image grohtml-150250-13.png">
+and should be the value of the data item holding at the
+midpoint of this interval. Similarly, the value of the data
+item in
+<img src="grohtml-150250-14.png" alt="Image grohtml-150250-14.png">
+will be used to compute the PK parameters used to advance
+the system over the interval
+<img src="grohtml-150250-15.png" alt="Image grohtml-150250-15.png">
+to
+<img src="grohtml-150250-16.png" alt="Image grohtml-150250-16.png">
+and should be the value of the data item holding at the
+midpoint of this interval, and so on.</p>
+
+<h2>4. $PK Statements for Individual Data
+<a name="4."></a>
+<a name="4. $PK Statements for Individual Data"></a>
+</h2>
+
+
+<h3>4.1. Basic and Additional Parameters
+<a name="4.1."></a>
+<a name="4.1. Basic and Additional Parameters"></a>
+</h3>
+
+
+<p style="margin-top: 1em">With individual data, the
+parameters to be estimated are (usually) the
+individual&rsquo;s PK parameters, and therefore, elements of
+<img src="grohtml-150250-17.png" alt="Image grohtml-150250-17.png">
+should be associated with these PK parameters. (NONMEM
+estimates the elements of the
+<img src="grohtml-150250-18.png" alt="Image grohtml-150250-18.png">
+vector.) By an individual&rsquo;s PK parameters, we mean
+here the basic PK parameters and, possibly, some additional
+PK parameters (e.g. a bioavailability fraction, or volume of
+distribution when the latter is not a basic PK parameter).
+To illustrate, in the theophylline example of Chapter 1
+there occur these $PK statements <tt><b><br>
+$PK <br>
+KA=THETA(1) <br>
+K=THETA(2)</b></tt> <br>
+The parameters KA and K are the basic PK parameters for
+ADVAN2 and TRANS1 (the default TRANS routine). They are used
+to compute the amounts in the compartments. Typically,
+however, the observations are concentrations. A scale
+parameter is used to convert the amount into a
+concentration. Thus, in the theophylline example we see two
+additional $PK statements: <tt><b><br>
+V=THETA(3) <br>
+S2=V</b></tt> <br>
+Here, V is a user-defined variable standing for the volume
+of distribution of the central compartment. It is neither a
+basic nor additional parameter. The parameter S2 is the
+scale parameter for the central compartment; upon dividing
+the amount in that compartment by S2, the concentration
+results. (An observation is usually predicted by an amount
+for a compartment divided by that compartment&rsquo;s scale
+parameter). In fact, these two statements could be replaced
+by the single statement <tt><b><br>
+S2=THETA(3)</b></tt> <br>
+However, it may be helpful to the user to distinguish in his
+code between the calculation of the central volume itself
+and the calculation of the scale parameter.</p>
+
+<p style="margin-top: 1em">There is no particular
+need for certain elements of
+<img src="grohtml-150250-19.png" alt="Image grohtml-150250-19.png">
+to be associated with certain PK parameters. In the above
+example, the roles of
+<img src="grohtml-150250-20.png" alt="Image grohtml-150250-20.png">
+and
+<img src="grohtml-150250-21.png" alt="Image grohtml-150250-21.png">
+could have been reversed. NONMEM&rsquo;s
+<img src="grohtml-150250-22.png" alt="Image grohtml-150250-22.png">
+vector may contain more or fewer elements than there are PK
+parameters, depending on how these parameters are
+modeled.</p>
+
+<p style="margin-top: 1em">PK parameters must be
+explicitly modeled, usually in terms of parameters to be
+estimated and user-defined data items; the user communicates
+this model with the $PK statements. If a certain
+parameter&rsquo;s value is known <b>a priori</b> (say, S2
+has the known value 500), there are several ways the value
+can be incorporated into the $PK statements. The following
+examples show how it can be done via a constant, via a fixed
+element of
+<img src="grohtml-150250-23.png" alt="Image grohtml-150250-23.png">
+, and via a (differently-named) data item:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:8%;"><tt><b>S2=500</b></tt></small></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>$THETA .6
+9. (500 FIXED) <br>
+$PK <br>
+S2=THETA(3)</b></tt> <br>
+Here, rather than be estimated,
+<img src="grohtml-150250-24.png" alt="Image grohtml-150250-24.png">
+is constrained to the value 500. This is discussed in
+Chapter 9.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">3.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>$INPUT ...
+VOL .. <br>
+$PK <br>
+S2=VOL</b></tt> <br>
+Here, VOL is assumed to have the value 500 on the data
+records. When the data is from a population, this third
+technique allows a unique value of VOL to be supplied for
+each individual.</p>
+
+<h3>4.2. Alternative Parameterizations using $PKStatements
+<a name="4.2."></a>
+<a name="4.2. Alternative Parameterizations using $PKStatements"></a>
+</h3>
+
+
+<p style="margin-top: 1em">It is possible to use an
+alternative parameterization while still using TRANS1. The
+reparameterization is performed within the $PK statements by
+explicitly computing the microconstants from the alternative
+parameters. Such &quot;reparameterization&quot; statements
+are given in column 2 of Appendix 2. They must follow the
+assignment statements that give the alternative parameters
+their values, as in the phenobarbital example of Chapter
+2.</p>
+
+<p style="margin-top: 1em">The advantage of using
+$PK statements to reparameterize, rather than using a TRANS
+subroutine, is that the NONMEM-PREDPP load module will then
+always consist of the same set of subroutines for a given
+choice of ADVAN, which simplifies the job of creating and
+running it. It will also run slightly faster. We assume in
+this document that this approach is taken.</p>
+
+<p style="margin-top: 1em">Other parameterizations
+are possible besides the ones in Appendix 2. For example,
+with ADVAN1 and TRANS1, one might code: <tt><b><br>
+CL=THETA(1) <br>
+K=THETA(2) <br>
+V=CL/K <br>
+S1=V</b></tt></small></p>
+
+<p style="margin-top: 1em">The ability to express a
+large variety of modeling possibilities with NONMEM-PREDPP
+provides great freedom and flexibility, but as always with
+flexible modeling capability, certain pitfalls arise.
+Suppose, for example, that with a one compartment system the
+compartment amount, rather than the concentration is
+observed. With ADVAN1 and TRANS1 the statements
+<tt><b><br>
+CL=THETA(1) <br>
+V=THETA(2) <br>
+K=CL/V</b></tt> <br>
+will lead to difficulty because only the ratio of
+<img src="grohtml-150250-25.png" alt="Image grohtml-150250-25.png">
+to
+<img src="grohtml-150250-26.png" alt="Image grohtml-150250-26.png">
+affects the amount in the compartment, and therefore, the
+data do not allow
+<img src="grohtml-150250-27.png" alt="Image grohtml-150250-27.png">
+and
+<img src="grohtml-150250-28.png" alt="Image grohtml-150250-28.png">
+to be separately estimated. The statements should read:
+<tt><b><br>
+K=THETA(1)</b></tt></small></p>
+
+<p style="margin-top: 1em">It is important to
+remember that only those elements of
+<img src="grohtml-150250-29.png" alt="Image grohtml-150250-29.png">
+which affect the predictions of observations will be
+estimated by NONMEM. Here is some problematic code using
+ADVAN1 with TRANS1: <tt><b><br>
+K=THETA(1) <br>
+V=THETA(2) <br>
+CL=THETA(3) <br>
+S1=V</b></tt> <br>
+Once again, NONMEM will be unable to produce separate
+estimates of all elements of
+<img src="grohtml-150250-30.png" alt="Image grohtml-150250-30.png">
+. The kinetics of a simple one compartment system cannot be
+determined by three independent parameters. With TRANS1,
+PREDPP itself does not &quot;know&quot; about the
+relationship K=CL/V which defines a dependency among the
+parameters. Indeed, the parameters CL and V are both
+regarded as user-defined variables. The value of
+<img src="grohtml-150250-31.png" alt="Image grohtml-150250-31.png">
+has no effect on the prediction. Were it not for the fact
+that S1 is set equal to V, the value of
+<img src="grohtml-150250-32.png" alt="Image grohtml-150250-32.png">
+would have no effect on the prediction either. With TRANS2
+this code is also incorrect for essentially the same reason.
+Here, K is regarded as a user-defined variable, and the
+relationship CL=K*V is not &quot;known&quot; to PREDPP.
+(PREDPP does know that CL/V is the rate constant of
+elimination, but it does not recognize the variable K as
+denoting this rate constant, and
+<img src="grohtml-150250-33.png" alt="Image grohtml-150250-33.png">
+has no effect on the prediction.)</p>
+
+<h3>4.3. Scale Parameters
+<a name="4.3."></a>
+<a name="4.3. Scale Parameters"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Scale parameters are
+mentioned in Section 2.1. Predicted compartment amounts are
+divided by them and are thus converted to predicted
+concentrations. They are only needed for those compartments
+whose concentrations are directly observed. With ADVAN3, for
+example, the peripheral compartment&rsquo;s scale S2 does
+not need to be computed explicitly if there are no
+observation events giving measured values of concentrations
+in the peripheral compartment. Predicted values for this
+compartment may still be plotted against time, for example,
+but these values need not be scaled drug amounts; the
+(unscaled) amount alone is sufficient to show the shape of
+the curve. (The various volume parameters shown in Appendix
+2 must be modeled when they are used as basic parameters,
+but they need not be assigned as values to compartment scale
+parameters.) Any scale parameter which is not modeled by $PK
+statements is assumed to be 1 (i.e., predicted values are
+always amounts).</p>
+
+<h4>4.3.1. Scaling by a Known Constant
+<a name="4.3.1."></a>
+<a name="4.3.1. Scaling by a Known Constant"></a>
+</h4>
+
+
+<p style="margin-top: 1em">In Chapter 3, Section
+2.2.1, the units of V were changed from kiloliters to liters
+using the model:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1502503.png" alt="Image grohtml-1502503.png"></p>
+
+<p style="margin-top: 1em">This can be coded in a
+$PK statement similar to the way it appears here, except
+that the compartment number must be specified:
+<tt><b><br>
+S1=V/1000</b></tt> <br>
+Basic PK parameters may also be rescaled in this
+manner.</p>
+
+<h4>4.3.2. Scaling by a Parameter: Conditional Statementsand Indicator Variables
+<a name="4.3.2."></a>
+<a name="4.3.2. Scaling by a Parameter: Conditional Statementsand Indicator Variables"></a>
+</h4>
+
+
+<p style="margin-top: 1em">In Chapter 3, Section
+2.2.2, the following model appeared:</p>
+
+
+<p align="center" style="margin-top: 1em"><img src="grohtml-1502504.png" alt="Image grohtml-1502504.png"></p>
+
+<p style="margin-top: 1em">There are two ways this
+can be coded in $PK statements. The
+<img src="grohtml-150250-36.png" alt="Image grohtml-150250-36.png">
+data item can be tested directly, or an indicator variable
+can be used. An indicator variable is a variable whose value
+is 0 or 1. It may be identified with an input data item, or
+it may be a user-defined variable in the $PK statements. For
+example, suppose variable ASY is to be used as an indicator
+variable. If some input data item is given value 1 when
+assay 1 was used and value 0 when assay 2 was used, then
+this data item could simply be named ASY on the $INPUT
+record. Suppose, however, that the assay number itself (1 or
+2) was recorded in the data and that we have named the data
+item ANUM on the $INPUT record. We must compute the
+user-defined variable ASY for use as an indicator variable.
+There are two ways this can be done: using a logical IF and
+using a block IF.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>ASY=1 <br>
+IF (ANUM.EQ.2) ASY=0</b></tt> <br>
+Here, ASY is &quot;provisionally&quot; given the value 1.
+The value is changed to 0 if the data indicates assay
+2.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>IF
+(ANUM.EQ.1) THEN <br>
+ASY=1 <br>
+ELSE <br>
+ASY=0 <br>
+ENDIF</b></tt></small></p>
+
+<p style="margin-top: 1em">The choice between these
+forms of IF is purely a matter of style. Now let us assume
+that the compartment to be scaled is compartment 2, and that
+<img src="grohtml-150250-37.png" alt="Image grohtml-150250-37.png">
+is to be identified with
+<img src="grohtml-150250-38.png" alt="Image grohtml-150250-38.png">
+. The parameter S2 can now be coded unconditionally:
+<tt><b><br>
+S2=ASY*V+(1-ASY)*THETA(5)*V</b></tt></small></p>
+
+<p style="margin-top: 1em">Alternatively, ANUM can
+be tested and ASY avoided altogether:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>S2=V <br>
+IF (ANUM.EQ.2) S2=THETA(5)*V</b></tt></small></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>IF
+(ANUM.EQ.1) THEN <br>
+S2=V <br>
+ELSE <br>
+S2=THETA(5)*V <br>
+ENDIF</b></tt></small></p>
+
+<h4>4.3.3. Scaling by a Data Item
+<a name="4.3.3."></a>
+<a name="4.3.3. Scaling by a Data Item"></a>
+</h4>
+
+
+<p style="margin-top: 1em">If observations of urine
+concentration
+<img src="grohtml-150250-39.png" alt="Image grohtml-150250-39.png">
+are included in the data (see e.g. Chapter 6, Section 9), it
+is necessary to provide urine volume as a scale for the
+output compartment. Presumably, this volume varies between
+urine observations and is recorded in the data records.
+Suppose this data item is called UVOL in the $INPUT record.
+(The name given to the data item has no special
+significance; any name could be chosen.) An additional $PK
+statement is necessary: <tt><b><br>
+S0=UVOL</b></tt> <br>
+UVOL need be recorded on only those observation events to
+which it applies, although it does no harm to record it on
+other event records. For example, it may well happen that
+both plasma and urine responses are measured at the same
+time, so that there are two observation event records with
+the same value of TIME, one for each compartment observed at
+that time. As described in Section 3.2 above, $PK statements
+are normally evaluated with every event record. Consider,
+for example, the sample data below. Assume that the Central
+compartment is compartment 2 and the output compartment is
+compartment 3. (Note the use of -3 to signify that
+compartment 3 is to be turned off after the observation
+time. The compartment will remain off until the time another
+urine collection begins, as indicated with an other type
+record; see Chapter 6, Section 7.4). Either 1. or 2. will
+produce the correct value of S0:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="5%"></td>
+<td width="84%">
+
+
+<p style="margin-top: 1em">Record UVOL on the event
+record to which it applies. The order of the records does
+not matter.</p></td>
+<td width="8%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>TIME UVOL DV CMT
+<br>
+10. 0 5.80 2 <br>
+10. 100 .067 -3</b></tt></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="5%"></td>
+<td width="84%">
+
+
+<p style="margin-top: 1em">Record UVOL on all event
+records having the same value of TIME. The order of the
+records does not matter.</p></td>
+<td width="8%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>TIME UVOL DV CMT
+<br>
+10. 100 5.80 2 <br>
+10. 100 .067 -3</b></tt></p>
+
+<p style="margin-top: 1em">The following will not
+produce the correct value of S0 unless PREDPP is instructed
+to evaluate the $PK statements only once for each distinct
+value of TIME:</p>
+
+
+<p style="margin-left:8%; margin-top: 1em"><tt><b>TIME
+UVOL DV CMT <br>
+10. 100 5.80 2 <br>
+10. 0 .067 -3</b></tt></p>
+
+<h3>4.4. Bioavailability Fraction Parameters
+<a name="4.4."></a>
+<a name="4.4. Bioavailability Fraction Parameters"></a>
+</h3>
+
+
+<p style="margin-top: 1em">PK parameters of the form
+Fn, where n is the number of a compartment into which a dose
+may be introduced, are bioavailability fractions. If a dose
+record specifies a dose for compartment n, the dose amount
+given on the event record is multiplied by the value of Fn
+computed from the $PK statements evaluated with this record,
+and this product is the dose amount introduced into the
+system. For example, F1 multiplies the amount of dose which
+is to be added to compartment 1. Any Fn which is not
+computed by $PK statements is assumed to be 1 (i.e., the
+dose is 100% available).</p>
+
+<p style="margin-top: 1em">As an example, suppose
+two different preparations of the same drug are
+administered, and it is assumed that they differ only in
+their bioavailability. The indicator variable (or data item)
+PREP has value 1 for the first preparation and 0 for the
+second. The ratio of the bioavailability of the second
+preparation to that of the first preparation is identified
+with
+<img src="grohtml-150250-40.png" alt="Image grohtml-150250-40.png">
+. Usually, the method of drug administration permits this
+ratio to be estimated, but not the separate
+bioavailabilities. Without loss of generality, the
+bioavailability of the first preparation can be taken to be
+1. Assuming the drug enters compartment 1 of the model,
+there are three ways this can be coded:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:8%;"><tt><b>F1=PREP+(1-PREP)*THETA(6)</b></tt></small></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>F1=1 <br>
+IF (PREP.EQ.0) F1=THETA(6)</b></tt></small></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">3.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>IF
+(PREP.EQ.0) THEN <br>
+F1=THETA(6) <br>
+ELSE <br>
+F1=1 <br>
+ENDIF</b></tt></small></p>
+
+<p style="margin-top: 1em">Again, the choice is a
+matter of style.</p>
+
+<p style="margin-top: 1em">Once a dose is introduced
+into the dose compartment, it begins to distribute into the
+other compartments. Whether or not the original dose was
+100% available, it is assumed that none of the dose
+appearing in the dose compartment, and in other compartments
+after the dose is introduced, is further reduced due to
+bioavailability effects. PREDPP cannot model
+&quot;bioavailability effects&quot; between
+compartments.</p>
+
+<h3>4.5. Output Fraction
+<a name="4.5."></a>
+<a name="4.5. Output Fraction"></a>
+</h3>
+
+
+<p style="margin-top: 1em">The Output Fraction
+parameter, F0, is an optional additional PK parameter of
+every model. As discussed in Section 2 above, every model
+contains an output compartment. If this compartment has been
+turned on prior to the advance from time
+<img src="grohtml-150250-41.png" alt="Image grohtml-150250-41.png">
+to time
+<img src="grohtml-150250-42.png" alt="Image grohtml-150250-42.png">
+, then the amount of drug lost from the system during this
+interval via elimination is multiplied by F0 and added to
+the prior contents of the output compartment. If the $PK
+statements do not include an assignment statement giving a
+value to F0, it is taken to be 1 (i.e., 100% of the drug
+excreted goes to the output compartment). In model (4.7), an
+example of the use of F0 is given. Assuming that the
+variables CLREN (renal clearance) and CL (total clearance)
+have been calculated with earlier $PK statements, the
+statement <tt><b><br>
+F0=CLREN/CL</b></tt> <br>
+can be used to compute F0.</p>
+
+<h2>5. $PK Statements for Population Data
+<a name="5."></a>
+<a name="5. $PK Statements for Population Data"></a>
+</h2>
+
+
+<p style="margin-top: 1em">With population data, the
+structural models for the PK parameters tend to be more
+complicated than with individual data. In addition, the
+influence of interindividual random effects needs to be
+described. These will involve differences in the $PK
+statements, but the same $SUBROUTINE record and the same
+ADVAN and TRANS subroutines are used, and the same general
+requirements and examples of the earlier sections of this
+chapter still mostly apply. In this section, the models of
+Chapter 4 are implemented via $PK statements. Many of these
+models could be implemented in a variety of ways; an
+experienced programmer may prefer to code them
+differently.</p>
+
+<p style="margin-top: 1em">With population data, we
+must distinguish between the typical value of a PK parameter
+in the population and the value of that parameter for a
+given individual, the individual&rsquo;s value. The typical
+value is computed by a structural model involving only fixed
+effects. We have chosen to denote it with the use of a
+tilde: e.g.
+<img src="grohtml-150250-43.png" alt="Image grohtml-150250-43.png">
+. The individual&rsquo;s value is computed by a model
+including random interindividual effects (represented by
+random variables) and is denoted without a tilde: e.g.,
+<img src="grohtml-150250-44.png" alt="Image grohtml-150250-44.png">
+. There is no tilde character in the FORTRAN character set,
+and with NM-TRAN we do not need to distinguish typical and
+individual values. However, for purposes of clarity, in all
+the examples which follow we will include the letters TV
+(Typical Value) at the start of those variable names which
+we think of as having a tilde (e.g., TVCL). This is a matter
+of style.</p>
+
+<h3>5.1. Structural Part of Parameter Models
+<a name="5.1."></a>
+<a name="5.1. Structural Part of Parameter Models"></a>
+</h3>
+
+
+<p style="margin-top: 1em">In models such as (4.3),
+the subscript
+<img src="grohtml-150250-45.png" alt="Image grohtml-150250-45.png">
+indicates that the model applies to the
+<img src="grohtml-150250-46.png" alt="Image grohtml-150250-46.png">
+individual. As noted in Chapter 4, the subscript is not
+needed and, indeed, is not used in $PK
+statements.</p>
+
+<h4>5.1.1. Linear Models
+<a name="5.1.1."></a>
+<a name="5.1.1. Linear Models"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Models (4.4), (4.5a),
+(4.5b) and (4.6) can be coded as they appear. Assuming that
+WT, AGE, and SECR are input data items or have been
+calculated with earlier $PK statements, the code is:
+<tt><b><br>
+TVCLM=THETA(1)*WT <br>
+RF=WT*(1.66-.011*AGE)/SECR <br>
+TVCLR=THETA(4)*RF <br>
+TVCL=TVCLM+TVCLR</b></tt></small></p>
+
+<h4>5.1.2. Multiplicative Models
+<a name="5.1.2."></a>
+<a name="5.1.2. Multiplicative Models"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Model (4.4.1) can be
+coded as follows: <tt><b><br>
+TVLCLM=THETA(1)+THETA(2)*LOG(WT) <br>
+TVCLM=EXP(TVLCLM)</b></tt></small></p>
+
+<p style="margin-top: 1em">Model (4.4.2) can also be
+coded as it appears: <tt><b><br>
+TVCLM=THETA(1)*WT**THETA(2)</b></tt></small></p>
+
+<h4>5.1.3. Saturation Models
+<a name="5.1.3."></a>
+<a name="5.1.3. Saturation Models"></a>
+</h4>
+
+
+<p style="margin-top: 1em">Model (4.4.3) presents a
+problem. Subscripted variables that can appear in $PK
+statements are few; naturally, they include THETA and (as
+seen below) ETA. The variable CPSS cannot be subscripted,
+and a variable name such as CPSS2 (rather than CPSS(2)) must
+be used for
+<img src="grohtml-150250-47.png" alt="Image grohtml-150250-47.png">
+. The model can be coded exactly as it appears:
+<tt><b><br>
+
+TVCLM=WT*(THETA(1)-THETA(2)*CPSS2/(THETA(3)+CPSS2))</b></tt></small></p>
+
+<h4>5.1.4. Models with Indicator Variables
+<a name="5.1.4."></a>
+<a name="5.1.4. Models with Indicator Variables"></a>
+</h4>
+
+
+<p style="margin-top: 1em">When dealing with typical
+values, indicator variables (0/1 variables) can be used
+interchangeably with conditional (IF) statements, as we have
+already seen. Model (4.4.4) can be coded in a variety of
+ways, two of which are:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:8%;"><tt><b>TVCLM=(THETA(1)-THETA(2)*HF)*WT</b></tt></small></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+<p style="margin-left:8%;"><tt><b>IF
+(HF.EQ.0) THEN <br>
+TVCLM=THETA(1)*WT <br>
+ELSE <br>
+TVCLM=(THETA(1)-THETA(2))*WT <br>
+ENDIF</b></tt></small></p>
+
+<h3>5.2. Population Random Effect Models
+<a name="5.2."></a>
+<a name="5.2. Population Random Effect Models"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Random variables
+<img src="grohtml-150250-48.png" alt="Image grohtml-150250-48.png">
+are used in the models for interindividual errors. (With
+population models, random variables
+<img src="grohtml-150250-49.png" alt="Image grohtml-150250-49.png">
+are used in the models for intraindividual errors; see
+Chapter 4, Section 2.) In $PK statements they are denoted by
+ETA(1), ETA(2), etc. Even if there is only once such
+variable it must still be subscripted. It is the presence of
+one or more such variables that indicates to NM-TRAN that
+the data is from a population. Just as there is no
+particular need for certain
+<img src="grohtml-150250-50.png" alt="Image grohtml-150250-50.png">
+elements to be identified with certain PK parameters, there
+is no particular need for certain
+<img src="grohtml-150250-51.png" alt="Image grohtml-150250-51.png">
+elements to be associated with certain
+<img src="grohtml-150250-52.png" alt="Image grohtml-150250-52.png">
+variables, and any association need not be one-to-one. The
+following models are both valid:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:8%;"><tt><b>CL=THETA(1)+ETA(1)
+<br>
+V=THETA(2)+ETA(2)</b></tt></small></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:8%;"><tt><b>CL=THETA(1)+ETA(2)
+<br>
+V=THETA(2)+ETA(1)</b></tt></small></p>
+
+<p style="margin-top: 1em">However, it will be
+easier to keep things straight if the first model is
+used.</p>
+
+<p style="margin-top: 1em">Here are three different
+ways of coding a model for an individual&rsquo;s value of
+clearance:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">1.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:8%;"><tt><b>TVCL=THETA(1)
+<br>
+CL=TVCL+ETA(1)</b></tt></small></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">2.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:8%;"><tt><b>CL=THETA(1)
+<br>
+CL=CL+ETA(1)</b></tt></small></p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="3%">
+
+
+<p style="margin-top: 1em">3.</p></td>
+<td width="97%">
+</td></tr>
+</table>
+
+
+<p style="margin-left:8%;"><tt><b>CL=THETA(1)+ETA(1)</b></tt></small></p>
+
+<p style="margin-top: 1em">We prefer the first way
+because it clearly distinguishes the model for the typical
+value from the model for the individual&rsquo;s value. With
+any of the three ways for coding the model the typical value
+of the parameter can be computed as follows: The
+<img src="grohtml-150250-53.png" alt="Image grohtml-150250-53.png">
+variables are set to 0, and the parameter is computed. Any
+variable whose value depends on
+<img src="grohtml-150250-54.png" alt="Image grohtml-150250-54.png">
+variables is called a <b>random variable.</b></p>
+
+<p style="margin-top: 1em">Random variables are
+called true-value variables in the first edition of this
+guide. This is because, in principle, a random variable can
+assume an individual&rsquo;s true value under the model.
+Such a variable is in contrast to a variable which assumes
+only a typical value for the population.</p>
+
+<p style="margin-top: 1em">An individual&rsquo;s
+true value is never actually known, although an estimate of
+it can be obtained. See Chapter 12, Sections
+4.11-4.13.</p>
+
+<h3>5.3. Models for Interindividual Errors
+<a name="5.3."></a>
+<a name="5.3. Models for Interindividual Errors"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Here we show how to
+express the most commonly used models for interindividual
+errors with $PK statements. In addition, all the error
+models described in Chapter 8 may also be used in $PK
+statements.</p>
+
+<h4>5.3.1. Additive/Multiplicative Models
+<a name="5.3.1."></a>
+<a name="5.3.1. Additive/Multiplicative Models"></a>
+</h4>
+
+
+<p style="margin-top: 1em">This is the error model
+of (4.9): <tt><b><br>
+K=TVK+ETA(1)</b></tt> <br>
+This is the error model of (4.10): <tt><b><br>
+K=TVK*(1+ETA(1))</b></tt> <br>
+This model can also be coded as: <tt><b><br>
+K=TVK+TVK*ETA(1)</b></tt> <br>
+Here, the variable TVK has been &quot;multiplied
+through&quot;. The choice is a matter of style.</p>
+
+<h4>5.3.2. Other Models
+<a name="5.3.2."></a>
+<a name="5.3.2. Other Models"></a>
+</h4>
+
+
+<p style="margin-top: 1em">The model (4.11) may be
+coded as written. <tt><b><br>
+
+CLM=TVCLM+(1-ICU)*ETA(1)+ICU*ETA(2)</b></tt></small></p>
+
+<p style="margin-top: 1em">It may also be coded with
+an IF statement. <tt><b><br>
+IF (ICU.EQ.0) THEN <br>
+CLM=TVCLM+ETA(1) <br>
+ELSE <br>
+CLM=TVCLM+ETA(2) <br>
+ENDIF</b></tt> <br>
+The choice is a matter of style.</p>
+
+<p style="margin-top: 1em">Note that, under the
+parameterizations given in Appendices 1 and 2, CLM is
+neither a basic nor an additional PK parameter, yet its
+model involves an
+<img src="grohtml-150250-55.png" alt="Image grohtml-150250-55.png">
+variable. This is legitimate: any variable can be defined in
+terms of an
+<img src="grohtml-150250-56.png" alt="Image grohtml-150250-56.png">
+variable. However, just as with
+<img src="grohtml-150250-57.png" alt="Image grohtml-150250-57.png">
+&rsquo;s, the values assigned to the
+<img src="grohtml-150250-58.png" alt="Image grohtml-150250-58.png">
+variables must somehow affect the predictions of
+observations. Otherwise, the variance of some
+<img src="grohtml-150250-59.png" alt="Image grohtml-150250-59.png">
+variable cannot be estimated, and consequently, none of the
+variances of these variables can be estimated. Presumably,
+within the $PK statements, CLM is used to compute CL, and
+(either within the $PK statements or within the TRANS
+routine) CL is used to compute K.</p>
+
+<h3>5.4. Restrictions on Random Variables
+<a name="5.4."></a>
+<a name="5.4. Restrictions on Random Variables"></a>
+</h3>
+
+
+<p style="margin-top: 1em">This section discusses
+the use of random variables in some depth and may be skipped
+by the casual reader. The remarks here apply to all random
+variables: both the ETA variables of this chapter and the
+ERR/EPS variables of Chapter 8.</p>
+
+<p style="margin-top: 1em">In general, ETA variables
+can be used like any other variables.</p>
+
+<p style="margin-top: 1em">Any variable whose value
+is affected by an ETA variable is a random variable, whether
+the ETA variable occurs explicitly in the defining
+expression for the random variable or whether another random
+variable occurs in this expression. For example, consider
+the following: <tt><b><br>
+TVCLM=THETA(2)*WT <br>
+CLM=TVCLM+ETA(2) <br>
+RF=WT*(1.66-.011*AGE)/SECR <br>
+TVCLR=THETA(4)*RF <br>
+CLR=TVCLR+ETA(1) <br>
+CL=CLM+CLR</b></tt> <br>
+CL is a random variable, because it is computed from random
+variables. It depends on both
+<img src="grohtml-150250-60.png" alt="Image grohtml-150250-60.png">
+and
+<img src="grohtml-150250-61.png" alt="Image grohtml-150250-61.png">
+.</p>
+
+<p style="margin-top: 1em">Random variables may be
+changed and may be assigned conditionally, subject to the
+following restrictions.</p>
+
+<p style="margin-left:8%; margin-top: 1em">A random
+variable may not appear anywhere within a nested if
+structure.</p>
+
+<p style="margin-left:8%; margin-top: 1em">A random
+variable defined in the $PK block may not be redefined in
+the $ERROR block.</p>
+
+<p style="margin-top: 1em">As an example of the
+first restriction, suppose in the model (4.11) it is also
+believed that, for ICU patients, age affects CLM. The
+following code expresses the model, but is not
+permitted:</p>
+
+<pre><b> IF (ICU.EQ.1) THEN
+    IF (AGE.GE.50) THEN
+     TVCLM=THETA(1)
+    ELSE
+     TVCLM=THETA(2)
+    ENDIF
+    CLM=TVCLM+ETA(1)
+ ELSE
+    TVCLM=THETA(3)
+    CLM=TVCLM+ETA(2)
+ ENDIF</b></pre>
+
+
+<p style="margin-top: 1em">An alternate code
+follows, in which the calculation of TVCLM (which involves a
+nested IF) precedes the calculation of CLM (which does not
+require a nested IF). This code is permitted.</p>
+
+<pre style="margin-top: 1em"><b> IF (ICU.EQ.1) THEN
+    IF (AGE.GT.50) THEN
+       TVCL=THETA(1)
+    ELSE
+       TVCL=THETA(2)
+    ENDIF
+ ELSE
+    TVCL=THETA(3)
+ ENDIF
+ IF (ICU.EQ.1) THEN
+   CL=TVCL+ETA(1)
+ ELSE
+   CL=TVCL+ETA(2)
+ ENDIF</b></pre>
+
+
+<p style="margin-top: 1em">Indentations are used in
+the above code for clarity, but have no affect on
+NM-TRAN&rsquo;s processing of the abbreviated
+code.</p>
+
+
+<p style="margin-top: 1em"><a href="7.html">TOP</a></p>
+
+
+<p style="margin-top: 1em"><a href="index.html">TABLE OF CONTENTS</a></p>
+
+
+<p style="margin-top: 1em"><a href="8.html">NEXT</a></p>
+<hr>
+</body>
+</html>

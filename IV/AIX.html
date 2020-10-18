@@ -1,0 +1,216 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Fri Sep 18 22:03:12 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part IV - NM-TRAN">NONMEM Users Guide Part IV - NM-TRAN</a><br>
+<a href="#Appendix.IX. Another Example with PREDPP">Appendix.IX. Another Example with PREDPP</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part IV - NM-TRAN
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part IV - NM-TRAN"></a>
+</h2>
+
+
+<h2>Appendix.IX. Another Example with PREDPP
+<a name="Appendix.IX."></a>
+<a name="Appendix.IX. Another Example with PREDPP"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Figures 7, 11, and 25 of NONMEM
+Users Guide, Part VI, show a PK routine, an ERROR routine
+and a NONMEM control stream (with embedded data),
+respectively. Problem summary pages from NONMEM and PREDPP,
+resulting from Figures 7, 11, and 25 are shown in Figures
+27-28 of Part VI. NM-TRAN inputs and outputs are given on
+the following pages of this appendix. The inputs correspond
+to Figures 7, 11, and 25. The resulting problem summary page
+from NONMEM is a just a little different from that shown in
+Figure 27 of Part VI due to the fact that NM-TRAN generates
+EVID, MDV and ID data items. The NM-TRAN data set and
+control stream are recorded on the NONMEM distribution
+medium; see Guide III.</p>
+
+<p align="center" style="margin-top: 1em">NM-TRAN Data
+Set</p>
+
+<pre style="margin-top: 1em">      320        .0        .
+       .         .27      1.71
+       .         .52      7.91
+       .        1.        8.31
+       .        1.92      8.33
+       .        3.5       6.85
+       .        5.02      6.08
+       .        7.03      5.4
+       .        9.        4.55
+       .       12.        3.01
+       .       24.3        .90</pre>
+
+
+<p align="center" style="margin-top: 1em">NM-TRAN Control
+Stream</p>
+<pre style="margin-top: 1em">$PROBLEM  THEOPHYLLINE   SINGLE SUBJECT DATA
+$INPUT  DOSE=AMT TIME CP=DV
+$DATA  DATA3
+$SUBROUTINES  ADVAN2
+
+$PK
+CALLFL=1
+KA=THETA(1)
+K=THETA(2)
+SC=THETA(3)
+
+$ERROR
+Y=F+ERR(1)
+
+$THETA  (0,1.7)  (0,.102)  (0,29)
+
+
+$ESTIMATION  MAXEVAL=240  PRINT=2
+$COVR
+$TABLE TIME
+$SCAT    CP VS TIME
+$SCAT    PRED VS TIME
+$SCAT    RES VS TIME
+$SCAT    PRED VS CP  UNIT</pre>
+
+
+<p align="center" style="margin-top: 1em">NONMEM Data Set -
+FDATA</p>
+
+<pre style="margin-top: 1em">  320   .0      1 1 1
+       .27 1.71 0 0 1
+       .52 7.91 0 0 2
+        1. 8.31 0 0 1
+      1.92 8.33 0 0 2
+       3.5 6.85 0 0 1
+      5.02 6.08 0 0 2
+      7.03  5.4 0 0 1
+        9. 4.55 0 0 2
+       12. 3.01 0 0 1
+      24.3  .90 0 0 2</pre>
+
+
+<p align="center" style="margin-top: 1em">NONMEM Control
+Stream - FCON</p>
+
+<pre style="margin-top: 1em">FILE    FSTREAM
+PROB    THEOPHYLLINE   SINGLE SUBJECT DATA
+DATA       1   0  11   6   0
+ITEM       6   3   5  11   1   0   0   0   0   0   0
+INDX       4   2   1   0   0   0   0   0   0   0   0
+LABL    DOSE    TIME      CP    EVID     MDV    .ID.
+FORM
+(3E5.0,3F2.0)
+STRC       3   1   0   0   0   1   0   0   0
+THCN       1   0   0
+THTA         1.7    .102      29
+LOWR           0       0       0
+UPPR     1000000 1000000 1000000
+DIAG   2
+ESTM       0 240   3   2   0   0   0   0   0   0   0
+COVR       0   0   0   0   1
+TABL       1   1   0   0
+TABL       1   2   0
+SCAT       1   4
+SCAT       2   3   0   0   0   0       0       0   0
+SCAT       2   7   0   0   0   0       0       0   0
+SCAT       2   8   0   0   0   0       0       0   0
+SCAT       3   7   0   0   0   1       0       0   0</pre>
+
+
+<p align="center" style="margin-top: 1em">Generated and
+User-Supplied Subroutines - FSUBS</p>
+
+<p style="margin-top: 1em">The NONMEM VI versions are
+shown. With NONMEM 7 and higher, MODULES are used rather
+than COMMONS.</p>
+
+<pre>      SUBROUTINE PK(ICALL,IDEF,THETA,IREV,EVTREC,N,INDXS,IRGG,GG,NETAS)
+      IMPLICIT DOUBLE PRECISION (A-Z)
+      REAL EVTREC
+      SAVE
+      INTEGER ICALL,IDEF,IREV,N,INDXS,IRGG,NETAS
+      DIMENSION IDEF(7,*),THETA(*),EVTREC(IREV,*),INDXS(*),GG(IRGG,11,*)
+      COMMON/PRRAND/ETA(10),EPS(10)
+      COMMON/ROCM12/MSEC
+      INTEGER MSEC
+      COMMON/NMPRD4/KA,K,SC,Y,BBBBBB(0996)
+      IF (ICALL.LE.1) THEN
+      IDEF(1,01)=-9
+      IDEF(1,02)= 1
+      IDEF(3,02)= 4
+      RETURN
+      ENDIF
+      KA=THETA(01)
+      K=THETA(02)
+      SC=THETA(03)
+      GG(01,1,1)=K
+      GG(03,1,1)=KA
+      GG(04,1,1)=SC
+      RETURN
+      END
+      SUBROUTINE ERROR (ICALL,IDEF,THETA,IREV,EVTREC,N,INDXS,F,G,HH)
+      IMPLICIT DOUBLE PRECISION (A-Z)
+      REAL EVTREC
+      SAVE
+      INTEGER ICALL,IDEF,IREV,N,INDXS
+      DIMENSION IDEF(*),THETA(*),EVTREC(IREV,*),INDXS(*),G(10,*)
+      DIMENSION HH(10,*)
+      COMMON/PRRAND/ETA(10),EPS(10)
+      COMMON/ROCM12/MSEC
+      INTEGER MSEC
+      COMMON/NMPRD4/KA,K,SC,Y,BBBBBB(0996)
+      IF (ICALL.LE.1) THEN
+      IDEF(2)=2
+      HH(1,1)=1.0D0
+      RETURN
+      ENDIF
+      IF (ICALL.EQ.4) THEN
+      CALL SIMETA(ETA)
+      ENDIF
+      Y=F+ETA(01)
+      F=Y
+      RETURN
+      END</pre>
+
+
+<p align="center" style="margin-top: 1em">NONMEM File
+Stream - FSTREAM</p>
+<pre style="margin-top: 1em">DATA    FDATA
+****</pre>
+
+<p align="center" style="margin-top: 1em">NM-TRAN Report -
+FREPORT</p>
+
+<p style="margin-top: 1em">NM-TRAN VERSION II LEVEL 1.0
+<br>
+SUBROUTINES FROM THE PREDPP LIBRARY: <br>
+PRED PREDI CHECK SADVAN ADVAN2 SSS0 TRANS1 INFN <br>
+GENERATED DP SUBROUTINES: <br>
+PK ERROR <br>
+NONMEM SUBROUTINES: ALL</p>
+
+<p style="margin-top: 1em"><a href="AIX.html">TOP</a> <br>
+ <a href="index.html">TABLE OF CONTENTS</a></p>
+<hr>
+</body>
+</html>

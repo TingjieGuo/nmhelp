@@ -1,0 +1,131 @@
+<HTML><HEAD> <TITLE> bayes3.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                          BAYES EXAMPLE 3                           |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This is example3.ctl from the NONMEM 7 distribution medium.  It, along
+ with the data file, can be found in the examples directory.
+
+ ;Model Desc: Population Mixture Problem in 1 Compartment model,
+ ; with Volume and rate constant parameters and their inter-subject
+ ; variances modeled from two sub-populations
+ ;Project Name: nm7examples
+ ;Project ID: NO PROJECT DESCRIPTION
+
+ $PROB RUN# example3 (from ad1tr1m2s)
+ $INPUT C SET ID JID TIME CONC=DV DOSE=AMT RATE EVID MDV CMT VC1 K101
+    VC2 K102 SIGZ PROB
+ $DATA example3.csv IGNORE=C
+
+ $SUBROUTINES ADVAN1 TRANS1
+
+ ; The mixture model uses THETA(5) as the mixture proportion parameter,
+ ; defining the proportion of subjects in sub-population 1 (P(1),
+ ; and in sub-population 2 (P(2)
+
+ $MIX
+ P(1)=THETA(5)
+ P(2)=1.0-THETA(5)
+ NSPOP=2
+
+ $PK
+ ;  The MUs should always be unconditionally defined, that is,
+ ;  they should never be defined in IF/THEN blocks
+ ; THETA(1) models the Volume of sub-population 1
+ MU_1=THETA(1)
+ ; THETA(2) models the clearance of sub-population 1
+ MU_2=THETA(2)
+ ; THETA(3) models the Volume of sub-population 2
+ MU_3=THETA(3)
+ ; THETA(4) models the clearance of sub-population 2
+ MU_4=THETA(4)
+ VCM=DEXP(MU_1+ETA(1))
+ K10M=DEXP(MU_2+ETA(2))
+ VCF=DEXP(MU_3+ETA(3))
+ K10F=DEXP(MU_4+ETA(4))
+ Q=1
+ IF(MIXNUM.EQ.2) Q=0
+ V=Q*VCM+(1.0-Q)*VCF
+ K=Q*K10M+(1.0-Q)*K10F
+ S1=V
+
+ $ERROR
+ Y = F + F*EPS(1)
+
+ ; Initial THETAs
+ $THETA
+ (-1000.0  4.3 1000.0) ;[MU_1]
+ (-1000.0 -2.9 1000.0) ;[MU_2]
+ (-1000.0 4.3 1000.0)  ;[MU_3]
+ (-1000.0 -0.67 1000.0) ;[MU_4]
+ (0.0001 0.667 0.9999)   ;[P(1)]
+
+ ;Initial OMEGA block 1, for sub-population 1
+ $OMEGA BLOCK(2)
+  .04 ;[p]
+  .01 ; [f]
+  .027; [p]
+
+ ;Initial OMEGA block 2, for sub-population 2
+ $OMEGA BLOCK(2)
+  .05; [p]
+  .01; [f]
+  .06; [p]
+
+ $SIGMA
+ 0.01 ;[p]
+
+ ; Prior information setup for OMEGAS only
+ $PRIOR NWPRI
+
+ ; Prior OMEGA block 1.  Note that because the OMEGA is separated
+ ; into blocks, so their priors should have the same block design.
+
+ $OMEGAP BLOCK(2)
+  0.05 FIX
+  0.0 0.05
+
+ ; Prior OMEGA block 2
+
+ $OMEGAP BLOCK(2)
+ 0.05 FIX
+ 0.0 0.05
+
+ ; Degrees of Freedom defined for Priors.
+ ; One for each OMEGA block defining each sub-popluation
+ $OMEGAPD (2 FIX) (2 FIX)
+
+ $EST METHOD=ITS INTERACTION NITER=20 PRINT=1 NOABORT SIGL=8
+      FILE=example3.ext CTYPE=3 CITER=10
+      CALPHA=0.05 NOPRIOR=1
+
+ $EST NBURN=500 NITER=500 METHOD=SAEM INTERACTION PRINT=10 SIGL=6
+      ISAMPLE=2
+
+ $EST METHOD=IMP INTERACTION NITER=5 ISAMPLE=1000 PRINT=1 NOABORT
+      SIGL=6 EONLY=1 MAPITER=0
+
+ $EST METHOD=BAYES INTERACTION NBURN=2000 NITER=1000 PRINT=10
+      FILE=example3.txt SIGL=8 NOPRIOR=0
+
+ $EST MAXEVAL=9999 NSIG=3 SIGL=12 PRINT=1 FILE=example3.ext
+      METHOD=CONDITIONAL INTERACTION NOABORT
+      NOPRIOR=1
+
+ $COV MATRIX=R UNCONDITIONAL
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

@@ -1,0 +1,43 @@
+<HTML><HEAD> <TITLE> rocm10.for</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                       SIMULATION: NREP,IREP                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: NONMEM read-only global variables
+
+ CONTEXT: User-supplied routines
+
+ USAGE:
+      USE ROCM_INT, ONLY: NREP,IREP=&gt;NCREP
+
+ GLOBAL DECLARATION:
+      INTEGER(KIND=ISIZE) :: NREP,NCREP
+
+ DISCUSSION:
+
+ NREP The  number  of replications in the Simulation Step, given by the
+      NSUBS option of the $SIMULATION record.
+
+ IREP The number of the current replication.
+
+ These variables may be used as right-hand  quantities  in  abbreviated
+ code for initialization/finalization blocks.
+
+ Location prior to NONMEM 7: rocm10
+
+ REFERENCES: None.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

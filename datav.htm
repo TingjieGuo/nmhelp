@@ -1,0 +1,107 @@
+<HTML><HEAD> <TITLE> datav.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        DATA_AVERAGE EXAMPLE                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ A  template record is a data record that contains a non-zero value for
+ the raw-data (RAW_) data item.  Only the DV values with those observa-
+ tion  records  (i.e.,  records  with MDV=0) matching the template data
+ record will be included in the average.  This average replaces the  DV
+ item  in  the  template  record, and it may be displayed in a table or
+ scatterplot.
+
+ An observation record matches a template if all  its  data  items  are
+ identical to all those on the template, except that the values of NON-
+ MEM data items do not affect the match.  (Any nonNONMEM data item type
+ may in fact be excluded from the match (See <A HREF="o.htm#omit">omit</A>)).
+
+ Example 1
+
+ Here is a fragment of a data set (which may or may not actually be for
+ PREDPP):
+
+ #ID TIME AMT WT AGE EVID MDV DV RAW_ GEND
+  1  5    0   70 50  0    1   2  1     1   template record
+  4  5    0   70 50  0    0   4  0     1   observation record
+
+ These two records match.  The NONMEM items are the ID,  MDV,  DV,  and
+ RAW_  items.  The DV item with the observation record will be included
+ in the average.  The DV item in the template record is ignored for the
+ purpose  of  computing the average (MDV=1); the displayed DV item with
+ this record will be the average value, and the displayed RES item will
+ be the difference between this average and the PRED item.  The average
+ is taken over all records matching the TIME, AMT, WT, AGE,  EVID,  and
+ GEND items of the template record.
+
+ If the omit record
+
+ $OMIT GEND
+
+ appears, then the two records
+
+ #ID TIME AMT WT AGE EVID MDV DV RAW_ GEND
+  1  5    0   70 50  0    1   2  1     1   template record
+  4  5    0   70 50  0    0   4  0     2   observation record
+
+ also match.  In this case the average is taken over all records match-
+ ing the TIME, AMT, WT, AGE, and EVID items of the template record.
+
+ Example 2
+
+ Here is an example of categorical dose-response  with  four  different
+ bolus  doses per individual (separated by washouts), and data averages
+ are formed for each of the four doses.
+
+ #ID DOSE DV MDV RAW_
+  100 5    .  1   1    set DV item to avr. for DOSE=5
+  100 10   .  1   1    set DV item to avr. for DOSE=10
+  100 20   .  1   1    set DV item to avr. for DOSE=20
+  100 40   .  1   1    set DV item to avr. for DOSE=40
+  1   5    1  0   0
+  1   10   1  0   0
+  1   20   2  0   0
+  1   40   2  0   0
+  2   5    1  0   0
+  2   10   1  0   0
+  2   20   1  0   0
+  2   40   1  0   0
+  3   5    1  0   0
+  3   10   2  0   0
+  3   20   2  0   0
+  3   40   3  0   0
+  .
+  .
+
+ Example 3
+
+ An average of a PRED-defined item may also be displayed.
+
+ $ABBREV COMRES=1 COMSAV=1
+  ...
+ $PRED
+  COM(1)=LOG(DV)
+  ...
+
+ $TABLE COM(1)=LDV
+
+ For template records, the value of LDV displayed in the table  is  the
+ average of LOG DV over all observation records matching the template.
+
+ (See <A HREF="d.htm#data_average_block">data average block</A>, <A HREF="r.htm#raw_data">raw</A>).
+
+ REFERENCES: none.
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

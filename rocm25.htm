@@ -1,0 +1,49 @@
+<HTML><HEAD> <TITLE> rocm25.for</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                        MIXTURE MODEL: MIXP                         |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: NONMEM read-only global variables
+ CONTEXT: User-supplied routines
+
+ USAGE:
+      USE ROCM_REAL, ONLY: MIXP
+
+ GLOBAL DECLARATION:
+      USE SIZES, ONLY: MMX,DPSIZE
+      REAL(KIND=DPSIZE) :: MIXP(MMX)
+
+ DISCUSSION:
+
+ Used with mixture models.
+
+  MIXP(i)
+      The  mixture  probability  for the ith subpopulation, computed by
+      subroutine MIX.
+
+ May be used as right-hand quantities in all  abbreviated  codes  other
+ than $MIX.  There the index i must be an integer constant.
+
+ This is a general description. For details, see mixnum.                |
+
+ (See <A HREF="m.htm#mixnum_mixest_mixp">MIXNUM_MIXEST_MIXP</A>)
+ (See <A HREF="m.htm#mixnum">mixnum_mixest_for_mixture_model</A>)
+ (See <A HREF="m.htm#mix">mix</A>, <A HREF="m.htm#mixture_model_example">mixture model example</A>)
+
+ Location prior to NONMEM 7: rocm25
+
+REFERENCES: Guide VI Section <a href="VI/III.html#L.2.">III.L.2<a/>, <a href="VI/fig.html#Figure_6">Figure 6<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

@@ -1,0 +1,63 @@
+<HTML><HEAD> <TITLE> duration.ppp</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                         DURATION PARAMETER                         |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Duration (D) parameter for PREDPP
+ CONTEXT: Additional PK Parameters
+
+ USAGE:
+ $PK
+  D1= ....
+
+ DISCUSSION:
+
+ Duration  parameters  are  used  with PREDPP.  They are optional addi-
+ tional PK parameters.  With NM-TRAN, they are symbolized  in  the  $PK
+ block  by  reserved variables Dn, where n is the compartment number to
+ which the parameter applies.
+
+ There is one duration parameter associated with  every  possible  dose
+ compartment of the kinetic model (the output compartment is not a pos-
+ sible dose compartment) and the duration parameter used  for  a  given
+ dose  is  that one associated with the compartment into which the dose
+ is given (the dose compartment).
+
+ A duration-modeled zero-order bolus dose is actually an infusion,  but
+ one  whose  duration is given by the rate parameter computed by the PK
+ routine.
+
+ Duration parameters are optional in the sense that duration parameters
+ associated  with  compartments  never receiving duration-modeled zero-
+ order bolus doses may be ignored.  However, if the RATE data  item  on
+ some  dose event record contains the value -2, then a duration parame-
+ ter for the dose compartment must be computed in the PK routine.
+
+ A duration parameter is computed by the PK routine using,  if  needed,
+ information  in  the  dose record.  Therefore, its value for the given
+ dose is constant over time.
+
+ When additional doses are specified on a dose event record  the  dura-
+ tion parameter applies to the dose and to all the additional doses.
+
+ (See <A HREF="c.htm#cmt">cmt</A>, <A HREF="r.htm#rate">rate</A>, <A HREF="p.htm#pk">pk</A>, <A HREF="$.htm#$pk">$pk</A>, default_compartment).             (See multi-
+ ple dose example).
+
+REFERENCES: Guide IV Section <a href="IV/V.html#C.5.">V.C.5<a/>
+REFERENCES: Guide V Section <a href="V/12.html#2.3.">12.2.3<a/>
+REFERENCES: Guide VI Section <a href="VI/III.html#F.3.">III.F.3<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

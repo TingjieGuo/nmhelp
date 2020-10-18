@@ -1,0 +1,108 @@
+<HTML><HEAD> <TITLE> rocm49.for</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                           PRED,RES,WRES                            |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: NONMEM read-only global variables
+ CONTEXT: User-supplied PRED and INFN routines
+
+ USAGE:
+      USE ROCM_REAL, ONLY:                                             &
+         PRED_=&gt;APPND(001),RES_=&gt;APPND(002),WRES_=&gt;APPND(003)          &
+         IWRS_=&gt;APPND(004),IPRD_=&gt;APPND(005),IRS_=&gt;APPND(006)          &
+         NPRED_=&gt;APPND(007),NRES_=&gt;APPND(008),NWRES_=&gt;APPND(009)       &
+         NIWRES_=&gt;APPND(010),NIPRED_=&gt;APPND(011),NIRES_=&gt;APPND(012)    &
+         CPRED_=&gt;APPND(013),CRES_=&gt;APPND(014),CWRES_=&gt;APPND(015)       &
+         CIWRES_=&gt;APPND(016),CIPRED_=&gt;APPND(017),CIRES_=&gt;APPND(018)    &
+         PREDI_=&gt;APPND(019),RESI_=&gt;APPND(020),WRESI_=&gt;APPND(021)       &
+         IWRESI_=&gt;APPND(022),IPREDI_=&gt;APPND(023),IRESI_=&gt;APPND(024)    &
+         CPREDI_=&gt;APPND(025),CRESI_=&gt;APPND(026),CWRESI_=&gt;APPND(027)    &
+         CIWRESI_=&gt;APPND(028),CIPREDI_=&gt;APPND(029),CIRESI_=&gt;APPND(030) &
+         EPRED_=&gt;APPND(031),ERES_=&gt;APPND(032),EWRES_=&gt;APPND(033)       &
+         EIWRES_=&gt;APPND(034),EIPRED_=&gt;APPND(035),EIRES_=&gt;APPND(036)    &
+         NPDE_=&gt;APPND(037),ECWRES_=&gt;APPND(038),NPD_=&gt;APPND(039)        &
+         OBJI_=&gt;APPND(040)
+
+ GLOBAL DECLARATION:
+      USE SIZES, ONLY: DPSIZE
+      REAL(KIND=DPSIZE) :: APPND(MAXXNAME)
+
+ DISCUSSION:
+
+ The PRED_,RES_,WRES_ items are the same as PRED, RES and WRES items.
+
+ The  CPRED_,CRES_,CWRES_  are calculated as if the estimation was per-
+ formed using a CONDITIONAL method without INTERACTION.   (conditional,
+ non-interactive in the manner of Hooker et al.)
+
+ The  PREDI_,RESI_,WRESI_  are calculated as if the estimation was per-
+ formed using the FO method with INTERACTION (non-conditional, interac-
+ tive).
+
+ The  CPREDI_,CRESI_,CWRESI_  are  calculated  as if the estimation was
+ performed using a CONDITIONAL method  with  INTERACTION  (conditional,
+ interactive)
+
+ EPRED_,ERES_,EWRES_ are Monte-Carlo generated pred, res, and wres val-
+ ues, and are not linearized approximations  like  the  other  weighted
+ residual types.
+
+ NPDE_  is  the  normalized  prediction  distribution error (takes into
+ account within-subject correlations)
+
+ NPD_ is the correlated normalized prediction distribution error  (does |
+ not take into account within-subject correlations)
+
+ EWRES_  and NPDE_  and NPD_ are evaluated using predicted function and
+ residual variances evaluated over a Monte Carlo sampled range of  etas
+ with population variance Omega.
+
+ ECWRES_ is evaluated with only the predicted function evaluated over a
+ Monte Carlo sampled range of  etas  with  population  variance  Omega,
+ while  residual  variance  is  always evaluated at conditional mode or
+ mean.  Thus, ECWRES is the Monte Carlo version of CWRES,  while  EWRES
+ is the Monte Carlo version of CWRESI.
+
+ The  EPRED_,  ERES_, EWRES_, NPD_, NPDE_, ECWRES_ items are calculated |
+ by the Table Step.  When EPRED_, ERES_, EWRES_, NPD_,  NPDE_,  ECWRES_ |
+ items are displayed, the options ESAMPLE and SEED of the $TABLE record |
+ are of interest.  (See <A HREF="$.htm#$table">$table</A>).
+
+ The PRED_,RES_,WRES_ (PRED,RES,WRES) items behave  as  they  did  with
+ NONMEM  VI. Consequently, if FO or a CONDITIONAL method without INTER-
+ ACTION is used, NPRED_,NRES_,NWRES_ and PRED_,RES_,WRES_  are  equiva-
+ lent.   If  FO  or  a  CONDITIONAL  method  with  INTERACTION is used,
+ IPRED_,IRES_,IWRES and PRED_,RES_,WRES_ are equivalent.
+
+ These items are available with passes  through  the  data  set  during
+ problem finalization (i.e. ICALL=3), in a data record specific way.
+
+ These  items  may  be used as right-hand quantities in $PRED and $INFN
+ during problem finalization.  They can also be output in  table  files
+ by  specifying their names (without the underscore) on a $TABLE state-
+ ment.
+
+ (See <A HREF="p.htm#pred_res_wres">pred res</A>, <A HREF="w.htm#wres">wres</A>).
+
+ Location prior to NONMEM 7: rocm49
+
+ For other variables, see the INTRODUCTION TO NONMEM 7.
+
+REFERENCES: Guide I Section <a href="I/C.html#3.5.3.">C.3.5.3<a/>, <a href="I/C.html#3.5.4.">C.3.5.4<a/>
+REFERENCES: Guide IV Section <a href="IV/III.html#B.16.">III.B.16<a/>, <a href="IV/III.html#B.17.">III.B.17<a/>
+REFERENCES: Guide V Section <a href="V/9.html#5.">9.5<a/>, <a href="V/10.html#7.">10.7<a/>, <a href="V/11.html#4.4.2.">11.4.4.2<a/>
+REFERENCES: Guide  Section <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

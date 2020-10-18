@@ -1,0 +1,162 @@
+<HTML><HEAD> <TITLE> infn1.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                    INFN_INTERPOLATION EXAMPLE 1                    |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ This example is adapted from Guide VI (PREDPP), Figure 37.
+ It was revised for NONMEM 7.3.  Earlier versions were untested and did
+ not work correctly.  This version allows both single-subject and popu-
+ lation data.  It requires a "missing independent variable" data item.
+
+ In  this example, the INFN subroutine is used to fill in (interpolate)
+ missing values of WT in the THEOPPMV data set.  THEOPPMV is a  version
+ of the data set THEOPP used in CONTROL5,
+ (See <A HREF="c.htm#control5">control5</A>).
+
+ If  WT is recorded on every record, then the $PK block can be simpler.
+ The $PK block can be called with every record (no need  for  CALLFL=1)
+ and  no  special code is needed to save the value of WT for subsequent
+ records.
+
+ Example infn2 shows how the INFN routine may be implemented in  abbre-
+ viated code.  Example fine1 shows how the finedata utility program can
+ be used to fill in the values without the use of the INFN routine.
+
+ USAGE:
+
+ $PROB  THEOPHYLLINE   POPULATION DATA
+ $INPUT      ID DOSE=AMT TIME CP=DV WT MISS
+ $DATA       THEOPPMV
+ $SUBROUTINES  ADVAN2 INFN=infnsub
+
+ The file infnsub contains the following:
+
+ ! THIS EXAMPLE IS ADAPTED FROM GUIDE VI (PREDPP), FIGURE 37.
+ ! FOR HELP FILE infn1.exa
+ ! MODIFIED BY AJB 9/2012
+  ! INFN ROUTINE FOR COMPUTING LINEARLY INTERPOLATED VALUES
+  ! OF AN INDEPENDENT VARIABLE V.    ILLUSTRATES USE OF ROUTINE PASS.
+  ! USE FOR SINGLE-SUBJECT OR POPULATION DATA
+  ! WORKS WITH 1 OR MORE NON-MISSING VALUES.
+  ! A SINGLE SUCH VALUE MAY BE ANYWHERE IN DATA SET.
+  ! DATREC(UI)=TIME DATA ITEM
+  ! DATREC(VI)=INDEPENDENT VARIABLE DATA ITEM
+  ! DATREC(MI)=MISSING INDEPENDENT VARIABLE DATA ITEM
+  !   =0 INDEP VAR NOT MISSING
+  !   &gt;0 IF THIS DATA RECORD HAS MISSING INDEP VAR AND:
+  !   =1    THIS DATA RECORD PRECEDES FIRST NON-MISSING VALUE
+  !   =3    THIS DATA RECORD FOLLOWS LAST NON-MISSING VALUE
+  !   =2    THIS DATA RECORD IS BETWEEN NON-MISSING VALUES
+  !
+        SUBROUTINE INFN (ICALL,THETA,DATREC,INDXS,NEWIN)
+        USE SIZES, ONLY: ISIZE,DPSIZE,NO,MAXIDS
+ ! NOTE THAT NEWIND IS NOT OBTAINED FROM THE SUBROUTINE ARGUMENT
+        USE NMPRD_INT, ONLY: NEWIND=&gt;NWIND
+        INTEGER(KIND=ISIZE), INTENT(IN) :: ICALL,INDXS(*),NEWIN
+        REAL(KIND=DPSIZE),   INTENT(IN) :: THETA(*)
+        REAL(KIND=DPSIZE),   INTENT(IN OUT) :: DATREC(*)
+        REAL(KIND=DPSIZE) :: U,V
+        DIMENSION U(NO,MAXIDS),V(NO,MAXIDS),DEPVAR(MAXIDS),LASTI(MAXIDS)
+        INTEGER UI,VI,MI,IS,LASTI
+ ! IMPORTANT: CHANGE UI, VI, MI ACCORDING TO LAYOUT OF DATA SET
+        UI=3
+        VI=5
+        MI=6
+ !
+        IF (ICALL.NE.1) RETURN
+        I=0
+        IS=0
+  ! INITIALIZE PASS
+        MODE=0
+        CALL PASS (MODE)
+        MODE=2
+  ! PASS THROUGH DATA
+      5 CALL PASS (MODE)
+        IF (MODE.EQ.0) GO TO 10
+        IF (NEWIND&lt;2) THEN
+          I=0
+          IS=IS+1
+        ENDIF
+  ! IF INDEP VAR IS PRESENT, STORE TIME AND VALUE
+        IF (DATREC(MI).EQ.0.) THEN
+           I=I+1
+           U(IS,I)=DATREC(UI)
+           V(IS,I)=DATREC(VI)
+           LASTI(IS)=I
+        ENDIF
+        IF (I == 1) THEN   ! SAVE VALUE IN CASE ONLY RECORDED ONCE
+           DEPVAR(IS)=V(IS,1)
+        ENDIF
+        GO TO 5
+  ! INITIALIZE PASS A SECOND TIME
+     10 I=0
+        IS=0
+        MODE=0
+        CALL PASS (MODE)
+        MODE=2
+  ! PASS THROUGH DATA A SECOND TIME
+     15 CALL PASS (MODE)
+        IF (MODE.EQ.0) RETURN
+        IF (NEWIND&lt;2) THEN
+          I=0
+          IS=IS+1
+        ENDIF
+ ! IF INDEP VAR IS MISSING AND ONLY RECORDED ONCE, COPY IT
+        IF (DATREC(MI).NE.0. .AND. LASTI(IS) == 1 ) THEN
+         DATREC(VI)=DEPVAR(IS)
+         GO TO 15
+        ENDIF
+  ! IF INDEP VAR IS MISSING, STORE INTERPOLATED VALUE
+        IF (DATREC(MI).EQ.0.) THEN
+          I=I+1
+        ELSE
+        IF (DATREC(MI).EQ.1.) THEN   ! EXTRAPOL. FROM FIRST 2 VALUES
+          K=1
+          L=2
+        ELSEIF (DATREC(MI).EQ.2.) THEN  ! INTERPOL. FROM BEFORE AND AFTER
+          K=I
+          L=I+1
+        ELSEIF (DATREC(MI).EQ.3.) THEN   ! EXTRAPOL. FROM LAST 2 VALUES
+        K=I-1
+        L=I
+        ENDIF
+        B=(V(IS,K)-V(IS,L))/(U(IS,K)-U(IS,L))
+        DATREC(VI)=V(IS,K)+B*(DATREC(UI)-U(IS,K))
+        ENDIF
+        GO TO 15
+        END
+
+ Data file THEOPPMV is identical to THEOPP, but has an extra data  item
+ MISS (Missing Dependent Variable).  The data for the first subject is:
+
+          1      4.02      0.         .       79.6   0
+          1       .        0.         .74       .    3
+          1       .        0.25      2.84       .    3
+          1       .        0.57      6.57       .    3
+          1       .        1.12     10.5        .    3
+          1       .        2.02      9.66       .    3
+          1       .        3.82      8.58       .    3
+          1       .        5.1       8.36       .    3
+          1       .        7.03      7.47       .    3
+          1       .        9.05      6.89       .    3
+          1       .       12.12      5.94       .    3
+          1       .       24.37      3.28       .    3
+
+ (See <A HREF="i.htm#infnp">infn2 example</A>).
+ (See <A HREF="f.htm#find">fine1 example</A>).
+
+REFERENCES: Guide VI Section <a href="VI/VI.html#A.">VI.A<a/>, <a href="VI/fig.html#Figure_37">Figure 37<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

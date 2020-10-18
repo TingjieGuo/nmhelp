@@ -1,0 +1,263 @@
+<HTML><HEAD> <TITLE> movingauc.exa</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                MOVING AREA UNDER THE CURVE EXAMPLE                 |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ The  following set of examples was developed in response to a question
+ to the NONMEM Users about modeling a moving value of  the  area  under
+ the curve.
+
+ The original question (from Pavel Belo) asked:
+
+ "Efficacy  is  frequently considered a function of AUC. A disadvantage
+ of this model of efficacy is that the effect is  irreversable  because
+ AUC  of  concentration can only increase; it cannot decrease.  In many
+ cases, a more meaningful model is one where  AUC  is  calculated  from
+ time t -a to t (kind of "moving average"), where t is time in the sys-
+ tem of differential equations (variable T in NONMEM)."
+
+ DUPLICATE SYSTEM METHOD
+
+ Bob Bauer proposed a data set DELAYDATA and control file for computing
+ a moving value of AUC.  Bob wrote
+
+ "In  the following simple absorption model example developed by me and
+ Alison Boeckmann for illustration purposes, compartments 1, 2,  and  3
+ are  the  "real time" depot, central, auc, and  compartments 4,5,6 are
+ the "delayed time" depot, central, auc. So, the base  model  (non-time
+ delay)  system (compartments 1,2,3) is replicated (compartments 4,5,6)
+ for the time delay portion.  In addition, the data set duplicates  the
+ dose  information  of  compartment  1  into compartment 4, and setting
+ ALAG4 to a non-zero value in the control stream file  provides  a  lag
+ time to any doses inputted into compartment 4 (so this would take care
+ of multiple dose problems as well).  This allows  for  assessment  and
+ availability of AUC(t) and AUCT(t-time-delay) at any time t."
+
+ DELAYDATA and aucdelay1.ctl
+
+ The  data  for one individual (DELAYDATA) and the control file (aucde-
+ lay1.ctl) from the email are provided in  the  examples  directory  of
+ NONMEM  7.4  and higher.  Note that aucdelay1.ctl and all the examples
+ discussed below may be used with data from more  than  one  individual
+ and different numbers of event records per individual.
+
+ In aucdelay1.ctl, the model for time delay is
+
+ TDY=THETA(1)*EXP(ETA(1))
+
+ and the variable DAUC ("difference in area under the curve") gives the
+ difference in the area under the curve
+
+ DAUC=A(3)-A(6) ; AUC(T)-AUC(T-TDY)
+
+ One significant modification to the  control  file  aucdelay1.ctl  was
+ made.  The $ERROR model was changed from Y=F+EPS(1) to
+
+ Y=F+DAUC+EPS(1)
+
+ This  demonstrates  that  DAUC can modify Y (although the relationship
+ would not usually be this simple).
+
+ SINGLE SYSTEM METHOD
+
+ In aucdelay1.ctl the value of DAUC is available continuously at  every
+ time value T during the integration, but in fact it is not used in the
+ differential equations themselves.  DAUC is used only  in  the  $ERROR
+ block.  In this case, an alternate method is possible.  Only the "real
+ time" single system of differential equations is integrated,  and  the
+ needed values of AUC are captured "on the fly" in the $PK block.  This
+ should result in faster run times because fewer differential equations
+ need to be numerically integreated.
+
+ The  model  event  time variable (MTIME) is used instead of absorption
+ lag (ALAG) and is modelled with the same time delay variable TDY.  For
+ each  event  record, MTIME is used to interrupt the integration at the
+ time of interest TIME-TDY.  Variables called SAVEA are used to capture
+ the value of A(3) at model event times for use in the $ERROR block.
+
+ The  general  algorithm  is  rather complicated, so a simple algorithm
+ will be described first.
+
+ SINGLE SYSTEM METHOD: SIMPLE MODEL
+
+ A simple model is possible when TDY is always smaller  than  the  time
+ between any two event records.
+
+ aucdelay1S.ctl
+
+ This  is  identical  to aucdelay1.ctl except that THETA(1) has initial
+ estimate .5 and is  constrained to be between 0 and 1, and TDY is con-
+ strained  to  be  less than 1, which is the change in time between any
+ two event records.
+
+ aucdelay2S.ctl
+
+ This implements the simple model.  Only the original (single)  set  of
+ compartments  1-3 are defined.  aucdelay2S.ctl uses the same data file
+ DELAYDATA, but ignores records with CMT=4 (doses into the delayed dose
+ compartment).   For  each event record, it is necessary to have avail-
+ able NEXTT, the TIME of the next event record.  This data item is  not
+ recorded  in DELAYDATA.  Instead, NEXTT is listed in the $INPUT record
+ as an extra data item beyond the data items (columns)  listed  in  the
+ data  file,  and its entries and are created ("transgenerated") during
+ each run by code in the $INFN block.  The control stream has the  same
+ constraints on THETA(1) and TDY as aucdelay1S.ctl.
+
+ Only  one  model event time variable, MTIME(1) is needed.  Model event
+ time MTIME(1) is modelled as NEXTT-TDY and changes  with  every  event
+ record.   SAVEA is a variable that saves the value of the AUC compart-
+ ment A(3)  when $PK is evaluated at the model  event  time.   At  such
+ times,  MTIME(1) is reset for the next record.  The important lines of
+ code are relatively simple, and use TSTATE ("State Time"; the time  at
+ which the state-vector A was last computed.)
+
+ $PK
+ TDY=THETA(1)*EXP(ETA(1))
+ MTIME(1)=NEXTT-TDY
+ IF (TSTATE==TIME-TDY) SAVEA=A(3)
+  ...
+ $ERROR
+ DAUC=A(3)-SAVEA
+  ...
+
+ The two control files generate the same predictions.
+
+ SINGLE SYSTEM METHOD: GENERAL MODEL
+
+ The  model  is  more  complicated  if TDY may be greater than the time
+ between event records, because each value of compartment A(3) must  be
+ saved  until  needed.   For  the  ith. event record, with TIME(i), the
+ value of SAVEAi at TIME(i)-TDY is needed, and is obtained by  using  a
+ value of MTIME(i) equal to TIME(i)-TDY.
+
+ aucdelay2.ctl and aucdelay3.ctl
+
+ The  general  model is implemented in aucdelay2.ctl and aucdelay3.ctl,
+ These versions integrate a single system  of  differential  equations.
+ File  aucdelay3.ctl  is  a short-hand version of aucdelay2.ctl.  After
+ processing by the nmtemplate and doexpand utilites, it gives a control
+ stream that is essentially identical to aucdelay2.ctl.  It may be eas-
+ ier to look at the more compact code in aucdelay3.ctl.
+
+ The maximum number of records in any individual record  is  set  using
+ nmtemplate.  DELAYDATA  contains  16  records.  Commands to run aucde-
+ lay3.ctl are:
+
+ nmtemplate aucdelay3.ctl temp1 maxrecs=16
+ doexpand  temp1  temp2
+ nmfe74 temp2 aucdelay3.res
+ (The most up-to-date doexpand and nmtemplate utilities are provided in
+ https://nonmem.iconplc.com/utilities/)
+
+ Like aucdelay2S.ctl, aucdelay3.ctl uses DELAYDATA, and ignores records
+ with  CMT=4.   An $INFN block is used to save all values of TIME in an
+ array TIMES(i).  There is no  need  for  an  explicit  NEXTT  variable
+ because all values of TIME are available in this array.  Note that the
+ TIMES array contains all TIME values in the data set, which  typically
+ contains  more  than  one  subject's  data.   In the abbreviated code,
+ reserved variable IRECIDX gives the position in TIMES of the start  of
+ the  current individual record.  (LIREC gives the number of records in
+ the current individual record and is needed if different subjects have
+ different  numbers  of  data  records so that maxrecs is too large for
+ some subjects.)
+
+ At the start of an individual record, a value of MTIME(i) is  computed
+ for  every  data record as TIMES(KREC)-TDY.  (KREC uses reserved vari-
+ able IRECIDX, the first record in the data set, and  hence  in  TIMES,
+ for  the  current  individual record.)  Some values of MTIME(i) may be
+ &lt;=0; such values are ignored by PREDPP.
+
+ When PK is called at a model event time MTIME(i) the value of A(3)  is
+ stored  as SAVEAi.  There may be several calls to PK for a given value
+ of TSTATE and MTIME(i) but SAVEAi must be assigned on only  the  first
+ of  these  calls  because  only at this call will A(3) have derivaties
+ with respect to ETA (if MTIME depends on ETA).  This is why MTIME(i)=0
+ is necessary after the value of A(3) (and its ETA derivatives, if any)
+ has been saved.
+
+ REMARKS
+
+ 1. RECURSIVE CODE
+
+      Random variables are saved for future use by using with recursive
+      code, such as in aucdelay2.ctl:
+
+      IF (NEWIND.LE.1.AND.1&lt;=LIREC) THEN
+      MTIME(1)=TIMES(KREC)-TDY  ; SET NEW VALUE OF MTIME (TDY MAY DEPEND ON ETA)
+      SAVEA1=0                  ; ERASE OLD VALUE FROM PREVIOUS PASS
+      ELSE
+      MTIME(1)=MTIME(1)
+      SAVEA1=SAVEA1
+      ENDIF
+
+      It  is  instructive to note that there is one warning that may be
+      ignored:
+
+       (WARNING  3) THERE MAY BE AN ERROR IN THE ABBREVIATED CODE.  THE
+      FOLLOWING
+       ONE  OR  MORE  RANDOM VARIABLES ARE DEFINED WITH "IF" STATEMENTS
+      THAT DO NOT
+       PROVIDE DEFINITIONS FOR BOTH THE "THEN" AND "ELSE" CASES. IF ALL
+       CONDITIONS FAIL, THE VALUES OF THESE VARIABLES WILL BE ZERO.
+
+         SA
+
+      The code in $ERROR is such that SA is always given a value and SA
+      never  defaults  to zero.  Recursive code for SA could be used to
+      avoid this warning if desired:
+      IF ([I]&lt;=LIREC.AND.TIME==TIMES(KREC)) THEN
+      SA=SAVEA[I]
+      ELSE
+      SA=SA
+      ENDIF
+
+ 2. SAVEA variables
+
+      The variables SAVEAi save the value of  compartment  3  (AUC)  at
+      TIME(i)-TDY.  They must be assigned individually because there is
+      no true array feature in NMTRAN for random variables.
+
+ 3. SIMULATION
+
+      The control streams can be used to simulate values of DV.   There
+      will  be a difference between simulated values from aucdelay1.ctl
+      vs. aucdelay2.ctl (2 and 3 are the same).  The  extra  record  in
+      aucdelay1.ctl's FDATA causes an extra call to SIMEPS (even though
+      it is a dose record), so the simulated etas and eps are not iden-
+      tical. To have identical simulated values, then do not use
+
+      $DATA DELAYDATA IGNORE= IGNORE=(CMT==4)
+
+      Instead,  use  a  version of DELAYDATA in which the second record
+      has EVID=2 ("other-type event record"), so that it is  physically
+      present  but  does nothing.  This adds another record to the data
+      set.  Instead of
+
+      nmtemplate aucdelay3.ctl temp1 maxrecs=16
+
+      the value maxrecs=17 should be used.
+
+ All files may be found in the examples directory:
+
+ DELAYDATA
+ aucdelay1S.ctl
+ aucdelay2S.ctl
+ aucdelay1.ctl
+ aucdelay2.ctl
+ aucdelay3.ctl
+
+REFERENCES: Guide <a href="intro7/index.html">Introduction_7<a/>
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

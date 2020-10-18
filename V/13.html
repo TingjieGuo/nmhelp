@@ -1,0 +1,488 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Sat Sep 19 21:24:29 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part V - Introductory Guide - Chapter 13">NONMEM Users Guide Part V - Introductory Guide - Chapter 13</a><br>
+<a href="#1. What This Chapter is About">1. What This Chapter is About</a><br>
+<a href="#2. Abnormal Termination of the Estimation Step">2. Abnormal Termination of the Estimation Step</a><br>
+<a href="#2.1. &quot;DUE TO MAX. NO. OF FUNCTION EVALUATIONSEXCEEDED&quot;">2.1. &quot;DUE TO MAX. NO. OF FUNCTION EVALUATIONSEXCEEDED&quot;</a><br>
+<a href="#2.2. &quot;DUE TO ROUNDING ERRORS (ERROR=134)&quot;">2.2. &quot;DUE TO ROUNDING ERRORS (ERROR=134)&quot;</a><br>
+<a href="#3. Abnormal Termination of the Covariance Step">3. Abnormal Termination of the Covariance Step</a><br>
+<a href="#4. Miscellaneous Problems">4. Miscellaneous Problems</a><br>
+<a href="#4.1. Proportional Error Model">4.1. Proportional Error Model</a><br>
+<a href="#4.2. Errors in the Pharmacokinetic Model">4.2. Errors in the Pharmacokinetic Model</a><br>
+<a href="#5. Errors with PREDPP">5. Errors with PREDPP</a><br>
+<a href="#5.1. Error Messages from a TRANS Routine">5.1. Error Messages from a TRANS Routine</a><br>
+<a href="#5.2. Error Messages from ADVAN Routines">5.2. Error Messages from ADVAN Routines</a><br>
+<a href="#5.3. Numeric difficulties in PREDPP">5.3. Numeric difficulties in PREDPP</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part V - Introductory Guide - Chapter 13
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part V - Introductory Guide - Chapter 13"></a>
+</h2>
+
+
+<p align="center" style="margin-top: 1em"><b>Chapter 13 -
+Errors in NONMEM Runs</b></p>
+
+<h2>1. What This Chapter is About
+<a name="1."></a>
+<a name="1. What This Chapter is About"></a>
+</h2>
+
+
+<p style="margin-top: 1em">This chapter describes
+error messages that can appear in NONMEM&rsquo;s output and
+discusses some possible causes and remedies. It is not
+encyclopedic; only selected messages are discussed. NM-TRAN
+messages are meant to be self-explanatory, as are many
+PREDPP messages, and important NONMEM messages are
+documented in NONMEM Users Guide, Part I, Chapter G. Unlike
+certain other regression programs, NONMEM-PREDPP will not
+try to mask what is perceived as a real problem and to which
+attention must be given by the user before the computation
+can proceed; an error message results and often, the program
+terminates.</p>
+
+<p style="margin-top: 1em">The Estimation and
+Covariance Steps do not always terminate successfully. This
+is a normal part of the process of model
+building.</p>
+
+<h2>2. Abnormal Termination of the Estimation Step
+<a name="2."></a>
+<a name="2. Abnormal Termination of the Estimation Step"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Normal termination of the
+Estimation Step is indicated by the message:</p>
+
+
+<p style="margin-top: 1em"><tt><b>MINIMIZATION
+SUCCESSFUL</b></tt></small></p>
+
+<p style="margin-top: 1em">Even when this message is
+seen, it is possible that the Estimation Step has not run
+correctly. Final estimates should be different from initial
+estimates. If the initial and final estimates are the same
+and the gradients for a parameter are zero at every
+iteration&dagger;, this is a sign of a modelling error. The
+parameter does not affect any predictions, as discussed in
+Chapter 7, Section 4.2. If there were bounds, estimates
+should be well away from the bounds. A final estimate which
+is close to a bound is discussed in Chapter 11, Section 4.3.
+<br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; A gradient
+may reach zero at or near the final iteration; this is not
+an error. Note also that no gradient is computed or printed
+for a parameter whose value is fixed, so if a gradient is
+always zero, it is not for this reason. <br>
+---------- <br>
+</cite></p>
+
+<p style="margin-top: 1em">Abnormal termination of
+the Estimation Step is indicated by a message whose first
+line is:</p>
+
+
+<p style="margin-top: 1em"><tt><b>MINIMIZATION
+TERMINATED</b></tt></small></p>
+
+<p style="margin-top: 1em">One of several messages
+will follow, indicating the type of failure. The messages
+are listed in Users Guide I.</p>
+
+<p style="margin-top: 1em">Two of the most common
+are discussed here separately.</p>
+
+<h3>2.1. &quot;DUE TO MAX. NO. OF FUNCTION EVALUATIONSEXCEEDED&quot;
+<a name="2.1."></a>
+<a name="2.1. &quot;DUE TO MAX. NO. OF FUNCTION EVALUATIONSEXCEEDED&quot;"></a>
+</h3>
+
+
+<p style="margin-top: 1em">If after any iteration
+the total number of evaluations of the objective function
+(Chapter 10, figure 10.5, line 33) is equal to or greater
+than the maximum allowed (Chapter 10, figure 10.2, line 51),
+the minimization search is halted with this message. If the
+$ESTIMATION record requested that a Model Specification File
+be written, it is possible to continue the search from this
+point in a subsequent NONMEM run. In Chapter 12, Section
+4.3, a strategy is discussed by which the number of function
+evaluations is deliberately set to a low value in order to
+structure a lengthy run as a series of shorter
+runs.</p>
+
+<p style="margin-top: 1em">Whenever this message is
+obtained, it is important to examine the intermediate output
+and evaluate the progress made so far. A poorly-specified
+model, for example, may cause very slow convergence of the
+minimization search. Raising the maximum number of function
+evaluations (using the MAXEVAL option of the $ESTIMATION
+record) may not be advisable.</p>
+
+<h3>2.2. &quot;DUE TO ROUNDING ERRORS (ERROR=134)&quot;
+<a name="2.2."></a>
+<a name="2.2. &quot;DUE TO ROUNDING ERRORS (ERROR=134)&quot;"></a>
+</h3>
+
+
+<p style="margin-top: 1em">This message will be
+accompanied in the intermediate output by a message
+beginning: NUMSIGDIG: .... which gives the
+approximate number of significant digits obtained in each of
+the parameters being estimated. At least one such number
+will be less than the number requested.</p>
+
+<p style="margin-top: 1em">The number of significant
+digits obtained should be examined. If it is at least 2, and
+the gradient vector appears stable throughout the last few
+iterations, a satisfactory minimum may well have been
+obtained. (It may be desirable to re-run the problem with
+the print interval for iteration summarization set to 1
+(PRINT=1 in the $ESTIMATION record) so that the progress
+made at every iteration can be examined.) The final
+parameter estimates should be examined, and if they appear
+reasonable, they might be accepted. Although the user may
+have requested more than 2 significant digits, the data may
+only support about 2 digits, given the precision of the
+arithmetic being used. By examining the gradients carefully,
+it is often possible to obtain further information about
+which parameter estimates are less-well
+determined.</p>
+
+<p style="margin-top: 1em">Even though the final
+parameter estimates may be adequate, it is unlikely that the
+minimum is sufficiently well-determined to allow the
+Covariance Step to run successfully, at least with the
+number of significant figures requested in the Estimation
+Step. The Estimation Step may need to be rerun, requesting
+only 2 significant figures, followed by the Covariance
+Step.</p>
+
+<p style="margin-top: 1em">If the number of
+significant digits is less than 2 (or even negative), then
+the final estimates should not be trusted. The problem may
+be model misspecification or insufficient data.</p>
+
+<p style="margin-top: 1em">Model misspecification is
+a very general problem involving some mismatch between the
+model and the data. This can result in particularly large
+values of the objective function or slow convergence of the
+minimization search. Sometimes the model is
+overparameterized. This means that the model has more
+parameters than can be well-enough estimated from the data
+(e.g., a biexponential model is fit to monoexponential
+data). When model misspecification occurs due to
+over-parameterization, then the Estimation Step will usually
+proceed smoothly, but terminate with fewer than 2
+significant digits. It is best to start with simple models
+(see Chapter 11).</p>
+
+<p style="margin-top: 1em">A related problem arises
+when a covariance element, e.g.,
+<img src="grohtml-152838-3.png" alt="Image grohtml-152838-3.png">
+(or
+<img src="grohtml-152838-4.png" alt="Image grohtml-152838-4.png">
+), is being estimated. If the ID (or L2 data item) is not
+used correctly, it may appear as though the covariance does
+not affect objective function values, and then this
+parameter will not be well estimated. In other words, it may
+appear as though the model is overparameterized due to the
+inclusion of this parameter. See Chapter 12, Section
+4.2.</p>
+
+<h2>3. Abnormal Termination of the Covariance Step
+<a name="3."></a>
+<a name="3. Abnormal Termination of the Covariance Step"></a>
+</h2>
+
+
+<p style="margin-top: 1em">It is possible for the
+Estimation Step to terminate successfully, and yet the
+Covariance Step generates an error message. Error messages
+from the Covariance Step are printed immediately after line
+46 of Figure 10.5. The messages are listed in Users Guide
+I.</p>
+
+<p style="margin-top: 1em">When a message arises,
+often it is:</p>
+
+<p style="margin-top: 1em"><tt><b>R MATRIX
+ALGORITHMICALLY NON-POSITIVE-SEMIDEFINITE <br>
+BUT NONSINGULAR <br>
+COVARIANCE STEP ABORTED</b></tt></small></p>
+
+<p style="margin-top: 1em">In order for the
+minimization routine to terminate successfully, it needs to
+determine that the final gradient vector is sufficiently
+small, which is a necessary condition for a minimum to have
+been achieved. This condition, however, is not sufficient. A
+sufficient condition, that the R matrix be positive definite
+(and therefore, that the apparent minimum not be a saddle
+point) is only checked in the Covariance Step. The message
+means that the sufficient condition appears not to be
+satisfied. The final estimate is, therefore, in
+doubt.</p>
+
+<p style="margin-top: 1em">Sometimes the message
+is:</p>
+
+<p style="margin-top: 1em"><tt><b>R MATRIX
+ALGORITHMICALLY SINGULAR <br>
+COVARIANCE STEP UNOBTAINABLE <br>
+S MATRIX ALGORITHMICALLY
+SINGULAR</b></tt></small></p>
+
+<p style="margin-top: 1em">This arises when there
+exists a parameter whose values do not actually affect the
+predictions and whose gradient in the intermediate output is
+always 0.</p>
+
+<p style="margin-top: 1em">In general, successful
+completion of the Covariance Step requires a better defined
+minimum than does the successful completion of the
+Estimation Step.</p>
+
+<h2>4. Miscellaneous Problems
+<a name="4."></a>
+<a name="4. Miscellaneous Problems"></a>
+</h2>
+
+
+<p style="margin-top: 1em">This section discusses a
+few simple errors which prevent NONMEM-PREDPP from running
+successfully.</p>
+
+<h3>4.1. Proportional Error Model
+<a name="4.1."></a>
+<a name="4.1. Proportional Error Model"></a>
+</h3>
+
+
+<p style="margin-top: 1em">A common error is to use
+the proportional error model while some predicted values for
+actual observations are zero or close to zero. (For example,
+if the first dose is an infusion and there is a
+&quot;baseline&quot; observation at the start of the
+infusion, the predicted level will be zero.)</p>
+
+<p style="margin-top: 1em">With individual data this
+will lead to an error message similar to the following (the
+individual number may be different from 1):</p>
+
+<p style="margin-top: 1em">PROGRAM TERMINATED
+BY OBJ, ERROR IN ELS <br>
+WITH INDIVIDUAL 1 (IN INDIVIDUAL RECORD ORDERING) <br>
+VAR-COV OF DATA FROM INDIVIDUAL RECORD ESTIMATED TO BE
+SINGULAR</small></p>
+
+<p style="margin-top: 1em">With population data this
+will lead to an error message similar to the following (the
+individual and record numbers may be different than
+1):</p>
+
+<p style="margin-top: 1em">PROGRAM TERMINATED
+BY OBJ, ERROR IN CELS <br>
+WITH INDIVIDUAL 1 (IN INDIVIDUAL RECORD ORDERING) <br>
+INTRAINDIVIDUAL VARIANCE OF DATA FROM OBS RECORD 1 ESTIMATED
+TO BE 0</small></p>
+
+<h3>4.2. Errors in the Pharmacokinetic Model
+<a name="4.2."></a>
+<a name="4.2. Errors in the Pharmacokinetic Model"></a>
+</h3>
+
+
+<p style="margin-top: 1em">When using a new model, a
+run should done in which the Estimation Step is not run, and
+a scatterplot of PRED vs DV with unit slope line is
+produced, to verify that the model and the initial parameter
+estimates are reasonable. It is much harder to diagnose
+errors in the model or the initial estimates after the
+Estimation Step fails. Make sure that the initial value of
+the objective function is not excessively large, and that
+the unit slope line shows on the plot: scaling errors can
+easily go undetected! E.g., if the units are incorrect at
+some point in the model (L vs ml), the predictions may be
+wrong by a factor of 1000. Similarly, if no scale was
+specified for the compartment being observed, the
+predictions for the observations are compartment amounts
+rather than concentrations. In both cases, the shape of the
+PRED vs DV plot may appear linear, but the axes may be
+labeled quite differently. When observations from two
+different compartments are present in the data (e.g.,
+<img src="grohtml-152838-5.png" alt="Image grohtml-152838-5.png">
+and
+<img src="grohtml-152838-6.png" alt="Image grohtml-152838-6.png">
+), some of the observations may be scaled incorrectly. This
+is discussed in Chapter 6, Section 9, and Chapter 7, Section
+4.3.3.</p>
+
+<h2>5. Errors with PREDPP
+<a name="5."></a>
+<a name="5. Errors with PREDPP"></a>
+</h2>
+
+
+<h3>5.1. Error Messages from a TRANS Routine
+<a name="5.1."></a>
+<a name="5.1. Error Messages from a TRANS Routine"></a>
+</h3>
+
+
+<p style="margin-top: 1em">TRANS routines can
+produce error messages. Here is one from TRANS2: <br>
+ERROR IN TRANS2 ROUTINE: V IS ZERO <br>
+Appendix 2 shows that TRANS2 normally computes
+<tt>K=CL/V</tt>. The routine checks that V is not zero, and
+upon finding that it is, it prints the informative message,
+and terminates the run (thus avoiding a machine
+&quot;division by zero&quot; interrupt by the operating
+system). This error usually occurs with the initial
+parameter estimates. E.g., suppose the relevant $PK
+statement is: <tt><b><br>
+V=THETA(1)+WT*THETA(2)</b></tt> <br>
+For some values of
+<img src="grohtml-152838-7.png" alt="Image grohtml-152838-7.png">
+,
+<img src="grohtml-152838-8.png" alt="Image grohtml-152838-8.png">
+, and WT, a value of zero is being computed for V. The
+initial estimates of
+<img src="grohtml-152838-9.png" alt="Image grohtml-152838-9.png">
+and
+<img src="grohtml-152838-10.png" alt="Image grohtml-152838-10.png">
+should be checked. The intercept
+<img src="grohtml-152838-11.png" alt="Image grohtml-152838-11.png">
+might have been fixed to zero, in which case then, the
+values of WT should also be checked. If WT is recorded only
+on the first event record of each individual&rsquo;s data,
+careful coding is required to insure that a value of zero is
+not used when the $PK record is evaluated with subsequent
+event records.</p>
+
+<h3>5.2. Error Messages from ADVAN Routines
+<a name="5.2."></a>
+<a name="5.2. Error Messages from ADVAN Routines"></a>
+</h3>
+
+
+<p style="margin-top: 1em">A similar error message
+can be generated in PREDPP, e.g. <br>
+PK PARAMETER FOR OBSERVATION COMPARTMENT&rsquo;S SCALE IS
+ZERO <br>
+Some scale parameter is modeled in such a way as to produce
+a zero. Again, the code for that scale parameter, and the
+initial estimates for the
+<img src="grohtml-152838-12.png" alt="Image grohtml-152838-12.png">
+&rsquo;s used therein, should be checked. Perhaps the scale
+parameter is being set equal to a volume parameter, and as
+described above, the volume parameter is being set to zero.
+When TRANS1 is used, the volume parameter is neither
+recognized nor checked.</p>
+
+<h3>5.3. Numeric difficulties in PREDPP
+<a name="5.3."></a>
+<a name="5.3. Numeric difficulties in PREDPP"></a>
+</h3>
+
+
+<p style="margin-top: 1em">Numeric difficulties can
+occur with linear pharmacokinetic models (e.g., ADVAN1-4) in
+the process of computing certain exponentials. They can
+occur from an error in the units of either a rate constant
+and/or the TIME data items. They can also occur from
+inordinately large values for a rate constant which arise
+during the minimization search. This might be avoided by
+placing appropriate constraints on
+<img src="grohtml-152838-13.png" alt="Image grohtml-152838-13.png">
+&rsquo;s.</p>
+
+<p style="margin-top: 1em">They can also occur when
+the system is advanced over an excessively long period of
+time. This can happen within an individual record, when the
+individual had a course of drug treatment, followed by a
+wash-out period, followed by another course of drug
+treatment. The first dose record of treatment courses other
+than the first should have EVID data item equal to 4
+(reset-dose) rather than 1 (dose), to avoid computing
+excessively small compartment amounts (see Chapter 6,
+Section 7.3), and to reduce computational cost.</p>
+
+<p style="margin-top: 1em">Difficulties can occur in
+the process of computing predictions with ADVAN2 and ADVAN4
+when values of KA and K arise during the minimization search
+that are very close to one another. The models encoded into
+the ADVAN routines assume that KA and K have fairly distinct
+values, and the formulas for the predictions have the term
+KA-K in the denominator. If, for example, the typical values
+of K and KA are associated with
+<img src="grohtml-152838-14.png" alt="Image grohtml-152838-14.png">
+and
+<img src="grohtml-152838-15.png" alt="Image grohtml-152838-15.png">
+, respectively, then one might try reparameterizing. The
+typical values of K and KA-K can be associated with
+<img src="grohtml-152838-16.png" alt="Image grohtml-152838-16.png">
+and
+<img src="grohtml-152838-17.png" alt="Image grohtml-152838-17.png">
+, so that
+<img src="grohtml-152838-18.png" alt="Image grohtml-152838-18.png">
+and
+<img src="grohtml-152838-19.png" alt="Image grohtml-152838-19.png">
+. A lower bound of zero should be placed on
+<img src="grohtml-152838-20.png" alt="Image grohtml-152838-20.png">
+&dagger;. <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; This
+technique also prevents a &quot;flip-flop&quot; from
+occurring. (In the original parameterization, the final
+estimates of
+<img src="grohtml-152838-21.png" alt="Image grohtml-152838-21.png">
+and
+<img src="grohtml-152838-22.png" alt="Image grohtml-152838-22.png">
+can be the final estimates of the typical values of KA and
+K, respectively). <br>
+---------- <br>
+</cite></p>
+
+<p style="margin-top: 1em">A similar situation
+occurs with TRANS3, where VSS-V occurs in the denominator of
+the expression for K21. As above, reparameterization and a
+constraint on an element of
+<img src="grohtml-152838-23.png" alt="Image grohtml-152838-23.png">
+may help.</p>
+
+
+<p style="margin-top: 1em"><a href="13.html">TOP</a></p>
+
+
+<p style="margin-top: 1em"><a href="index.html">TABLE OF CONTENTS</a></p>
+
+
+<p style="margin-top: 1em"><a href="A1.html">NEXT</a></p>
+<hr>
+</body>
+</html>

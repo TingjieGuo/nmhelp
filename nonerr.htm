@@ -1,0 +1,182 @@
+<HTML><HEAD> <TITLE> nonerr.out</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                       NONMEM ERROR MESSAGES                        |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Error messages
+ CONTEXT: NONMEM output
+
+ USAGE:
+
+ DISCUSSION:
+ This  is  not  a  complete list.  It includes only commonly seen error
+ messages.
+
+ Section I.  Errors in the control stream
+
+ FILE RECORD MISSING
+      There is something wrong with the NONMEM control file.   Probably
+      it  is  an  NM-TRAN control file (starting with $PROBLEM), rather
+      than the FCON file produced by NM-TRAN.
+ TOT. NO. OF OBSERVATIONS IN INDIVIDUAL REC NO.    1 (IN INDIVIDUAL REC
+ ORDERING) EXCEEDS  50
+  SEE INSTALLATION GUIDE
+      There are too many observation records in some individual record.
+      To increase the limit beyond 50, NONMEM must be recompiled.   see
+      Guide III, Section 2.7.
+
+ INITIAL ESTIMATE OF OMEGA HAS A NONZERO BLOCK WHICH IS NUMERICALLY NOT
+ POSITIVE DEFINITE
+      Possible cause: initial estimates of the variance and  covariance
+      terms in a block of OMEGA are not appropriate.  Try other initial
+      estimates.  (Hint: it helps of the covariance estimates are small
+      relative to the variance estimates.)
+
+ USER  CCONTR ROUTINE NOT USED, BUT THERE ARE NO EPSILONS, AND ETAS ARE
+ TO BE ESTIMATED
+      This can happen when POSTHOC etas are requested, but the data are
+      single-subject  data.   The  user  may  have included the POSTHOC
+      option in error.
+
+ UNABLE TO OBTAIN A SATISFACTORY INITIAL ESTIMATE  OF  VARIANCE-COVARI-
+ ANCE COMPONENTS
+ BLOCKS IN BLOCK SET 2 OF OMEGA ARE NUMERICALLY NOT POSITIVE DEFINITE
+      This  message  is from the Initial Estimates Step.  It identifies
+      certain parameters whose initial estimates could not be obtained.
+
+ Part II.  Error in NONMEM tasks
+
+ NUMBER OF CALLS TO SIMETA EXCEEDS NO. OF DATA RECORDS  FOR  INDIVIDUAL
+ 1 (IN INDIVIDUAL RECORD ORDERING)
+      During  the  Simulation  Step,  an  excessive  number of calls to
+      SIMETA have occurred.   It  may  be  that  the  users's  PRED  is
+      attempting  to  obtain ETA from a truncated distribution but, due
+      to some error, is rejecting all or virtually all values.  (Possi-
+      bly, the NEW option was omitted from the random source.)
+
+ Some  messages  are preceded by lines such as the following that iden-
+ tify the NONMEM routine that has detected the error:
+ PROGRAM TERMINATED BY OBJ
+ PROGRAM TERMINATED BY OBJ, ERROR IN CELS
+ PROGRAM TERMINATED BY OBJ, ERROR IN ELS
+ PROGRAM TERMINATED BY PRRES, ERROR IN ELS
+ PROGRAM TERMINATED BY FNLETA
+      OBJ computes the objective function;
+      ELS computes Extended Least-Squares contribution to the objective
+      function from the data from a single individual ("L1") record.
+      CELS  computes  the conditional contribution to the ELS objective
+      function;
+      PRRES prints final results.
+      FNLETA computes subject-specific (posthoc) eta values.
+
+ WITH INDIVIDUAL    1 (IN INDIVIDUAL RECORD ORDERING)
+      A line such as this identifies the record.
+
+ Here are some commonly seen error messages.
+ INTRAINDIVIDUAL VARIANCE OF DATA FROM OBS RECORD  1 ESTIMATED TO BE 0
+ VAR-COV OF DATA FROM INDIVIDUAL RECORD ESTIMATED TO BE  SINGULAR
+      A possible cause is the use of a  proportional   intra-individual
+      error  model  while  some predicted  values  for  actual observa-
+      tions are zero or close to zero.  (For example, if the first dose
+      is  an  infusion  and  there is  a  "base- line"  observation  at
+      the start of the infusion, the predicted level will be zero.)
+
+ MINIMIZATION TERMINATED DUE TO PROXIMITY OF NEXT ITERATION EST.  TO  A
+ VALUE AT WHICH THE OBJ. FUNC. IS INFINITE
+      NONMEM Theta-recovery has failed.
+
+ OCCURS DURING SEARCH FOR ETA AT A NONZERO VALUE OF ETA
+      An  error  occurred  while NONMEM was obtaining conditional esti-
+      mates of eta.
+
+ Section III.  Errors in PREDPP
+
+ Errors in LSODA
+
+ As of NONMEM 7, A differential equation solver  has  been  introduced,
+ called  LSODA, and is accessed using ADVAN=13 or ADVAN13.  The code to
+ the differential equation solver is  found  in  source\LSODA.f90.   On
+ occasion,  coded  errors  will be displayed if the algorithm is having
+ trouble integrating  the  equations.   These  errors  may  usually  be
+ ignored,  unless the error shows up frequently, and ultimately results
+ in failure for the problem to complete.   Typically the remedy  is  to
+ increase  or decrease TOL, but for those who desire to understand what
+ the error codes mean, there are well documented comments on  these  at
+ the beginning of LSODA.f90.  They are printed here for convenience:
+
+ !ISTATE=An index used for input and output to specify the the state of the calculation.
+ !
+ ! On input,the values of istate are as follows.
+ ! 1  Means this is the first call for the problem (initializations will be done).
+ !    See note below.
+ ! 2  Means this is not the first call,and the calculation is to continue
+ !    normally, with no change in any input parameters except possibly TOUT
+ !    and ITASK. (If ITOL,RTOL,and/or ATOL are changed between calls with
+ !    ISTATE=2,the new values will be used but not tested for legality.)
+ ! 3  Means this is not the first call,and the calculation is to continue
+ !    normally,but with a change in input parameters other than TOUT and ITASK.
+ !    changes are allowed in NEQ,ITOL,RTOL,ATOL,IOPT,LRW,LIW,JT,ML,MU and any
+ !    optional inputs except H0,MXORDN,AND MXORDS.
+ !    (see IWORK description for ML and MU.)
+ ! Note: A preliminary call with TOUT=T is not counted as a first call here,as
+ ! no initialization or checking of input is done. (Such a call is sometimes
+ ! useful for the purpose of outputting the initial conditions.) Thus the first
+ ! call for which TOUT /= T requires ISTATE=1 on input.
+ !
+ ! On output,istate has the following values and meanings.
+ !  1  Means nothing was done; TOUT=T and ISTATE=1 on input.
+ !  2  Means the integration was performed successfully.
+ ! -1  Means an excessive amount of work (more than MXSTEP steps) was done on
+ !     this call,before completing the requested task,but the integration was
+ !     otherwise successful as far as T. (MXSTEP is an optional input and is
+ !     normally 500.) TO continue,the user may simply reset ISTATE to a value &gt; 1
+ !     and call again (the excess work step counter will be reset to 0).
+ !     In addition,the user may increase MXSTEP to avoid this error return
+ !     (see below on optional inputs).
+ ! -2  Means too much accuracy was requested for the precision of the machine
+ !     being used. This was detected before completing the requested task,but
+ !     the integration was successful as far as T. To continue,the tolerance
+ !     parameters must be reset,and ISTATE must be set to 3. The optional output
+ !     TOLSF may be used for this purpose. (Note: If this condition is detected
+ !     before taking any steps,then an illegal input return (ISTATE=-3) occurs
+ !     instead.)
+ ! -3  Means illegal input was detected,before taking any integration steps.
+ !     See written message for details.
+ !     Note: If the solver detects an infinite loop of calls to the solver with
+ !     illegal input,it will cause the run to stop.
+ ! -4  Means there were repeated error test failures on one attempted step,before
+ !     completing the requested task,but the integration was successful as far as T.
+ !     The problem may have a singularity,or the input may be inappropriate.
+ ! -5  Means there were repeated convergence test failures on one attempted step,
+ !     before completing the requested task,but the integration was successful as
+ !     far as T. This may be caused by an inaccurate jacobian matrix, if one is
+ !     being used.
+ ! -6  Means EWT(I) became zero for some I during the integration. Pure relative
+ !     error control (ATOL(I)=0.0) was requested on a variable which has now
+ !     vanished. The integration was successful as far as T.
+ ! -7  Means the length of RWORK and/or IWORK was too small to proceed,but the
+ !     integration was successful as far as T. This happens when DLSODA chooses
+ !     to switch methods but LRW and/or LIw is too small for the new method.
+ !
+ ! Note: Since the normal output value of ISTATE is 2, it does not need to be
+ ! reset for normal continuation. Also,since a negative input value of ISTATE
+ ! will be regarded as illegal, a negative output value requires the user to
+ ! change it, and possibly other inputs,before calling the solver again.
+
+REFERENCES: Guide I Section <a href="I/G.html">G<a/>
+REFERENCES: Guide V Section <a href="V/13.html">13<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

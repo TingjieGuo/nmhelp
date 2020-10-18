@@ -1,0 +1,223 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Fri Sep 18 22:01:07 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part IV - NM-TRAN - Chapter I">NONMEM Users Guide Part IV - NM-TRAN - Chapter I</a><br>
+<a href="#I. Introduction">I. Introduction</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part IV - NM-TRAN - Chapter I
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part IV - NM-TRAN - Chapter I"></a>
+</h2>
+
+
+<h2>I. Introduction
+<a name="I."></a>
+<a name="I. Introduction"></a>
+</h2>
+
+
+<p style="margin-top: 1em">NM-TRAN stands for
+<b>N</b>ON<b>M</b>EM <b>Tran</b>slator, a preprocessor to
+NONMEM which translates user-inputs into i) a NONMEM data
+set, ii) a NONMEM control stream, and iii) various
+subroutines which must be included in a NONMEM load module.
+It is a separate computer program which is written in
+FORTRAN 90/95, and one <i>precedes</i> a NONMEM run by first
+running it. This document describes NM-TRAN and how to use
+it. In order to read this document the reader should be
+familiar with the concepts and nomenclature associated with
+the statistical models expressible in NONMEM. This
+familiarity can be obtained by reading modeling discussions
+in Guides I and VI. At the same time attention should also
+be paid to material describing the concepts and nomenclature
+associated with NONMEM data records and data items
+(especially Guide I, section B.1) and PREDPP event records
+and data items (especially chapters I, II, and V of Guide
+VI), and to the concepts and nomenclature associated with
+the various kinds of NONMEM output. However, material in
+these guides describing how control records, file records,
+and user-supplied subroutines are constructed may be
+skipped. Beginning NONMEM users who desire to analyze
+pharmacokinetic data will find it particularly helpful to
+first read Guide V. That document is written especially for
+the beginning user and from the point of view that the user
+is going to use NM-TRAN. Much of NM-TRAN, as well as much
+about NONMEM modeling, is described there.</p>
+
+<p style="margin-top: 1em">The inputs for NM-TRAN include a
+data set, the <b>NM-TRAN data set</b></p>
+
+<p style="margin-top: 1em">but this data set need not be
+formatted quite as rigidly as a NONMEM data set. NM-TRAN
+translates the NM-TRAN data set into a NONMEM data set. The
+part of NM-TRAN which performs this translation is called
+the <b>Data Preprocessor</b></p>
+
+<p style="margin-top: 1em">The inputs for NM-TRAN also
+include a control stream, the <b>NM-TRAN control
+stream</b></p>
+
+<p style="margin-top: 1em">but, again, the language for
+this control stream is much more user-friendly than the
+fixed-field numerical-code type language used for a NONMEM
+control stream. NM-TRAN translates the NM-TRAN control
+stream into a NONMEM control stream.</p>
+
+<p style="margin-top: 1em">The NM-TRAN control stream can
+(optionally) also include <b>abbreviated FORTRAN codes</b>
+from which various completely FORTRAN-coded NONMEM
+subroutines are generated. Thus, for example, from one such
+abbreviated code a PRED subroutine can be generated which
+computes the partial derivatives of the statistical model
+with respect to @eta@ and @epsilon@ random variables and
+stores them in the G and H arguments of the PRED routine.
+The abbreviated code itself does not directly involve
+partial derivatives. In effect, NM-TRAN performs symbolic
+differentiation, and this ability probably represents its
+most useful purpose. An abbreviated code also allows the
+statistical models to be represented in a natural and
+perspicuous symbolic way, wherein the @eta@ and @epsilon@
+variables are explicitly expressed. Indeed, one need not
+even understand the allusions that have just been made to
+partial derivatives and G and H arrays; it is enough to
+understand that a statistical model may be represented in a
+natural way and that from this representation NM-TRAN
+automatically generates information required by NONMEM.</p>
+
+<p style="margin-top: 1em">As powerful a device as is
+NM-TRAN abbreviated code, such code is still somewhat
+limited, and certain complicated subroutines which could be
+useful cannot be generated from it alone. It will probably
+be adequate, though, for the purposes of any beginning
+NONMEM user.</p>
+
+<p style="margin-top: 1em">It should be emphasized that
+NONMEM can be used without NM-TRAN. NM-TRAN simply makes the
+user&rsquo;s tasks easier, and we strongly recommend the use
+of this preprocessor, especially for beginning NONMEM
+users.</p>
+
+<p style="margin-top: 1em">Here follows an example of an
+NM-TRAN control stream; it is meant to be used along with
+the example of an NM-TRAN data set shown in Appendix II.
+This NM-TRAN control stream is recorded on the NONMEM
+distribution medium as CONTROL4; see Guide III. NM-TRAN will
+translate the data set and control stream to a NONMEM data
+set, a NONMEM control stream, and a completely coded PRED
+subroutine. The effect of using these three NONMEM inputs in
+a NONMEM run will be to produce essentially the same output
+obtained from using the NONMEM control stream and PRED
+subroutine shown in Figures 75 and 74 of Guide I. That is,
+the effect will be to produce the same data analysis for the
+population theophylline data as that presented and detailed
+in chapter F of that guide. The data set, control stream,
+and PRED routine produced by NM-TRAN are given in Appendix
+III. They differ somewhat from the data set, control stream
+and PRED routine of Figures 75 and 74. (In fact, the NONMEM
+control stream of Fig. 75 contains the data itself, rather
+than the data being in a separate file. NONMEM data can be
+embedded in a NONMEM control file.) However, the NONMEM
+output is the same, no matter whether NM-TRAN is used or
+not. Subroutine PRED shown in Appendix III is a simplified
+version of the subroutine PRED generated by NONMEM
+7.3&rsquo;s NM-TRAN.&dagger; <br>
+----------</p>
+
+<p style="margin-top: 1em"><cite>&dagger; In order to
+obtain subroutine PRED for Appendix III, the record
+<tt><i>$ABBR NOFASTDER DERIV2=NO</i></tt>, was added to the
+control stream so that code for eta first partial
+derivatives is not collected and performed separately, and
+code for eta second derivatives is not generated. Other
+statements usually produced by NM-TRAN (such as those for
+NMPRD4; see Chapter II) were deleted because they are not
+needed for this example. Other code not relevant to the
+Estimation Method of figure 75 was also omitted for the sake
+of clarity. <br>
+---------- <br>
+</cite></p>
+<pre style="margin-top: 1em">$PROB  THEOPHYLLINE   POPULATION DATA
+$INPUT      ID DOSE TIME CP=DV WT
+$DATA       THEO
+
+
+$PRED
+;THETA(1)=MEAN ABSORPTION RATE CONSTANT (1/HR)
+;THETA(2)=MEAN ELIMINATION RATE CONSTANT (1/HR)
+;THETA(3)=SLOPE OF CLEARANCE VS WEIGHT RELATIONSHIP (LITERS/HR/KG)
+;DOSE=WT-ADJUSTED DOSE (MG/KG)
+;DS=NON-WT-ADJUSTED DOSE (MG)   IF (DOSE.NE.0) THEN
+      DS=DOSE*WT
+      W=WT
+   ENDIF
+   KA=THETA(1)+ETA(1)
+   KE=THETA(2)+ETA(2)
+   CL=THETA(3)*W+ETA(3)
+   D=EXP(-KE*TIME)-EXP(-KA*TIME)
+   E=CL*(KA-KE)
+   F=DS*KE*KA/E*D
+   Y=F+EPS(1)</pre>
+
+
+<p style="margin-top: 1em">$THETA (.1,3,5) (.008,.08,.5)
+(.004,.04,.9) $OMEGA BLOCK(3) 6 .005 .0002 .3 .006 .4 $SIGMA
+.4</p>
+
+<p style="margin-top: 1em">$EST MAXEVAL=450 PRINT=5 $COV
+$TABLE ID DOSE WT TIME $SCAT (RES WRES) VS TIME BY ID</p>
+
+<p style="margin-top: 1em">Much of the remainder of this
+document is devoted to describing the language illustrated
+in this example.</p>
+
+<p style="margin-top: 1em">An NM-TRAN control stream
+includes control type information. It also can include
+information indicating that a FORTRAN-coded PRED routine is
+being supplied by the user, or it can include an abbreviated
+code from which a PRED routine can be generated (as in the
+example). However, NM-TRAN is also designed to make the use
+of PREDPP easier. PREDPP is a special, but elaborate, PRED
+routine that has been developed to assist with the task of
+analyzing pharmacokinetic data; see Guide VI. So, the
+NM-TRAN control stream can also include special control type
+information which can be used only when PREDPP is used and
+which facilitates the use of PREDPP, and it can also include
+abbreviated codes from which routines for PREDPP, which are
+otherwise user-supplied (INFN, MODEL, PK, ERROR, DES, AES),
+can be generated.</p>
+
+<p style="margin-top: 1em">It may also contain abbreviated
+code from which a user-supplied from which a user-supplied
+PRIOR subroutine can be generated. This is independent of
+the choice of $PRED vs. PREDPP.</p>
+
+<p style="margin-top: 1em">Accordingly, this document is
+divided into a few major parts which separate PREDPP
+considerations from general NONMEM considerations (see the
+Table of Contents).</p>
+
+<p style="margin-top: 1em"><a href="I.html">TOP</a> <br>
+<a href="index.html">TABLE OF CONTENTS</a> <br>
+ <a href="II.html">NEXT CHAPTER ...</a></p>
+<hr>
+</body>
+</html>

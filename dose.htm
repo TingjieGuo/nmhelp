@@ -1,0 +1,122 @@
+<HTML><HEAD> <TITLE> dose.dat</TITLE><HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<PRE>
+
+
+
+ +--------------------------------------------------------------------+
+ |                                                                    |
+ |                         DOSE EVENT RECORD                          |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ MEANING: Specification of dose for PREDPP
+ CONTEXT: $INPUT record and NONMEM data set
+
+ DISCUSSION:
+ PREDPP  recognizes two varieties of doses, transient and steady-state.
+ Steady-state  doses  are  described  separately   (See <A HREF="s.htm#ss_dose_event">SS_dose_event</A>).
+ Transient doses are described here.
+
+ For  a transient dose, the SS data item must be not defined or must be
+ zero. The ADDL data item may be used to specify  additional  transient
+ doses at regular intervals given by II.  The dose is introduced into a
+ dose compartment n, which is defined either explicitly  in  the  event
+ record (by the value n&gt;0 of the CMT data item), or as the default com-
+ partment for doses for the particular ADVAN (when the CMT data item is
+ not defined or contains zero).
+
+ Absorption  lag  applies  to the initiating dose and to all subsequent
+ additional doses.  If an absorption lag parameter is defined by PK for
+ the  dose  compartment  (this  parameter is coded ALAGn in abbreviated
+ code) and has a positive value, then the dose  is  referred  to  as  a
+ "lagged  dose"  and  it  is  actually  introduced into the system at a
+ "lagged time" equal to the time at which the dose would ordinarily  be
+ introduced  plus the value of the absorption lag parameter.  The value
+ of ALAGn in effect at time T applies to the dose and to all subsequent
+ additional  doses, even if ALAGn changes value with a subsequent event
+ record.
+
+ Bioavailability applies to the initiating dose and to  all  subsequent
+ additional  doses.   A  bioavailability parameter may be defined by PK
+ for the dose compartment (it is coded Fn in abbreviated code) and must
+ have a positive value.  If no such parameter is defined, the bioavail-
+ ability parameter is assumed to have the value 1.  The value of amount
+ in  the  following discussion is the value of the AMT data item multi-
+ plied by the value of the bioavailability parameter in effect  at  the
+ time  the  dose is actually introduced.  Changes in the value of Fn at
+ later times have no affect on past doses, e.g.,  infusions  and  zero-
+ order bolus doses that are already in progress are unaffected.
+
+ The  type  of dose is described by the values of the AMT and RATE data
+ items.
+
+ AMT   RATE
+ &gt;0    0       Bolus dose.
+               The dose is introduced into the dose compart-
+               ment  at  the  event  time  (before  ERROR is
+               called with the event record).
+
+ &gt;0    &gt;0      Infusion dose ("regular infusion").
+               The infusion is started at  the  event  time.
+               Its duration is computed as amount/RATE.
+
+ &gt;0    -1,-2   Zero-order bolus dose.
+               Similar  to  a  regular infusion, except that
+               the duration of a regular infusion is  speci-
+               fied  by information in the dose event record
+               and computed by PREDPP  itself,  whereas  the
+               duration   of   a   zero-order  bolus dose is
+               regarded as a parameter which may be  modeled
+               and  computed by the user's PK routine or $PK
+               abbreviated code.  The infusion is started at
+               the dose event time.
+
+               If  RATE=-2,  the duration is computed by PK.
+               The parameter  is  coded  Dn  in  abbreviated
+               code,  e.g.,  D1 models the duration of zero-
+               order bolus  doses  to  compartment  1.   The
+               duration  is given by the value of Dn as com-
+               puted by PK at the dose event time (or lagged
+               time,  if  the dose is lagged).  Rate is com-
+               puted as amount/duration and  is  thus  fixed
+               for  this  infusion,  even if the value of Dn
+               changes value with a later event record.
+
+               If RATE=-1, the infusion rate is computed  by
+               PK.  The parameter is coded Rn in abbreviated
+               code, e.g., R1 models the rate of  zero-order
+               bolus doses to compartment 1.  The rate which
+               applies during the advance from a  particular
+               state  time to a later state time is given by
+               the value of Rn in effect for the  the  later
+               time, and may change during the course of the
+               infusion.  The duration at any state time  is
+               computed  as amount/rate, where amount repre-
+               sents the remaining dose amount and rate rep-
+               resents  the  value  of Rn at the state time.
+               The infusion continues until the entire  dose
+               amount has been introduced into the system.
+
+ CAUTION:   If  PREDPP  is used without using NM-TRAN as a preprocessor |
+ then any user-supplied negative values for these data  items  will  be |
+ passed to PREDPP.  For a discussion of the circumstances such that the |
+ data file used by NONMEM and PREDPP is FDATA (in  which  case  NM-TRAN |
+ has  preprocessed  it)  or is the file named in the $DATA record,  see |
+ NONMEM Users Guide, Part IV.
+
+ (See <A HREF="m.htm#multiple_dose_example">multiple dose example</A>, <A HREF="e.htm#exogenous_supplementation_example">exogenous supplementation example</A>).
+
+REFERENCES: Guide VI Section <a href="VI/III.html#B.2.">III.B.2<a/>, <a href="VI/V.html#F.">V.F<a/>, <a href="VI/V.html#G.">V.G<a/>, <a href="VI/V.html#H.">V.H<a/>
+
+REFERENCES: Guide V Section <a href="V/6.html#8.">6.8<a/>
+
+REFERENCES: Guide IV Section <a href="IV/III.html#B.5.">III.B.5<a/>
+
+
+  <pre>Go to <A HREF=index.htm>main index</A>.</pre>
+<pre>
+  <hr ALIGN=LEFT WIDTH="450"></pre>
+    <i><font size=-1>Created by nmhelp2html v. 1.0 written by Niclas Jonsson (Modified by AJB 5/2006,11/2007,10/2012)</font>
+      </i><br>
+</BODY></HTML>

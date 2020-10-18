@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Page 57</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<DIV style="position:relative;width:612;height:792;">
+<STYLE type="text/css">
+<!--
+	.ft0{font-size:10px;font-family:Times;color:#000000;}
+	.ft1{font-size:9px;font-family:Times;color:#000000;}
+	.ft2{font-size:9px;font-family:Times;color:#000000;}
+	.ft3{font-size:7px;font-family:Times;color:#000000;}
+	.ft4{font-size:9px;font-family:Courier;color:#000000;}
+	.ft5{font-size:9px;line-height:13px;font-family:Times;color:#000000;}
+	.ft6{font-size:9px;line-height:12px;font-family:Times;color:#000000;}
+-->
+</STYLE>
+</HEAD>
+<BODY bgcolor="#A0A0A0" vlink="blue" link="blue">
+<IMG width="612" height="792" src="index057.png" alt="background image">
+<DIV style="position:absolute;top:77;left:84"><nobr><span class="ft0"><b>Chapter 6 - Data Sets, $DAT A and $INPUT Records, and the Data Preprocessor</b></span></nobr></DIV>
+<DIV style="position:absolute;top:116;left:72"><nobr><span class="ft1"><b>1. What This Chapter is About</b></span></nobr></DIV>
+<DIV style="position:absolute;top:133;left:72"><nobr><span class="ft5">This chapter tells how to create data for analysis by NONMEM-PREDPP. It tells how to describe<br>the data using $DAT A and $INPUT records. The requirements for formatting the data for NON-<br>MEM-PREDPP are somewhat more stringent than are the requirements for formatting the data<br>for NM-TRAN. The Data Preprocessor is a component of NM-TRAN which modiﬁes the data so<br>that it becomes formatted appropriately for NONMEM-PREDPP.</span></nobr></DIV>
+<DIV style="position:absolute;top:211;left:72"><nobr><span class="ft1"><b>2. Data Sets for NONMEM</b></span></nobr></DIV>
+<DIV style="position:absolute;top:237;left:72"><nobr><span class="ft1"><b>2.1. Data Records</b></span></nobr></DIV>
+<DIV style="position:absolute;top:254;left:72"><nobr><span class="ft5">A data set for NONMEM analysis consists of a series of records (&quot;lines&quot; in the terminology of<br>editing programs). Each record must consist of a ﬁxed number of data items and each must have<br>the same format. Figure 6.1 shows how such a data set may be pictured. In data base terminol-<br>ogy, this is a &quot;ﬂat&quot; structure.</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:151"><nobr><span class="ft2">Data Data Data</span></nobr></DIV>
+<DIV style="position:absolute;top:325;left:331"><nobr><span class="ft2">Data</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:151"><nobr><span class="ft2">item item item ...</span></nobr></DIV>
+<DIV style="position:absolute;top:338;left:331"><nobr><span class="ft2">item</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:151"><nobr><span class="ft2">#1 #2 #3</span></nobr></DIV>
+<DIV style="position:absolute;top:351;left:331"><nobr><span class="ft2">#n</span></nobr></DIV>
+<DIV style="position:absolute;top:366;left:78"><nobr><span class="ft2">Record #1</span></nobr></DIV>
+<DIV style="position:absolute;top:381;left:78"><nobr><span class="ft2">Record #2</span></nobr></DIV>
+<DIV style="position:absolute;top:396;left:78"><nobr><span class="ft2">Record #3</span></nobr></DIV>
+<DIV style="position:absolute;top:411;left:80"><nobr><span class="ft5">.<br>.</span></nobr></DIV>
+<DIV style="position:absolute;top:477;left:72"><nobr><span class="ft3">Figure 6.1. A NONMEM input data set. Each data record is a row; each type of data item is in a different column.</span></nobr></DIV>
+<DIV style="position:absolute;top:502;left:72"><nobr><span class="ft5">NONMEM imposes no limit on the number of records in the data set. It does not (nor does<br>PREDPP or NM-TRAN) sort the data records before processing them, so the data records must<br>already be in the correct sequence. NONMEM itself cannot be instructed to delete or drop<br>records from the data set, but see the DROP and IGNORE options of the $DAT A record, below.</span></nobr></DIV>
+<DIV style="position:absolute;top:567;left:72"><nobr><span class="ft1"><b>2.2. Data Items</b></span></nobr></DIV>
+<DIV style="position:absolute;top:583;left:72"><nobr><span class="ft5">NONMEM reads records from the data set with a FORTRAN FORMAT speciﬁcation, and so<br>each data item must occupy a ﬁxed number of character positions. Data items are always num-<br>bers. However, if no particular number is appropriate for a given data item on a given record, the<br>data item is called a null data item; it may be given the numerical value 0 or the nonnumerical<br>value &quot;.&quot;, or left blank. Zero’s were used in the ﬁrst two lines of the Theophylline example of<br>Chapter 2, which appeared as follows:</span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:131"><nobr><span class="ft4"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:171"><nobr><span class="ft4"><b>320. 0.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:662;left:310"><nobr><span class="ft4"><b>0.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:131"><nobr><span class="ft4"><b>2</b></span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:184"><nobr><span class="ft4"><b>0.</b></span></nobr></DIV>
+<DIV style="position:absolute;top:675;left:250"><nobr><span class="ft4"><b>.27 1.71</b></span></nobr></DIV>
+<DIV style="position:absolute;top:687;left:72"><nobr><span class="ft5">The Data Preprocessor allows each value in the data set to occupy only as many character posi-<br>tions as it needs, so long as the data items are separated by blanks (spaces) or commas. Tab char-<br>acters may also be used as separators if they are stored as explicit characters, e.g., ASCII 011, al-</span></nobr></DIV>
+<DIV style="position:absolute;top:761;left:279"><nobr><span class="ft2">-49-</span></nobr></DIV>
+</DIV>
+</BODY>
+</HTML>

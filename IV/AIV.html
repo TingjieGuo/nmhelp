@@ -1,0 +1,193 @@
+<!-- Creator     : groff version 1.22.2 -->
+<!-- CreationDate: Fri Sep 18 22:03:06 2020 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title></title>
+</head>
+<body>
+
+<a href="#NONMEM Users Guide Part IV - NM-TRAN">NONMEM Users Guide Part IV - NM-TRAN</a><br>
+<a href="#Appendix.IV. Another Example">Appendix.IV. Another Example</a><br>
+
+<hr>
+
+
+<h2>NONMEM Users Guide Part IV - NM-TRAN
+<a name="NONMEM"></a>
+<a name="NONMEM Users Guide Part IV - NM-TRAN"></a>
+</h2>
+
+
+<h2>Appendix.IV. Another Example
+<a name="Appendix.IV."></a>
+<a name="Appendix.IV. Another Example"></a>
+</h2>
+
+
+<p style="margin-top: 1em">Figures 1 and 2 of NONMEM Users
+Guide, Part I, show a PRED routine and a NONMEM control
+stream (with embedded data), respectively. The NONMEM
+outputs resulting from Figures 1 and 2 are shown in Figures
+3-18 of Part I. NM-TRAN inputs and outputs are given on the
+following pages of this appendix. The inputs correspond to
+Figures 1 and 2. The NONMEM outputs resulting from the
+NM-TRAN outputs and corresponding to those shown in Figures
+4-18 are exactly the same as those shown in Figures 4-18.
+The NONMEM output corresponding to that shown in Figures
+3a-b, the problem summary, is a little different (in part
+because NM-TRAN generates ID data items).</p>
+
+<p align="center" style="margin-top: 1em">NM-TRAN Data
+Set</p>
+
+<pre style="margin-top: 1em">      320        .27      1.71
+      320        .52      7.91
+      320       1.        8.31
+      320       1.92      8.33
+      320       3.5       6.85
+      320       5.02      6.08
+      320       7.03      5.4
+      320       9.        4.55
+      320      12.        3.01
+      320      24.3        .90</pre>
+
+
+<p align="center" style="margin-top: 1em">NM-TRAN Control
+Stream</p>
+<pre style="margin-top: 1em">$PROB    SIMPLE NONLINEAR REGRESSION OF CP VS TIME DATA FROM ONE SUBJECT
+$INPUT      DOSE TIME CP=DV
+$DATA       DATA
+
+
+$PRED
+;THETA(1)=ABSORPTION RATE CONSTANT (1/HR)
+;THETA(2)=ELIMINATION RATE CONSTANT (1/HR)
+;THETA(3)=VOLUME OF DISTRIBUTION (LITERS)   D=EXP(-THETA(2)*TIME)-EXP(-THETA(1)*TIME)
+   E=THETA(3)*(THETA(1)-THETA(2))
+   F=DOSE*THETA(1)/E*D
+   Y=F+ETA(1)</pre>
+
+
+<p style="margin-top: 1em">$THETA (.4,1.7,7.)
+(.025,.102,.4) (10,29,80)</p>
+
+<p style="margin-top: 1em">$EST MAXEVAL=240 SIGDIGITS=4
+PRINT=2 $COV $TABLE TIME $SCAT (CP PRED RES) VS TIME $SCAT
+PRED VS CP UNIT</p>
+
+<p align="center" style="margin-top: 1em">NONMEM Data Set -
+FDATA</p>
+
+<pre style="margin-top: 1em">  320  .27 1.71 1
+  320  .52 7.91 2
+  320   1. 8.31 1
+  320 1.92 8.33 2
+  320  3.5 6.85 1
+  320 5.02 6.08 2
+  320 7.03  5.4 1
+  320   9. 4.55 2
+  320  12. 3.01 1
+  320 24.3  .90 2</pre>
+
+
+<p align="center" style="margin-top: 1em">NONMEM Control
+Stream - FCON</p>
+
+<pre style="margin-top: 1em">FILE    FSTREAM
+PROB    SIMPLE NONLINEAR REGRESSION OF CP VS TIME DATA FROM ONE SUBJECT
+DATA       1   0  10   4   0
+ITEM       4   3   0   0   1   0   0   0   0   0   0
+LABL    DOSE    TIME      CP    .ID.
+FORM
+(3E5.0,1F2.0)
+STRC       3   1   0   0   0   1   0   0   0
+THCN       1   0   0
+THTA         1.7    .102      29
+LOWR          .4    .025      10
+UPPR          7.      .4      80
+DIAG   2
+ESTM       0 240   4   2   0   0   0   0   0   0   0
+COVR       0   0   0   0   0
+TABL       1   1   0   0
+TABL       1   2   0
+SCAT       1   4
+SCAT       2   3   0   0   0   0       0       0   0
+SCAT       2   5   0   0   0   0       0       0   0
+SCAT       2   6   0   0   0   0       0       0   0
+SCAT       3   5   0   0   0   1       0       0   0</pre>
+
+
+<p align="center" style="margin-top: 1em">Generated and
+User-Supplied Subroutines - FSUBS</p>
+
+<p style="margin-top: 1em">The NONMEM VI versions are
+shown. With NONMEM 7 and higher, MODULES are used rather
+than COMMONS.</p>
+
+<pre>      SUBROUTINE PRED (ICALL,NEWIND,THETA,DATREC,INDXS,F,G,H)
+      IMPLICIT DOUBLE PRECISION (A-Z)
+      REAL DATREC
+      SAVE
+      INTEGER ICALL,NEWIND,INDXS
+      DIMENSION THETA(*),DATREC(*),INDXS(*),G(10,*),H(10,*)
+      DIMENSION ETA(10)
+      COMMON/ROCM12/MSEC
+      INTEGER MSEC
+      COMMON/NMPRD4/D,E,Y,A00011,BBBBBB(0996)
+      IF (ICALL.EQ.4) THEN
+       CALL SIMETA(ETA)
+      ELSE
+      IF (NEWIND.NE.2) THEN
+       ETA(01)=0.D0
+      ENDIF
+      ENDIF
+      DOSE=DATREC(01)
+      TIME=DATREC(02)
+      B00001=-THETA(02)*TIME
+      B00002=-THETA(01)*TIME
+      B00003=DEXP(B00001)
+      B00004=DEXP(B00002)
+      D=B00003-B00004
+      B00005=THETA(01)-THETA(02)
+      E=THETA(03)*B00005
+      F=DOSE*THETA(01)/E*D
+      Y=F+ETA(01)</pre>
+
+
+<p>C A00011 = DERIVATIVE OF Y W.R.T. ETA(01) <br>
+A00011=1.D0 <br>
+G(01,1)=A00011 <br>
+F=Y <br>
+RETURN <br>
+END</p>
+
+<p align="center" style="margin-top: 1em">NONMEM File
+Stream - FSTREAM</p>
+<pre style="margin-top: 1em">DATA    FDATA
+****</pre>
+
+<p align="center" style="margin-top: 1em">NM-TRAN Report -
+FREPORT</p>
+
+<p style="margin-top: 1em">NM-TRAN VERSION 7.3.0 <br>
+GENERATED DP SUBROUTINES: <br>
+PRED <br>
+NONMEM SUBROUTINES: ALL</p>
+
+<p style="margin-top: 1em"><a href="AIV.html">TOP</a> <br>
+<a href="index.html">TABLE OF CONTENTS</a> <br>
+ <a href="AV.html">NEXT APPENDIX ...</a></p>
+<hr>
+</body>
+</html>
