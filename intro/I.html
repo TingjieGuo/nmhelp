@@ -137,7 +137,7 @@ given a larger value. <br>
 See <a href="#maxfcn">I.3.6 below.</a> <br>
 The following have larger values: LVR2, LNP4, LSW1, MAXIDS,
 PIR, DIMTMP DIMCNS, DINEW, DIMRV, DIMPKS. <br>
-(See the <a href="../sizes.htm">SIZES</a> Help Item)</b></p>
+(See the <a href="../sizes.html">SIZES</a> Help Item)</b></p>
 <p style="margin-top: 1em">6) NONMEM Users Guides I-VIII
 and NONMEM V Supplement are provided as .pdf files on the
 NONMEM VI CD. With the exception of Guide II, these .pdf
@@ -239,7 +239,7 @@ elements of
 for which conditional estimates are obtained. Simply include
 the INTERACTION option on the $ESTIMATION record.</p>
 <p style="margin-top: 1em">(See the
-<a href="../$estimat.htm">$ESTIMATION</a> Help Item.).</p>
+<a href="../$estimat.html">$ESTIMATION</a> Help Item.).</p>
 <p style="margin-top: 1em">2. With the LAPLACIAN Estimation
 method and a mean-variance model (see
 <a href="../VII/index.html">NONMEM Users Guide VII</a> ),
@@ -253,7 +253,7 @@ method for obtaining second partial
 include the INTERACTION option on the $ESTIMATION record.
 <br>
 (See the
-<a href="../$estimat.htm"$ESTIMATION">../$estimat.htm"$ESTIMATION</a>
+<a href="../$estimat.html"$ESTIMATION">../$estimat.html"$ESTIMATION</a>
 Help Item.)</p>
 <p style="margin-top: 1em">3. Background: With the
 First-Order Estimation method, if the model is not already
@@ -287,7 +287,7 @@ differences in the magnitude of interindividual random
 variability itself, a slightly less biased estimate of
 <img src="grohtml-12804-13.png" alt="Image grohtml-12804-13.png">
 is obtained. <br>
-(See the <a href="../$estimat.htm">$ESTIMATION</a> Help
+(See the <a href="../$estimat.html">$ESTIMATION</a> Help
 Item.)</p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><a name="stieltm"></a> 4. A new
@@ -359,7 +359,7 @@ $ESTIM record. Constraints on these numbers are nr&lt;=100,
 ns&lt;=9999, 0&lt;r0&lt;r1&lt;1. nr and ns should be
 integers. If r1&gt;.9999, there is no tail region. The
 present default values are: GRID=(3,1,.6,.9). <br>
-(See the <a href="../$estimat.htm">$ESTIMATION</a> Help
+(See the <a href="../$estimat.html">$ESTIMATION</a> Help
 Item.)</b></p>
 <p style="margin-top: 1em">5. With minimizations that
 terminate with the message &quot;MINIMIZATION
@@ -393,8 +393,8 @@ generate a model specification file with the original
 problem, input this file with the subsequent problem, and
 include the new option ETABARCHECK on the $ESTIMATION record
 of the subsequent problem. <br>
-(See the <a href="../$estimat.htm">$ESTIMATION</a> and
-<a href="../etabar.htm">ETABAR</a> Help Items.)</p>
+(See the <a href="../$estimat.html">$ESTIMATION</a> and
+<a href="../etabar.html">ETABAR</a> Help Items.)</p>
 <p style="margin-top: 1em">7. With Version V, there are
 situations where the computation of ETABAR with a mixture
 model was not sensible. Now multiple ETABAR vectors are
@@ -414,7 +414,7 @@ value set in Y (in NM-TRAN abbreviated code) or in F (in a
 user-supplied PRED or ERROR routine) as being either a
 &quot;prediction&quot; or a likelihood, on an
 observation-specific basis. <br>
-(See the <a href="../nmpr17.htm">NMPR17</a> Help Item.)</p>
+(See the <a href="../nmpr17.html">NMPR17</a> Help Item.)</p>
 <p style="margin-top: 1em">9. A frequency-prior (2) may be
 specified for data-analytic purposes, or to simulate
 parameter values (in a Simulation Step). Two NONMEM utility
@@ -425,17 +425,17 @@ and/or the OMEGA matrix to be constrained by an
 are specified by the user. TNPRI allows all parameters to be
 constrained by a prior that arises automatically from a
 NONMEM analysis of a prior data set. <br>
-(See the <a href="../prior.htm">PRIOR</a> and
-<a href="../nwpri.htm">NWPRI</a> and
-<a href="../tnpri.htm">TNPRI</a> Help Items and the
-<a href="../nwprir.htm">NWPRI</a> and
-<a href="../tnprir.htm">TNPRI</a> examples.)</p>
+(See the <a href="../prior.html">PRIOR</a> and
+<a href="../nwpri.html">NWPRI</a> and
+<a href="../tnpri.html">TNPRI</a> Help Items and the
+<a href="../nwprir.html">NWPRI</a> and
+<a href="../tnprir.html">TNPRI</a> examples.)</p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="$prior"></a> 9a.
 Implementing PRIOR routines has been made easier by a new
 NM-TRAN control record, $PRIOR, which may be used instead of
 a user-written PRIOR routine. <br>
-(See the <a href="../$prior.htm">$PRIOR</a> help
+(See the <a href="../$prior.html">$PRIOR</a> help
 item.)</b></p>
 <p style="margin-top: 1em">10. With an intraindividual
 mean-variance model (see Guide VII), the conditional
@@ -452,9 +452,9 @@ normally distributed. With an observation record simply set
 the boundaries of the interval, YLO and YUP, in the
 NONMEM-PRED common NMPR12 (via NM-TRAN abbreviated code).
 <br>
-(See the <a href="../nmpr12.htm">NMPR12</a> and
-<a href="../rocm44.htm">ROCM44</a> Help Items, and the
-<a href="../ylo.htm">YLO</a> example.)</p>
+(See the <a href="../nmpr12.html">NMPR12</a> and
+<a href="../rocm44.html">ROCM44</a> Help Items, and the
+<a href="../ylo.html">YLO</a> example.)</p>
 <p style="margin-top: 1em">11. With an intraindividual
 mean-variance model (see Guide VII), the possible values of
 an observation may be categorized into one- and/or two-sided
@@ -474,19 +474,19 @@ upper boundary, CTUP, (and their
 -derivatives) of the observed interval in the NONMEM-PRED
 commons NMPR13 and NMPR14 (via NM-TRAN abbreviated code).
 <br>
-(See the <a href="../nmpr13.htm">NMPR13</a> and
-<a href="../nmpr14.htm">NMPR14</a> and
-<a href="../rocm45.htm">ROCM45</a> Help Items.)</p>
+(See the <a href="../nmpr13.html">NMPR13</a> and
+<a href="../nmpr14.html">NMPR14</a> and
+<a href="../rocm45.html">ROCM45</a> Help Items.)</p>
 <p style="margin-top: 1em">12. The individual contributions
 to the objective function value are now stored in ROCM50
 along with the individual ID values. <br>
-(See the <a href="../rocm50.htm">ROCM50</a> Help Item.)</p>
+(See the <a href="../rocm50.html">ROCM50</a> Help Item.)</p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="rocm50"></a> 12a.
 Elements of ROCM50 may be used in abbreviated code. <br>
 See <a href="#rocm50ab">ROCM50 below.</a> <br>
-(See the <a href="../rocm50.htm">ROCM50</a> Help item and
-<a href="../roc50e.htm">ROCM50 example</a> )</b></p>
+(See the <a href="../rocm50.html">ROCM50</a> Help item and
+<a href="../roc50e.html">ROCM50 example</a> )</b></p>
 <p style="margin-top: 1em">13. There is a new option on the
 $ESTIMATION record. The objective function value and the
 gradients can be calculated after the individual
@@ -494,7 +494,7 @@ contributions have been sorted from the lowest to highest
 absolute values. In some cases this may decrease rounding
 errors. Simply include the SORT option on the $ESTIMATION
 record. <br>
-(See the <a href="../$estimat.htm">$ESTIMATION</a> Help
+(See the <a href="../$estimat.html">$ESTIMATION</a> Help
 Item.) The prototype code for sorting the individual
 components of the objective function value and the gradients
 was provided by Dr. Mark Sale, Next Level Solutions,
@@ -509,7 +509,7 @@ message</b></p>
 THE COVARIANCE STEP CAN BE IMPLEMENTED</pre>
 <p><b>With NONMEM VI 2.0, this Default Boundary Test is
 optional for OMEGA, SIGMA, and/or THETA. <br>
-(See the <a href="../$estimat.htm">$ESTIMATION</a> Help
+(See the <a href="../$estimat.html">$ESTIMATION</a> Help
 Item.)</b></p>
 <h2>I.2.2. General
 <a name="I.2.2."></a>
@@ -534,10 +534,10 @@ problem-finalization (ICALL=3) during any pass through the
 data set</p>
 <p style="margin-top: 1em">All these variables are
 available via NM-TRAN abbreviated code. <br>
-(See the <a href="../rocm32.htm">ROCM32</a> and
-<a href="../rocm46.htm">ROCM46</a> and
-<a href="../rocm48.htm">ROCM48</a> and
-<a href="../rocm49.htm">ROCM49</a> Help Items.)</p>
+(See the <a href="../rocm32.html">ROCM32</a> and
+<a href="../rocm46.html">ROCM46</a> and
+<a href="../rocm48.html">ROCM48</a> and
+<a href="../rocm49.html">ROCM49</a> Help Items.)</p>
 <p style="margin-top: 1em">2. Data records are passed
 sequentially to the PRED routine; heretofore, always from
 the first data record of an individual record to the last
@@ -555,9 +555,9 @@ from PRED with a given data record will be used by NONMEM.
 This &quot;PRED control&quot; allows e.g. PRED output with a
 given record to involve computations over subsequent, as
 well as prior, records. <br>
-(See the <a href="../nmpr10.htm">NMPR10</a> Help Item and
-the <a href="../repeti1.htm">Repetition 1</a> and
-<a href="../repeti2.htm">Repetition 2</a> examples.)</p>
+(See the <a href="../nmpr10.html">NMPR10</a> Help Item and
+the <a href="../repeti1.html">Repetition 1</a> and
+<a href="../repeti2.html">Repetition 2</a> examples.)</p>
 <p style="margin-top: 1em">3. The maximum number of
 subpopulations allowed with a mixture model is now an
 installation parameter in SIZES. The default value is 4, the
@@ -567,7 +567,7 @@ discern more than 4 subpopulations. On the other hand, a
 recent paper (3) describes a technique for dealing with
 discrete covariates with missing values, which could greatly
 increase the required number of mixture subpopulations. (See
-the <a href="../sizes.htm">SIZES</a> Help Item.)</p>
+the <a href="../sizes.html">SIZES</a> Help Item.)</p>
 <p style="margin-top: 1em">4. With a mixture model, mixture
 probabilities can be individual-specific, and so the MIX
 routine is called repeatedly - with each individual. Useful
@@ -580,9 +580,9 @@ for individual-specific information to be made available
 providing a template data record). With each individual,
 when MIX is called, the first data record of the individual
 record may be found in the common. (see Section 4.1.6 and
-the <a href="../rocm31.htm">ROCM31</a> and
-<a href="../$contr.htm">$CONTR</a> and
-<a href="../$mix.htm">$MIX</a> Help Items.)</p>
+the <a href="../rocm31.html">ROCM31</a> and
+<a href="../$contr.html">$CONTR</a> and
+<a href="../$mix.html">$MIX</a> Help Items.)</p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><a name="2.2.5"></a> 5. With
 Version V, when a model specification file (MSF) is input,
@@ -595,7 +595,7 @@ Version VI, more flexibility is available with a new option
 - TRUE - on the $SIMULATION record, which allows the old
 behavior, <i>but this behavior is not the default
 behavior</i>. <br>
-(See the <a href="../$simulat.htm">$SIMULATION</a> Help
+(See the <a href="../$simulat.html">$SIMULATION</a> Help
 Item.)</p>
 <p style="margin-top: 1em">6. At problem-finalization, a
 flag (SKIP_) can now be set in NONMEM-PRED common NMPR15
@@ -604,7 +604,7 @@ flag (SKIP_) can now be set in NONMEM-PRED common NMPR15
 iteration to be ended and for NONMEM to continue with the
 next problem, superproblem or superproblem iteration,
 respectively. <br>
-(See the <a href="../nmpr15.htm">NMPR15</a> Help Item.)</p>
+(See the <a href="../nmpr15.html">NMPR15</a> Help Item.)</p>
 <p style="margin-top: 1em">7. There are a number of new
 NONMEM-PREDPP commons, some of which are described above. Of
 particular additional interest:</p>
@@ -614,10 +614,10 @@ produced during the Simulation Step when a frequency prior
 <p style="margin-top: 1em">8. There is a new step,
 NONPARAMETRIC. NONMEM obtains either marginal cumulatives or
 conditional (non-parametric) estimates of etas. <br>
-(See the <a href="../$nonpara.htm">$NONPARAMETRIC</a> and
-<a href="../$simulat.htm">$SIMULATION</a> and
-<a href="../rocm18.htm">ROCM18</a> Help items, and the
-<a href="../nonpar.htm">nonparametric </a>example.)</p>
+(See the <a href="../$nonpara.html">$NONPARAMETRIC</a> and
+<a href="../$simulat.html">$SIMULATION</a> and
+<a href="../rocm18.html">ROCM18</a> Help items, and the
+<a href="../nonpar.html">nonparametric </a>example.)</p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="recs"></a> 9.
 Increase in the number of records that may be specified <br>
@@ -634,7 +634,7 @@ the NONMEM data set FDATA. With NONMEM VI 2.0, the maximum
 number of records that may be specified is 99999999. Only if
 the number of records is larger than 99999999 will a FINISH
 record will be present in FDATA. <br>
-(See the <a href="../finish.htm">FINISH</a> Help
+(See the <a href="../finish.html">FINISH</a> Help
 Item.)</b></p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="maxeval"></a> 10.
@@ -685,11 +685,11 @@ what has been done until now, but doing this is somewhat
 clumsy. There may be up to PCT model event times, where PCT
 is a new installation parameter defined in SIZES. Its
 default value is 30. <br>
-(See the <a href="../mtime.htm">MTIME</a> and
-<a href="../$pk.htm">$PK</a> and
-<a href="../prdpk1.htm">PRDPK1</a> and
-<a href="../prdpk2.htm">PRDPK2</a> Help Items and the
-<a href="../modtime.htm">MODEL TIME</a> Example)</p>
+(See the <a href="../mtime.html">MTIME</a> and
+<a href="../$pk.html">$PK</a> and
+<a href="../prdpk1.html">PRDPK1</a> and
+<a href="../prdpk2.html">PRDPK2</a> Help Items and the
+<a href="../modtime.html">MODEL TIME</a> Example)</p>
 <p style="margin-top: 1em">2. There is a new variable
 A_0FLG - the &quot;compartment initialization flag&quot; -
 in a new PREDPP read-only common PROCMC. When event records
@@ -706,10 +706,10 @@ state vector (and its
 -derivatives) to such values (in a new PREDPP-PK common
 PRDPK3).</p>
 <p style="margin-top: 1em">(See the
-<a href="../$pk.htm">$PK</a> and
-<a href="../procmc.htm">PROCMC</a> and
-<a href="../prdpk3.htm">PRDPK3</a> and
-<a href="../compinit.htm">COMPARTMENT INITIALIZATION BLOCK</a>
+<a href="../$pk.html">$PK</a> and
+<a href="../procmc.html">PROCMC</a> and
+<a href="../prdpk3.html">PRDPK3</a> and
+<a href="../compinit.html">COMPARTMENT INITIALIZATION BLOCK</a>
 Help Items.)</p>
 <p style="margin-top: 1em">A_0FLG is a reserved variable in
 $PK. See <a href="#I.4.2.">section 4.2</a> below for further
@@ -729,8 +729,8 @@ new PREDPP read-only common PROCM9 in which the time at
 which these compartment amounts are in fact computed may be
 found.</p>
 <p style="margin-top: 1em">(See the
-<a href="../procm4.htm">PROCM4</a> and
-<a href="../procm9.htm">PROCM9</a> Help Items.)</p>
+<a href="../procm4.html">PROCM4</a> and
+<a href="../procm9.html">PROCM9</a> Help Items.)</p>
 <p style="margin-top: 1em">4. When the value of the
 compartment data item (CMT) is n+1, where n is the total
 number of compartments in the kinetic system, the data item
@@ -738,7 +738,7 @@ designates the (special additional) output compartment. With
 Version VI, this can also be done with the value 100, which
 is useful when n changes from run to run.</p>
 <p style="margin-top: 1em">(See the
-<a href="../cmt.htm">CMT</a> Help Item.)</p>
+<a href="../cmt.html">CMT</a> Help Item.)</p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="iss"></a> 5. PREDPP:
 New Feature: Initial Steady State <br>
@@ -754,10 +754,10 @@ record) exactly as if such a dose record were present. It is
 not necessary to include the a dose record or, indeed, to
 define the data item SS, AMT or RATE. There is a new common
 PRDPK4. <br>
-(See the <a href="../prdpk4.htm">PRDPK4</a> and
-<a href="../advan68.htm">ADVAN6 ADVAN8</a> and
-<a href="../advan9.htm">ADVAN9</a> and
-<a href="../$model.htm">$MODEL</a> Help Items.)</b></p>
+(See the <a href="../prdpk4.html">PRDPK4</a> and
+<a href="../advan68.html">ADVAN6 ADVAN8</a> and
+<a href="../advan9.html">ADVAN9</a> and
+<a href="../$model.html">$MODEL</a> Help Items.)</b></p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="maxfcn"></a> 6.
 PREDPP: New in SIZES: MAXFCN. <br>
@@ -775,8 +775,8 @@ code. <br>
 Old verbatim code that changes IMAX will work as it did with
 previous releases, but, if IMAX is being set to 1000000, the
 verbatim code is no longer needed. <br>
-(See the <a href="../sizes.htm">SIZES</a> and
-<a href="../prcomg.htm">PRCOMG</a> Help Items.)</b></p>
+(See the <a href="../sizes.html">SIZES</a> and
+<a href="../prcomg.html">PRCOMG</a> Help Items.)</b></p>
 <h2>I.4. NM-TRAN
 <a name="I.4."></a>
 <a name="I.4. NM-TRAN"></a>
@@ -792,7 +792,7 @@ certain user-specified criteria, and a new ACCEPT option has
 been introduced so that any data records will be dropped
 unless the values of one or more data items meet certain
 user-specified criteria. <br>
-(See the <a href="../$data.htm">$DATA</a> Help Item.)</p>
+(See the <a href="../$data.html">$DATA</a> Help Item.)</p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><a name="4.1.2"></a> 2. With
 Version V, the option <tt><i>TRANSLATE=(TIME/24)</i></tt>
@@ -808,7 +808,7 @@ option <tt><i>TRANSLATE=(TIME/24.000)</i></tt> (or
 <tt><i>TRANSLATE=(II/24.00)</i></tt>) results in two figures
 to the right of the decimal point being retained.</p>
 <p style="margin-top: 1em">(See the
-<a href="../$data.htm">$DATA</a> Help Item.)</p>
+<a href="../$data.html">$DATA</a> Help Item.)</p>
 <p style="margin-top: 1em">3. With Version V, the DO WHILE
 construction is allowed in an initialization/finalization
 block, and when this is used in conjunction with direct
@@ -818,8 +818,8 @@ initialization/finalization. Now a new DO WHILE (DATA)
 construction is allowed, which automatically and
 transparently manages the calls to PASS.</p>
 <p style="margin-top: 1em">(See the
-<a href="../abbrevia.htm">ABBREVIATED CODE</a> and
-<a href="../pass.htm">PASS</a> Help Items.)</p>
+<a href="../abbrevia.html">ABBREVIATED CODE</a> and
+<a href="../pass.html">PASS</a> Help Items.)</p>
 <p style="margin-top: 1em">4. With Version V, a random
 variable defined in an abbreviated code for a given routine
 must be completely defined with each data record that is
@@ -875,14 +875,14 @@ the items of the template data record. They may be used in
 data average blocks (ICALL=6) and $MIX blocks. The items of
 the template record may be referred to by position or by
 label, e.g., TEMPLT(1) or TEMPLT(ID). <br>
-(See <a href="../rocm17.htm">ROCM17</a> and
-<a href="../rocm31.htm">ROCM31</a> Help Items.)</p>
+(See <a href="../rocm17.html">ROCM17</a> and
+<a href="../rocm31.html">ROCM31</a> Help Items.)</p>
 <p style="margin-top: 1em">7. With Version VI, the
 variables S1SC and S2SC of NONMEM read-only common ROCM14
 are no longer recognized in initialization/finalization
 blocks; rather, the variables S1NUM and S2NUM are used. (See
-<a href="../rocm14.htm">ROCM14</a> and
-<a href="../$super.htm">$SUPER</a> Help Items.)</p>
+<a href="../rocm14.html">ROCM14</a> and
+<a href="../$super.html">$SUPER</a> Help Items.)</p>
 <p style="margin-top: 1em">8. User-written functions FUNCA,
 FUNCB and FUNCC (called abbreviated functions) may now be
 used as right-hand quantities in abbreviated codes. Such a
@@ -893,7 +893,7 @@ VECTRC(n)) may be defined as left-side quantities in
 abbreviated code. A vector may be used as an argument to an
 abbreviated function. The code for the function itself must
 be written by the user in FORTRAN. <br>
-(See the <a href="../abfunc.htm">ABBREVIATED FUNCTION</a>
+(See the <a href="../abfunc.html">ABBREVIATED FUNCTION</a>
 Help Item.)</p>
 <p style="margin-top: 1em">9. The functions TAN, ASIN
 (arcsin), ACOS (arccosine), ATAN (arctangent) may now be
@@ -920,7 +920,7 @@ data records (minus comment or dropped records) and puts
 this number in the NONMEM control file, so that these data
 records (or NM-TRAN-modified versions of them) become the
 data records used in the problem. <br>
-(See the <a href="../$data.htm">$DATA</a> Help Item.)</p>
+(See the <a href="../$data.html">$DATA</a> Help Item.)</p>
 <p style="margin-top: 1em">There are two obvious
 applications. First, during a checkout phase, one might want
 to see only the predictions for the first individual record,
@@ -944,7 +944,7 @@ records can simply be coded</p>
 $DATA filename RECS=ID NOREWIND
 $DATA filename RECS=ID NOREWIND
 etc.</pre>
-<p>(See <a href="../$data.htm">$DATA</a> Help Item.)</p>
+<p>(See <a href="../$data.html">$DATA</a> Help Item.)</p>
 <p style="margin-top: 1em">12. With the INCLUDE record, the
 filename may now be followed by an integer n, whose default
 value is 1. Then NM-TRAN reads n copies of the named
@@ -963,7 +963,7 @@ one problem specification for one subject, with no
 $SUBROUTINES record or abbreviated code, but would
 include</p>
 <pre style="margin-top: 1em">$DATA filename RECS=ID NOREWIND</pre>
-<p>(See <a href="../include.htm">INCLUDE</a> Help
+<p>(See <a href="../include.html">INCLUDE</a> Help
 Item.)</p>
 <p style="margin-top: 1em">13. The INTERACTION option may
 now be used on the $ESTIMATION record along with
@@ -971,7 +971,7 @@ METHOD=HYBRID, or METHOD=CONDITIONAL, LAPLACIAN, or
 METHOD=ZERO. The ETABARCHECK option may be used on the
 $ESTIMATION record. (see <a href="#I.2.1.">section I.2.1</a>
 ). <br>
-(See <a href="../$estimat.htm">$ESTIMATION</a> Help
+(See <a href="../$estimat.html">$ESTIMATION</a> Help
 Item.)</p>
 <p style="margin-top: 1em">14. The TRUE option may be used
 on the $SIMULATION record (see section 2.2 <br>
@@ -987,14 +987,14 @@ such. The labels L2 and ID (if defined) may be used in
 abbreviated code, and then they refer to the corresponding
 items of the data record, as specified in the $INPUT record.
 <br>
-(See the <a href="../l2.htm">L2</a> Help Item.)</p>
+(See the <a href="../l2.html">L2</a> Help Item.)</p>
 <p style="margin-top: 1em">However, if, as previously, the
 user uses the label L1 instead of the label ID, or uses the
 label L1 as a synonym with the ID label, then NM-TRAN does
 not change the designation: For NONMEM, the items labeled L1
 are taken to be the ID data items. <br>
-(See the <a href="../id.htm">ID</a> and
-<a href="../l2.htm">L2</a> Help Items.</p>
+(See the <a href="../id.html">ID</a> and
+<a href="../l2.html">L2</a> Help Items.</p>
 <p style="margin-top: 1em">16. OMEGA(i,j) and SIGMA(i,j),
 where the subscripts i and j are integer constants, can now
 be used as right-hand quantities in $PRED, $PK, $ERROR and
@@ -1013,16 +1013,16 @@ ENDIF</pre>
 are the same, only one subscript is needed. The OMEGA and
 SIGMA elements may be listed in WRITE and PRINT statements
 in initialization and finalization blocks. <br>
-(See the <a href="../rocm22.htm">ROCM22</a> and
-<a href="../initfinl.htm">INITIALIZATION-FINALIZATION BLOCK</a>
-and <a href="../write.htm">WRITE/PRINT</a> Help Items.)</p>
+(See the <a href="../rocm22.html">ROCM22</a> and
+<a href="../initfinl.html">INITIALIZATION-FINALIZATION BLOCK</a>
+and <a href="../write.html">WRITE/PRINT</a> Help Items.)</p>
 <p style="margin-top: 1em">17. SETHET(i,j), SEOMEG(i,j) and
 SESIGM(i,j), where the subscripts are integer constants, can
 now be listed in WRITE or PRINT statements in finalization
 blocks. These are elements of the estimated standard error
 arrays for the final estimates of THETA, OMEGA and SIGMA.
 <br>
-(See <a href="../rocm7.htm">ROCM7</a> Help Item.)</p>
+(See <a href="../rocm7.html">ROCM7</a> Help Item.)</p>
 <p style="margin-top: 1em">18. Each of the array names
 THETA, OMEGA, SIGMA, SETHET, SEOMEG, SESIGM, and ETA -
 <i>without subscripts</i>, may be listed in a WRITE or PRINT
@@ -1048,15 +1048,15 @@ elements are to be written. If the (BLOCK) option is used,
 the array is displayed in full symmetric form. E.g.,</p>
 <pre style="margin-top: 1em"> IF (ICALL.EQ.3) WRITE (99) OMEGA(BLOCK)</pre>
 <p style="margin-top: 1em">may be used. <br>
-(See the <a href="../rocm7.htm">ROCM7</a> and
-<a href="../rocm22.htm">ROCM22</a> and
-<a href="../initfinl.htm">INITIALIZATION-FINALIZATION BLOCK</a>
-and <a href="../write.htm">WRITE/PRINT</a> Help Items.)</p>
+(See the <a href="../rocm7.html">ROCM7</a> and
+<a href="../rocm22.html">ROCM22</a> and
+<a href="../initfinl.html">INITIALIZATION-FINALIZATION BLOCK</a>
+and <a href="../write.html">WRITE/PRINT</a> Help Items.)</p>
 <p style="margin-top: 1em">19. Character constants may be
 included in WRITE and PRINT statements in abbreviated code.
 E.g.</p>
 <pre style="margin-top: 1em"> PRINT *, &rsquo;CLEARANCE EQUALS: &rsquo;, CLE</pre>
-<p>(See the <a href="../write.htm">WRITE/PRINT</a>
+<p>(See the <a href="../write.html">WRITE/PRINT</a>
 &quot;Help Item</p>
 <p style="margin-top: 1em">20. The statements OPEN(u),
 CLOSE(u), REWIND(u), where u is a I/O logical unit number,
@@ -1066,8 +1066,8 @@ included with the OPEN statement, i.e.
 OPEN(u,FILE=filename). With OPEN and CLOSE, the NONMEM
 utility routine FILES is automatically called.</p>
 <p style="margin-top: 1em">(See the
-<a href="../abbrevia.htm">Abbreviated Code</a> and
-<a href="../files.htm">FILES</a> Help Items.)</p>
+<a href="../abbrevia.html">Abbreviated Code</a> and
+<a href="../files.html">FILES</a> Help Items.)</p>
 <p style="margin-top: 1em">21. Copying blocks of
 abbreviated code begin with tests of the reserved variable
 COMACT, as follows:</p>
@@ -1096,7 +1096,7 @@ COMSAV options can be used on the $ABBREV record. Use of
 implicit save variables can obviate the need for a $ABBREV
 record.</p>
 <p style="margin-top: 1em">(See the
-<a href="../com.htm">COM COMACT COMSAV COMRES</a> Help
+<a href="../com.html">COM COMACT COMSAV COMRES</a> Help
 Item.)</p>
 <p style="margin-top: 1em">22. A new NM-TRAN record
 concerns the computation of raw data averages. Heretofore, a
@@ -1111,7 +1111,7 @@ by NONMEM are automatically excluded from template matching.
 The label of such an item may be included in the $OMIT
 record, but this is unnecessary.</p>
 <p style="margin-top: 1em">(See the
-<a href="../$omit.htm">$OMIT</a> Help Item.)</p>
+<a href="../$omit.html">$OMIT</a> Help Item.)</p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><a name="4.1.23"></a> 23. With
 Version V, the OTHER option on the $SUBROUTINES record could
@@ -1127,7 +1127,7 @@ the default value is 50. Two digit years are interpreted by
 default as follows: <br>
 00-50 = 2000-2050 <br>
 51-99 = 1951-1999 <br>
-(See the <a href="../$data.htm">$DATA</a> Help
+(See the <a href="../$data.html">$DATA</a> Help
 Item.)</b></p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="char160"></a> 25.
@@ -1189,7 +1189,7 @@ NM-TRAN datafiles - Blank lines in files (BLANKOK) <br>
 Blank lines in the NM-TRAN data set are no longer permitted
 by NM-TRAN. A new option of the $DATA record, BLANKOK,
 restores the previous behavior. <br>
-(See the <a href="../$data.htm">$DATA</a> Help
+(See the <a href="../$data.html">$DATA</a> Help
 Item.)</b></p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="filename"></a> 28.
@@ -1200,7 +1200,7 @@ than NONMEM). Filenames are now restricted to the number of
 characters that can be used by NM-TRAN (80) or NONMEM (71).
 Previously, embedded spaces were not permitted, and file
 names larger than the maximum would be truncated. <br>
-(See the <a href="../$data.htm">$DATA</a> Help
+(See the <a href="../$data.html">$DATA</a> Help
 Item.)</b></p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="specchar"></a> 29.
@@ -1247,7 +1247,7 @@ computers. It is expected that they will work the same on
 EBCDIC computers. However,the user should check carefully
 what happens on a particular platform before including tabs
 in files for NMTRAN. <br>
-(See the <a href="../$data.htm">$DATA</a> Help
+(See the <a href="../$data.html">$DATA</a> Help
 Item.)</b></p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="recsopt"></a> 30.
@@ -1264,7 +1264,7 @@ specified explicitly.</b></p>
 $PRIOR record (New feature) <br>
 A new NM-TRAN record $PRIOR may be used instead of a
 user-written PRIOR subroutine. <br>
-(See the <a href="../$prior.htm">$PRIOR</a> Help
+(See the <a href="../$prior.html">$PRIOR</a> Help
 Item.)</b></p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="estdefbnd"></a> 32.
@@ -1272,7 +1272,7 @@ $ESTIMATION record: NOOMEGABOUND, etc. <br>
 There are new options THETABOUNDTEST, OMEGABOUNDTEST,
 SIGMABOUNDTEST, as well as NOTHETABOUNDTEST,
 NOOMEGABOUNDTEST, NOSIGMABOUNDTEST. <br>
-(See the <a href="../$estimat.htm">$ESTIMATION</a> Help
+(See the <a href="../$estimat.html">$ESTIMATION</a> Help
 Item.)</b></p>
 <p style="margin-top: 1em"><b>33. $ESTIMATION record <br>
 <a name="estmaxeval"></a> The MAXEVALS option may now be as
@@ -1284,16 +1284,16 @@ and $SCATTER: G and H elements <br>
 Elements of G and H can be displayed in $TABLE and $SCATTER
 without the use of verbatim code. E.g.,</b></p>
 <pre> $TABLE G11 G21 G31 H11 H21</pre>
-<p><b>(See the <a href="../$table.htm">$TABLE</a> and
-<a href="../$scatter.htm">$SCATTER</a> Help Items.)</b></p>
+<p><b>(See the <a href="../$table.html">$TABLE</a> and
+<a href="../$scatter.html">$SCATTER</a> Help Items.)</b></p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="phi"></a> 35.
 Abbreviated code: PHI <br>
 The NONMEM utility function PHI may be used in all blocks of
 abbreviated code. The argument may be a random variable.
 <br>
-(See the <a href="../phi.htm">PHI</a> and
-<a href="../abfunex.htm">Abbreviated Function Example</a>
+(See the <a href="../phi.html">PHI</a> and
+<a href="../abfunex.html">Abbreviated Function Example</a>
 Help Items.)</b></p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="rocm50ab"></a> 36.
@@ -1307,7 +1307,7 @@ CAUTION</i><b>: <br>
 With NONMEM VI 2.0, do not define common ROCM50 in verbatim
 code. Verbatim code will no longer access ROCM50 correctly.
 <br>
-(See the <a href="../roc50e.htm">ROCM50 example</a> Help
+(See the <a href="../roc50e.html">ROCM50 example</a> Help
 Item.)</b></p>
 <h2>I.4.2. PREDPP related
 <a name="I.4.2."></a>
@@ -1329,7 +1329,7 @@ A_0FLG=1. A_INITIAL(i) is a synonym for A_0(i). The above is
 referred to as an explicit use of A_0FLG. There may be
 implicit uses. <br>
 (See the
-<a href="../compinit.htm">COMPARTMENT INITIALIZATION BLOCK</a>
+<a href="../compinit.html">COMPARTMENT INITIALIZATION BLOCK</a>
 Help Item.)</p>
 <p style="margin-top: 1em">2. Variables A(n) may now be
 used as right-hand quantities in $PK abbreviated code, where
@@ -1350,8 +1350,8 @@ $PK record, or if an $MSFI record is used, this record
 should precede the $PK record and include the option NPOP=m,
 where m is the number of population ETA variables.</p>
 <p style="margin-top: 1em">(See the
-<a href="../$pk.htm">$PK</a> and
-<a href="../procm9.htm">PROCM9</a> Help Items.)</p>
+<a href="../$pk.html">$PK</a> and
+<a href="../procm9.html">PROCM9</a> Help Items.)</p>
 <p style="margin-top: 1em">3. A new NM-TRAN record, $INFN,
 allows abbreviated code to substitute for user-written
 FORTRAN code. NM-TRAN generates the FORTRAN INFN routine
@@ -1369,8 +1369,8 @@ problem finalization block ENDIF</p>
 these values in $PK and $ERROR blocks, in which case the run
 initialization, problem initialization, or problem
 finalization block is moved to an INFN routine. (See
-<a href="../$infn.htm">$INFN</a> and
-<a href="../initfinl.htm">INITIALIZATION-FINALIZATION BLOCK</a>
+<a href="../$infn.html">$INFN</a> and
+<a href="../initfinl.html">INITIALIZATION-FINALIZATION BLOCK</a>
 Help Items.)</p>
 <p style="margin-top:"></a>
 <p style="margin-top: 1em"><b><a name="issopt"></a> 4.
@@ -1378,9 +1378,9 @@ $MODEL and $PK: I_SS (Initial Steady State feature) <br>
 With NONMEM VI 2.0, the $MODEL record has a new option,
 I_SS. The $PK block has a new reserved variable, I_SS. <br>
 See <a href="#iss">I.3.5 above.</a> <br>
-(See the <a href="../prdpk4.htm">PRDPK4</a> and
-<a href="../$model.htm">$MODEL</a> and
-<a href="../$pk.htm">$PK</a> Help Items.)</b></p>
+(See the <a href="../prdpk4.html">PRDPK4</a> and
+<a href="../$model.html">$MODEL</a> and
+<a href="../$pk.html">$PK</a> Help Items.)</b></p>
 <h2>I.5. REFERENCES
 <a name="I.5."></a>
 <a name="I.5. REFERENCES"></a>
