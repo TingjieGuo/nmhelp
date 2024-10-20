@@ -1,0 +1,35 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  /* align-items: center;     */
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: #f9f9f9;
+  padding: 20px;
+  max-width: 85%; /* Optional: Set a maximum width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+}
+
+ul {
+  padding-left: 1em; /* Reduces the default padding */
+  margin-left: 0; /* Removes the margin */
+}
+
+.code,
+pre {
+  /* white-space: pre-wrap;  */
+  font-family: 'Roboto Mono', monospace;
+}
+
+a {
+    text-decoration: none; /* Removes the underline */
+}
+
+small {
+  font-style: italic;
+}
