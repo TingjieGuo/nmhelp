@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&display=swap');
+
 html,
 body {
   height: 100%;
@@ -6,13 +9,14 @@ body {
   justify-content: center;
   /* align-items: center;     */
   font-family: 'Roboto', sans-serif;
+  /* overflow: auto; */
 }
 
 body {
   background-color: #f9f9f9;
   padding: 20px;
-  max-width: 85%; /* Optional: Set a maximum width */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+  max-width: 85%;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  */
 }
 
 ul {
