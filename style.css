@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&display=swap');
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  /* align-items: center;     */
+  font-family: 'Roboto', sans-serif;
+  /* overflow: auto; */
+}
+
+body {
+  background-color: #f9f9f9;
+  padding: 20px;
+  max-width: 85%;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  */
+}
+
+ul {
+  padding-left: 1em; /* Reduces the default padding */
+  margin-left: 0; /* Removes the margin */
+}
+
+.code,
+pre {
+  /* white-space: pre-wrap;  */
+  font-family: 'Roboto Mono', monospace;
+}
+
+a {
+    text-decoration: none; /* Removes the underline */
+}
+
+small {
+  font-style: italic;
+}
